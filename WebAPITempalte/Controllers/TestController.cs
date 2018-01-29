@@ -14,7 +14,7 @@ namespace Nokia_LTE_WebAPI.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/Test")]
     [EnableCors("WebAPIPolicy")]
     public class TestController : Controller
     {
@@ -54,11 +54,11 @@ namespace Nokia_LTE_WebAPI.Controllers
 
 
         /// <summary>
-        /// 导出Excel 示例。标准
+        /// 导出 Excel 示例。标准
         /// </summary>
         /// <returns></returns>
-        [HttpGet("report")]
-        public FileResult report()
+        [HttpGet("Report")]
+        public FileResult Report()
         {
             var newFile = @"newbook.core.xlsx";
 
@@ -116,6 +116,33 @@ namespace Nokia_LTE_WebAPI.Controllers
 
             return result;
 
+        }
+
+        /// <summary>
+        ///  导出 Excel 读取示例
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("Export")]
+        public dynamic Export()
+        {
+            var files = HttpContext.Request.Form.Files;
+            var ret_str = "";
+            if (files.Count > 0)
+            {
+                foreach (var fileitem in files)
+                {
+                    Stream stream = fileitem.OpenReadStream();
+
+                    IWorkbook workbook = new XSSFWorkbook(stream);
+                    var def_sheet = workbook.GetSheetAt(0);
+                    var row = def_sheet.GetRow(0);
+                    var info = row.Cells[0].StringCellValue;
+                    ret_str = info;
+
+                }
+            }
+
+            return "";
         }
     }
 }

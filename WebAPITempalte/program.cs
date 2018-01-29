@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace Nokia_LTE_WebAPI
@@ -32,33 +33,40 @@ namespace Nokia_LTE_WebAPI
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            string path = Directory.GetCurrentDirectory() + "/HostAddress.json";
-            using (var file = new FileStream(path, FileMode.Open, FileAccess.Read))
+            try
             {
-                using (var sr = new StreamReader(file))
+                
+                string path = Directory.GetCurrentDirectory() + "/HostAddress.json";
+                using (var file = new FileStream(path, FileMode.Open, FileAccess.Read))
                 {
-                    string json = sr.ReadToEnd();
-                    Program.HostAddress = JsonConvert.DeserializeObject<HostAddressModel>(json);
+                    using (var sr = new StreamReader(file))
+                    {
+                        string json = sr.ReadToEnd();
+                        Program.HostAddress = JsonConvert.DeserializeObject<HostAddressModel>(json);
+                    }
                 }
-            }
-            Console.WriteLine("Kestrel地址：" + Program.HostAddress.HostAddress);
-            Console.WriteLine("修改请修改配置文件 HostAddress.json并重启服务.");
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                //.Use
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .UseApplicationInsights()
-                .UseUrls(Program.HostAddress.HostAddress)
-                .Build();
+                Console.WriteLine("Kestrel地址：" + Program.HostAddress.HostAddress);
+                Console.WriteLine("修改请修改配置文件 HostAddress.json并重启服务.");
+                var host = new WebHostBuilder()
+                    .UseKestrel()
+                    .UseContentRoot(Directory.GetCurrentDirectory())
+                    .UseIISIntegration()
+                    .UseStartup<Startup>()
+                    .UseApplicationInsights()
+                    .UseUrls(Program.HostAddress.HostAddress)
+                    .Build();
 
-            if (!Directory.Exists(Directory.GetCurrentDirectory() + "/ExportExcel"))
+                if (!Directory.Exists(Directory.GetCurrentDirectory() + "/ExportExcel"))
+                {
+                    Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/ExportExcel");
+                }
+
+                host.Run();
+            }
+            catch (Exception ex)
             {
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/ExportExcel");
             }
-
-            host.Run();
+ 
         }
     }
 }
