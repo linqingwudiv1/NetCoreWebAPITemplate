@@ -104,8 +104,6 @@ namespace Nokia_LTE_WebAPI
 
                     // Set the comments path for the Swagger JSON and UI.
                     var basePath = PlatformServices.Default.Application.ApplicationBasePath;
-                    
-                    
                     var xmlPath = Path.Combine(basePath, "WebAPITempalte.xml");
 
                     if (File.Exists(xmlPath))
@@ -116,7 +114,6 @@ namespace Nokia_LTE_WebAPI
                     {
                         log.Info($"Swagger :No Exists Path : " + xmlPath);
                     }
-                    
                 });
                 #endregion
             }
