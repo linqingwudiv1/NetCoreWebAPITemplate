@@ -138,7 +138,6 @@ namespace Nokia_LTE_WebAPI.Controllers
                     var row = def_sheet.GetRow(0);
                     var info = row.Cells[0].StringCellValue;
                     ret_str = info;
-
                 }
             }
 
