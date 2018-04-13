@@ -64,15 +64,14 @@ namespace Nokia_LTE_WebAPI
                            .AllowAnyHeader();
                 }));
 
-
-
-                //EF 注入
-                /*
-                services.AddEntityFrameworkSqlServer().
-                    AddDbContext<LTEContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
-                */
-
                 #region Add framework services. 配置项注入
+
+                #region EF注入
+                    /*
+                    services.AddEntityFrameworkSqlServer().
+                        AddDbContext<LTEContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
+                    */
+                #endregion
 
                 services.AddOptions()
                     .Configure<Option_ConnctionString>(Configuration.GetSection("ConnectionStrings"));
@@ -81,8 +80,6 @@ namespace Nokia_LTE_WebAPI
                     .Configure<Opt_API_LTEUrl>(Configuration.GetSection("APILTEUrl"));
 
                 #endregion
-
-                //services.AddOptions();
 
                 //防止Json序列化-改变对象列的大小写
                 services.AddMvc().AddJsonOptions(op => op.SerializerSettings.ContractResolver =
@@ -144,7 +141,6 @@ namespace Nokia_LTE_WebAPI
 
                 app.UseSwagger();
 
-                // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "My_API_V1");

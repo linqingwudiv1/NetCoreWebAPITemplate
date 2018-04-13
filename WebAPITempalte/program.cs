@@ -35,7 +35,6 @@ namespace Nokia_LTE_WebAPI
         {
             try
             {
-                
                 string path = Directory.GetCurrentDirectory() + "/HostAddress.json";
                 using (var file = new FileStream(path, FileMode.Open, FileAccess.Read))
                 {
