@@ -3,6 +3,7 @@ using log4net.Config;
 using log4net.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -135,7 +136,17 @@ namespace Nokia_LTE_WebAPI
                 app.UseCors("WebAPIPolicy");
                 
                 app.UseDeveloperExceptionPage();
-                app.UseMvc();
+
+
+                #region MVC 和WebAPI 相关
+                app.UseMvc(routes =>
+                {
+                    routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");// MVC
+                    routes.MapRoute("WebAPI", "api/{controller=Test}/{action=HelloNetCore}/{id?}");//WebAPI
+                    routes.MapAreaRoute(name: "TestArea_route", areaName:"TestArea",template: "TestArea/{controller=TestArea}/{action=Index}/{id?}");  //Area
+                });
+                #endregion
+
 
                 #region Swagger UI
 

@@ -7,6 +7,7 @@ using Npoi.Core.HSSF.Util;
 using Npoi.Core.SS.UserModel;
 using Npoi.Core.SS.Util;
 using Npoi.Core.XSSF.UserModel;
+using System;
 using System.IO;
 
 namespace Nokia_LTE_WebAPI.Controllers
@@ -14,7 +15,7 @@ namespace Nokia_LTE_WebAPI.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [Route("api/Test")]
+    [Route("api/[controller]/[action]")]
     [EnableCors("WebAPIPolicy")]
     public class TestController : Controller
     {
@@ -36,10 +37,10 @@ namespace Nokia_LTE_WebAPI.Controllers
         /// 测试方法
         /// </summary>
         /// <returns></returns>
-        [HttpGet("HelloNetCore")]
-        public dynamic HelloNetCore()
+        [HttpGet]
+        public dynamic HelloNetCore(string id = "")
         {
-            return "Hello! Net Core 2.0";
+            return "Hello! Net Core 2.0: " + id;
         }
 
         /// <summary>

@@ -28,6 +28,8 @@
 
   <ItemGroup>
     <Folder Include="ADO\" />
+    <Folder Include="Areas\TestArea\Data\" />
+    <Folder Include="Areas\TestArea\Models\" />
     <Folder Include="Base\" />
     <Folder Include="ExportExcel\" />
     <Folder Include="Model\Dapper\" />
