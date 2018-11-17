@@ -62,10 +62,11 @@ namespace Nokia_LTE_WebAPI
 
                 host.Run();
             }
+            #pragma warning disable 0168
             catch (Exception ex)
             {
             }
- 
+
         }
     }
 }
