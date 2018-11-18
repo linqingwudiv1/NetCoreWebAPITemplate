@@ -1,5 +1,4 @@
-﻿using Autofac;
-using log4net;
+﻿using log4net;
 using log4net.Config;
 using log4net.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -13,7 +12,6 @@ using Nokia_LTE_WebAPI.Model.Static;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
-using WebAPITempalte.AutofacModule;
 
 namespace Nokia_LTE_WebAPI
 {
@@ -53,15 +51,6 @@ namespace Nokia_LTE_WebAPI
             Configuration = builder.Build();
         }
 
-        /// <summary>
-        /// Autofac 注入
-        /// </summary>
-        /// <param name="builder"></param>
-        public void ConfigureContainer(ContainerBuilder builder)
-        {
-            builder.RegisterModule(new AutofacExamModule());
-        }
-
         /// This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -79,10 +68,10 @@ namespace Nokia_LTE_WebAPI
                 #region Add framework services. 配置项注入
 
                 #region EF注入
-                /*
-                services.AddEntityFrameworkSqlServer().
-                    AddDbContext<LTEContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
-                */
+                    /*
+                    services.AddEntityFrameworkSqlServer().
+                        AddDbContext<LTEContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
+                    */
                 #endregion
 
                 services.AddOptions()
@@ -125,8 +114,6 @@ namespace Nokia_LTE_WebAPI
                     }
                 });
                 #endregion
-
-
             }
             catch (Exception ex)
             {

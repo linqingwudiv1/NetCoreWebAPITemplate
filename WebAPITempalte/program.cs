@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using System;
+using Autofac.Extensions.DependencyInjection;
 using System.Diagnostics;
+using Autofac;
 using System.IO;
 
 namespace Nokia_LTE_WebAPI
@@ -48,6 +50,7 @@ namespace Nokia_LTE_WebAPI
                 Console.WriteLine("修改请修改配置文件 HostAddress.json并重启服务.");
                 var host = new WebHostBuilder()
                     .UseKestrel()
+                    .ConfigureServices(services => services.AddAutofac())
                     .UseContentRoot(Directory.GetCurrentDirectory())
                     .UseIISIntegration()
                     .UseStartup<Startup>()
