@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DTOModelDLL.API
+namespace DTOModelDLL.API.Users
 {
     /// <summary>
     /// User/Login
