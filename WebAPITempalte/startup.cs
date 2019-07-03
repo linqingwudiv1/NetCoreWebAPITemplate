@@ -4,6 +4,7 @@ using log4net.Config;
 using log4net.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -94,7 +95,9 @@ namespace Nokia_LTE_WebAPI
                 #endregion
 
                 //防止Json序列化-改变对象列的大小写
-                services.AddMvc().AddJsonOptions(op => op.SerializerSettings.ContractResolver =
+                services.AddMvc()
+                        .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                        .AddJsonOptions(op => op.SerializerSettings.ContractResolver =
                           new Newtonsoft.Json.Serialization.DefaultContractResolver());
 
                 #region Swagger 文档接入

@@ -38,7 +38,7 @@ namespace WebAPITempalte.Controllers
         /// <returns></returns>
         public IActionResult Autofac()
         {
-            return Content($"<h3 style=\"color: blue; \">{coreHelper.HelloAotufac()}</h3>","text/html");
+            return Content($"<h3 style=\"color: blue; \">{coreHelper.HelloAutofac()}</h3>","text/html");
         }
     }
 }

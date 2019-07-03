@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/WebAPITempalte",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:63664/",
       "sslPort": 0
@@ -17,7 +21,7 @@
       }
     },
     "Nokia_LTE_WebAPI": {
-      "commandName": "Project",
+      "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
