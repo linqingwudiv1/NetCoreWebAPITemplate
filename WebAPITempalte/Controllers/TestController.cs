@@ -1,23 +1,23 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using DTOModelDLL.Common;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Nokia_LTE_WebAPI.Model.EF.Context;
-using Nokia_LTE_WebAPI.Model.Static;
+using NetApplictionServiceDLL;
+using WebAPI.Model.Static;
 using Npoi.Core.HSSF.Util;
 using Npoi.Core.SS.UserModel;
 using Npoi.Core.SS.Util;
 using Npoi.Core.XSSF.UserModel;
-using System;
 using System.IO;
 
-namespace Nokia_LTE_WebAPI.Controllers
+namespace WebAPI.Controllers
 {
     /// <summary>
     /// 
     /// </summary>
     [Route("api/[controller]/[action]")]
     [EnableCors("WebAPIPolicy")]
-    public class TestController : Controller
+    public class TestController : BaseController
     {
         private Option_ConnctionString Opt_Conn { get; set; }
         private Opt_API_LTEUrl Opt_API { get; set; }
@@ -124,7 +124,7 @@ namespace Nokia_LTE_WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("Export")]
-        public dynamic Export()
+        public DTO_ReturnModel<dynamic> Export()
         {
             var files = HttpContext.Request.Form.Files;
             var ret_str = "";
@@ -142,7 +142,8 @@ namespace Nokia_LTE_WebAPI.Controllers
                 }
             }
 
-            return "";
+            var ret = new DTO_ReturnModel<dynamic>("");
+            return ret;
         }
     }
 }

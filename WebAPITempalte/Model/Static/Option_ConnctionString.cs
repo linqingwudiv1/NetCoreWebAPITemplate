@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Nokia_LTE_WebAPI.Model.Static
+namespace WebAPI.Model.Static
 {
     /// <summary>
     /// DI注入类 ，保存配置文件中的字符串连接。

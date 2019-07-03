@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DLL", "DLL", "{B5477B3E-78A2-4DCF-BA11-D0047250F3EC}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetApplictionServiceDLL", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessDLL", "DLL\BusinessDLL\BusinessDLL.csproj", "{A9DB4265-E02A-4A73-B1C4-8028D90770DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPITempalte", "WebAPITempalte\WebAPITempalte.csproj", "{6E759B2F-1762-465D-8F09-F661EBBFD063}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPITempalte\WebAPI.csproj", "{6E759B2F-1762-465D-8F09-F661EBBFD063}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

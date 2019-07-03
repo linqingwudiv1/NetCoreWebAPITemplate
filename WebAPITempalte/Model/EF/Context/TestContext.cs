@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Nokia_LTE_WebAPI.Model.EF.Context
+namespace WebAPI.Model.EF.Context
 {
     /// <summary>
     /// Test数据库
@@ -15,7 +15,5 @@ namespace Nokia_LTE_WebAPI.Model.EF.Context
             : base(options)
         {
         }
-
-        //virtual public DbSet<AccountUser> AccountUser { get; set; }
     }
 }
