@@ -5,10 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.8.1" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.1" />
+    <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
     <PackageReference Include="Dapper" Version="1.60.6" />
-    <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="1.1.15" />
+    <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="1.1.16" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.5" />
@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BaseDLL\BaseDLL.csproj" />
+    <ProjectReference Include="..\DTOModelDLL\DTOModelDLL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
