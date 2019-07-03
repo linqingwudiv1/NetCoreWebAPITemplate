@@ -7,6 +7,9 @@ using System.Text;
 
 namespace NetApplictionServiceDLL
 {
+    /// <summary>
+    /// Session 扩展
+    /// </summary>
     public static class SessionExtensions
     {
         public static void SetObject(this ISession session, string key, object value)
@@ -20,9 +23,25 @@ namespace NetApplictionServiceDLL
             return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="session"></param>
+        /// <returns></returns>
         public static DTO_StoreAccount GetStoreAccount(this ISession session)
         {
             return session.GetObject<DTO_StoreAccount>(GVariable.StoreAccount);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="data"></param>
+        public static void SetStoreAccount(this ISession session, DTO_StoreAccount data)
+        {
+            session.SetObject(GVariable.StoreAccount, data);
         }
     }
 }
