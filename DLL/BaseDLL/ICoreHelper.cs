@@ -9,6 +9,6 @@ namespace BaseDLL.Helper
     /// </summary>
     public interface ICoreHelper
     {
-        string HelloAotufac();
+        string HelloAutofac();
     }
 }
