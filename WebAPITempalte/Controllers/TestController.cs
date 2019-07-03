@@ -13,7 +13,7 @@ using System.IO;
 namespace WebAPI.Controllers
 {
     /// <summary>
-    /// 
+    /// Hello World ! net Core MVC.
     /// </summary>
     [Route("api/[controller]/[action]")]
     [EnableCors("WebAPIPolicy")]
