@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using BaseDLL.Helper;
 using Microsoft.AspNetCore.Mvc;
+using NetApplictionServiceDLL;
 
-namespace WebAPITempalte.Controllers
+namespace WebAPI.Controllers
 {
     /// <summary>
     /// 
     /// </summary>
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ICoreHelper coreHelper;
         /// <summary>

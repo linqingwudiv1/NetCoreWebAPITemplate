@@ -10,13 +10,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
-using Nokia_LTE_WebAPI.Model.Static;
+using WebAPI.Model.Static;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
-using WebAPITempalte.AutofacModule;
+using WebAPI.AutofacModule;
 
-namespace Nokia_LTE_WebAPI
+namespace WebAPI
 {
     /// <summary>
     /// 

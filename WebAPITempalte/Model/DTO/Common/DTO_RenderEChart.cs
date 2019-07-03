@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Nokia_LTE_WebAPI.Model.DTO.Common
+namespace WebAPI.Model.DTO.Common
 {
     /// <summary>
     /// 方便EChart 前端渲染的数据Model

@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Autofac;
 using System.IO;
 
-namespace Nokia_LTE_WebAPI
+namespace WebAPI
 {
     /// <summary>
     /// 主函数
