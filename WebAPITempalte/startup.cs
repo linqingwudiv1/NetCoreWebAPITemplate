@@ -15,6 +15,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using WebAPI.AutofacModule;
+using Microsoft.AspNetCore.Http;
 
 namespace WebAPI
 {
@@ -33,12 +34,25 @@ namespace WebAPI
         /// </summary>
         public IConfigurationRoot Configuration { get; }
 
+
+        private SessionOptions GSessionOpts;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="env"></param>
         public Startup(IHostingEnvironment env)
         {
+
+            GSessionOpts = new SessionOptions();
+
+            GSessionOpts.Cookie.HttpOnly = true;
+            GSessionOpts.Cookie.IsEssential = true;
+            GSessionOpts.Cookie.Name = ".AspNetCore.Session";
+            GSessionOpts.Cookie.SecurePolicy = CookieSecurePolicy.None;
+            GSessionOpts.Cookie.SameSite = SameSiteMode.Lax;
+            GSessionOpts.IdleTimeout = TimeSpan.FromMinutes(1440);
+
             var builder = new ConfigurationBuilder()
                 .AddInMemoryCollection()
                 .SetBasePath(env.ContentRootPath)
@@ -77,6 +91,7 @@ namespace WebAPI
                            .AllowAnyHeader();
                 }));
 
+
                 #region Add framework services. 配置项注入
 
                 #region EF注入
@@ -94,11 +109,28 @@ namespace WebAPI
 
                 #endregion
 
+
                 //防止Json序列化-改变对象列的大小写
                 services.AddMvc()
                         .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                         .AddJsonOptions(op => op.SerializerSettings.ContractResolver =
                           new Newtonsoft.Json.Serialization.DefaultContractResolver());
+
+                #region Session Config : Redis or Sql Server
+                services.AddMemoryCache();
+                services.AddSession((opt) => 
+                {
+                    opt.Cookie.HttpOnly     = this.GSessionOpts .Cookie.HttpOnly             ;
+                    opt.Cookie.IsEssential  = this.GSessionOpts .Cookie.IsEssential          ;
+                    opt.Cookie.Name         = this.GSessionOpts .Cookie.Name                 ;
+                    opt.Cookie.SecurePolicy = this.GSessionOpts .Cookie.SecurePolicy         ;
+                    opt.Cookie.SameSite     = this.GSessionOpts .Cookie.SameSite             ;
+                    opt.IdleTimeout         = this.GSessionOpts.IdleTimeout;
+                });
+
+                // services.AddDistributedRedisCache();
+                // services.AddDistributedSqlServerCache();
+                #endregion
 
                 #region Swagger 文档接入
                 // Register the Swagger generator, defining one or more Swagger documents
@@ -150,7 +182,7 @@ namespace WebAPI
             try
             {
                 app.UseCors("WebAPIPolicy");
-                
+                app.UseSession(this.GSessionOpts);
                 app.UseDeveloperExceptionPage();
 
                 #region MVC 和WebAPI 相关
