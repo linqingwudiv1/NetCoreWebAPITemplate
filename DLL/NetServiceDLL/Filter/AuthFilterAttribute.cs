@@ -34,8 +34,8 @@ namespace NetApplictionServiceDLL.Filter
         /// <summary>
         /// Action类型
         /// </summary>
-        private ActionAuthType ActionType = ActionAuthType.Normal;
-        public AuthFilterAttribute(ActionAuthType ActionType = ActionAuthType.Normal)
+        private ActionAuthType ActionType = ActionAuthType.Unauth;
+        public AuthFilterAttribute(ActionAuthType ActionType = ActionAuthType.Unauth)
         {
             this.ActionType = ActionType;
         }
@@ -60,16 +60,25 @@ namespace NetApplictionServiceDLL.Filter
 
         private void Handle(ActionExecutingContext filterContext)
         {
-            var storeAccount = filterContext.HttpContext.Session.GetStoreAccount(); // <dynamic>(GVariable.StoreAccount);
+            Controller controller = filterContext.Controller as Controller;
 
-            if (storeAccount != null)
+            if (controller != null)
             {
-                return;
+                var storeAccount = controller.HttpContext.Session.GetStoreAccount();
+                if (storeAccount != null)
+                {
+                    return;
+                }
+                else
+                {
+                    UnauthorizedHandle(filterContext);
+                }
             }
             else
             {
                 UnauthorizedHandle(filterContext);
             }
+
         }
 
         /// <summary>

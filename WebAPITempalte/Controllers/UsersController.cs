@@ -1,8 +1,9 @@
-﻿using DTOModelDLL.API;
+﻿using DTOModelDLL.API.Users;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NetApplictionServiceDLL;
+using NetApplictionServiceDLL.Filter;
 using WebAPI.Model.Static;
 
 namespace WebAPI.Controllers
@@ -45,6 +46,7 @@ namespace WebAPI.Controllers
         /// <param name="loginInfo"></param>
         /// <returns></returns>
         [HttpPost]
+        [AuthFilter]
         public dynamic Logout([FromBody] DTOAPI_Login loginInfo)
         {
             return "{abc123}";
@@ -56,6 +58,7 @@ namespace WebAPI.Controllers
         /// <param name="loginInfo"></param>
         /// <returns></returns>
         [HttpPost]
+        [AuthFilter]
         public dynamic Info([FromBody] DTOAPI_Login loginInfo)
         {
             return "{abc123}";
