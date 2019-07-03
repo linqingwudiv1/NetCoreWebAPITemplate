@@ -6,6 +6,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BaseDLL\BaseDLL.csproj" />
+    <ProjectReference Include="..\DBAccessDLL\DBAccessDLL.csproj" />
+    <ProjectReference Include="..\DTOModelDLL\DTOModelDLL.csproj" />
+    <ProjectReference Include="..\NetServiceDLL\NetApplictionServiceDLL.csproj" />
   </ItemGroup>
 
 </Project>

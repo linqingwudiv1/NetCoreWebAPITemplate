@@ -1,4 +1,6 @@
-﻿using DTOModelDLL.API.Users;
+﻿using BusinessDLL.Extensison;
+using DTOModelDLL.API.Users;
+using DTOModelDLL.Common;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -15,18 +17,13 @@ namespace WebAPI.Controllers
     [EnableCors("WebAPIPolicy")]
     public class UsersController : BaseController
     {
-        private Option_ConnctionString Opt_Conn { get; set; }
-        private Opt_API_LTEUrl Opt_API { get; set; }
 
         /// <summary>
-        /// 测试  
+        /// Vue项目测试接口
         /// </summary>
-        /// <param name="Opt"></param>
-        /// <param name="_Opt_API"></param>
-        public UsersController(IOptions<Option_ConnctionString> Opt, IOptions<Opt_API_LTEUrl> _Opt_API)
+        public UsersController()
         {
-            Opt_Conn = Opt.Value;
-            Opt_API  = _Opt_API.Value;
+
         }
 
         /// <summary>
@@ -35,33 +32,33 @@ namespace WebAPI.Controllers
         /// <param name="loginInfo">登录信息</param>
         /// <returns></returns>
         [HttpPost]
-        public dynamic Login([FromBody] DTOAPI_Login loginInfo)
+        public DTO_ReturnModel<dynamic> Login([FromBody] DTOAPI_Login loginInfo)
         {
-            return "{abc123}";
-        }
-
-        /// <summary>
-        /// `
-        /// </summary>
-        /// <param name="loginInfo"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [AuthFilter]
-        public dynamic Logout([FromBody] DTOAPI_Login loginInfo)
-        {
-            return "{abc123}";
+            return new DTO_ReturnModel<dynamic>(this.LoginLogic(loginInfo), 20000);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="loginInfo"></param>
         /// <returns></returns>
         [HttpPost]
         [AuthFilter]
-        public dynamic Info([FromBody] DTOAPI_Login loginInfo)
+        public DTO_ReturnModel<string>  Logout()
         {
-            return "{abc123}";
+            this.LogoutLogic();
+            return new DTO_ReturnModel<string>(null, 20000);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Info"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [AuthFilter]
+        public DTO_ReturnModel<dynamic> Info([FromBody] DTOAPI_Info Info)
+        {
+            return new DTO_ReturnModel<dynamic>(this.GetStoreAccount(), 20000);
         }
 
     }
