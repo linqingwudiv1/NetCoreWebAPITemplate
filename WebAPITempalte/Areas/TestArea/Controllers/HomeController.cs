@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Areas.TestArea.Controllers
 {
     /// <summary>
     /// 
     /// </summary>
-    public class TestAreaController : Controller
+    [Area("TestArea")]
+    public class HomeController : Controller
     {
         /// <summary>
         /// 

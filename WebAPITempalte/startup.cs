@@ -111,10 +111,11 @@ namespace WebAPI
 
 
                 //防止Json序列化-改变对象列的大小写
-                services.AddMvc()
-                        .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                        .AddJsonOptions(op => op.SerializerSettings.ContractResolver =
-                          new Newtonsoft.Json.Serialization.DefaultContractResolver());
+                services.AddMvc(opts => 
+                {
+                    opts.EnableEndpointRouting = false;
+                }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                  .AddJsonOptions(op => op.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver());
 
                 #region Session Config : Redis or Sql Server
                 services.AddMemoryCache();
@@ -190,7 +191,7 @@ namespace WebAPI
                 {
                     routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");// MVC
                     routes.MapRoute("WebAPI", "api/{controller=Test}/{action=HelloNetCore}/{id?}");//WebAPI
-                    routes.MapAreaRoute(name: "TestArea_route", areaName:"TestArea",template: "TestArea/{controller=TestArea}/{action=Index}/{id?}");  //Area
+                    routes.MapAreaRoute(name: "TestArea", areaName:"TestArea",template: "TestArea/{controller}/{action}");  //Area
                 });
                 #endregion
 
