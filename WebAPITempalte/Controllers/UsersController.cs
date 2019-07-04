@@ -1,6 +1,7 @@
 ﻿using BusinessDLL.Extensison;
 using DTOModelDLL.API.Users;
 using DTOModelDLL.Common;
+using DTOModelDLL.Common.Store;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -38,7 +39,7 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 注销
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -58,8 +59,8 @@ namespace WebAPI.Controllers
         [AuthFilter]
         public DTO_ReturnModel<dynamic> Info([FromBody] DTOAPI_Info Info)
         {
-            return new DTO_ReturnModel<dynamic>(this.GetStoreAccount(), 20000);
+            DTO_StoreAccount store_account = this.GetStoreAccount();
+            return new DTO_ReturnModel<dynamic>(store_account, 20000);
         }
-
     }
 }

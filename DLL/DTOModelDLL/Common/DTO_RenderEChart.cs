@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WebAPI.Model.DTO.Common
+namespace DTOModelDLL.Common
 {
     /// <summary>
     /// 方便EChart 前端渲染的数据Model
@@ -76,5 +76,6 @@ namespace WebAPI.Model.DTO.Common
         /// 
         /// </summary>
         public List<string> y_arr { get; set; }
+
     }
 }
