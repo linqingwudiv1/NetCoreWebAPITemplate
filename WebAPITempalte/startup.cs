@@ -182,21 +182,28 @@ namespace WebAPI
             var log = LogManager.GetLogger(net4log.Name, typeof(Startup));
             try
             {
+                #region 其他常用配置
                 app.UseCors("WebAPIPolicy");
                 app.UseSession(this.GSessionOpts);
                 app.UseDeveloperExceptionPage();
+                #endregion
 
                 #region MVC 和WebAPI 相关
+
                 app.UseMvc(routes =>
                 {
-                    routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");// MVC
-                    routes.MapRoute("WebAPI", "api/{controller=Test}/{action=HelloNetCore}/{id?}");//WebAPI
-                    routes.MapAreaRoute(name: "TestArea", areaName:"TestArea",template: "TestArea/{controller}/{action}");  //Area
+                    // MVC
+                    routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                    // WebAPI
+                    routes.MapRoute("WebAPI", "api/{controller=Test}/{action=HelloNetCore}/{id?}");
+                    // Area
+                    routes.MapAreaRoute(name: "TestArea", areaName:"TestArea",template: "TestArea/{controller}/{action}");  
                 });
+
                 #endregion
 
 
-                #region Swagger UI
+                #region Swagger 
 
                 app.UseSwagger();
 

@@ -1,9 +1,6 @@
 ﻿using DTOModelDLL.Common.Store;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NetApplictionServiceDLL
 {
@@ -32,7 +29,6 @@ namespace NetApplictionServiceDLL
         {
             return session.GetObject<DTO_StoreAccount>(GVariable.StoreAccount);
         }
-
 
         /// <summary>
         /// 

@@ -19,7 +19,15 @@ namespace WebAPI.Controllers
     [EnableCors("WebAPIPolicy")]
     public class TestController : BaseController
     {
+
+        /// <summary>
+        /// 
+        /// </summary>
         private Option_ConnctionString Opt_Conn { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         private Opt_API_LTEUrl Opt_API { get; set; }
 
         /// <summary>
@@ -120,15 +128,16 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        ///  导出 Excel 读取示例
+        ///  导入 Excel 读取示例
         /// </summary>
         /// <returns></returns>
         [HttpPost("Export")]
-        public DTO_ReturnModel<dynamic> Export()
+        public DTO_ReturnModel<dynamic> Import()
         {
             var files = HttpContext.Request.Form.Files;
             var ret_str = "";
-            if (files.Count > 0)
+
+            if ( files.Count > 0 )
             {
                 foreach (var fileitem in files)
                 {
@@ -142,7 +151,7 @@ namespace WebAPI.Controllers
                 }
             }
 
-            var ret = new DTO_ReturnModel<dynamic>("");
+            var ret = new DTO_ReturnModel<dynamic>(ret_str);
             return ret;
         }
     }
