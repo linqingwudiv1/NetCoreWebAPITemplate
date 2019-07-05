@@ -6,6 +6,7 @@ using Autofac.Extensions.DependencyInjection;
 using System.Diagnostics;
 using Autofac;
 using System.IO;
+using log4net;
 
 namespace WebAPI
 {
@@ -37,17 +38,17 @@ namespace WebAPI
         {
             try
             {
-                string path = Directory.GetCurrentDirectory() + "/HostAddress.json";
-                using (var file = new FileStream(path, FileMode.Open, FileAccess.Read))
+                string path = Directory.GetCurrentDirectory() + @"\.Config\HostAddress.json";
+                using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
                 {
-                    using (var sr = new StreamReader(file))
+                    using (StreamReader sr = new StreamReader(file))
                     {
                         string json = sr.ReadToEnd();
                         Program.HostAddress = JsonConvert.DeserializeObject<HostAddressModel>(json);
                     }
                 }
                 Console.WriteLine("Kestrel地址：" + Program.HostAddress.HostAddress);
-                Console.WriteLine("修改请修改配置文件 HostAddress.json并重启服务.");
+                Console.WriteLine("Note：如需修改,请修改配置文件 HostAddress.json并重启服务.");
 
                 var host = new WebHostBuilder()
                     .UseKestrel()
@@ -58,11 +59,6 @@ namespace WebAPI
                     .UseApplicationInsights()
                     .UseUrls(Program.HostAddress.HostAddress)
                     .Build();
-
-                if (!Directory.Exists(Directory.GetCurrentDirectory() + "/ExportExcel"))
-                {
-                    Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/ExportExcel");
-                }
 
                 host.Run();
             }
