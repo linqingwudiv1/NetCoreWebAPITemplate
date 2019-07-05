@@ -1,9 +1,9 @@
-﻿using DTOModelDLL.Common;
+﻿using DBAccessDLL.Static;
+using DTOModelDLL.Common;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NetApplictionServiceDLL;
-using WebAPI.Model.Static;
 using Npoi.Core.HSSF.Util;
 using Npoi.Core.SS.UserModel;
 using Npoi.Core.SS.Util;
@@ -66,7 +66,7 @@ namespace WebAPI.Controllers
         /// 导出 Excel 示例。标准
         /// </summary>
         /// <returns></returns>
-        [HttpGet("Report")]
+        [HttpGet("Export")]
         public FileResult Report()
         {
             var newFile = @"newbook.core.xlsx";
@@ -131,8 +131,8 @@ namespace WebAPI.Controllers
         ///  导入 Excel 读取示例
         /// </summary>
         /// <returns></returns>
-        [HttpPost("Export")]
-        public DTO_ReturnModel<dynamic> Import()
+        [HttpPost("Import")]
+        public DTO_ReturnModel<string> Import()
         {
             var files = HttpContext.Request.Form.Files;
             var ret_str = "";
@@ -151,7 +151,7 @@ namespace WebAPI.Controllers
                 }
             }
 
-            var ret = new DTO_ReturnModel<dynamic>(ret_str);
+            var ret = new DTO_ReturnModel<string>(ret_str);
             return ret;
         }
     }
