@@ -7,7 +7,7 @@ using NetApplictionServiceDLL;
 namespace WebAPI.AutofacModule
 {
     /// <summary>
-    /// 
+    /// Autofac 模块
     /// </summary>
     public class AutofacExamModule : Module
     {
@@ -17,7 +17,7 @@ namespace WebAPI.AutofacModule
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
         {
-            //演示，就一个方法
+            //示例
             builder.Register(c => new CoreHelper()).As<ICoreHelper>().InstancePerLifetimeScope();
             //注册到Controller的所有子类
             builder.RegisterAssemblyTypes(typeof( BaseController ).Assembly)
