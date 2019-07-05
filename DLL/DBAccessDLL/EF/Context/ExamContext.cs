@@ -1,4 +1,5 @@
 ﻿using DBAccessDLL.EF.Context.Base;
+using DBAccessDLL.EF.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace DBAccessDLL.EF.Context
@@ -8,6 +9,8 @@ namespace DBAccessDLL.EF.Context
     /// </summary>
     public class ExamContext : BaseContext<ExamContext>
     {
+
+        virtual public DbSet<Account> Accounts { get; protected set; }
         /// <summary>
         /// TestContext
         /// </summary>
@@ -16,6 +19,12 @@ namespace DBAccessDLL.EF.Context
             : base(options, _ConnString)
         {
 
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration<Account>(new AccountEFConfig());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

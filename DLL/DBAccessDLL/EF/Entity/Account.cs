@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DBAccessDLL.EF.Entity
@@ -42,5 +44,16 @@ namespace DBAccessDLL.EF.Entity
         /// 
         /// </summary>
         public IList<string> roles { get; set; }
+    }
+
+    /// <summary>
+    /// Entit Config
+    /// </summary>
+    public class AccountEFConfig : IEntityTypeConfiguration<Account>
+    {
+        public void Configure(EntityTypeBuilder<Account> builder)
+        {
+            builder.ToTable("Account");
+        }
     }
 }
