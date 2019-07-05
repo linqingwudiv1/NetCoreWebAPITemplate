@@ -4,11 +4,11 @@
     "anonymousAuthentication": true,
     "iis": {
       "applicationUrl": "http://localhost/WebAPITempalte",
-      "sslPort": 0
+      "sslPort": 13131
     },
     "iisExpress": {
       "applicationUrl": "http://localhost:63664/",
-      "sslPort": 0
+      "sslPort": 44339
     }
   },
   "profiles": {
@@ -19,15 +19,6 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
-    },
-    "Nokia_LTE_WebAPI": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:64663/"
     }
   }
 }

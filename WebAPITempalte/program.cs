@@ -55,6 +55,7 @@ namespace WebAPI
                     .ConfigureServices(services => services.AddAutofac())
                     .UseContentRoot(Directory.GetCurrentDirectory())
                     .UseIISIntegration()
+                    //.UseSetting("https_port", "8080")
                     .UseStartup<Startup>()
                     .UseApplicationInsights()
                     .UseUrls(Program.HostAddress.HostAddress)
