@@ -4,10 +4,8 @@ using DTOModelDLL.Common;
 using DTOModelDLL.Common.Store;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using NetApplictionServiceDLL;
 using NetApplictionServiceDLL.Filter;
-using WebAPI.Model.Static;
 
 namespace WebAPI.Controllers
 {

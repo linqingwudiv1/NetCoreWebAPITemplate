@@ -147,7 +147,7 @@ namespace WebAPI
 
                     // Set the comments path for the Swagger JSON and UI.
                     var basePath = PlatformServices.Default.Application.ApplicationBasePath;
-                    var xmlPath = Path.Combine(basePath, "WebAPITempalte.xml");
+                    var xmlPath = Path.Combine(basePath, "WebAPIDoc.xml");
 
                     if (File.Exists(xmlPath))
                     {
