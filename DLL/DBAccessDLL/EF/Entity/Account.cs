@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace DTOModelDLL.Common.Store
+namespace DBAccessDLL.EF.Entity
 {
-    /// <summary>
-    /// Store 
-    /// </summary>
-    public class DTO_StoreAccount
+    public class Account
     {
         /// <summary>
         /// 
         /// </summary>
+        [Key]
         public int id { get; set; }
         /// <summary>
         /// 

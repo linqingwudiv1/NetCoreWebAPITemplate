@@ -152,24 +152,6 @@ namespace WebAPI
                 // services.AddDistributedSqlServerCache();
                 #endregion
 
-                #region HTTPS Config
-
-                services.AddHsts(options =>
-                {
-                    options.Preload = true;
-                    options.IncludeSubDomains = true;
-                    options.MaxAge = TimeSpan.FromDays(60);
-                    options.ExcludedHosts.Add("example.com");
-                    options.ExcludedHosts.Add("www.example.com");
-                });
-
-                services.AddHttpsRedirection(options =>
-                {
-                    options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
-                    options.HttpsPort = 5001;
-                });
-
-                #endregion
 
 
                 #region Swagger 文档接入
@@ -227,24 +209,7 @@ namespace WebAPI
                 app.UseSession(this.GSessionOpts);
                 #endregion
 
-                #region https Config
-                /*
-                if (env.IsDevelopment())
-                {
-                    app.UseDeveloperExceptionPage();
 
-                }
-                else
-                {
-                    app.UseExceptionHandler("/Error");
-                    app.UseHsts();
-                }
-
-                app.UseHttpsRedirection();
-                app.UseStaticFiles();
-                app.UseCookiePolicy();
-                */
-                #endregion
 
                 #region MVC 和WebAPI 相关
 
