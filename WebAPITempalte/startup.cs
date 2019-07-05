@@ -64,6 +64,11 @@ namespace WebAPI
             {
                 Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\.Cache\ExportExcel");
             }
+
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\.LocalDB"))
+            {
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\.LocalDB");
+            }
         }
         /// <summary>
         /// 

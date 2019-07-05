@@ -1,4 +1,6 @@
-﻿using DBAccessDLL.Static;
+﻿using DBAccessDLL.EF.Context;
+using DBAccessDLL.EF.Entity;
+using DBAccessDLL.Static;
 using DTOModelDLL.Common;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +10,10 @@ using Npoi.Core.HSSF.Util;
 using Npoi.Core.SS.UserModel;
 using Npoi.Core.SS.Util;
 using Npoi.Core.XSSF.UserModel;
+using System;
+using System.Configuration;
 using System.IO;
+using System.Linq;
 
 namespace WebAPI.Controllers
 {
@@ -61,6 +66,53 @@ namespace WebAPI.Controllers
             return Opt_Conn;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("NetCore_SqliteInsertTest")]
+        public dynamic NetCore_SqliteInsertTest()
+        {
+            string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
+            ExamContext db = new ExamContext(sqliteDBConn);
+            if (!db.Database.CanConnect())
+            {
+                db.Database.EnsureCreated();
+            }
+            
+            int id = Guid.NewGuid().GetHashCode();
+            db.Accounts.Add(new Account
+            {
+                id = id,
+                avatar = "",
+                email = "aa875191946@qq.com",
+                introduction = "",
+                name = id.ToString(),
+                password = "",
+                phone = "",
+                username = id.ToString()
+            });
+            return db.SaveChanges();
+        }
+
+        /// <summary>
+        /// Note：
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("NetCore_SqliteQueryTest")]
+        public dynamic NetCore_SqliteQueryTest()
+        {
+            string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
+            ExamContext db = new ExamContext(sqliteDBConn);
+            if (!db.Database.CanConnect())
+            {
+                db.Database.EnsureCreated();
+            }
+
+
+            var list = (from x in db.Accounts select x).ToList();
+            return list;
+        }
 
         /// <summary>
         /// 导出 Excel 示例。标准
