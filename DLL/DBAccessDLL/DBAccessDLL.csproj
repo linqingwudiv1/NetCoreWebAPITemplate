@@ -1,12 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DTO - 复制\**" />
+    <EmbeddedResource Remove="DTO - 复制\**" />
+    <None Remove="DTO - 复制\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="1.60.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.16" />
   </ItemGroup>
 
 </Project>

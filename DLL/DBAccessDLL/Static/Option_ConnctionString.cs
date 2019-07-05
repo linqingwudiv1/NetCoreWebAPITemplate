@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAPI.Model.Static
+namespace DBAccessDLL.Static
 {
     /// <summary>
     /// DI注入类 ，保存配置文件中的字符串连接。
@@ -19,7 +19,6 @@ namespace WebAPI.Model.Static
         /// 
         /// </summary>
         public string JZXN_DW_165 { get; set; }
-        //public string SqlServer { get; set; }
         /// <summary>
         /// 
         /// </summary>

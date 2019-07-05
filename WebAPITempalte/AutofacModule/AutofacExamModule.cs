@@ -18,9 +18,11 @@ namespace WebAPI.AutofacModule
         protected override void Load(ContainerBuilder builder)
         {
             //演示，就一个方法
-            builder.Register(c=> new CoreHelper()).As<ICoreHelper>().InstancePerLifetimeScope();
+            builder.Register(c => new CoreHelper()).As<ICoreHelper>().InstancePerLifetimeScope();
             //注册到Controller的所有子类
-            builder.RegisterAssemblyTypes(typeof(BaseController).Assembly).Where(classType => classType.IsSubclassOf(typeof(BaseController)));
+            builder.RegisterAssemblyTypes(typeof( BaseController ).Assembly)
+                   .Where( classType => classType
+                   .IsSubclassOf(typeof(BaseController)));
         }
     }
 }

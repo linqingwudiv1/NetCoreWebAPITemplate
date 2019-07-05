@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace WebAPI.Model.EF.Context
+namespace DBAccessDLL.EF.Context
 {
     /// <summary>
     /// Test数据库
@@ -8,7 +8,7 @@ namespace WebAPI.Model.EF.Context
     public class TestContext : DbContext
     {
         /// <summary>
-        /// LTE
+        /// TestContext
         /// </summary>
         /// <param name="options"></param>
         public TestContext(DbContextOptions<TestContext> options) 

@@ -34,10 +34,6 @@
     <Folder Include="Areas\TestArea\Models\" />
     <Folder Include="Base\" />
     <Folder Include="ExportExcel\" />
-    <Folder Include="Model\Dapper\" />
-    <Folder Include="Model\DTO\Common\" />
-    <Folder Include="Model\EF\Test\" />
-    <Folder Include="Model\Entity\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 

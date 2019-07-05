@@ -48,6 +48,7 @@ namespace WebAPI
                 }
                 Console.WriteLine("Kestrel地址：" + Program.HostAddress.HostAddress);
                 Console.WriteLine("修改请修改配置文件 HostAddress.json并重启服务.");
+
                 var host = new WebHostBuilder()
                     .UseKestrel()
                     .ConfigureServices(services => services.AddAutofac())
