@@ -77,6 +77,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include=".LocalDB\sqliteTestDB.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DLL\BaseDLL\BaseDLL.csproj" />
     <ProjectReference Include="..\DLL\BusinessDLL\BusinessDLL.csproj" />
     <ProjectReference Include="..\DLL\DBAccessDLL\DBAccessDLL.csproj" />
