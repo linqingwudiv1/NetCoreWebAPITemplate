@@ -1,21 +1,21 @@
 ﻿using Autofac;
+using DBAccessDLL.Static;
 using log4net;
 using log4net.Config;
 using log4net.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
-using WebAPI.Model.Static;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using WebAPI.AutofacModule;
-using Microsoft.AspNetCore.Http;
 
 namespace WebAPI
 {
@@ -94,7 +94,7 @@ namespace WebAPI
 
                 #region Add framework services. 配置项注入
 
-                #region EF注入
+                #region EF DI注入
                 /*
                 services.AddEntityFrameworkSqlServer().
                     AddDbContext<LTEContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
@@ -102,10 +102,8 @@ namespace WebAPI
                 #endregion
 
                 services.AddOptions()
-                    .Configure<Option_ConnctionString>(Configuration.GetSection("ConnectionStrings"));
-
-                services.AddOptions()
-                    .Configure<Opt_API_LTEUrl>(Configuration.GetSection("APILTEUrl"));
+                        .Configure<Option_ConnctionString>(Configuration.GetSection("ConnectionStrings"))
+                        .Configure<Opt_API_LTEUrl>(Configuration.GetSection("APILTEUrl"));
 
                 #endregion
 
