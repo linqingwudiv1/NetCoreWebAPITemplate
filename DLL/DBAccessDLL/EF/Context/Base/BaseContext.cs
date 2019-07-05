@@ -22,7 +22,7 @@ namespace DBAccessDLL.EF.Context.Base
             ConnString = _ConnString;
         }
 
-        public BaseContext(DbContextOptions<DBCtx> options, string _ConnString = "")
+        public BaseContext(DbContextOptions<DBCtx> options, string _ConnString = "Data Source=sqliteTestDB.db")
         : base(options)
         {
             ConnString = _ConnString;

@@ -9,13 +9,19 @@ namespace DBAccessDLL.EF.Context
     /// </summary>
     public class ExamContext : BaseContext<ExamContext>
     {
-
         virtual public DbSet<Account> Accounts { get; protected set; }
+
+
+        public ExamContext(string _ConnString = "")
+            : base( _ConnString)
+        {
+
+        }
         /// <summary>
-        /// TestContext
+        /// ExamContext
         /// </summary>
         /// <param name="options"></param>
-        public ExamContext(DbContextOptions<ExamContext> options, string _ConnString = "") 
+        public ExamContext(DbContextOptions<ExamContext> options, string _ConnString = "Data Source=sqliteTestDB.db") 
             : base(options, _ConnString)
         {
 

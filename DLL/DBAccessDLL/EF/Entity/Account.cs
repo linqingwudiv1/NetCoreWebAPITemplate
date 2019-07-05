@@ -43,7 +43,7 @@ namespace DBAccessDLL.EF.Entity
         /// <summary>
         /// 
         /// </summary>
-        public IList<string> roles { get; set; }
+        //public IList<string> roles { get; set; }
     }
 
     /// <summary>
