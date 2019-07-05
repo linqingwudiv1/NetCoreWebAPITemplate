@@ -7,6 +7,9 @@ using System.Diagnostics;
 using Autofac;
 using System.IO;
 using log4net;
+using System.Linq;
+using DBAccessDLL.EF.Context;
+using System.Configuration;
 
 namespace WebAPI
 {
@@ -55,7 +58,6 @@ namespace WebAPI
                     .ConfigureServices(services => services.AddAutofac())
                     .UseContentRoot(Directory.GetCurrentDirectory())
                     .UseIISIntegration()
-                    //.UseSetting("https_port", "8080")
                     .UseStartup<Startup>()
                     .UseApplicationInsights()
                     .UseUrls(Program.HostAddress.HostAddress)
