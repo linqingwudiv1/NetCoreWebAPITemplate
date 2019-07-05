@@ -5,14 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DTO - 复制\**" />
-    <EmbeddedResource Remove="DTO - 复制\**" />
-    <None Remove="DTO - 复制\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Dapper" Version="1.60.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.4" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.16" />
   </ItemGroup>
 

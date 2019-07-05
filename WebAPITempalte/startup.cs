@@ -37,13 +37,16 @@ namespace WebAPI
 
         private SessionOptions GSessionOpts;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="env"></param>
-        public Startup(IHostingEnvironment env)
-        {
 
+        private void InitNet4Log()
+        {
+            net4log = LogManager.CreateRepository("NETCoreRepository");
+            XmlConfigurator.Configure(net4log, new FileInfo(@"\.Config\net4log.config"));
+        }
+
+        private void InitSessionOpts()
+        {
+            #region Session Option
             GSessionOpts = new SessionOptions();
 
             GSessionOpts.Cookie.HttpOnly = true;
@@ -52,18 +55,36 @@ namespace WebAPI
             GSessionOpts.Cookie.SecurePolicy = CookieSecurePolicy.None;
             GSessionOpts.Cookie.SameSite = SameSiteMode.Lax;
             GSessionOpts.IdleTimeout = TimeSpan.FromMinutes(1440);
+            #endregion 
+        }
 
-            var builder = new ConfigurationBuilder()
-                .AddInMemoryCollection()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddJsonFile("ConnectionString.json", optional: false, reloadOnChange: true)
-                .AddJsonFile("APILTEUrl.json", optional: false, reloadOnChange: true)
-                .AddEnvironmentVariables();
+        private void InitOther()
+        {
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\.Cache\ExportExcel"))
+            {
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\.Cache\ExportExcel");
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="env"></param>
+        public Startup(IHostingEnvironment env)
+        {
+            #region Init
+            InitNet4Log();
+            InitSessionOpts();
+            InitOther();
+            #endregion
 
-            net4log = LogManager.CreateRepository("NETCoreRepository");
-            XmlConfigurator.Configure(net4log, new FileInfo("net4log.config"));
+            IConfigurationBuilder builder = new ConfigurationBuilder()
+                                            .AddInMemoryCollection()
+                                            .SetBasePath(env.ContentRootPath)
+                                            .AddJsonFile( @".Config\appsettings.json", optional: false, reloadOnChange: true)
+                                            .AddJsonFile($@".Config\appsettings.{env.EnvironmentName}.json", optional: true)
+                                            .AddJsonFile( @".Config\ConnectionString.json", optional: false, reloadOnChange: true)
+                                            .AddJsonFile( @".Config\APILTEUrl.json", optional: false, reloadOnChange: true)
+                                            .AddEnvironmentVariables();
 
             Configuration = builder.Build();
         }
@@ -139,23 +160,24 @@ namespace WebAPI
                         new Info
                         {
                             Version = "v1",
-                            Title = " API 文档",
-                            Description = "API 文档",
-                            TermsOfService = "l.q"
+                            Title = " WebAPI 文档",
+                            Description = "WebAPI 文档",
+                            TermsOfService = "www.cnblogs.com/linqing"
                         }
                     );
 
                     // Set the comments path for the Swagger JSON and UI.
                     var basePath = PlatformServices.Default.Application.ApplicationBasePath;
-                    var xmlPath = Path.Combine(basePath, "WebAPIDoc.xml");
+                    var xmlPath = Path.Combine(basePath, @"Doc\Swagger\WebAPIDoc.xml");
 
                     if (File.Exists(xmlPath))
                     {
                         c.IncludeXmlComments(xmlPath);
+
                     }
                     else
                     {
-                        log.Info($"Swagger :No Exists Path : " + xmlPath);
+                        log.Error($"[Error]: Swagger :No Exists Path : " + xmlPath);
                     }
                 });
                 #endregion
@@ -183,7 +205,24 @@ namespace WebAPI
                 #region 其他常用配置
                 app.UseCors("WebAPIPolicy");
                 app.UseSession(this.GSessionOpts);
-                app.UseDeveloperExceptionPage();
+                #endregion
+
+                #region https Config
+                if (env.IsDevelopment())
+                {
+                    app.UseDeveloperExceptionPage();
+
+                }
+                else
+                {
+                    app.UseExceptionHandler("/Error");
+                    app.UseHsts();
+                }
+
+
+                app.UseHttpsRedirection();
+                app.UseStaticFiles();
+                app.UseCookiePolicy();
                 #endregion
 
                 #region MVC 和WebAPI 相关
