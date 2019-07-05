@@ -4,6 +4,7 @@
 
 ## support vs2019 version last
 
+新瓶装旧酒，一个极简的WebAPI开发环境,封装一些常用的类包
 
 ## Description
 
