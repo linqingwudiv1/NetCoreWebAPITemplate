@@ -1,8 +1,8 @@
 # NetCoreWebAPITemplate
 
-## NetCore2.2.5 WebAPI/MVC Exam
-
 ## support vs2019 version last
+
+	NetCore2.2.5 
 
 	新瓶装旧酒.一个极简的WebAPI/MVC开发环境,封装一些常用的类包.
 
@@ -52,6 +52,7 @@
 
 
 ##一些文档：
+
 	EF迁移Doc：https://docs.microsoft.com/zh-cn/ef/core/managing-schemas/migrations/
 	
 	数据迁移(Migration) 命令参考: https://docs.microsoft.com/zh-cn/ef/core/miscellaneous/cli/powershell
