@@ -5,28 +5,24 @@
 // #define Q_MemoryDB
 
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
 
 namespace DBAccessDLL.EF.Context.Base
 {
     /// <summary>
-    /// 基础
+    /// 常用
     /// </summary>
     /// <typeparam name="DBCtx"></typeparam>
-    public class BaseContext<DBCtx> : DbContext where DBCtx : DbContext
+    public class CommonDBContext<DBCtx> : BaseDBContext<DBCtx> where DBCtx : BaseDBContext<DBCtx>
     {
-        protected string ConnString { get; set; }
 
-        public BaseContext(string _ConnString = "")
-        : base()
+        public CommonDBContext(string _ConnString = "")
+        : base(_ConnString)
         {
-            ConnString = _ConnString;
         }
 
-        public BaseContext(DbContextOptions<DBCtx> options, string _ConnString = "")
-        : base(options)
+        public CommonDBContext(DbContextOptions<DBCtx> options, string _ConnString = "")
+        : base(options, _ConnString)
         {
-            ConnString = _ConnString;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
