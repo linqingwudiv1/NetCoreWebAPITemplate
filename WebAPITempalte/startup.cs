@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DBAccessDLL.EF.Context;
 using DBAccessDLL.Static;
 using log4net;
 using log4net.Config;
@@ -121,10 +122,14 @@ namespace WebAPI
                 #region Add framework services. 配置项注入
 
                 #region EF DI注入
+
                 /*
                 services.AddEntityFrameworkSqlServer().
                     AddDbContext<LTEContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
                 */
+
+                //services.AddEntityFrameworkSqlServer().AddDbContext<ExamContext>(opt => opt);
+
                 #endregion
 
                 services.AddOptions()

@@ -5,6 +5,7 @@
 // #define Q_MemoryDB
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace DBAccessDLL.EF.Context.Base
 {
@@ -28,13 +29,17 @@ namespace DBAccessDLL.EF.Context.Base
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 #if Q_SqlServerDB
-
+            optionsBuilder.UseSqlServer(ConnString);
+#elif Q_OracleDB
+            optionsBuilder.UseOracle(ConnString);
+#elif Q_PostgreSQLDB
+            optionsBuilder.UseNpgsql (ConnString);
 #elif Q_MySqlDB
             optionsBuilder.UseMySQL(ConnString);
 #elif Q_SqliteDB
             optionsBuilder.UseSqlite(ConnString);
 #elif Q_MemoryDB
-            optionsBuilder.UseMemoryCache();
+            // optionsBuilder.UseMemoryCache();
 #endif
             base.OnConfiguring(optionsBuilder);
         }

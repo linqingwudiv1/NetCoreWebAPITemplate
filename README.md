@@ -14,7 +14,7 @@
 	
 	New.基本的身份认证(Session) 示例.
 	
-	New.EF/Dapper 多数据库支持示例.(Sql Server/Oracle/MySql/PostgreSQL/Sqlite )(条件预编译控制)
+	New.EF/Dapper 多数据库支持/EF Core数据库迁移 示例.(Sql Server/Oracle/MySql/PostgreSQL/Sqlite )(条件预编译控制)
 	
 	New.Swagger集成示例.
 	
@@ -42,10 +42,18 @@
 	  
 	  ScriptDLL: Web运维脚本(JavaScript)
 
-	--WebAPI--
+	--WebAPI--:
 
 	  .Cache: 图片/Excel等文件缓存存储位置
 	  
 	  .Config:
 	  
 	  .LocalDB: 嵌入式DB目录
+
+
+##一些文档：
+	EF迁移Doc：https://docs.microsoft.com/zh-cn/ef/core/managing-schemas/migrations/
+	
+	数据迁移(Migration) 命令参考: https://docs.microsoft.com/zh-cn/ef/core/miscellaneous/cli/powershell
+	
+	慎用Update-Migration功能，尽量Script-Migration转SQL后手动更新/或手动修改数据库

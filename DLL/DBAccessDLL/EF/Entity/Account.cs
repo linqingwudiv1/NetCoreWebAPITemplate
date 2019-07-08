@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace DBAccessDLL.EF.Entity
@@ -40,10 +41,13 @@ namespace DBAccessDLL.EF.Entity
         /// 
         /// </summary>
         public string phone { get; set; }
+        
         /// <summary>
-        /// 
+        /// Soft删除字段 
         /// </summary>
-        //public IList<string> roles { get; set; }
+        [Required]
+        [DefaultValue(false)]
+        public bool Q_IsDelete { get; set; }
     }
 
     /// <summary>
@@ -54,6 +58,8 @@ namespace DBAccessDLL.EF.Entity
         public void Configure(EntityTypeBuilder<Account> builder)
         {
             builder.ToTable("Account");
+
+            //builder.HasQueryFilter(m => { m.DataSate });
         }
     }
 }
