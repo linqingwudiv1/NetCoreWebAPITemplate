@@ -11,12 +11,17 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\netcoreapp2.2\Doc\Swagger\WebAPIDoc.xml</DocumentationFile>
     <OutputPath></OutputPath>
+    <DefineConstants>TRACE;LqTest1</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ADO\**" />
     <Compile Remove="wwwroot\**" />
+    <Content Remove="ADO\**" />
     <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="ADO\**" />
     <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="ADO\**" />
     <None Remove="wwwroot\**" />
   </ItemGroup>
 
@@ -51,7 +56,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ADO\" />
     <Folder Include="Areas\TestArea\Data\" />
     <Folder Include="Areas\TestArea\Models\" />
     <Folder Include="Base\" />

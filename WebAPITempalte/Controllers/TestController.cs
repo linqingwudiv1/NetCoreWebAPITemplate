@@ -75,6 +75,7 @@ namespace WebAPI.Controllers
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
             ExamContext db = new ExamContext(sqliteDBConn);
+
             if (!db.Database.CanConnect())
             {
                 db.Database.EnsureCreated();
