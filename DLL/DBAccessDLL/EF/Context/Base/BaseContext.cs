@@ -1,15 +1,16 @@
 ﻿
-// #define Use_SqlServerDB
-// #define Use_MySqlDB
-#define Use_SqliteDB
-// #define Use_MemoryDB
+// #define Q_SqlServerDB
+// #define Q_MySqlDB
+// #define Q_SqliteDB
+// #define Q_MemoryDB
 
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace DBAccessDLL.EF.Context.Base
 {
     /// <summary>
-    /// 选择性预编译判断，减少if,提升性能
+    /// 基础
     /// </summary>
     /// <typeparam name="DBCtx"></typeparam>
     public class BaseContext<DBCtx> : DbContext where DBCtx : DbContext
@@ -22,7 +23,7 @@ namespace DBAccessDLL.EF.Context.Base
             ConnString = _ConnString;
         }
 
-        public BaseContext(DbContextOptions<DBCtx> options, string _ConnString = "Data Source=sqliteTestDB.db")
+        public BaseContext(DbContextOptions<DBCtx> options, string _ConnString = "")
         : base(options)
         {
             ConnString = _ConnString;
@@ -30,13 +31,13 @@ namespace DBAccessDLL.EF.Context.Base
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-#if Use_SqlServerDB
-            
-#elif Use_MySqlDB
+#if Q_SqlServerDB
+
+#elif Q_MySqlDB
             optionsBuilder.UseMySQL(ConnString);
-#elif Use_SqliteDB
+#elif Q_SqliteDB
             optionsBuilder.UseSqlite(ConnString);
-#elif Use_MemoryDB
+#elif Q_MemoryDB
             optionsBuilder.UseMemoryCache();
 #endif
             base.OnConfiguring(optionsBuilder);
