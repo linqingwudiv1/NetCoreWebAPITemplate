@@ -21,8 +21,16 @@
 	New.Autofac集成示例.
 	
 	New.Log4Net集成示例.
-	
+
 	New.Cors等一些常用配置示例.
+
+	New.Js脚本系统 示例.(wait)
+	
+	New.SingleR 示例. (wait)
+	
+	New.分布式ID生成 示例. (wait)
+
+	New.quartz.net 示例 (wait)
 	
 	New.其他一些WebAPI的常用接口示例，如Excel操作和图片资源上传等
 
