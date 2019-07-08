@@ -7,7 +7,7 @@ namespace DBAccessDLL.EF.Context
     /// <summary>
     /// Test数据库
     /// </summary>
-    public class ExamContext : BaseContext<ExamContext>
+    public class ExamContext : CommonDBContext<ExamContext>
     {
         virtual public DbSet<Account> Accounts { get; protected set; }
 
@@ -25,7 +25,6 @@ namespace DBAccessDLL.EF.Context
         public ExamContext(DbContextOptions<ExamContext> options, string _ConnString = "") 
             : base(options, _ConnString)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
