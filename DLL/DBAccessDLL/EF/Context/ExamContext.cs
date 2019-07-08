@@ -17,11 +17,12 @@ namespace DBAccessDLL.EF.Context
         {
 
         }
+
         /// <summary>
         /// ExamContext
         /// </summary>
         /// <param name="options"></param>
-        public ExamContext(DbContextOptions<ExamContext> options, string _ConnString = "Data Source=sqliteTestDB.db") 
+        public ExamContext(DbContextOptions<ExamContext> options, string _ConnString = "") 
             : base(options, _ConnString)
         {
 

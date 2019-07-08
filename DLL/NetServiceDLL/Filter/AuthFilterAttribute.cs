@@ -29,6 +29,9 @@ namespace NetApplictionServiceDLL.Filter
         Unauth
     }
 
+    /// <summary>
+    ///  身份验证(等待扩展:支持DB缓存/NoSql DB缓存)
+    /// </summary>
     public class AuthFilterAttribute : ActionFilterAttribute
     {
         /// <summary>
@@ -82,7 +85,7 @@ namespace NetApplictionServiceDLL.Filter
         }
 
         /// <summary>
-        /// 
+        /// 未通过身份验证处理
         /// </summary>
         /// <param name="filterContext"></param>
         private void UnauthorizedHandle(ActionExecutingContext filterContext)
