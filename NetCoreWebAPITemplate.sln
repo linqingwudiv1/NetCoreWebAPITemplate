@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "readme", "readme", "{44910C
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptDLL", "ScriptDLL\ScriptDLL.csproj", "{CA2495D0-3B91-4E0A-AD80-0983C30DDE17}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{6E759B2F-1762-465D-8F09-F661EBBFD063}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E759B2F-1762-465D-8F09-F661EBBFD063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E759B2F-1762-465D-8F09-F661EBBFD063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA2495D0-3B91-4E0A-AD80-0983C30DDE17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA2495D0-3B91-4E0A-AD80-0983C30DDE17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA2495D0-3B91-4E0A-AD80-0983C30DDE17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA2495D0-3B91-4E0A-AD80-0983C30DDE17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{998E5B70-89E3-4B46-8614-AEABF747D2BC} = {B5477B3E-78A2-4DCF-BA11-D0047250F3EC}
 		{00A1BECC-9A78-46EA-BD04-6750F83039E6} = {B5477B3E-78A2-4DCF-BA11-D0047250F3EC}
 		{A9DB4265-E02A-4A73-B1C4-8028D90770DE} = {B5477B3E-78A2-4DCF-BA11-D0047250F3EC}
+		{CA2495D0-3B91-4E0A-AD80-0983C30DDE17} = {B5477B3E-78A2-4DCF-BA11-D0047250F3EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {13514964-E51D-4900-979E-A0E5ABCBEDB6}
