@@ -31,6 +31,7 @@ namespace DBAccessDLL.EF.Context.Base
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseSqlServer(ConnString);
             base.OnConfiguring(optionsBuilder);
         }
     }
