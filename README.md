@@ -35,8 +35,10 @@
 	New.其他一些WebAPI的常用接口示例，如Excel操作和图片资源上传等
 
 ##工程说明目录说明:
+
 	NetCoreWebAPITemplate--:
-	--DLL--: 目录
+
+	-DLL--: 目录
 
 	  BaseDLL:基础层：业务和功能无关的
 	  
@@ -48,7 +50,9 @@
 	  
 	  NetApplictionServiceDLL:Web基础层
 	  
-	  ScriptDLL: Web运维脚本(JavaScript)
+	  ScriptDLL: Web运维脚本(C#/JavaScript)
+
+	  SearchEngineDLL: 全文搜索引擎层
 
 	--WebAPI--:
 
