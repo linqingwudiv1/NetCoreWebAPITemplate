@@ -24,7 +24,7 @@
 
 	New.Cors等一些常用配置示例.
 
-	New.Js脚本系统 示例.(wait)
+	New.脚本系统 示例.(wait)
 	
 	New.SingleR 示例. (wait)
 	
@@ -52,7 +52,7 @@
 	  
 	  ScriptDLL: Web运维脚本(C#/JavaScript)
 
-	  SearchEngineDLL: 全文搜索引擎层
+	  SearchEngineDLL: 全文搜索引擎层(全文搜索和图片搜索)
 
 	--WebAPI--:
 

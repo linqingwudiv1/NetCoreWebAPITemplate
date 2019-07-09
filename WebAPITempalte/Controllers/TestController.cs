@@ -81,18 +81,23 @@ namespace WebAPI.Controllers
                 db.Database.EnsureCreated();
             }
             
-            int id = Guid.NewGuid().GetHashCode();
-            db.Accounts.Add(new Account
+
+            for (int i =0;i < 1000; i++)
             {
-                id = id,
-                avatar = "",
-                email = "aa875191946@qq.com",
-                introduction = "",
-                name = id.ToString(),
-                password = "",
-                phone = "",
-                username = id.ToString()
-            });
+                int id = -1 * ( Guid.NewGuid().GetHashCode());
+                db.Accounts.Add(new Account
+                {
+                    id = id,
+                    avatar = "",
+                    email = "aa875191946@qq.com",
+                    introduction = "",
+                    name = id.ToString(),
+                    password = "",
+                    phone = "",
+                    username = id.ToString()
+                });
+            }
+
             return db.SaveChanges();
         }
 
