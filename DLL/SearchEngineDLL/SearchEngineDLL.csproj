@@ -1,8 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="CS-Script.Core" Version="1.1.1" />
+    <PackageReference Include="NEST" Version="7.0.1" />
+    <PackageReference Include="NEST.JsonNetSerializer" Version="7.0.1" />
   </ItemGroup>
+
 </Project>
