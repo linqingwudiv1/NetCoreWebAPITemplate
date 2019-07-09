@@ -40,15 +40,15 @@
 
 	-DLL--: 目录
 
-	  BaseDLL:基础层：业务和功能无关的
+	  BaseDLL:基础层: 业务和功能无关的
 	  
-	  BusinessDLL:业务Logic
+	  BusinessDLL: 业务Logic
 	  
-	  DBAccessDLL:业务逻辑无关的数据库访问层
+	  DBAccessDLL: 业务逻辑无关的数据库访问层
 	  
-	  DTOModelDLL:传输对象Model
+	  DTOModelDLL: 传输对象Model
 	  
-	  NetApplictionServiceDLL:Web基础层
+	  NetApplictionServiceDLL: Web基础层
 	  
 	  ScriptDLL: Web运维脚本(C#/JavaScript)
 
