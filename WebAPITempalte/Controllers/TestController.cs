@@ -80,7 +80,6 @@ namespace WebAPI.Controllers
             {
                 db.Database.EnsureCreated();
             }
-            
 
             for (int i =0;i < 1000; i++)
             {
@@ -114,7 +113,6 @@ namespace WebAPI.Controllers
             {
                 db.Database.EnsureCreated();
             }
-
 
             var list = (from x in db.Accounts select x).ToList();
             return list;

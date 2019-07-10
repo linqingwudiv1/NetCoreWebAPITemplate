@@ -3,10 +3,10 @@ using Xunit;
 
 namespace XUnitTestWebApp
 {
-    public class UnitTest1
+    public class UnitTest
     {
         [Fact]
-        public void Test1()
+        public void Test()
         {
 
         }
