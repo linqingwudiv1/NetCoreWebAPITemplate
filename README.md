@@ -29,6 +29,8 @@
 	New.SingleR 示例. (wait)
 	
 	New.分布式ID生成 示例. (wait)
+		
+	New.ELK 示例. (wait)
 
 	New.quartz.net 示例 (wait)
 	
@@ -53,6 +55,8 @@
 	  ScriptDLL: Web运维脚本(C#/JavaScript)
 
 	  SearchEngineDLL: 全文搜索引擎层(全文搜索和图片搜索)
+
+	  LogDLL: ELK日志收集
 
 	--WebAPI--:
 
