@@ -83,6 +83,7 @@ namespace WebAPI.Controllers
                 db.Database.EnsureCreated();
             }
 
+            #region faker 数据模拟
             const string charSet = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789~!@#$%^&*()_+-=`[]{};':"",./<>?";
             var testAccount = new Faker<Account>(locale: "zh_CN").StrictMode(true);
 
@@ -92,7 +93,14 @@ namespace WebAPI.Controllers
             testAccount.RuleFor(entity => entity.avatar, faker => faker.Image.PlaceholderUrl(256, 256));
             testAccount.RuleFor(entity => entity.email, faker => faker.Phone.PhoneNumber() + "@test.com");
             testAccount.RuleFor(entity => entity.password, faker => faker.Random.String2(8, 16, charSet));
-            testAccount.RuleFor(entity => entity.username, faker => faker.Name.FullName());
+            testAccount.RuleFor(entity => entity.username, faker => faker.Name.FirstName() + faker.Name.LastName());
+            testAccount.RuleFor(entity => entity.phone, faker => faker.Phone.PhoneNumber());
+            testAccount.RuleFor(entity => entity.Q_IsDelete, faker => faker.Random.Bool());
+            #endregion
+
+            var accountList = testAccount.Generate(1000).ToArray();
+            db.Accounts.AddRange(accountList);
+
             //for (int i =0;i < 1000; i++)
             //{
             //    int id = -1 * ( Guid.NewGuid().GetHashCode());
