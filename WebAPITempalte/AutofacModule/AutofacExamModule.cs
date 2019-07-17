@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using BaseDLL;
 using BaseDLL.Helper;
-using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
 
 namespace WebAPI.AutofacModule
