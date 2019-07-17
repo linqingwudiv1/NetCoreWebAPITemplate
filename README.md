@@ -24,6 +24,8 @@
 
 	New.Cors等一些常用配置示例.
 
+	New.Bogus Faker模拟数据示例.()
+
 	New.脚本系统 示例.(wait)
 	
 	New.SingleR 示例. (wait)
