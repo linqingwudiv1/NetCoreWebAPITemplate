@@ -14,19 +14,5 @@ namespace DBAccessDLL.Static
         /// LTE数据库
         /// </summary>
         public string LTEConn { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string JZXN_DW_165 { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string JK_DW_168 { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string PublicService_167 { get; set; }
     }
 }
