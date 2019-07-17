@@ -8,7 +8,11 @@ namespace XUnitTestWebApp
         [Fact]
         public void Test()
         {
+            
+        }
 
+        public void  testc1(params int[] list)
+        {
         }
     }
 }

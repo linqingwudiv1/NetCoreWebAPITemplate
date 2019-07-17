@@ -163,8 +163,8 @@ namespace WebAPI
                 #endregion
 
 
-
-                #region Swagger 文档接入
+#if DEBUG
+                #region Swagger Doc 文档接入. Warning:生产环境尽量不要暴露 Swagger
                 // Register the Swagger generator, defining one or more Swagger documents
                 services.AddSwaggerGen(c =>
                 {
@@ -193,6 +193,10 @@ namespace WebAPI
                     }
                 });
                 #endregion
+#endif
+
+
+
 
 
             }
