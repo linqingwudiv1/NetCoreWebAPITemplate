@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DBAccessDLL.EF.Entity
 {
-    public class Account
+    public class Account : BaseEntity
     {
         /// <summary>
         /// 
@@ -41,13 +41,7 @@ namespace DBAccessDLL.EF.Entity
         /// 
         /// </summary>
         public string phone { get; set; }
-        
-        /// <summary>
-        /// Soft删除字段 
-        /// </summary>
-        [Required]
-        [DefaultValue(false)]
-        public bool Q_IsDelete { get; set; }
+
     }
 
     /// <summary>
