@@ -50,9 +50,9 @@
 	  
 	  DBAccessDLL: 业务逻辑无关的数据库访问层
 	  
-	  DTOModelDLL: 传输对象Model
+	  DTOModelDLL:DTO Model. 传输对象Model
 	  
-	  NetApplictionServiceDLL: Web基础层
+	  NetApplictionServiceDLL: Web基础层.Basic Logic Layer about Web
 	  
 	  ScriptDLL: Web运维脚本(C#/JavaScript)
 
