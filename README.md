@@ -18,11 +18,11 @@
 	
 	New.EF/Dapper 多数据库支持(Multiple Database Support)/EF Core数据库迁移 示例 Case.(Sql Server/Oracle/MySql/PostgreSQL/Sqlite )(条件预编译控制)
 	
-	New.Swagger case集成示例.
+	New.Swagger Case集成示例.
 	
-	New.Autofac case集成示例.
+	New.Autofac Case集成示例.
 	
-	New.Log4Net case集成示例.
+	New.Log4Net Case集成示例.
 
 	New.Cors等一些常用配置示例 .
 
@@ -36,7 +36,7 @@
 
 	New.quartz.net Case 示例 (wait)
 	
-	New.Other Same WebAPI Use Guide. e.g: excel and image handle.其他一些WebAPI的常用接口示例，如Excel操作和图片资源上传等
+	New.Other Same WebAPI Use Guide. e.g: excel and image handle Case.其他一些WebAPI的常用接口示例，如Excel操作和图片资源上传等
 
 ##工程说明目录说明:
 
