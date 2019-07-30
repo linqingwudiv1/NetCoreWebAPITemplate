@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace DBAccessDLL.Static
+﻿namespace DBAccessDLL.Static
 {
     /// <summary>
     /// DI注入类 ，保存配置文件中的字符串连接。
