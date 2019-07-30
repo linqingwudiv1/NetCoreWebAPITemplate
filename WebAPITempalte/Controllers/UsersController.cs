@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
 using NetApplictionServiceDLL.Filter;
+using System;
+using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -45,6 +47,7 @@ namespace WebAPI.Controllers
         public DTO_ReturnModel<string>  Logout()
         {
             this.LogoutLogic();
+
             return new DTO_ReturnModel<string>(null, 20000);
         }
 
@@ -60,5 +63,6 @@ namespace WebAPI.Controllers
             DTO_StoreAccount store_account = this.GetStoreAccount();
             return new DTO_ReturnModel<dynamic>(store_account, 20000);
         }
+
     }
 }

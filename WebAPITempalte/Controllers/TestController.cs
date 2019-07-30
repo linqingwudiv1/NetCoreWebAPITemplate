@@ -4,6 +4,7 @@ using DBAccessDLL.EF.Entity;
 using DBAccessDLL.Static;
 using DTOModelDLL.Common;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NetApplictionServiceDLL;
@@ -16,6 +17,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -62,7 +64,7 @@ namespace WebAPI.Controllers
         /// 获取数据库连接信息
         /// </summary>
         /// <returns></returns>
-        [HttpGet("NetCore_DBConn")]
+        [HttpGet()]
         public dynamic NetCore_DBConn()
         {
             return Opt_Conn;
@@ -72,7 +74,7 @@ namespace WebAPI.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpGet("NetCore_SqliteInsertTest")]
+        [HttpGet()]
         public dynamic NetCore_SqliteInsertTest()
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
@@ -91,11 +93,12 @@ namespace WebAPI.Controllers
             testAccount.RuleFor(entity => entity.name, faker => faker.Random.String2(8, 16, charSet));
             testAccount.RuleFor(entity => entity.introduction, faker => faker.Rant.Review());
             testAccount.RuleFor(entity => entity.avatar, faker => faker.Image.PlaceholderUrl(256, 256));
-            testAccount.RuleFor(entity => entity.email, faker => faker.Phone.PhoneNumber() + "@test.com");
+            testAccount.RuleFor(entity => entity.email, faker => faker.Phone.PhoneNumber() + "@Qing.com");
             testAccount.RuleFor(entity => entity.password, faker => faker.Random.String2(8, 16, charSet));
             testAccount.RuleFor(entity => entity.username, faker => faker.Name.FirstName() + faker.Name.LastName());
             testAccount.RuleFor(entity => entity.phone, faker => faker.Phone.PhoneNumber());
-            testAccount.RuleFor(entity => entity.Q_IsDelete, faker => faker.Random.Bool());
+            testAccount.RuleFor(entity => entity.Qing_IsDelete, faker => faker.Random.Bool());
+            testAccount.RuleFor(entity => entity.Qing_Version, 0 /*faker => 0*/);
             #endregion
 
             var accountList = testAccount.Generate(1000).ToArray();
@@ -124,7 +127,7 @@ namespace WebAPI.Controllers
         /// Note：
         /// </summary>
         /// <returns></returns>
-        [HttpGet("NetCore_SqliteQueryTest")]
+        [HttpGet()]
         public dynamic NetCore_SqliteQueryTest()
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
@@ -207,25 +210,52 @@ namespace WebAPI.Controllers
         ///  导入 Excel 读取示例
         /// </summary>
         /// <returns></returns>
-        [HttpPost("Import")]
+        [HttpPost()]
         public DTO_ReturnModel<string> Import()
         {
             var files = HttpContext.Request.Form.Files;
             var ret_str = "";
 
-            if ( files.Count > 0 )
+            if (files.Count > 0)
             {
                 foreach (var fileitem in files)
                 {
                     Stream stream = fileitem.OpenReadStream();
-
                     IWorkbook workbook = new XSSFWorkbook(stream);
                     var def_sheet = workbook.GetSheetAt(0);
                     var row = def_sheet.GetRow(0);
                     var info = row.Cells[0].StringCellValue;
                     ret_str = info;
+                    stream.Dispose();
                 }
             }
+
+            var ret = new DTO_ReturnModel<string>(ret_str);
+            return ret;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost()]
+
+        public async Task<DTO_ReturnModel<string>> UploadImageMulitple()
+        {
+            IFormFileCollection files = HttpContext.Request.Form.Files;
+            if (files.Count > 0)
+            {
+                foreach (var fileitem in files)
+                {
+                    var filePath = @".Cache/Image/" + fileitem.FileName;
+
+                    using (FileStream fs = new FileStream(filePath,FileMode.CreateNew,FileAccess.Write ))
+                    {
+                        await fileitem.CopyToAsync (fs);
+                    } 
+                }
+            }
+            var ret_str = "";
 
             var ret = new DTO_ReturnModel<string>(ret_str);
             return ret;

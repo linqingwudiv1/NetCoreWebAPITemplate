@@ -17,6 +17,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using WebAPI.AutofacModule;
+using WebApp.Swagger;
 
 namespace WebAPI
 {
@@ -192,6 +193,12 @@ namespace WebAPI
                         log.Error($"[Error]: Swagger :No Exists Path : " + xmlPath);
                     }
                 });
+
+                services.ConfigureSwaggerGen(opt =>
+                {
+                    opt.OperationFilter<FileUploadOperation>();
+                });
+
                 #endregion
 #endif
 

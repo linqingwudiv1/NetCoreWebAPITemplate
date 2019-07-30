@@ -18,8 +18,4 @@
     <ProjectReference Include="..\DTOModelDLL\DTOModelDLL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Filter\" />
-  </ItemGroup>
-
 </Project>
