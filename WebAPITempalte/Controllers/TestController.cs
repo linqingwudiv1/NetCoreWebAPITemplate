@@ -5,6 +5,7 @@ using DBAccessDLL.Static;
 using DTOModelDLL.Common;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NetApplictionServiceDLL;
@@ -13,9 +14,11 @@ using Npoi.Core.SS.UserModel;
 using Npoi.Core.SS.Util;
 using Npoi.Core.XSSF.UserModel;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -223,9 +226,10 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost()]
-        public async Task<DTO_ReturnModel<int>> UploadImageMulitple()
+        public async Task<DTO_ReturnModel<dynamic>> UploadImageMulitple()
         {
             int ret_count = 0;
+            IList<string> list = new List<string>();
             IFormFileCollection files = HttpContext.Request.Form.Files;
             if (files.Count > 0)
             {
@@ -236,13 +240,14 @@ namespace WebAPI.Controllers
                     using (FileStream fs = new FileStream(filePath,FileMode.CreateNew,FileAccess.Write ))
                     {
                         await fileitem.CopyToAsync (fs);
+                        list.Add(Request.HttpContext.Connection.RemoteIpAddress.ToString() + "/" + filePath);
                         ret_count++;
                     } 
                 }
             }
 
-
-            var ret = new DTO_ReturnModel<int>(ret_count);
+            var ret_model = new { list, effectCount = ret_count };
+            var ret = new DTO_ReturnModel<dynamic>(ret_model);
             return ret;
         }
 
@@ -251,7 +256,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost()]
-        public  DTO_ReturnModel<int> UploadImage()
+        public  DTO_ReturnModel<dynamic> UploadImage()
         {
             int ret_count = 0;
             IFormFileCollection files = HttpContext.Request.Form.Files;
@@ -270,7 +275,7 @@ namespace WebAPI.Controllers
             }
 
 
-            var ret = new DTO_ReturnModel<int>(ret_count);
+            var ret = new DTO_ReturnModel<dynamic>(ret_count);
             return ret;
         }
 
@@ -278,11 +283,22 @@ namespace WebAPI.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpPost()]
-        public async Task<DTO_ReturnModel<string>> Test()
+        [HttpGet()]
+        public DTO_ReturnModel<dynamic> ServerIPAddress()
         {
+            var httpConnectionFeature = HttpContext.Features.Get<IHttpConnectionFeature>();
+            var localIpAddress = httpConnectionFeature?.LocalIpAddress;
+            var localPort = httpConnectionFeature?.LocalPort;
 
-            var ret = new DTO_ReturnModel<string>("hi post cors test");
+            var RemoteIpAddress = httpConnectionFeature?.LocalIpAddress;
+            var RemotePort = httpConnectionFeature?.LocalPort;
+
+            var ret_model = new
+            {
+                Local = localIpAddress.MapToIPv4().ToString() + ":" + localPort,
+                Remote = RemoteIpAddress.MapToIPv4().ToString() + ":" + RemotePort
+            };
+            var ret = new DTO_ReturnModel<dynamic>(ret_model);
             return ret;
         }
     }
