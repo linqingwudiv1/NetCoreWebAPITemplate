@@ -104,22 +104,6 @@ namespace WebAPI.Controllers
             var accountList = testAccount.Generate(1000).ToArray();
             db.Accounts.AddRange(accountList);
 
-            //for (int i =0;i < 1000; i++)
-            //{
-            //    int id = -1 * ( Guid.NewGuid().GetHashCode());
-            //    db.Accounts.Add(new Account
-            //    {
-            //        id = id,
-            //        avatar = "",
-            //        email = "aa875191946@qq.com",
-            //        introduction = "",
-            //        name = id.ToString(),
-            //        password = "",
-            //        phone = "",
-            //        username = id.ToString()
-            //    });
-            //}
-
             return db.SaveChanges();
         }
 
@@ -239,9 +223,9 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost()]
-
-        public async Task<DTO_ReturnModel<string>> UploadImageMulitple()
+        public async Task<DTO_ReturnModel<int>> UploadImageMulitple()
         {
+            int ret_count = 0;
             IFormFileCollection files = HttpContext.Request.Form.Files;
             if (files.Count > 0)
             {
@@ -252,12 +236,53 @@ namespace WebAPI.Controllers
                     using (FileStream fs = new FileStream(filePath,FileMode.CreateNew,FileAccess.Write ))
                     {
                         await fileitem.CopyToAsync (fs);
+                        ret_count++;
                     } 
                 }
             }
-            var ret_str = "";
 
-            var ret = new DTO_ReturnModel<string>(ret_str);
+
+            var ret = new DTO_ReturnModel<int>(ret_count);
+            return ret;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost()]
+        public  DTO_ReturnModel<int> UploadImage()
+        {
+            int ret_count = 0;
+            IFormFileCollection files = HttpContext.Request.Form.Files;
+            if (files.Count > 0)
+            {
+                foreach (var fileitem in files)
+                {
+                    var filePath = @".Cache/Image/" + fileitem.FileName;
+
+                    using (FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write))
+                    {
+                        fileitem.CopyTo(fs);
+                        ret_count++;
+                    }
+                }
+            }
+
+
+            var ret = new DTO_ReturnModel<int>(ret_count);
+            return ret;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost()]
+        public async Task<DTO_ReturnModel<string>> Test()
+        {
+
+            var ret = new DTO_ReturnModel<string>("hi post cors test");
             return ret;
         }
     }

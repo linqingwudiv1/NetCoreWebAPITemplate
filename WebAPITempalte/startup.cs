@@ -116,6 +116,7 @@ namespace WebAPI
                 {
                     builder.AllowAnyOrigin()
                            .AllowAnyMethod()
+                           //.AllowCredentials()
                            .AllowAnyHeader();
                 }));
 
