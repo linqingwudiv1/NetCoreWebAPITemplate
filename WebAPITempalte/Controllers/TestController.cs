@@ -237,12 +237,12 @@ namespace WebAPI.Controllers
                 {
                     var filePath = @".Cache/Image/" + fileitem.FileName;
 
-                    using (FileStream fs = new FileStream(filePath,FileMode.CreateNew,FileAccess.Write ))
+                    using (FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write))
                     {
-                        await fileitem.CopyToAsync (fs);
+                        await fileitem.CopyToAsync(fs);
                         list.Add(Request.HttpContext.Connection.RemoteIpAddress.ToString() + "/" + filePath);
                         ret_count++;
-                    } 
+                    }
                 }
             }
 
@@ -256,7 +256,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost()]
-        public  DTO_ReturnModel<dynamic> UploadImage()
+        public DTO_ReturnModel<dynamic> UploadImage()
         {
             int ret_count = 0;
             IFormFileCollection files = HttpContext.Request.Form.Files;
@@ -286,20 +286,31 @@ namespace WebAPI.Controllers
         [HttpGet()]
         public DTO_ReturnModel<dynamic> ServerIPAddress()
         {
-            var httpConnectionFeature = HttpContext.Features.Get<IHttpConnectionFeature>();
-            var localIpAddress = httpConnectionFeature?.LocalIpAddress;
-            var localPort = httpConnectionFeature?.LocalPort;
-
-            var RemoteIpAddress = httpConnectionFeature?.LocalIpAddress;
-            var RemotePort = httpConnectionFeature?.LocalPort;
-
-            var ret_model = new
+            try
             {
-                Local = localIpAddress.MapToIPv4().ToString() + ":" + localPort,
-                Remote = RemoteIpAddress.MapToIPv4().ToString() + ":" + RemotePort
-            };
-            var ret = new DTO_ReturnModel<dynamic>(ret_model);
-            return ret;
+                IHttpConnectionFeature httpConnectionFeature = HttpContext.Features.Get<IHttpConnectionFeature>();
+
+                IPAddress localIpAddress = httpConnectionFeature?.LocalIpAddress;
+                int? localPort = httpConnectionFeature?.LocalPort;
+
+                IPAddress RemoteIpAddress = httpConnectionFeature?.LocalIpAddress;
+                int? RemotePort = httpConnectionFeature?.LocalPort;
+
+                var ret_model = new
+                {
+                    Local = localIpAddress.MapToIPv4().ToString() + ":" + localPort,
+                    Remote = RemoteIpAddress.MapToIPv4().ToString() + ":" + RemotePort,
+                    HostName = Dns.GetHostName()
+                };
+                var ret = new DTO_ReturnModel<dynamic>(ret_model);
+                return ret;
+            }
+            catch (Exception ex)
+            {
+
+                return new DTO_ReturnModel<dynamic>(ex.Message,400 );
+            }
+
         }
     }
 }
