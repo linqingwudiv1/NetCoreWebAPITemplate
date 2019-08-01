@@ -33,7 +33,7 @@ namespace WebApp.SingalR
         {
             string userName = this.Context.GetHttpContext().Session.GetString("username");
 
-            this.Clients.User(userName).SendAsync("ReceiveOnConnected", "111");
+            this.Clients.User("ID_" + userName).SendAsync("ReceiveOnConnected", "111");
 
             return base.OnConnectedAsync();
         }

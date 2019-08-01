@@ -31,12 +31,24 @@ namespace WebAPI.Controllers
         {
             _hubContext = hubContext;
 
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult GenerateClientUE4()
+        {
+            string newID = Guid.NewGuid().ToString();
             string username = HttpContext.Session.GetString("username");
-            if ( string.IsNullOrEmpty(username) )
+            if (string.IsNullOrEmpty(username))
             {
-                HttpContext.Session.SetString("username", Guid.NewGuid().ToString());
+                HttpContext.Session.SetString("username", newID);
             }
 
+            return Ok(newID);
         }
 
         /// <summary>
