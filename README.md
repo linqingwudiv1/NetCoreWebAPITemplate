@@ -68,7 +68,6 @@
 	  
 	  .LocalDB: 嵌入式DB目录(Sqlite/Sql Or Server Embedded)
 
-
 ##一些文档 Doc Reference：
 
 	EF迁移文档 EF Migration Doc：https://docs.microsoft.com/zh-cn/ef/core/managing-schemas/migrations/
