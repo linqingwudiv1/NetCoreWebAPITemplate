@@ -4,11 +4,15 @@ using System.Threading.Tasks;
 
 namespace WebApp.SingalR
 {
+
+
     /// <summary>
     /// 通用监听事件.
     /// </summary>
     public class CommonHub : Hub
     {
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -33,7 +37,7 @@ namespace WebApp.SingalR
 
             if (ChildUE4 != null)
             {
-                await ChildUE4.SendAsync("ReceiveUploadImageComplated", ImgPath);
+                //await ChildUE4.SendAsync();
             }
         }
 

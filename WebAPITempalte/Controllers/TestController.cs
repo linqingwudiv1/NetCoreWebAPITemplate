@@ -200,19 +200,19 @@ namespace WebAPI.Controllers
         [HttpPost()]
         public IActionResult Import()
         {
-            var files = HttpContext.Request.Form.Files;
-            var ret_str = "";
+            IFormFileCollection files = HttpContext.Request.Form.Files;
+            string ret_str = "";
 
             if (files.Count > 0)
             {
                 foreach (var fileitem in files)
                 {
-                    Stream stream = fileitem.OpenReadStream();
-                    IWorkbook workbook = new XSSFWorkbook(stream);
-                    var def_sheet = workbook.GetSheetAt(0);
-                    var row = def_sheet.GetRow(0);
-                    var info = row.Cells[0].StringCellValue;
-                    ret_str = info;
+                    Stream      stream = fileitem.OpenReadStream();
+                    IWorkbook   workbook = new XSSFWorkbook(stream);
+                    ISheet      def_sheet = workbook.GetSheetAt(0);
+                    IRow        row = def_sheet.GetRow(0);
+                    string      info = row.Cells[0].StringCellValue;
+                    ret_str =   info;
                     stream.Dispose();
                 }
             }
@@ -259,6 +259,7 @@ namespace WebAPI.Controllers
         public IActionResult UploadImage()
         {
             int ret_count = 0;
+            IList<string> list = new List<string>();
             IFormFileCollection files = HttpContext.Request.Form.Files;
             if (files.Count > 0)
             {
@@ -269,13 +270,14 @@ namespace WebAPI.Controllers
                     using (FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write))
                     {
                         fileitem.CopyTo(fs);
+                        list.Add(Request.HttpContext.Connection.RemoteIpAddress.ToString() + "/" + filePath);
                         ret_count++;
                     }
                 }
             }
 
-
-            var ret = new DTO_ReturnModel<dynamic>(ret_count);
+            var ret_model = new { list, effectCount = ret_count };
+            var ret = new DTO_ReturnModel<dynamic>(ret_model);
             return Ok(ret);
         }
 
