@@ -112,15 +112,23 @@ namespace WebAPI
             var log = LogManager.GetLogger(net4log.Name, typeof(Startup));
             try
             {
+
+                string[] origins = new string[]
+                {
+                    "http://localhost:8080",
+                    "http://localhost:8081",
+                    "http://localhost:8082",
+                    "http://wakelu.com"
+                };
+
                 //跨域支持
                 services.AddCors(opt => opt.AddPolicy("WebAPIPolicy", builder =>
                 {
-                    builder.AllowAnyOrigin()
+                    builder.WithOrigins(origins)
                            .AllowAnyMethod()
-                           //.AllowCredentials()
+                           .AllowCredentials()
                            .AllowAnyHeader();
                 }));
-
 
                 #region Add framework services. 配置项注入
 
@@ -140,7 +148,6 @@ namespace WebAPI
                         .Configure<Opt_API_LTEUrl>(Configuration.GetSection("APILTEUrl"));
 
                 #endregion
-
 
                 //防止Json序列化-改变对象列的大小写
                 services.AddMvc(opts => 
@@ -229,12 +236,15 @@ namespace WebAPI
             try
             {
                 #region 其他常用配置
+
                 app.UseCors("WebAPIPolicy");
                 //app.UseSignalR();
                 app.UseSession(this.GSessionOpts);
+
                 #endregion
 
                 #region SingalR
+
 
                 app.UseSignalR(r => 
                 {
