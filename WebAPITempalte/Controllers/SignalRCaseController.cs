@@ -1,27 +1,12 @@
-﻿using Bogus;
-using DBAccessDLL.EF.Context;
-using DBAccessDLL.EF.Entity;
-using DBAccessDLL.Static;
-using DTOModelDLL.Common;
+﻿using DTOModelDLL.Common;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.Options;
 using NetApplictionServiceDLL;
-using Npoi.Core.HSSF.Util;
-using Npoi.Core.SS.UserModel;
-using Npoi.Core.SS.Util;
-using Npoi.Core.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using WebApp.SingalR;
 
 namespace WebAPI.Controllers
@@ -45,6 +30,13 @@ namespace WebAPI.Controllers
         public SignalRCaseController(IHubContext<CommonHub> hubContext)
         {
             _hubContext = hubContext;
+
+            string username = HttpContext.Session.GetString("username");
+            if ( string.IsNullOrEmpty(username) )
+            {
+                HttpContext.Session.SetString("username", Guid.NewGuid().ToString());
+            }
+
         }
 
         /// <summary>
@@ -52,30 +44,35 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost()]
-        public IActionResult UploadImage()
+        public IActionResult UploadImage(string ChildUE4 = "1")
         {
             int ret_count = 0;
             IList<string> list = new List<string>();
             IFormFileCollection files = HttpContext.Request.Form.Files;
+
             if (files.Count > 0)
             {
                 foreach (IFormFile fileitem in files)
                 {
-                    var filePath = @".Cache/Image/" + fileitem.FileName;
+                    string filePath = @".Cache/Image/" + fileitem.FileName;
 
                     using (FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write))
                     {
                         fileitem.CopyTo(fs);
-                        list.Add(Request.HttpContext.Connection.RemoteIpAddress.ToString() + "/" + filePath);
+                        list.Add( filePath);
                         ret_count++;
                     }
                 }
             }
 
-            _hubContext.Clients.All.SendAsync("ReceiveUploadImageComplated", list).Wait();
+            IClientProxy TargetChild = _hubContext.Clients.User(ChildUE4);
+            if (TargetChild != null)
+            {
+                TargetChild.SendAsync("ReceiveUploadImageComplated", list).Wait();
+            }
 
-            var ret_model = new { list, effectCount = ret_count };
-            var ret = new DTO_ReturnModel<dynamic>(ret_model);
+            dynamic ret_model = new { list, effectCount = ret_count };
+            DTO_ReturnModel<dynamic> ret = new DTO_ReturnModel<dynamic>(ret_model);
             return Ok(ret);
         }
     }
