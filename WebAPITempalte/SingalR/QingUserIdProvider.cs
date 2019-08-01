@@ -17,7 +17,8 @@ namespace WebApp.SingalR
         /// <returns></returns>
         public string GetUserId(HubConnectionContext connection)
         {
-            return "ID_" + connection.GetHttpContext().Session.GetString("username");
+            string user = "ID_" + connection.GetHttpContext().Session.GetString("username");
+            return user;
         }
     }
 }
