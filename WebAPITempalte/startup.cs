@@ -17,6 +17,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using WebAPI.AutofacModule;
+using WebApp.SingalR;
 using WebApp.Swagger;
 
 namespace WebAPI
@@ -165,8 +166,14 @@ namespace WebAPI
                 #endregion
 
 
+                #region SingalR
+
+                services.AddSignalR();
+                
+                #endregion
+
 #if DEBUG
-                #region Swagger Doc 文档接入. Warning:生产环境尽量不要暴露 Swagger
+                #region Swagger Doc 文档接入. 生产环境不暴露 Swagger
                 // Register the Swagger generator, defining one or more Swagger documents
                 services.AddSwaggerGen(c =>
                 {
@@ -202,11 +209,6 @@ namespace WebAPI
 
                 #endregion
 #endif
-
-
-
-
-
             }
             catch (Exception ex)
             {
@@ -228,10 +230,18 @@ namespace WebAPI
             {
                 #region 其他常用配置
                 app.UseCors("WebAPIPolicy");
+                //app.UseSignalR();
                 app.UseSession(this.GSessionOpts);
                 #endregion
 
+                #region SingalR
 
+                app.UseSignalR(r => 
+                {
+                    r.MapHub<CommonHub>("/commonHub");
+                });
+
+                #endregion
 
                 #region MVC 和WebAPI 相关
 
