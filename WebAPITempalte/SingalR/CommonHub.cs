@@ -1,18 +1,19 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SignalR;
+using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebApp.SingalR
 {
-
-
     /// <summary>
     /// 通用监听事件.
     /// </summary>
     public class CommonHub : Hub
     {
-
-
+     
         /// <summary>
         /// 
         /// </summary>
@@ -21,34 +22,30 @@ namespace WebApp.SingalR
         /// <returns></returns>
         public async Task SendMessage(string user, string message)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
-        }
-
-
-        /// <summary>
-        /// 通知二维码页面
-        /// </summary>
-        /// <param name="UE4ChildKey"></param>
-        /// <param name="ImgPath"></param>
-        /// <returns></returns>
-        public async Task UploadImageComplated(string UE4ChildKey, string ImgPath)
-        {
-            IClientProxy ChildUE4 = Clients.Clients(UE4ChildKey);
-
-            if (ChildUE4 != null)
-            {
-                //await ChildUE4.SendAsync();
-            }
+            await Clients.User(user).SendAsync("ReceiveMessage", user, "hello world!");
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override Task OnConnectedAsync()
+        public override  Task OnConnectedAsync()
         {
+            string userName = this.Context.GetHttpContext().Session.GetString("username");
+
+            this.Clients.User(userName).SendAsync("ReceiveOnConnected", "111");
 
             return base.OnConnectedAsync();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="exception"></param>
+        /// <returns></returns>
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            return base.OnDisconnectedAsync(exception);
         }
     }
 }

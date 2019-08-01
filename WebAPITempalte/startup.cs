@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -117,7 +118,8 @@ namespace WebAPI
                     "http://localhost:8080",
                     "http://localhost:8081",
                     "http://localhost:8082",
-                    "http://wakelu.com"
+                    "http://wakelu.com",
+                    "http://192.168.1.131:8080"
                 };
 
                 //跨域支持
@@ -167,15 +169,15 @@ namespace WebAPI
                     opt.IdleTimeout         = this.GSessionOpts.IdleTimeout;
                 });
 
-                // services.AddDistributedRedisCache();
-                // services.AddDistributedSqlServerCache();
                 #endregion
 
 
                 #region SingalR
 
                 services.AddSignalR();
-                
+
+                services.AddSingleton<IUserIdProvider, QingUserIdProvider>();
+
                 #endregion
 
 #if DEBUG
