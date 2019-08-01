@@ -33,9 +33,9 @@ namespace WebAPI.Controllers
         /// <param name="loginInfo">登录信息</param>
         /// <returns></returns>
         [HttpPost]
-        public DTO_ReturnModel<dynamic> Login([FromBody] DTOAPI_Login loginInfo)
+        public IActionResult Login([FromBody] DTOAPI_Login loginInfo)
         {
-            return new DTO_ReturnModel<dynamic>(this.LoginLogic(loginInfo), 20000);
+            return Ok(new DTO_ReturnModel<dynamic>(this.LoginLogic(loginInfo), 20000));
         }
 
         /// <summary>
@@ -44,11 +44,11 @@ namespace WebAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [AuthFilter]
-        public DTO_ReturnModel<string>  Logout()
+        public IActionResult Logout()
         {
             this.LogoutLogic();
 
-            return new DTO_ReturnModel<string>(null, 20000);
+            return Ok(new DTO_ReturnModel<string>(null, 20000));
         }
 
         /// <summary>
@@ -58,10 +58,10 @@ namespace WebAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [AuthFilter]
-        public DTO_ReturnModel<dynamic> Info([FromBody] DTOAPI_Info Info)
+        public IActionResult Info([FromBody] DTOAPI_Info Info)
         {
             DTO_StoreAccount store_account = this.GetStoreAccount();
-            return new DTO_ReturnModel<dynamic>(store_account, 20000);
+            return Ok(new DTO_ReturnModel<dynamic>(store_account, 20000));
         }
 
     }

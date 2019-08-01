@@ -58,9 +58,9 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public dynamic HelloNetCore(string id = "")
+        public IActionResult HelloNetCore(string id = "")
         {
-            return "Hello! Net Core 2.0: " + id;
+            return Ok("Hello! Net Core 2.0: " + id);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace WebAPI.Controllers
         [HttpGet()]
         public dynamic NetCore_DBConn()
         {
-            return Opt_Conn;
+            return Ok(Opt_Conn);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet()]
-        public dynamic NetCore_SqliteInsertTest()
+        public IActionResult NetCore_SqliteInsertTest()
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
             ExamContext db = new ExamContext(sqliteDBConn);
@@ -107,7 +107,7 @@ namespace WebAPI.Controllers
             var accountList = testAccount.Generate(1000).ToArray();
             db.Accounts.AddRange(accountList);
 
-            return db.SaveChanges();
+            return Ok(db.SaveChanges());
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet()]
-        public dynamic NetCore_SqliteQueryTest()
+        public IActionResult NetCore_SqliteQueryTest()
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
             ExamContext db = new ExamContext(sqliteDBConn);
@@ -125,7 +125,7 @@ namespace WebAPI.Controllers
             }
 
             var list = (from x in db.Accounts select x).ToList();
-            return list;
+            return Ok(list);
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost()]
-        public DTO_ReturnModel<string> Import()
+        public IActionResult Import()
         {
             var files = HttpContext.Request.Form.Files;
             var ret_str = "";
@@ -218,7 +218,7 @@ namespace WebAPI.Controllers
             }
 
             var ret = new DTO_ReturnModel<string>(ret_str);
-            return ret;
+            return Ok(ret);
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost()]
-        public async Task<DTO_ReturnModel<dynamic>> UploadImageMulitple()
+        public async Task<IActionResult> UploadImageMulitple()
         {
             int ret_count = 0;
             IList<string> list = new List<string>();
@@ -248,7 +248,7 @@ namespace WebAPI.Controllers
 
             var ret_model = new { list, effectCount = ret_count };
             var ret = new DTO_ReturnModel<dynamic>(ret_model);
-            return ret;
+            return Ok(ret);
         }
 
         /// <summary>
@@ -256,7 +256,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost()]
-        public DTO_ReturnModel<dynamic> UploadImage()
+        public IActionResult UploadImage()
         {
             int ret_count = 0;
             IFormFileCollection files = HttpContext.Request.Form.Files;
@@ -276,7 +276,7 @@ namespace WebAPI.Controllers
 
 
             var ret = new DTO_ReturnModel<dynamic>(ret_count);
-            return ret;
+            return Ok(ret);
         }
 
         /// <summary>
@@ -284,7 +284,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet()]
-        public DTO_ReturnModel<dynamic> ServerIPAddress()
+        public IActionResult ServerIPAddress()
         {
             try
             {
@@ -296,19 +296,20 @@ namespace WebAPI.Controllers
                 IPAddress RemoteIpAddress = httpConnectionFeature?.LocalIpAddress;
                 int? RemotePort = httpConnectionFeature?.LocalPort;
 
-                var ret_model = new
+                dynamic ret_model = new
                 {
                     Local = localIpAddress.MapToIPv4().ToString() + ":" + localPort,
                     Remote = RemoteIpAddress.MapToIPv4().ToString() + ":" + RemotePort,
                     HostName = Dns.GetHostName()
                 };
-                var ret = new DTO_ReturnModel<dynamic>(ret_model);
-                return ret;
+
+                DTO_ReturnModel<dynamic> ret = new DTO_ReturnModel<dynamic>(ret_model);
+                return Ok(ret);
             }
             catch (Exception ex)
             {
 
-                return new DTO_ReturnModel<dynamic>(ex.Message,400 );
+                return NotFound(new DTO_ReturnModel<dynamic>(ex.Message,400 ));
             }
 
         }
