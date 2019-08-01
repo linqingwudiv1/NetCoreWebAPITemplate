@@ -18,6 +18,10 @@ namespace WebAPI.Controllers
     [EnableCors("WebAPIPolicy")]
     public class UsersController : BaseController
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        static int ChildUE4 { get; set; } 
 
         /// <summary>
         /// Vue项目测试接口
@@ -61,8 +65,8 @@ namespace WebAPI.Controllers
         public IActionResult Info([FromBody] DTOAPI_Info Info)
         {
             DTO_StoreAccount store_account = this.GetStoreAccount();
+
             return Ok(new DTO_ReturnModel<dynamic>(store_account, 20000));
         }
-
     }
 }
