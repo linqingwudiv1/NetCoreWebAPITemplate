@@ -12,7 +12,7 @@ using WebApp.SingalR;
 namespace WebAPI.Controllers
 {
     /// <summary>
-    /// Hello World ! net Core MVC.
+    /// SignalRCase
     /// </summary>
     [Route("api/[controller]/[action]")]
     [EnableCors("WebAPIPolicy")]
@@ -42,10 +42,10 @@ namespace WebAPI.Controllers
         public IActionResult GenerateClientUE4()
         {
             string newID = Guid.NewGuid().ToString();
-            string username = HttpContext.Session.GetString("username");
-            if (string.IsNullOrEmpty(username))
+            string UE4ClientID = HttpContext.Session.GetString("UE4ClientID");
+            if (string.IsNullOrEmpty(UE4ClientID))
             {
-                HttpContext.Session.SetString("username", newID);
+                HttpContext.Session.SetString("UE4ClientID", newID);
             }
 
             return Ok(newID);
