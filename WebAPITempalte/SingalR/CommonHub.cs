@@ -13,7 +13,7 @@ namespace WebApp.SingalR
     /// </summary>
     public class CommonHub : Hub
     {
-     
+        public static readonly Dictionary<string, string> Dict = new Dictionary<string, string>();
         /// <summary>
         /// 
         /// </summary>
@@ -31,9 +31,9 @@ namespace WebApp.SingalR
         /// <returns></returns>
         public override  Task OnConnectedAsync()
         {
-            string userName = this.Context.GetHttpContext().Session.GetString("username");
+            string identity = this.Context.UserIdentifier;
 
-            this.Clients.User("ID_" + userName).SendAsync("ReceiveOnConnected", "111");
+            this.Clients.User(this.Context.ConnectionId).SendAsync("ReceiveOnConnected", this.Context.ConnectionId);
 
             return base.OnConnectedAsync();
         }
@@ -45,6 +45,7 @@ namespace WebApp.SingalR
         /// <returns></returns>
         public override Task OnDisconnectedAsync(Exception exception)
         {
+            
             return base.OnDisconnectedAsync(exception);
         }
     }

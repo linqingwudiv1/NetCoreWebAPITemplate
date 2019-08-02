@@ -28,7 +28,6 @@ namespace WebAPI.Controllers
         /// </summary>
         public UsersController()
         {
-
         }
 
         /// <summary>
