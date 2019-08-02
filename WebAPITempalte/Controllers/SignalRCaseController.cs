@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using NetApplictionServiceDLL;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using WebApp.SingalR;
@@ -38,23 +37,6 @@ namespace WebAPI.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        public IActionResult GenerateClientUE4()
-        {
-            string newID = Guid.NewGuid().ToString();
-            string UE4ClientID = HttpContext.Session.GetString("UE4ClientID");
-            if (string.IsNullOrEmpty(UE4ClientID))
-            {
-                HttpContext.Session.SetString("UE4ClientID", newID);
-            }
-
-            return Ok(newID);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         [HttpPost()]
         public IActionResult UploadImage(string ChildUE4 = "1")
         {
@@ -71,7 +53,7 @@ namespace WebAPI.Controllers
                     using (FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write))
                     {
                         fileitem.CopyTo(fs);
-                        list.Add( filePath);
+                        list.Add(@"StaticFiles/Image/" + fileitem.FileName);
                         ret_count++;
                     }
                 }

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.AspNetCore.Swagger;
@@ -234,8 +235,15 @@ namespace WebAPI
                 #region 其他常用配置
 
                 app.UseCors("WebAPIPolicy");
-                //app.UseSignalR();
                 app.UseSession(this.GSessionOpts);
+
+                var path =  Path.Combine(Directory.GetCurrentDirectory(), ".Cache");
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider (path),
+                    RequestPath = "/StaticFiles"
+                });
+
 
                 #endregion
 
@@ -274,6 +282,8 @@ namespace WebAPI
                 });
 
                 #endregion
+
+
             }
             catch (Exception ex)
             {
