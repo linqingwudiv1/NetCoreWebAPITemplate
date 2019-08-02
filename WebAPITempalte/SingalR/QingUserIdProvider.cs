@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace WebApp.SingalR
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class QingUserIdProvider : IUserIdProvider
     {
         /// <summary>
@@ -17,8 +20,8 @@ namespace WebApp.SingalR
         /// <returns></returns>
         public string GetUserId(HubConnectionContext connection)
         {
-            string user = "ID_" + connection.GetHttpContext().Session.GetString("username");
-            return user;
+            //One Conn One ID 
+            return connection.ConnectionId;
         }
     }
 }
