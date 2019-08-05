@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.SignalR;
-using NetApplictionServiceDLL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.SignalR;
 
 namespace WebApp.SingalR
 {
@@ -14,7 +8,7 @@ namespace WebApp.SingalR
     public class QingUserIdProvider : IUserIdProvider
     {
         /// <summary>
-        /// 
+        /// Provider user identity of Connection 
         /// </summary>
         /// <param name="connection"></param>
         /// <returns></returns>

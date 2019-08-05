@@ -133,9 +133,9 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("Export")]
-        public FileResult Report()
+        public FileResult Export()
         {
-            var newFile = @"newbook.core.xlsx";
+            var newFile = @".Cache/ExportExcel/newbook.core.xlsx";
 
             using (var fs = new FileStream(newFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
             {
@@ -148,6 +148,7 @@ namespace WebAPI.Controllers
                 IRow row = sheet1.CreateRow(rowIndex);
                 row.Height = 30 * 80;
                 row.CreateCell(0).SetCellValue("这是单元格内容，可以设置很长，看能不能自动调整列宽");
+
                 sheet1.AutoSizeColumn(0);
                 rowIndex++;
 
@@ -310,8 +311,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception ex)
             {
-
-                return NotFound(new DTO_ReturnModel<dynamic>(ex.Message,400 ));
+                return NotFound( new DTO_ReturnModel<dynamic>( ex.Message,400 ) );
             }
 
         }
