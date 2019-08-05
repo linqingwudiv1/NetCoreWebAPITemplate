@@ -69,6 +69,11 @@ namespace WebAPI
                 Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\.Cache\ExportExcel");
             }
 
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\.Cache\Image"))
+            {
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\.Cache\Image");
+            }
+
             if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\.LocalDB"))
             {
                 Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\.LocalDB");
@@ -237,11 +242,11 @@ namespace WebAPI
                 app.UseCors("WebAPIPolicy");
                 app.UseSession(this.GSessionOpts);
 
-                var path =  Path.Combine(Directory.GetCurrentDirectory(), ".Cache");
+                string path =  Path.Combine(Directory.GetCurrentDirectory(), ".Cache");
                 app.UseStaticFiles(new StaticFileOptions
                 {
                     FileProvider = new PhysicalFileProvider (path),
-                    RequestPath = "/StaticFiles"
+                    RequestPath = "/Cache"
                 });
 
 
