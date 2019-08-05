@@ -13,7 +13,19 @@ namespace WebApp.SingalR
     /// </summary>
     public class CommonHub : Hub
     {
-        public static readonly Dictionary<string, string> Dict = new Dictionary<string, string>();
+        /// <summary>
+        /// Event
+        /// </summary>
+        public static readonly string Event_ReceiveMessage = "ReceiveMessage";
+        /// <summary>
+        /// Event
+        /// </summary>
+        public static readonly string Event_ReceiveOnConnected = "ReceiveOnConnected";
+        /// <summary>
+        /// Event
+        /// </summary>
+        public static readonly string Event_ReceiveUploadImageComplated = "ReceiveUploadImageComplated";
+
         /// <summary>
         /// 
         /// </summary>
@@ -22,7 +34,7 @@ namespace WebApp.SingalR
         /// <returns></returns>
         public async Task SendMessage(string user, string message)
         {
-            await Clients.User(user).SendAsync("ReceiveMessage", user, "hello world!");
+            await Clients.User(user).SendAsync(Event_ReceiveMessage, user, "hello world!");
         }
 
         /// <summary>
@@ -32,8 +44,7 @@ namespace WebApp.SingalR
         public override  Task OnConnectedAsync()
         {
             string identity = this.Context.UserIdentifier;
-
-            this.Clients.User(this.Context.ConnectionId).SendAsync("ReceiveOnConnected", this.Context.ConnectionId);
+            this.Clients.User(this.Context.ConnectionId).SendAsync(Event_ReceiveOnConnected, identity);
 
             return base.OnConnectedAsync();
         }
@@ -45,7 +56,6 @@ namespace WebApp.SingalR
         /// <returns></returns>
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            
             return base.OnDisconnectedAsync(exception);
         }
     }
