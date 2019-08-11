@@ -49,13 +49,14 @@ namespace WebAPI.Controllers
                 {
                     foreach (IFormFile fileitem in files)
                     {
-                        string filePath = @".Cache/Image/" + fileitem.FileName;
+                        string FileTempName = DateTime.Now.ToString("ddHHmmssff-") + fileitem.FileName;
+                        string filePath = @".Cache/Image/" + FileTempName;
 
                         using (FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write))
                         {
                             fileitem.CopyTo(fs);
 
-                            list.Add(@"Cache/Image/" +DateTime.Now.ToString("ddHHmmssff-")  + fileitem.FileName);
+                            list.Add(@"Cache/Image/" + FileTempName);
                             ret_count++;
                         }
                     }
