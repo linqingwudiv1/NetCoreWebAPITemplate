@@ -33,7 +33,7 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        /// 图片上传
+        /// 扫描业务示例：图片上传 
         /// </summary>
         /// <returns></returns>
         [HttpPost]
