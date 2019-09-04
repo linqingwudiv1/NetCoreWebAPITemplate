@@ -50,7 +50,6 @@ namespace WebAPI.Controllers
         public IActionResult Logout()
         {
             this.LogoutLogic();
-
             return Ok(new DTO_ReturnModel<string>(null, 20000));
         }
 

@@ -23,6 +23,7 @@ namespace WebAPI.Controllers
             coreHelper = _coreHelper;
             //var t = _coreHelper.HelloAotufac();
         }
+
         /// <summary>
         /// 
         /// </summary>

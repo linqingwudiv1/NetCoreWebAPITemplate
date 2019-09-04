@@ -11,11 +11,9 @@ namespace DBAccessDLL.EF.Context
     {
         virtual public DbSet<Account> Accounts { get; protected set; }
 
-
         public ExamContext(string _ConnString = "")
             : base( _ConnString)
         {
-
         }
 
         /// <summary>
