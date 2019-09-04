@@ -110,6 +110,6 @@
     <DocumentationFile>bin\Release\netcoreapp2.2\Doc\Swagger\WebAPIDoc.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties package-lock_1json__JSONSchema="http://json.schemastore.org/babelrc" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>
