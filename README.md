@@ -24,17 +24,17 @@
 	
 	New.Log4Net Case集成示例.
 
-	New.Cors等一些常用配置示例 .
+	New.CORS等一些常用配置示例.
 
-	New.Bogus Faker Data case模拟数据示例.()
+	New.Bogus Faker Data Case模拟数据示例.
 
 	New.Script System Case脚本系统 示例.(wait)
 	
-	New.SingleR Case示例. (wait)
+	New.SingleR Case示例.
 		
-	New.ELK Case示例. Case (wait)
-
-	New.quartz.net Case 示例 (wait)
+	New.ELK Case示例.(wait)
+	
+	New.Quartz.Net Case示例. (wait)
 	
 	New.Other Same WebAPI Use Guide. e.g: excel and image handle Case.其他一些WebAPI的常用接口示例，如Excel操作和图片资源上传等
 

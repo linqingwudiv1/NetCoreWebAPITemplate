@@ -38,7 +38,9 @@ namespace WebAPI
         /// </summary>
         public IConfigurationRoot Configuration { get; }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         private SessionOptions GSessionOpts;
 
 
@@ -78,6 +80,7 @@ namespace WebAPI
             {
                 Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\.LocalDB");
             }
+
         }
         /// <summary>
         /// 
@@ -85,10 +88,12 @@ namespace WebAPI
         /// <param name="env"></param>
         public Startup(IHostingEnvironment env)
         {
-            #region Init
+            #region Initilize
+
             InitNet4Log();
             InitSessionOpts();
             InitOther();
+
             #endregion
 
             IConfigurationBuilder builder = new ConfigurationBuilder()
@@ -254,7 +259,6 @@ namespace WebAPI
 
                 #region SingalR
 
-
                 app.UseSignalR(r => 
                 {
                     r.MapHub<CommonHub>("/commonHub");
@@ -276,10 +280,7 @@ namespace WebAPI
 
                 #endregion
 
-
                 #region Swagger 
-
-                app.UseSwagger();
 
                 app.UseSwaggerUI(c =>
                 {
@@ -287,8 +288,6 @@ namespace WebAPI
                 });
 
                 #endregion
-
-
             }
             catch (Exception ex)
             {

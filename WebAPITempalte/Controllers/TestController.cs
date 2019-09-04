@@ -92,16 +92,17 @@ namespace WebAPI.Controllers
             const string charSet = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789~!@#$%^&*()_+-=`[]{};':"",./<>?";
             var testAccount = new Faker<Account>(locale: "zh_CN").StrictMode(true);
 
-            testAccount.RuleFor(entity => entity.id, faker => faker.Random.Guid().GetHashCode());
-            testAccount.RuleFor(entity => entity.name, faker => faker.Random.String2(8, 16, charSet));
-            testAccount.RuleFor(entity => entity.introduction, faker => faker.Rant.Review());
-            testAccount.RuleFor(entity => entity.avatar, faker => faker.Image.PlaceholderUrl(256, 256));
-            testAccount.RuleFor(entity => entity.email, faker => faker.Phone.PhoneNumber() + "@Qing.com");
-            testAccount.RuleFor(entity => entity.password, faker => faker.Random.String2(8, 16, charSet));
-            testAccount.RuleFor(entity => entity.username, faker => faker.Name.FirstName() + faker.Name.LastName());
-            testAccount.RuleFor(entity => entity.phone, faker => faker.Phone.PhoneNumber());
-            testAccount.RuleFor(entity => entity.Qing_IsDelete, faker => faker.Random.Bool());
-            testAccount.RuleFor(entity => entity.Qing_Version, 0 /*faker => 0*/);
+            testAccount.RuleFor(entity => entity.id,             faker => faker.Random.Guid().GetHashCode());
+            testAccount.RuleFor(entity => entity.name,           faker => faker.Random.String2(8, 16, charSet));
+            testAccount.RuleFor(entity => entity.introduction,   faker => faker.Rant.Review());
+            testAccount.RuleFor(entity => entity.avatar,         faker => faker.Image.PlaceholderUrl(256, 256));
+            testAccount.RuleFor(entity => entity.email,          faker => faker.Phone.PhoneNumber() + "@Qing.com");
+            testAccount.RuleFor(entity => entity.password,       faker => faker.Random.String2(8, 16, charSet));
+            testAccount.RuleFor(entity => entity.username,       faker => faker.Name.FirstName() + faker.Name.LastName());
+            testAccount.RuleFor(entity => entity.phone,          faker => faker.Phone.PhoneNumber());
+            testAccount.RuleFor(entity => entity.Qing_IsDelete,  faker => faker.Random.Bool());
+            testAccount.RuleFor(entity => entity.Qing_Version,   0 /*faker => 0*/);
+
             #endregion
 
             var accountList = testAccount.Generate(1000).ToArray();
@@ -124,7 +125,7 @@ namespace WebAPI.Controllers
                 db.Database.EnsureCreated();
             }
 
-            var list = (from x in db.Accounts select x).ToList();
+            List<Account> list = (from x in db.Accounts select x).ToList();
             return Ok(list);
         }
 
@@ -236,9 +237,9 @@ namespace WebAPI.Controllers
             {
                 foreach (var fileitem in files)
                 {
-                    var filePath = @".Cache/Image/" + fileitem.FileName;
+                    string filePath = @".Cache/Image/" + fileitem.FileName;
 
-                    using (FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write))
+                    using ( FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write) )
                     {
                         await fileitem.CopyToAsync(fs);
                         list.Add(Request.HttpContext.Connection.RemoteIpAddress.ToString() + "/" + filePath);
@@ -247,8 +248,8 @@ namespace WebAPI.Controllers
                 }
             }
 
-            var ret_model = new { list, effectCount = ret_count };
-            var ret = new DTO_ReturnModel<dynamic>(ret_model);
+            dynamic ret_model = new { list, effectCount = ret_count };
+            dynamic ret = new DTO_ReturnModel<dynamic>(ret_model);
             return Ok(ret);
         }
 
