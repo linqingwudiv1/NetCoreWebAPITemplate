@@ -202,7 +202,7 @@ namespace WebAPI
                             Version = "v1",
                             Title = " WebAPI 文档",
                             Description = "WebAPI 文档",
-                            TermsOfService = "www.cnblogs.com/linqing"
+                            //TermsOfService = "www.cnblogs.com/linqing"
                         }
                     );
 
@@ -281,7 +281,7 @@ namespace WebAPI
                 #endregion
 
                 #region Swagger 
-
+                app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "My_API_V1");
