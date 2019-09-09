@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
         private readonly IHubContext<CommonHub> _hubContext;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="hubContext"></param>
         public SignalRCaseController(IHubContext<CommonHub> hubContext)
@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
         /// 扫描业务示例：图片上传 
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost()]
         public IActionResult UploadImage(string ChildUE4 = "")
         {
             try
