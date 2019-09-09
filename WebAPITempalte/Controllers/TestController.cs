@@ -20,6 +20,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
@@ -67,7 +68,7 @@ namespace WebAPI.Controllers
         /// 获取数据库连接信息
         /// </summary>
         /// <returns></returns>
-        [HttpGet()]
+        [HttpGet]
         public dynamic NetCore_DBConn()
         {
             return Ok(Opt_Conn);
@@ -77,7 +78,7 @@ namespace WebAPI.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpGet()]
+        [HttpGet]
         public IActionResult NetCore_SqliteInsertTest()
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
@@ -115,7 +116,7 @@ namespace WebAPI.Controllers
         /// Note：
         /// </summary>
         /// <returns></returns>
-        [HttpGet()]
+        [HttpGet]
         public IActionResult NetCore_SqliteQueryTest()
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
@@ -133,7 +134,7 @@ namespace WebAPI.Controllers
         /// 导出 Excel 示例。标准
         /// </summary>
         /// <returns></returns>
-        [HttpGet("Export")]
+        [HttpGet]
         public FileResult Export()
         {
             var newFile = @".Cache/ExportExcel/newbook.core.xlsx";
@@ -199,7 +200,7 @@ namespace WebAPI.Controllers
         ///  导入 Excel 读取示例
         /// </summary>
         /// <returns></returns>
-        [HttpPost()]
+        [HttpPost]
         public IActionResult Import()
         {
             IFormFileCollection files = HttpContext.Request.Form.Files;
@@ -227,7 +228,7 @@ namespace WebAPI.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpPost()]
+        [HttpPost]
         public async Task<IActionResult> UploadImageMulitple()
         {
             int ret_count = 0;
@@ -257,17 +258,18 @@ namespace WebAPI.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpPost()]
+        [HttpPost]
         public IActionResult UploadImage()
         {
             int ret_count = 0;
             IList<string> list = new List<string>();
             IFormFileCollection files = HttpContext.Request.Form.Files;
+
             if (files.Count > 0)
             {
                 foreach (var fileitem in files)
                 {
-                    var filePath = @".Cache/Image/" + fileitem.FileName;
+                    string filePath = @".Cache/Image/" + fileitem.FileName;
 
                     using (FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write))
                     {
@@ -278,16 +280,60 @@ namespace WebAPI.Controllers
                 }
             }
 
-            var ret_model = new { list, effectCount = ret_count };
-            var ret = new DTO_ReturnModel<dynamic>(ret_model);
+            dynamic ret_model = new { list, effectCount = ret_count };
+            DTO_ReturnModel<dynamic> ret = new DTO_ReturnModel<dynamic>(ret_model);
+
+
             return Ok(ret);
         }
 
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="size"></param>
         /// <returns></returns>
-        [HttpGet()]
+        [HttpPost()]
+        public IActionResult UploadImageFromCS(int size = 0)
+        {
+            Console.WriteLine($" file {size}");
+
+            int index = 0;
+            if (this.Request.Body != null && size > 0)
+            {
+                Stream stream = this.Request.Body;
+                byte[] buffer = new byte[size];
+                while (true)
+                {
+                    if ( this.Request.Body.CanRead )
+                    {
+                        int offset = stream.Read(buffer, index, size - index);
+                        index = index + offset - 1;
+
+                        if ( offset == 0 )
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        Thread.Sleep(100);
+                    }
+                }
+
+                using (FileStream fs = new FileStream("d:/tttt.cache", FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                {
+                    fs.Write(buffer, 0, size);
+                }
+            }
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult ServerIPAddress()
         {
             try
