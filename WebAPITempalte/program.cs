@@ -50,6 +50,7 @@ namespace WebAPI
                         Program.HostAddress = JsonConvert.DeserializeObject<HostAddressModel>(json);
                     }
                 }
+
                 Console.WriteLine("Kestrel地址：" + Program.HostAddress.HostAddress);
                 Console.WriteLine("Note：如需修改,请修改配置文件 HostAddress.json并重启服务.");
 

@@ -137,7 +137,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public FileResult Export()
         {
-            var newFile = @".Cache/ExportExcel/newbook.core.xlsx";
+            string newFile = @".Cache/ExportExcel/newbook.core.xlsx";
 
             using (var fs = new FileStream(newFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
             {

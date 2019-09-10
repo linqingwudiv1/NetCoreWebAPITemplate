@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
         public HomeController(ICoreHelper _coreHelper)
         {
             coreHelper = _coreHelper;
-            //var t = _coreHelper.HelloAotufac();
+
         }
 
         /// <summary>
