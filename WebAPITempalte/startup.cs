@@ -5,7 +5,7 @@ using log4net;
 using log4net.Config;
 using log4net.Repository;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
@@ -120,10 +121,9 @@ namespace WebAPI
         /// This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var log = LogManager.GetLogger(net4log.Name, typeof(Startup));
+            ILog log = LogManager.GetLogger(net4log.Name, typeof(Startup));
             try
             {
-
                 string[] origins = new string[]
                 {
                     "http://localhost:8080",
@@ -133,7 +133,10 @@ namespace WebAPI
                     "http://192.168.1.131:8080"
                 };
 
-                //跨域支持
+                // gRPC
+                //services.AddGrpc();
+
+                // Cors Support 跨域支持
                 services.AddCors(opt => opt.AddPolicy("WebAPIPolicy", builder =>
                 {
                     builder.WithOrigins(origins)
