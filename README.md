@@ -38,6 +38,8 @@
 	
 	New.Other Same WebAPI Use Guide. e.g: excel and image handle Case.其他一些WebAPI的常用接口示例，如Excel操作和图片资源上传等
 
+	New.gRPC Case示例.
+
 ##工程说明目录说明:
 
 	NetCoreWebAPITemplate--:

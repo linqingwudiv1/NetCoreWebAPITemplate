@@ -87,6 +87,7 @@
     <ProjectReference Include="..\DLL\BusinessDLL\BusinessDLL.csproj" />
     <ProjectReference Include="..\DLL\DBAccessDLL\DBAccessDLL.csproj" />
     <ProjectReference Include="..\DLL\DTOModelDLL\DTOModelDLL.csproj" />
+    <ProjectReference Include="..\DLL\gRPCDLL\gRPCDLL.csproj" />
     <ProjectReference Include="..\DLL\NetServiceDLL\NetApplictionServiceDLL.csproj" />
   </ItemGroup>
 
