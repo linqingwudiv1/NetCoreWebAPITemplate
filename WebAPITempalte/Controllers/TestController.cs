@@ -88,8 +88,10 @@ namespace WebAPI.Controllers
                 db.Database.EnsureCreated();
             }
 
-            #region faker 数据模拟
+            #region Faker 数据模拟
+
             const string charSet = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789~!@#$%^&*()_+-=`[]{};':"",./<>?";
+
             var testAccount = new Faker<Account>(locale: "zh_CN").StrictMode(true);
 
             testAccount.RuleFor(entity => entity.id,             faker => faker.Random.Guid().GetHashCode());
@@ -101,7 +103,7 @@ namespace WebAPI.Controllers
             testAccount.RuleFor(entity => entity.username,       faker => faker.Name.FirstName() + faker.Name.LastName());
             testAccount.RuleFor(entity => entity.phone,          faker => faker.Phone.PhoneNumber());
             testAccount.RuleFor(entity => entity.Qing_IsDelete,  faker => faker.Random.Bool());
-            testAccount.RuleFor(entity => entity.Qing_Version,   0 /*faker => 0*/);
+            testAccount.RuleFor(entity => entity.Qing_Version,   0 );
 
             #endregion
 
@@ -119,7 +121,9 @@ namespace WebAPI.Controllers
         public IActionResult NetCore_SqliteQueryTest()
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
+
             ExamContext db = new ExamContext(sqliteDBConn);
+
             if (!db.Database.CanConnect())
             {
                 db.Database.EnsureCreated();
@@ -290,18 +294,21 @@ namespace WebAPI.Controllers
         /// 
         /// </summary>
         /// <param name="size"></param>
+        /// <param name="filename"></param>
         /// <returns></returns>
         [HttpPost()]
-        public IActionResult UploadImageFromCS(int size = 0)
+        public IActionResult UploadImageFromCS(int size = 0, string filename = "")
         {
             Console.WriteLine($" file {size}");
 
             int index = 0;
-            if (this.Request.Body != null && size > 0)
+            if ( this.Request.Body != null && 
+                 size > 0 )
             {
                 Stream stream = this.Request.Body;
                 byte[] buffer = new byte[size];
-                while (true)
+
+                while ( true )
                 {
                     if ( this.Request.Body.CanRead )
                     {
@@ -315,11 +322,11 @@ namespace WebAPI.Controllers
                     }
                     else
                     {
-                        Thread.Sleep(100);
+                        //Thread.Sleep(100);
                     }
                 }
 
-                using (FileStream fs = new FileStream("d:/tttt.cache", FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                using (FileStream fs = new FileStream($@"d:/Cache/{filename}", FileMode.OpenOrCreate, FileAccess.ReadWrite))
                 {
                     fs.Write(buffer, 0, size);
                 }

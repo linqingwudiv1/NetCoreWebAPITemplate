@@ -70,6 +70,7 @@ namespace WebAPI.Controllers
                 }
 
                 dynamic ret_model = new { list, effectCount = ret_count };
+
                 DTO_ReturnModel<dynamic> ret = new DTO_ReturnModel<dynamic>(ret_model);
 
                 return Ok(ret);
