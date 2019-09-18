@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BaseDLL.Helper;
+﻿using BaseDLL.Helper;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
 
@@ -21,7 +17,6 @@ namespace WebAPI.Controllers
         public HomeController(ICoreHelper _coreHelper)
         {
             coreHelper = _coreHelper;
-
         }
 
         /// <summary>
