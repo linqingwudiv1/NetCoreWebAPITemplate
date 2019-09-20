@@ -237,6 +237,7 @@ namespace WebAPI.Controllers
             int ret_count = 0;
             IList<string> list = new List<string>();
             IFormFileCollection files = HttpContext.Request.Form.Files;
+
             if (files.Count > 0)
             {
                 foreach (var fileitem in files)
@@ -330,6 +331,7 @@ namespace WebAPI.Controllers
                 {
                     fs.Write(buffer, 0, size);
                 }
+
             }
 
             return Ok();

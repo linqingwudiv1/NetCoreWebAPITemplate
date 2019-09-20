@@ -2,6 +2,30 @@
 
 namespace WebAPI.Areas.TestArea.Controllers
 {
+
+    class Point
+    {
+        public int X { get; }
+        public int Y { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public Point(int x, int y)
+        {
+            (X, Y) = (x, y);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void Deconstruct(out int x, out int y) => (x, y) = (X, Y);
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -12,10 +36,9 @@ namespace WebAPI.Areas.TestArea.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public IActionResult Index()
+        public IActionResult Index(object o)
         {
             return View();
         }
-
     }
 }
