@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
 using NetApplictionServiceDLL.Filter;
-using System;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
