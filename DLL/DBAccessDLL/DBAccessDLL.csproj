@@ -20,7 +20,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.4" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.16" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.4" />
-    <PackageReference Include="Oracle.EntityFrameworkCore" Version="2.19.0-beta4" />
+    <PackageReference Include="Oracle.EntityFrameworkCore" Version="2.19.30" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="readme.md">
+    <Content Include="Readme.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

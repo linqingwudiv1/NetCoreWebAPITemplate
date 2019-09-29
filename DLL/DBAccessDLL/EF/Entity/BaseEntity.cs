@@ -4,22 +4,40 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DBAccessDLL.EF.Entity
 {
-    public class BaseEntity
+    /// <summary>
+    /// 基础实体类
+    /// </summary>
+    abstract public class BaseEntity
     {
         /// <summary>
         /// Soft Delete 软删除
         /// </summary>
-        [Required]
-        [Display(Description = "Soft Delete 软删除")]
-        [DefaultValue(false)]
         public bool Qing_IsDelete { get; set; }
 
+
         /// <summary>
-        /// Optimistic locking 乐观锁字段
+        /// 数据版本 Optimistic locking 乐观锁字段
         /// </summary>
-        [Required]
-        [DefaultValue(0)]
-        [Display(Description = "Optimistic locking 乐观锁字段")]
         public Int64 Qing_Version { get; set; }
+
+        /// <summary>
+        /// 预留/消息队列用:概指当前行数据是第几个消息，方便用于事件回溯扩展
+        /// </summary>
+        public Int64 Qing_Sequence { get; set; }
+
+        /// <summary>
+        /// 数据创建时间
+        /// </summary>
+        public DateTime Qing_CreateTime { get; set; }
+
+        /// <summary>
+        /// 数据最近一次修改时间
+        /// </summary>
+        public DateTime Qing_UpdateTime { get; set; }
+        
+        /// <summary>
+        /// 软删除事件
+        /// </summary>
+        public DateTime? Qing_DeleteTime { get; set; }
     }
 }
