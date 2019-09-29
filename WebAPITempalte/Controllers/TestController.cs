@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using CSScriptLib;
 using DBAccessDLL.EF.Context;
 using DBAccessDLL.EF.Entity;
 using DBAccessDLL.Static;
@@ -377,7 +378,17 @@ namespace WebAPI.Controllers
             {
                 return NotFound( new DTO_ReturnModel<dynamic>( ex.Message,400 ) );
             }
-
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult ScriptCase() 
+        {
+            return Ok();
+        }
+
     }
 }
