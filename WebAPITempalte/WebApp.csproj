@@ -88,6 +88,7 @@
     <ProjectReference Include="..\DLL\DBAccessDLL\DBAccessDLL.csproj" />
     <ProjectReference Include="..\DLL\DTOModelDLL\DTOModelDLL.csproj" />
     <ProjectReference Include="..\DLL\NetServiceDLL\NetApplictionServiceDLL.csproj" />
+    <ProjectReference Include="..\DLL\ScriptDLL\ScriptDLL.csproj" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

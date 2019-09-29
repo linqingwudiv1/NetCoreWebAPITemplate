@@ -10,6 +10,7 @@ namespace WebAPI.Controllers
     public class HomeController : BaseController
     {
         private readonly ICoreHelper coreHelper;
+
         /// <summary>
         /// 
         /// </summary>
