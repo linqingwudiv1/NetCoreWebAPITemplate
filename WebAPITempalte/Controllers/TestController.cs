@@ -94,20 +94,29 @@ namespace WebAPI.Controllers
 
             var testAccount = new Faker<Account>(locale: "zh_CN").StrictMode(true);
 
-            testAccount.RuleFor(entity => entity.id,             faker => faker.Random.Guid().GetHashCode());
-            testAccount.RuleFor(entity => entity.name,           faker => faker.Random.String2(8, 16, charSet));
-            testAccount.RuleFor(entity => entity.introduction,   faker => faker.Rant.Review());
-            testAccount.RuleFor(entity => entity.avatar,         faker => faker.Image.PlaceholderUrl(256, 256));
-            testAccount.RuleFor(entity => entity.email,          faker => faker.Phone.PhoneNumber() + "@Qing.com");
-            testAccount.RuleFor(entity => entity.password,       faker => faker.Random.String2(8, 16, charSet));
-            testAccount.RuleFor(entity => entity.username,       faker => faker.Name.FirstName() + faker.Name.LastName());
-            testAccount.RuleFor(entity => entity.phone,          faker => faker.Phone.PhoneNumber());
-            testAccount.RuleFor(entity => entity.Qing_IsDelete,  faker => faker.Random.Bool());
-            testAccount.RuleFor(entity => entity.Qing_Version,   0 );
+            testAccount.RuleFor( entity => entity.id,           faker => Math.Abs( Guid.NewGuid().GetHashCode() )        );
+            testAccount.RuleFor( entity => entity.name,         faker => faker.Random.String2(8, 16, charSet)            );
+            testAccount.RuleFor( entity => entity.introduction, faker => faker.Rant.Review()                             );
+            testAccount.RuleFor( entity => entity.avatar,       faker => faker.Image.PlaceholderUrl(256, 256)            );
+            testAccount.RuleFor( entity => entity.email,        faker => faker.Phone.PhoneNumber() + "@Qing.com"         );
+            testAccount.RuleFor( entity => entity.password,     faker => faker.Random.String2( 8, 16, charSet)           );
+            testAccount.RuleFor( entity => entity.username,     faker => faker.Name.FirstName() + faker.Name.LastName()  );
+            testAccount.RuleFor( entity => entity.phone,        faker => faker.Phone.PhoneNumber()                       );
+            testAccount.RuleFor( entity => entity.sex,          faker => faker.Random.Int(0, 2)                          );
+
+            //testAccount.RuleFor( entity => entity.sex,          fas);
+
+            testAccount.RuleFor( entity => entity.Qing_CreateTime,  faker => DateTime.Now );
+            testAccount.RuleFor( entity => entity.Qing_UpdateTime,  faker => DateTime.Now );
+            testAccount.RuleFor( entity => entity.Qing_DeleteTime,  faker => null         );
+            
+            testAccount.RuleFor( entity => entity.Qing_Version  ,  faker => 0  );
+            testAccount.RuleFor( entity => entity.Qing_IsDelete ,  faker => faker.Random.Bool() );
+            testAccount.RuleFor( entity => entity.Qing_Sequence ,  faker => 0);
 
             #endregion
 
-            var accountList = testAccount.Generate(1000).ToArray();
+            Account[] accountList = testAccount.Generate(1000).ToArray();
             db.Accounts.AddRange(accountList);
 
             return Ok(db.SaveChanges());
@@ -130,7 +139,9 @@ namespace WebAPI.Controllers
             }
 
             List<Account> list = (from x in db.Accounts select x).ToList();
-            return Ok(list);
+
+            List<View_AccountFemale> list_2 = (from x in db.view_AccountFemales select x).ToList();
+            return Ok(new { list,list_2});
         }
 
         /// <summary>
@@ -156,7 +167,6 @@ namespace WebAPI.Controllers
 
                 sheet1.AutoSizeColumn(0);
                 rowIndex++;
-
 
                 var sheet2 = workbook.CreateSheet("Sheet2");
                 var style1 = workbook.CreateCellStyle();
@@ -209,7 +219,7 @@ namespace WebAPI.Controllers
             IFormFileCollection files = HttpContext.Request.Form.Files;
             string ret_str = "";
 
-            if (files.Count > 0)
+            if ( files.Count > 0 )
             {
                 foreach (var fileitem in files)
                 {
@@ -331,7 +341,6 @@ namespace WebAPI.Controllers
                 {
                     fs.Write(buffer, 0, size);
                 }
-
             }
 
             return Ok();

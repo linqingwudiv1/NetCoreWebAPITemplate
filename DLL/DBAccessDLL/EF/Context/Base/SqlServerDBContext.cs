@@ -15,24 +15,41 @@ namespace DBAccessDLL.EF.Context.Base
     /// <typeparam name="DBCtx"></typeparam>
     public class SqlServerDBContext<DBCtx> : DbContext where DBCtx : DbContext
     {
+        /// <summary>
+        /// 
+        /// </summary>
         protected string ConnString { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_ConnString"></param>
         public SqlServerDBContext(string _ConnString = "")
         : base()
         {
             ConnString = _ConnString;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        /// <param name="_ConnString"></param>
         public SqlServerDBContext(DbContextOptions<DBCtx> options, string _ConnString = "")
         : base(options)
         {
             ConnString = _ConnString;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(ConnString);
             base.OnConfiguring(optionsBuilder);
+
         }
     }
 }

@@ -1,21 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace DBAccessDLL.EF.Entity
 {
     /// <summary>
-    /// 用户类
+    /// EF 栗子 女性用户,View Case.
     /// </summary>
-    public class Account : BaseEntity
+    public class View_AccountFemale : BaseEntity
     {
         /// <summary>
         /// 
         /// </summary>
-        [Key]
         public int id { get; set; }
 
         /// <summary>
@@ -57,29 +52,6 @@ namespace DBAccessDLL.EF.Entity
         /// 
         /// </summary>
         public string phone { get; set; }
-
     }
 
-    /// <summary>
-    /// Entit Config
-    /// </summary>
-    public class AccountEFConfig : IEntityTypeConfiguration<Account>
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="builder"></param>
-        public void Configure(EntityTypeBuilder<Account> builder)
-        {
-            #region 水平拆分处理处
-
-            builder.ToTable("Account");
-            
-            #endregion
-
-            builder.SetupBaseEntity();
-
-        }
-
-    }
 }
