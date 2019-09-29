@@ -74,6 +74,7 @@ namespace DBAccessDLL.EF.Entity
             #region 水平拆分处理处
 
             builder.ToTable("Account");
+
             
             #endregion
 

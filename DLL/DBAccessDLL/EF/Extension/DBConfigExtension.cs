@@ -24,7 +24,7 @@ namespace DBAccessDLL.EF
             targetBuilder.Property<Int64>    (  x => x.Qing_Sequence    ).IsRequired(true).HasDefaultValue(0);
             targetBuilder.Property<DateTime?>(  x => x.Qing_DeleteTime  ).IsRequired(false);
 
-            targetBuilder.HasQueryFilter( x => x.Qing_IsDelete == false );
+            targetBuilder.UseSofeDelete();
 
             return targetBuilder;
         }
@@ -35,7 +35,7 @@ namespace DBAccessDLL.EF
         /// <typeparam name="T"></typeparam>
         /// <param name="targetBuilder"></param>
         /// <returns></returns>
-        static public QueryTypeBuilder<T> SetupBaseEntity<T>(this QueryTypeBuilder<T> targetBuilder) where T : BaseEntity 
+        static public EntityTypeBuilder<T> UseSofeDelete<T>(this EntityTypeBuilder<T> targetBuilder) where T : BaseEntity 
         {
             targetBuilder.HasQueryFilter(x => x.Qing_IsDelete == false);
             return targetBuilder;

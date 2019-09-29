@@ -15,19 +15,36 @@ namespace DBAccessDLL.EF.Context.Base
     /// <typeparam name="DBCtx"></typeparam>
     public class OracleDBContext<DBCtx> : BaseDBContext<DBCtx> where DBCtx : BaseDBContext<DBCtx>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_ConnString"></param>
         public OracleDBContext(string _ConnString = "")
         : base(_ConnString)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        /// <param name="_ConnString"></param>
         public OracleDBContext(DbContextOptions<DBCtx> options, string _ConnString = "")
         : base(options,_ConnString)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseOracle(ConnString);
+            // ef core 3.0 not yet update oracle sdk ;
+            
+            
+            // optionsBuilder.UseOracle(ConnString)  ;
+
             base.OnConfiguring(optionsBuilder);
         }
     }
