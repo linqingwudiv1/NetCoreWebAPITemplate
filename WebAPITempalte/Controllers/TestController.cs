@@ -105,7 +105,7 @@ namespace WebAPI.Controllers
             testAccount.RuleFor( entity => entity.phone,        faker => faker.Phone.PhoneNumber()                       );
             testAccount.RuleFor( entity => entity.sex,          faker => faker.Random.Int(0, 2)                          );
 
-            //testAccount.RuleFor( entity => entity.sex,          fas);
+            // testAccount.RuleFor( entity => entity.sex, fas);
 
             testAccount.RuleFor( entity => entity.Qing_CreateTime,  faker => DateTime.Now );
             testAccount.RuleFor( entity => entity.Qing_UpdateTime,  faker => DateTime.Now );
@@ -113,7 +113,7 @@ namespace WebAPI.Controllers
             
             testAccount.RuleFor( entity => entity.Qing_Version  ,  faker => 0  );
             testAccount.RuleFor( entity => entity.Qing_IsDelete ,  faker => faker.Random.Bool() );
-            testAccount.RuleFor( entity => entity.Qing_Sequence ,  faker => 0);
+            testAccount.RuleFor( entity => entity.Qing_Sequence ,  faker => 0 );
 
             #endregion
 
