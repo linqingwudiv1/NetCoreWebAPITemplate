@@ -54,4 +54,29 @@ namespace DBAccessDLL.EF.Entity
         public string phone { get; set; }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    public class View_AccountFemaleEFConfig : IEntityTypeConfiguration<View_AccountFemale>
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
+        public void Configure(EntityTypeBuilder<View_AccountFemale> builder)
+        {
+            #region 水平拆分处理处
+
+            builder.ToView<View_AccountFemale>("View_AccountFemale").SetupBaseEntity();
+            //builder.ToTable("Account");
+
+
+            #endregion
+
+            builder.SetupBaseEntity();
+
+        }
+
+    }
+
 }
