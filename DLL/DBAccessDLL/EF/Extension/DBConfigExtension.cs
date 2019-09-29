@@ -24,10 +24,7 @@ namespace DBAccessDLL.EF
             targetBuilder.Property<Int64>    (  x => x.Qing_Sequence    ).IsRequired(true).HasDefaultValue(0);
             targetBuilder.Property<DateTime?>(  x => x.Qing_DeleteTime  ).IsRequired(false);
 
-
-
             targetBuilder.HasQueryFilter( x => x.Qing_IsDelete == false );
-
 
             return targetBuilder;
         }
