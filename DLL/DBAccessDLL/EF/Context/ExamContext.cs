@@ -20,7 +20,7 @@ namespace DBAccessDLL.EF.Context
         /// 视图：Account
         /// </summary>
         /// <param name="_ConnString"></param>
-        virtual public DbQuery<View_AccountFemale> view_AccountFemales { get; }
+        virtual public DbSet<View_AccountFemale> view_AccountFemales { get; }
 
         /// <summary>
         /// 
@@ -49,8 +49,7 @@ namespace DBAccessDLL.EF.Context
             modelBuilder.ApplyConfiguration<Account>(new AccountEFConfig());
 
             ///Database 必须存在 View_AccountFemale 视图
-            modelBuilder.Query<View_AccountFemale>().ToView("View_AccountFemale").SetupBaseEntity();
-
+            modelBuilder.ApplyConfiguration<View_AccountFemale>(new View_AccountFemaleEFConfig());
             base.OnModelCreating(modelBuilder);
         }
     }

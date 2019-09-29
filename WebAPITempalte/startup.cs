@@ -21,6 +21,7 @@ using System;
 using System.IO;
 using WebAPI.AutofacModule;
 using WebApp.SingalR;
+using Newtonsoft.Json.Serialization;
 
 namespace WebAPI
 {
@@ -165,11 +166,11 @@ namespace WebAPI
                 #endregion
 
                 //防止Json序列化-改变对象列的大小写
-                services.AddMvc(opts => 
+                services.AddMvc(opts =>
                 {
                     opts.EnableEndpointRouting = false;
-                }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                  .AddJsonOptions(op => op.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver());
+                }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                .AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
                 #region Session Config : Redis or Sql Server
                 services.AddMemoryCache();
