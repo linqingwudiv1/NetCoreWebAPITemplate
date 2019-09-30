@@ -38,6 +38,7 @@ namespace DBAccessDLL.EF.Context
         public ExamContext(DbContextOptions<ExamContext> options, string _ConnString = "") 
             : base(options, _ConnString)
         {
+
         }
 
         /// <summary>
@@ -52,5 +53,6 @@ namespace DBAccessDLL.EF.Context
             modelBuilder.ApplyConfiguration<View_AccountFemale>(new View_AccountFemaleEFConfig());
             base.OnModelCreating(modelBuilder);
         }
+
     }
 }

@@ -11,7 +11,10 @@ namespace NetApplictionServiceDLL
     /// </summary>
     public class BaseController : Controller
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected DTO_StoreAccount GetStoreAccount()
         {
             return this.HttpContext.Session.GetStoreAccount();

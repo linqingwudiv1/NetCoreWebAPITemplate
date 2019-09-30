@@ -1,11 +1,11 @@
 ﻿using Autofac;
-using DBAccessDLL.EF.Context;
+using Autofac.Extensions.DependencyInjection;
 using DBAccessDLL.Static;
 using log4net;
 using log4net.Config;
 using log4net.Repository;
 using Microsoft.AspNetCore.Builder;
-
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -14,14 +14,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.Swagger;
 using System;
 using System.IO;
 using WebAPI.AutofacModule;
 using WebApp.SingalR;
-using Newtonsoft.Json.Serialization;
 
 namespace WebAPI
 {
@@ -45,13 +46,18 @@ namespace WebAPI
         /// </summary>
         private SessionOptions GSessionOpts;
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         private void InitNet4Log()
         {
             net4log = LogManager.CreateRepository("NETCoreRepository");
             XmlConfigurator.Configure(net4log, new FileInfo(@"\.Config\net4log.config"));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void InitSessionOpts()
         {
             #region Session Option
@@ -66,6 +72,9 @@ namespace WebAPI
             #endregion 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void InitOther()
         {
             if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\.Cache\ExportExcel"))
@@ -84,11 +93,12 @@ namespace WebAPI
             }
 
         }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="env"></param>
-        public Startup(IHostingEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             #region Initilize
 
@@ -98,14 +108,16 @@ namespace WebAPI
 
             #endregion
 
+
+
             IConfigurationBuilder builder = new ConfigurationBuilder()
-                                            .AddInMemoryCollection()
-                                            .SetBasePath(env.ContentRootPath)
-                                            .AddJsonFile( @".Config\appsettings.json", optional: false, reloadOnChange: true)
-                                            .AddJsonFile($@".Config\appsettings.{env.EnvironmentName}.json", optional: true)
-                                            .AddJsonFile( @".Config\ConnectionString.json", optional: false, reloadOnChange: true)
-                                            .AddJsonFile( @".Config\APILTEUrl.json", optional: false, reloadOnChange: true)
-                                            .AddEnvironmentVariables();
+                                                .AddInMemoryCollection()
+                                                .SetBasePath(env.ContentRootPath)
+                                                .AddJsonFile(@".Config\appsettings.json", optional: false, reloadOnChange: true)
+                                                .AddJsonFile($@".Config\appsettings.{env.EnvironmentName}.json", optional: true)
+                                                .AddJsonFile(@".Config\ConnectionString.json", optional: false, reloadOnChange: true)
+                                                .AddJsonFile(@".Config\APILTEUrl.json", optional: false, reloadOnChange: true)
+                                                .AddEnvironmentVariables();
 
             Configuration = builder.Build();
         }
@@ -134,10 +146,8 @@ namespace WebAPI
                     "http://192.168.1.131:8080"
                 };
 
-                // gRPC
-                //services.AddGrpc();
-
                 // Cors Support 跨域支持
+                
                 services.AddCors(opt => opt.AddPolicy("WebAPIPolicy", builder =>
                 {
                     builder.WithOrigins(origins)
@@ -159,6 +169,23 @@ namespace WebAPI
 
                 #endregion
 
+                #region Autofac
+
+                services.AddAutofac( c=> 
+                {
+                });
+
+                #endregion
+
+                #region ApplicationInsights
+
+                services.AddApplicationInsightsTelemetry( opt => 
+                {
+
+                });
+
+                #endregion
+
                 services.AddOptions()
                         .Configure<Option_ConnctionString>(Configuration.GetSection("ConnectionStrings"))
                         .Configure<Opt_API_LTEUrl>(Configuration.GetSection("APILTEUrl"));
@@ -166,11 +193,24 @@ namespace WebAPI
                 #endregion
 
                 //防止Json序列化-改变对象列的大小写
-                services.AddMvc(opts =>
+
+                services.AddControllersWithViews(opts => 
                 {
                     opts.EnableEndpointRouting = false;
                 }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                .AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
+                  .AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver()); 
+
+                services.AddRazorPages(opts => 
+                {
+                }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                  .AddNewtonsoftJson( op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
+
+                //services.AddMvc(opts =>
+                //{
+                //    opts.EnableEndpointRouting = false;
+                //}).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                //.AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
                 #region Session Config : Redis or Sql Server
                 services.AddMemoryCache();
@@ -201,11 +241,11 @@ namespace WebAPI
                 services.AddSwaggerGen(c =>
                 {
                     c.SwaggerDoc("v1",
-                        new Info
+                        new OpenApiInfo
                         {
                             Version = "v1",
                             Title = " WebAPI 文档",
-                            Description = "WebAPI 文档",
+                            Description = "WebAPI 文档"
                             //TermsOfService = "www.cnblogs.com/linqing"
                         }
                     );
@@ -241,64 +281,69 @@ namespace WebAPI
         /// <param name="app"></param>
         /// <param name="env"></param>
         /// <param name="loggerFactory"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure( IApplicationBuilder app, 
+                               IWebHostEnvironment env, 
+                               ILoggerFactory loggerFactory )
         {
-            var log = LogManager.GetLogger(net4log.Name, typeof(Startup));
+            ILog log = LogManager.GetLogger(net4log.Name, typeof(Startup));
             try
             {
+
+                #region MVC 和WebAPI 相关
+
+
+                app.UseRouting();
+
                 #region 其他常用配置
 
                 app.UseCors("WebAPIPolicy");
                 app.UseSession(this.GSessionOpts);
+                app.UseAuthentication();
+                app.UseAuthorization();
 
-                string path =  Path.Combine(Directory.GetCurrentDirectory(), ".Cache");
+                string path = Path.Combine(Directory.GetCurrentDirectory(), ".Cache");
                 app.UseStaticFiles(new StaticFileOptions
                 {
-                    FileProvider = new PhysicalFileProvider (path),
+                    FileProvider = new PhysicalFileProvider(path),
                     RequestPath = "/Cache"
                 });
 
+                #endregion
+
+                app.UseEndpoints(c =>
+                {
+                    //MVC
+                    c.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                    // WebAPI
+                    c.MapControllerRoute("WebAPI", "api/{controller=Test}/{action=HelloNetCore}/{id?}");
+                    // Area
+                    c.MapAreaControllerRoute(name: "TestArea", areaName: "TestArea", pattern: "TestArea/{controller}/{action}");
+                });
 
                 #endregion
+
+
 
                 #region SingalR
-
-                app.UseSignalR(r => 
+                app.UseEndpoints(c =>
                 {
-                    r.MapHub<CommonHub>("/commonHub");
+                    c.MapHub<CommonHub>("/commonHub");
                 });
-
                 #endregion
 
-                #region MVC 和WebAPI 相关
-
-                app.UseMvc(routes =>
-                {
-                    // MVC
-                    routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
-                    // WebAPI
-                    routes.MapRoute("WebAPI", "api/{controller=Test}/{action=HelloNetCore}/{id?}");
-                    // Area
-                    routes.MapAreaRoute(name: "TestArea", areaName:"TestArea",template: "TestArea/{controller}/{action}");  
-                });
-
-                #endregion
-
-                #region Swagger 
+                #region Swagger
                 app.UseSwagger();
+
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "My_API_V1");
                 });
-
                 #endregion
             }
             catch (Exception ex)
             {
                 log.Info($"error :{ex.Message}");
             }
-
-
         }
     }
 }

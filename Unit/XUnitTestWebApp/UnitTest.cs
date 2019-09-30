@@ -10,9 +10,5 @@ namespace XUnitTestWebApp
         {
             
         }
-
-        public void  testc1(params int[] list)
-        {
-        }
     }
 }
