@@ -1,5 +1,4 @@
 ﻿using Bogus;
-using CSScriptLib;
 using DBAccessDLL.EF.Context;
 using DBAccessDLL.EF.Entity;
 using DBAccessDLL.Static;
@@ -20,7 +19,6 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
@@ -366,8 +364,8 @@ namespace WebAPI.Controllers
 
                 dynamic ret_model = new
                 {
-                    Local = localIpAddress.MapToIPv4().ToString() + ":" + localPort,
-                    Remote = RemoteIpAddress.MapToIPv4().ToString() + ":" + RemotePort,
+                    Local = localIpAddress.MapToIPv4().ToString() + ":" + localPort     ,
+                    Remote = RemoteIpAddress.MapToIPv4().ToString() + ":" + RemotePort  ,
                     HostName = Dns.GetHostName()
                 };
 
