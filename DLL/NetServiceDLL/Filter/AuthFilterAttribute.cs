@@ -76,22 +76,46 @@ namespace NetApplictionServiceDLL.Filter
         {
             Controller controller = filterContext.Controller as Controller;
 
+            //token
+            String Token = filterContext.HttpContext.Request.Query[GVariable.QingTokenAvg];
+
+            switch (Token)
+            {
+                case string topic when String.IsNullOrWhiteSpace(topic): 
+                {
+                    break;
+                }
+                case string topic when String.IsNullOrWhiteSpace(topic):
+                default:
+                {
+                    break;
+                }
+            }
+
             if (controller != null)
             {
                 DTO_StoreAccount storeAccount = controller.HttpContext.Session.GetStoreAccount();
-                
-                if (storeAccount != null)
+
+                switch (storeAccount) 
                 {
-                    return;
+                    case DTO_StoreAccount acc when acc != null: 
+                    {
+                        break;
+                    }
+                    case null:
+                    default:
+                    {
+                        UnauthorizedHandle(filterContext);
+                        break;
+                    }
                 }
-                else
-                {
-                    UnauthorizedHandle(filterContext);
-                }
+
+                return;
             }
             else
             {
                 UnauthorizedHandle(filterContext);
+                return;
             }
         }
 
@@ -123,5 +147,30 @@ namespace NetApplictionServiceDLL.Filter
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filterContext"></param>
+        private String GetToken(ActionExecutingContext filterContext) 
+        {
+            String ret_token = String.Empty;
+
+            String HeaderToken = filterContext.HttpContext.Request.Headers[GVariable.QingTokenHeader];
+            String CookieToken = filterContext.HttpContext.Request.Cookies[GVariable.QingTokenAvg];
+
+            if (!String.IsNullOrEmpty(HeaderToken) && !String.IsNullOrWhiteSpace(HeaderToken))
+            {
+                ret_token = HeaderToken;
+            }
+            else if (!String.IsNullOrEmpty(CookieToken) && !String.IsNullOrWhiteSpace(CookieToken))
+            {
+                ret_token = HeaderToken;
+            }
+
+
+            return ret_token;
+        }
+
     }
 }
