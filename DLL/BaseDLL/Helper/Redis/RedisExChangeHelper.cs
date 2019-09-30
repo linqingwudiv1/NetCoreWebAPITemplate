@@ -7,13 +7,25 @@ using System.Threading.Tasks;
 
 namespace BaseDLL.Helper.Redis
 {
+    /// <summary>
+    /// 参考
+    /// </summary>
     public class RedisExChangeHelper : IDisposable
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private ConnectionMultiplexer RedisMgr = null;
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public IDatabase Redis { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         static string RedisIPAddress = "127.0.0.1:6379";
-
 
         /// <summary>
         /// 
@@ -86,6 +98,10 @@ namespace BaseDLL.Helper.Redis
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public int CurrentDB()
         {
             if (Redis != null)
@@ -327,7 +343,9 @@ namespace BaseDLL.Helper.Redis
 
         #endregion
 
-        //释放资源
+        /// <summary>
+        /// 释放资源
+        /// </summary>
         public void Dispose()
         {
             if (RedisMgr != null)

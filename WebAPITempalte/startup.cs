@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,8 +16,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
-using Swashbuckle.AspNetCore.Swagger;
-using Swashbuckle.Swagger;
 using System;
 using System.IO;
 using WebAPI.AutofacModule;
@@ -108,8 +105,6 @@ namespace WebAPI
 
             #endregion
 
-
-
             IConfigurationBuilder builder = new ConfigurationBuilder()
                                                 .AddInMemoryCollection()
                                                 .SetBasePath(env.ContentRootPath)
@@ -147,7 +142,8 @@ namespace WebAPI
                 };
 
                 // Cors Support 跨域支持
-                
+
+
                 services.AddCors(opt => opt.AddPolicy("WebAPIPolicy", builder =>
                 {
                     builder.WithOrigins(origins)
@@ -205,24 +201,25 @@ namespace WebAPI
                 }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                   .AddNewtonsoftJson( op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
-
-                //services.AddMvc(opts =>
-                //{
-                //    opts.EnableEndpointRouting = false;
-                //}).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                //.AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
-
                 #region Session Config : Redis or Sql Server
-                services.AddMemoryCache();
-                services.AddSession((opt) => 
+
+                services.AddStackExchangeRedisCache(opts =>
                 {
-                    opt.Cookie.HttpOnly     = this.GSessionOpts .Cookie.HttpOnly             ;
-                    opt.Cookie.IsEssential  = this.GSessionOpts .Cookie.IsEssential          ;
-                    opt.Cookie.Name         = this.GSessionOpts .Cookie.Name                 ;
-                    opt.Cookie.SecurePolicy = this.GSessionOpts .Cookie.SecurePolicy         ;
-                    opt.Cookie.SameSite     = this.GSessionOpts .Cookie.SameSite             ;
-                    opt.IdleTimeout         = this.GSessionOpts.IdleTimeout;
+                    opts.Configuration = "localhost";
+                    opts.InstanceName = "SampleInstance";
+                    opts.ConfigurationOptions.Password = "abc123,";
                 });
+
+                services.AddSession( ( opt ) => 
+                {
+                    opt.Cookie.HttpOnly     = this.GSessionOpts .Cookie.HttpOnly      ;
+                    opt.Cookie.IsEssential  = this.GSessionOpts .Cookie.IsEssential   ;
+                    opt.Cookie.Name         = this.GSessionOpts .Cookie.Name          ;
+                    opt.Cookie.SecurePolicy = this.GSessionOpts .Cookie.SecurePolicy  ;
+                    opt.Cookie.SameSite     = this.GSessionOpts .Cookie.SameSite      ;
+                    opt.IdleTimeout         = this.GSessionOpts.IdleTimeout           ;
+                });
+
 
                 #endregion
 
@@ -251,13 +248,12 @@ namespace WebAPI
                     );
 
                     // Set the comments path for the Swagger JSON and UI.
-                    var basePath = PlatformServices.Default.Application.ApplicationBasePath;
-                    var xmlPath = Path.Combine(basePath, @"Doc\Swagger\WebAPIDoc.xml");
+                    String basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                    String xmlPath = Path.Combine(basePath, @"Doc\Swagger\WebAPIDoc.xml");
 
                     if (File.Exists(xmlPath))
                     {
                         c.IncludeXmlComments(xmlPath);
-
                     }
                     else
                     {
@@ -288,25 +284,27 @@ namespace WebAPI
             ILog log = LogManager.GetLogger(net4log.Name, typeof(Startup));
             try
             {
-
                 #region MVC 和WebAPI 相关
-
 
                 app.UseRouting();
 
                 #region 其他常用配置
-
+                app.UseHsts();
+                app.UseHttpsRedirection();
+                app.UseCookiePolicy();
                 app.UseCors("WebAPIPolicy");
                 app.UseSession(this.GSessionOpts);
                 app.UseAuthentication();
                 app.UseAuthorization();
 
                 string path = Path.Combine(Directory.GetCurrentDirectory(), ".Cache");
-                app.UseStaticFiles(new StaticFileOptions
-                {
-                    FileProvider = new PhysicalFileProvider(path),
-                    RequestPath = "/Cache"
-                });
+                
+                app.UseStaticFiles
+                ( new StaticFileOptions
+                  {
+                      FileProvider = new PhysicalFileProvider(path),
+                      RequestPath = "/Cache"
+                  });
 
                 #endregion
 
@@ -332,12 +330,14 @@ namespace WebAPI
                 #endregion
 
                 #region Swagger
+
                 app.UseSwagger();
 
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "My_API_V1");
                 });
+
                 #endregion
             }
             catch (Exception ex)
