@@ -18,7 +18,11 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "nativeDebugging": false
+    },
+    "newProfile1": {
+      "commandName": "IIS"
     }
   }
 }

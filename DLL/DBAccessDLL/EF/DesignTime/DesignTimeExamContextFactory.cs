@@ -12,7 +12,8 @@ namespace DBAccessDLL.EF.DesignTime
         public ExamContext CreateDbContext(string[] args)
         {
             string connectionString = "Data Source=.LocalDB/sqliteTestDB.db";
-            var builder = new DbContextOptionsBuilder<ExamContext>();
+            DbContextOptionsBuilder<ExamContext> builder = new DbContextOptionsBuilder<ExamContext>();
+
             builder.UseSqlite(connectionString);
             return new ExamContext(builder.Options, connectionString);
         }

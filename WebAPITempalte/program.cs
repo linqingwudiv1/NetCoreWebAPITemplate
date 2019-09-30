@@ -10,6 +10,7 @@ using log4net;
 using System.Linq;
 using DBAccessDLL.EF.Context;
 using System.Configuration;
+using Microsoft.Extensions.Hosting;
 
 namespace WebAPI
 {
@@ -41,35 +42,46 @@ namespace WebAPI
         {
             try
             {
-                string path = Directory.GetCurrentDirectory() + @"\.Config\HostAddress.json";
-                using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
-                {
-                    using (StreamReader sr = new StreamReader(file))
-                    {
-                        string json = sr.ReadToEnd();
-                        Program.HostAddress = JsonConvert.DeserializeObject<HostAddressModel>(json);
-                    }
-                }
-
-                Console.WriteLine("Kestrel地址：" + Program.HostAddress.HostAddress);
-                Console.WriteLine("Note：如需修改,请修改配置文件 HostAddress.json并重启服务.");
-
-                var host = new WebHostBuilder()
-                    .UseKestrel()
-                    .ConfigureServices(services => services.AddAutofac())
-                    .UseContentRoot(Directory.GetCurrentDirectory())
-                    .UseIISIntegration()
-                    .UseStartup<Startup>()
-                    .UseApplicationInsights()
-                    .UseUrls(Program.HostAddress.HostAddress)
-                    .Build();
-
-                host.Run();
+                CreateHostBuilder(args).Build().Run();
             }
-            #pragma warning disable 0168
-            catch (Exception ex)
+            catch (Exception ex) 
             {
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public static IHostBuilder CreateHostBuilder(string[] args) 
+        {
+            string path = Directory.GetCurrentDirectory() + @"\.Config\HostAddress.json";
+            using ( FileStream file = new FileStream ( path, FileMode.Open, FileAccess.Read) )
+            {
+                using (StreamReader sr = new StreamReader(file))
+                {
+                    string json = sr.ReadToEnd();
+                    Program.HostAddress = JsonConvert.DeserializeObject<HostAddressModel>(json);
+                }
+            }
+
+            Console.WriteLine("Kestrel地址：" + Program.HostAddress.HostAddress);
+            Console.WriteLine("Note：如需修改,请修改配置文件 HostAddress.json并重启服务.");
+
+            IHostBuilder host = Host.CreateDefaultBuilder(args)
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureWebHost(webBuilder =>
+                {
+                    webBuilder.UseKestrel()
+                              .UseContentRoot(Directory.GetCurrentDirectory())
+                              .UseIIS()
+                              .UseIISIntegration()
+                              .UseStartup<Startup>()
+                              .UseUrls(Program.HostAddress.HostAddress);
+                });
+
+            return host;
 
         }
     }

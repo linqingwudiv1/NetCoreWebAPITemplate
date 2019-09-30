@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DTOModelDLL.Common.Store;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
@@ -38,6 +39,11 @@ namespace NetApplictionServiceDLL.Filter
         /// Action类型
         /// </summary>
         private ActionAuthType ActionType = ActionAuthType.Unauth;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ActionType"></param>
         public AuthFilterAttribute(ActionAuthType ActionType = ActionAuthType.Unauth)
         {
             this.ActionType = ActionType;
@@ -58,16 +64,22 @@ namespace NetApplictionServiceDLL.Filter
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             Handle(filterContext);
+
             base.OnActionExecuting(filterContext);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filterContext"></param>
         private void Handle(ActionExecutingContext filterContext)
         {
             Controller controller = filterContext.Controller as Controller;
 
             if (controller != null)
             {
-                var storeAccount = controller.HttpContext.Session.GetStoreAccount();
+                DTO_StoreAccount storeAccount = controller.HttpContext.Session.GetStoreAccount();
+                
                 if (storeAccount != null)
                 {
                     return;
@@ -81,7 +93,6 @@ namespace NetApplictionServiceDLL.Filter
             {
                 UnauthorizedHandle(filterContext);
             }
-
         }
 
         /// <summary>
@@ -102,7 +113,7 @@ namespace NetApplictionServiceDLL.Filter
                     filterContext
                         .HttpContext
                         .Response
-                        .Redirect("http://www.bing.com");
+                        .Redirect(GVariable.LoginUri);
                     break;
                 }
                 case ActionAuthType.Unauth:
