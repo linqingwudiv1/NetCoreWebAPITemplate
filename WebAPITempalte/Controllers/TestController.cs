@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 using NetApplictionServiceDLL;
 using Npoi.Core.HSSF.Util;
@@ -30,7 +31,6 @@ namespace WebAPI.Controllers
     [EnableCors("WebAPIPolicy")]
     public class TestController : BaseController
     {
-
         /// <summary>
         /// 
         /// </summary>
@@ -93,17 +93,15 @@ namespace WebAPI.Controllers
 
             var testAccount = new Faker<Account>(locale: "zh_CN").StrictMode(true);
 
-            testAccount.RuleFor( entity => entity.id,           faker => Math.Abs( Guid.NewGuid().GetHashCode() )        );
-            testAccount.RuleFor( entity => entity.name,         faker => faker.Random.String2(8, 16, charSet)            );
-            testAccount.RuleFor( entity => entity.introduction, faker => faker.Rant.Review()                             );
-            testAccount.RuleFor( entity => entity.avatar,       faker => faker.Image.PlaceholderUrl(256, 256)            );
-            testAccount.RuleFor( entity => entity.email,        faker => faker.Phone.PhoneNumber() + "@Qing.com"         );
-            testAccount.RuleFor( entity => entity.password,     faker => faker.Random.String2( 8, 16, charSet)           );
-            testAccount.RuleFor( entity => entity.username,     faker => faker.Name.FirstName() + faker.Name.LastName()  );
-            testAccount.RuleFor( entity => entity.phone,        faker => faker.Phone.PhoneNumber()                       );
-            testAccount.RuleFor( entity => entity.sex,          faker => faker.Random.Int(0, 2)                          );
-
-            // testAccount.RuleFor( entity => entity.sex, fas);
+            testAccount.RuleFor( entity => entity.id,            faker => Math.Abs( Guid.NewGuid().GetHashCode() )        );
+            testAccount.RuleFor( entity => entity.name,          faker => faker.Random.String2(8, 16, charSet)            );
+            testAccount.RuleFor( entity => entity.introduction,  faker => faker.Rant.Review()                             );
+            testAccount.RuleFor( entity => entity.avatar,        faker => faker.Image.PlaceholderUrl(256, 256)            );
+            testAccount.RuleFor( entity => entity.email,         faker => faker.Phone.PhoneNumber() + "@Qing.com"         );
+            testAccount.RuleFor( entity => entity.password,      faker => faker.Random.String2( 8, 16, charSet)           );
+            testAccount.RuleFor( entity => entity.username,      faker => faker.Name.FirstName() + faker.Name.LastName()  );
+            testAccount.RuleFor( entity => entity.phone,         faker => faker.Phone.PhoneNumber()                       );
+            testAccount.RuleFor( entity => entity.sex,           faker => faker.Random.Int(0, 2)                          );
 
             testAccount.RuleFor( entity => entity.Qing_CreateTime,  faker => DateTime.Now );
             testAccount.RuleFor( entity => entity.Qing_UpdateTime,  faker => DateTime.Now );
@@ -116,8 +114,9 @@ namespace WebAPI.Controllers
             #endregion
 
             Account[] accountList = testAccount.Generate(1000).ToArray();
-            db.Accounts.AddRange(accountList);
 
+            db.Accounts.AddRange(accountList);
+            
             return Ok(db.SaveChanges());
         }
 
