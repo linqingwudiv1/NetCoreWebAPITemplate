@@ -30,6 +30,7 @@ namespace WebAPI.Areas.TestArea.Controllers
     /// 
     /// </summary>
     [Area("TestArea")]
+    [Controller]
     public class HomeController : Controller
     {
         /// <summary>
