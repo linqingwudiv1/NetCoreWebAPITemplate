@@ -203,12 +203,12 @@ namespace WebAPI
 
                 #region Session Config : Redis or Sql Server
 
-                services.AddStackExchangeRedisCache(opts =>
-                {
-                    opts.Configuration = "localhost";
-                    opts.InstanceName = "SampleInstance";
-                    opts.ConfigurationOptions.Password = "abc123,";
-                });
+                //services.AddStackExchangeRedisCache(opts =>
+                //{
+                //    opts.Configuration = "localhost";
+                //    opts.InstanceName = "SampleInstance";
+                //    opts.ConfigurationOptions.Password = "abc123,";
+                //});
 
                 services.AddSession( ( opt ) => 
                 {

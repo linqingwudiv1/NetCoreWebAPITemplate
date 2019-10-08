@@ -29,6 +29,7 @@ namespace WebAPI.Controllers
     /// </summary>
     [Route("api/[controller]/[action]")]
     [EnableCors("WebAPIPolicy")]
+    [ApiController]
     public class TestController : BaseController
     {
         /// <summary>
@@ -93,15 +94,15 @@ namespace WebAPI.Controllers
 
             var testAccount = new Faker<Account>(locale: "zh_CN").StrictMode(true);
 
-            testAccount.RuleFor( entity => entity.id,            faker => Math.Abs( Guid.NewGuid().GetHashCode() )        );
-            testAccount.RuleFor( entity => entity.name,          faker => faker.Random.String2(8, 16, charSet)            );
-            testAccount.RuleFor( entity => entity.introduction,  faker => faker.Rant.Review()                             );
-            testAccount.RuleFor( entity => entity.avatar,        faker => faker.Image.PlaceholderUrl(256, 256)            );
-            testAccount.RuleFor( entity => entity.email,         faker => faker.Phone.PhoneNumber() + "@Qing.com"         );
-            testAccount.RuleFor( entity => entity.password,      faker => faker.Random.String2( 8, 16, charSet)           );
-            testAccount.RuleFor( entity => entity.username,      faker => faker.Name.FirstName() + faker.Name.LastName()  );
-            testAccount.RuleFor( entity => entity.phone,         faker => faker.Phone.PhoneNumber()                       );
-            testAccount.RuleFor( entity => entity.sex,           faker => faker.Random.Int(0, 2)                          );
+            testAccount.RuleFor( entity => entity.Id,            faker => Math.Abs( Guid.NewGuid().GetHashCode() )        );
+            testAccount.RuleFor( entity => entity.Name,          faker => faker.Random.String2(8, 16, charSet)            );
+            testAccount.RuleFor( entity => entity.Introduction,  faker => faker.Rant.Review()                             );
+            testAccount.RuleFor( entity => entity.Avatar,        faker => faker.Image.PlaceholderUrl(256, 256)            );
+            testAccount.RuleFor( entity => entity.Email,         faker => faker.Phone.PhoneNumber() + "@Qing.com"         );
+            testAccount.RuleFor( entity => entity.Password,      faker => faker.Random.String2( 8, 16, charSet)           );
+            testAccount.RuleFor( entity => entity.Username,      faker => faker.Name.FirstName() + faker.Name.LastName()  );
+            testAccount.RuleFor( entity => entity.Phone,         faker => faker.Phone.PhoneNumber()                       );
+            testAccount.RuleFor( entity => entity.Sex,           faker => faker.Random.Int(0, 2)                          );
 
             testAccount.RuleFor( entity => entity.Qing_CreateTime,  faker => DateTime.Now );
             testAccount.RuleFor( entity => entity.Qing_UpdateTime,  faker => DateTime.Now );

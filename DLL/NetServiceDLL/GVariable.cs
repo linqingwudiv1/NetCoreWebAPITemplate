@@ -33,6 +33,5 @@ namespace NetApplictionServiceDLL
         /// 
         /// </summary>
         public static readonly string TokenKeyCookie = "Qing_AccountTokenCookie";
-
     }
 }
