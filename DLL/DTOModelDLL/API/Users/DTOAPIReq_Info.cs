@@ -7,7 +7,7 @@ namespace DTOModelDLL.API.Users
     /// <summary>
     /// User/Login
     /// </summary>
-    public class DTOAPI_Info
+    public class DTOAPIReq_Info
     {
         /// <summary>
         /// 用户名

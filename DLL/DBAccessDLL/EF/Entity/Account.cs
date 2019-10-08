@@ -16,48 +16,47 @@ namespace DBAccessDLL.EF.Entity
         /// 
         /// </summary>
         [Key]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string username { get; set; }
+        public string Username { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string password { get; set; }
+        public string Password { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string avatar { get; set; }
+        public string Avatar { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string introduction { get; set; }
+        public string Introduction { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string email { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// 性别
         /// </summary>
-        public int sex { get; set; }
+        public int Sex { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string phone { get; set; }
-
+        public string Phone { get; set; }
     }
 
     /// <summary>
@@ -75,7 +74,6 @@ namespace DBAccessDLL.EF.Entity
 
             builder.ToTable("Account");
 
-            
             #endregion
 
             builder.SetupBaseEntity();

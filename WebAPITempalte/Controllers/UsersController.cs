@@ -14,6 +14,7 @@ namespace WebAPI.Controllers
     /// </summary>
     [Route("api/[controller]/[action]")]
     [EnableCors("WebAPIPolicy")]
+    [ApiController]
     public class UsersController : BaseController
     {
         /// <summary>
@@ -31,12 +32,12 @@ namespace WebAPI.Controllers
         /// <summary>
         /// 登录接口
         /// </summary>
-        /// <param name="loginInfo">登录信息</param>
+        /// <param name="userInfo">登录信息</param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Login([FromBody] DTOAPI_Login loginInfo)
+        public IActionResult Login([FromBody] DTOAPI_Login userInfo)
         {
-            return Ok(new DTO_ReturnModel<dynamic>(this.LoginLogic(loginInfo), 20000));
+            return Ok(new DTO_ReturnModel<dynamic>(this.LoginLogic(userInfo), 20000));
         }
 
         /// <summary>
@@ -58,7 +59,7 @@ namespace WebAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [AuthFilter]
-        public IActionResult Info([FromBody] DTOAPI_Info Info)
+        public IActionResult Info([FromBody] DTOAPIReq_Info Info)
         {
             DTO_StoreAccount store_account = this.GetStoreAccount();
 

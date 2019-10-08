@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DTOModelDLL.Common.Store
+namespace DTOModelDLL.API.Users
 {
     /// <summary>
-    /// Store 
+    /// User/Login
     /// </summary>
-    public class DTO_StoreAccount
+    public class DTOAPIRes_Info
     {
         /// <summary>
         /// 
         /// </summary>
-        public int id { get; set; }
+        public Int64 id { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string name { get; set; }
 
         /// <summary>
         /// 
@@ -27,7 +32,12 @@ namespace DTOModelDLL.Common.Store
         /// <summary>
         /// 
         /// </summary>
-        public string name { get; set; }
+        public string phone { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string email { get; set; }
 
         /// <summary>
         /// 
@@ -38,16 +48,6 @@ namespace DTOModelDLL.Common.Store
         /// 
         /// </summary>
         public string introduction { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string email { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string phone { get; set; }
 
         /// <summary>
         /// 

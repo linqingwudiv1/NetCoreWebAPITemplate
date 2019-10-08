@@ -19,24 +19,28 @@ namespace DTOModelDLL.Common
             y_set = new List<DTO_RenderEChartItem>();
             Title = "";
         }
+
         /// <summary>
         /// 标识图表类型，方便映射，名称变更时无需前端调整
         /// </summary>
         public string ID { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public List<string> x_arr { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public List<DTO_RenderEChartItem> y_set { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public string Title { get; set; }
-        // public List<int> yAxis_arr { get; set; }
     }
+
     /// <summary>
     /// 
     /// </summary>
@@ -56,26 +60,30 @@ namespace DTOModelDLL.Common
         /// 
         /// </summary>
         public string ID { get; set; }
+        
         /// <summary>
         /// 
         /// </summary>
         public string displayName { get; set; }
+        
         /// <summary>
         /// 
         /// </summary>
         public string Column { get; set; }
+        
         /// <summary>
         /// 
         /// </summary>
         public string ChartType { get; set; }
+        
         /// <summary>
         /// 
         /// </summary>
         public int YAxisType { get; set; }
+        
         /// <summary>
         /// 
         /// </summary>
         public List<string> y_arr { get; set; }
-
     }
 }

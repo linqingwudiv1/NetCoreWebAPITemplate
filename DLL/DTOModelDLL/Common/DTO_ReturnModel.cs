@@ -4,6 +4,10 @@ using System.Text;
 
 namespace DTOModelDLL.Common
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class DTO_ReturnModel<T>
     {
         /// <summary>
