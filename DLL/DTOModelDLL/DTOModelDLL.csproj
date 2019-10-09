@@ -12,4 +12,8 @@
     <Folder Include="API\Roles\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DBAccessDLL\DBAccessDLL.csproj" />
+  </ItemGroup>
+
 </Project>

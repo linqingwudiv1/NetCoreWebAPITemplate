@@ -54,7 +54,6 @@ namespace NetApplictionServiceDLL.Filter
         /// </summary>
         ~AuthFilterAttribute()
         {
-
         }
 
         /// <summary>
@@ -159,15 +158,14 @@ namespace NetApplictionServiceDLL.Filter
             String HeaderToken = filterContext.HttpContext.Request.Headers[GVariable.QingTokenHeader];
             String CookieToken = filterContext.HttpContext.Request.Cookies[GVariable.QingTokenAvg];
 
-            if (!String.IsNullOrEmpty(HeaderToken) && !String.IsNullOrWhiteSpace(HeaderToken))
+            if ( !String.IsNullOrEmpty(HeaderToken) && !String.IsNullOrWhiteSpace(HeaderToken) )
             {
                 ret_token = HeaderToken;
             }
-            else if (!String.IsNullOrEmpty(CookieToken) && !String.IsNullOrWhiteSpace(CookieToken))
+            else if ( !String.IsNullOrEmpty(CookieToken) && !String.IsNullOrWhiteSpace(CookieToken) )
             {
                 ret_token = HeaderToken;
             }
-
 
             return ret_token;
         }

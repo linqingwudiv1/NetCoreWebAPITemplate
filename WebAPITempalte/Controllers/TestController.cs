@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 using NetApplictionServiceDLL;
@@ -112,11 +113,27 @@ namespace WebAPI.Controllers
             testAccount.RuleFor( entity => entity.Qing_IsDelete ,  faker => faker.Random.Bool() );
             testAccount.RuleFor( entity => entity.Qing_Sequence ,  faker => 0 );
 
+            var testRoutePage = new Faker<RoutePage>(locale: "zh-CN").StrictMode(true);
+
+            testRoutePage.RuleFor(e => e.Id , faker=> (faker.IndexFaker + 1));
+            testRoutePage.RuleFor(e => e.Component, faker => "admin");
+            testRoutePage.RuleFor(e => e.Meta, faker => faker.Make<RoutePageMeta>(1,(i) => new RoutePageMeta())[0] );
+
+            testRoutePage.RuleFor(entity => entity.Qing_CreateTime, faker => DateTime.Now);
+            testRoutePage.RuleFor(entity => entity.Qing_UpdateTime, faker => DateTime.Now);
+            testRoutePage.RuleFor(entity => entity.Qing_DeleteTime, faker => null);
+
+            testRoutePage.RuleFor(entity => entity.Qing_Version, faker => 0);
+            testRoutePage.RuleFor(entity => entity.Qing_IsDelete, faker => faker.Random.Bool());
+            testRoutePage.RuleFor(entity => entity.Qing_Sequence, faker => 0);
+
             #endregion
 
             Account[] accountList = testAccount.Generate(1000).ToArray();
+            RoutePage[] RoutePages = testRoutePage.Generate(100).ToArray();
 
             db.Accounts.AddRange(accountList);
+            db.RoutePages.AddRange(RoutePages);
             
             return Ok(db.SaveChanges());
         }
@@ -138,6 +155,9 @@ namespace WebAPI.Controllers
             }
 
             List<Account> list = (from x in db.Accounts select x).ToList();
+
+            db.RoutePages.Include(p => p.ParentId);
+
 
             List<View_AccountFemale> list_2 = (from x in db.view_AccountFemales select x).ToList();
             return Ok(new { list,list_2});
