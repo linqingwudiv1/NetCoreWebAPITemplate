@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 namespace WebAPI.Controllers
 {
+
     /// <summary>
     /// Vue项目展示接口
     /// </summary>
@@ -23,11 +24,10 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult AddRoles()
         {
-           DTO_ReturnModel<IList<Role>> ret_model = new DTO_ReturnModel<IList<Role>>();
-          
-           ret_model = new DTO_ReturnModel<IList<Role>>();
+            DTO_ReturnModel<IList<Role>> ret_model = new DTO_ReturnModel<IList<Role>>();
+            ret_model = new DTO_ReturnModel<IList<Role>>();
 
-            return Ok(null);
+            return Ok(ret_model);
         }
 
         /// <summary>

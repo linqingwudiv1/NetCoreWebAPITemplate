@@ -2,10 +2,19 @@
 
 namespace WebAPI.Areas.TestArea.Controllers
 {
-
+    /// <summary>
+    /// 
+    /// </summary>
     class Point
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public int X { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public int Y { get; }
 
         /// <summary>
