@@ -2,7 +2,7 @@
 
 ## support vs2019 version last
 
-	NetCore2.2.5 
+	NetCore3.0.0
 
 	新瓶装旧酒.一个极简的WebAPI/MVC开发环境,封装一些常用的类包.
 
