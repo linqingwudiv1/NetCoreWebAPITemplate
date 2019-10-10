@@ -1,4 +1,5 @@
-﻿using DBAccessDLL.EF.Entity;
+﻿using DBAccessDLL.EF.Context;
+using DBAccessDLL.EF.Entity;
 using DTOModelDLL.Common;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult AddRoles()
+        public IActionResult GetRoles()
         {
             DTO_ReturnModel<IList<Role>> ret_model = new DTO_ReturnModel<IList<Role>>();
             ret_model = new DTO_ReturnModel<IList<Role>>();
@@ -36,9 +37,12 @@ namespace WebAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public IActionResult AddRoles(Int64 id)
+        public IActionResult GetRole(Int64 id)
         {
-            return Ok(null);
+            ExamContext db = new ExamContext();
+
+            DTO_ReturnModel<Role> ret_model = new DTO_ReturnModel<Role>();
+            return Ok();
         }
 
         /// <summary>

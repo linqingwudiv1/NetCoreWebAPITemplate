@@ -68,9 +68,7 @@ namespace DBAccessDLL.EF.Entity
             #region 水平拆分处理处
             builder.ToView<View_AccountFemale>("View_AccountFemale").SetupBaseEntity();
             #endregion
-
         }
-
     }
 
 }
