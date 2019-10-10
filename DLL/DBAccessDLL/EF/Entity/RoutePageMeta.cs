@@ -45,11 +45,5 @@ namespace DBAccessDLL.EF.Entity
         /// 是否隐藏
         /// </summary>
         public bool Hidden { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ICollection<Role> Roles { get; set; }
-
     }
 }

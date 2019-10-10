@@ -16,7 +16,12 @@ namespace DBAccessDLL.EF.Context
         /// </summary>
         virtual public DbSet<Account> Accounts { get; protected set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         virtual public DbSet<RoutePage> RoutePages { get; protected set; }
+
+        virtual public DbSet<Role> Roles { get; protected set; }
 
         /// <summary>
         /// 视图：Account
@@ -51,11 +56,10 @@ namespace DBAccessDLL.EF.Context
         {
             modelBuilder.ApplyConfiguration<Account>(new AccountEFConfig());
             modelBuilder.ApplyConfiguration<RoutePage>(new RoutePageEFConfig());
-            ///Database 必须存在 View_AccountFemale 视图
+            // Database 必须存在 View_AccountFemale 视图
             modelBuilder.ApplyConfiguration<View_AccountFemale>(new View_AccountFemaleEFConfig());
 
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }
