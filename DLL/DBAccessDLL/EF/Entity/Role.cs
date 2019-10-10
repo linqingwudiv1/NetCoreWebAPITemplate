@@ -1,14 +1,44 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DBAccessDLL.EF.Entity
 {
     /// <summary>
-    /// 
+    /// Account 角色 Account Role
     /// </summary>
     public class Role : BaseEntity
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public Int64 Id { get; set; }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        public String Name { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Descrption { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class RoleEFConfig : IEntityTypeConfiguration<Role>
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
+        public void Configure(EntityTypeBuilder<Role> builder)
+        {
+            builder.ToTable("Role");
+        }
     }
 }

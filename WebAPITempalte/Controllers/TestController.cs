@@ -113,11 +113,15 @@ namespace WebAPI.Controllers
             testAccount.RuleFor( entity => entity.Qing_IsDelete ,  faker => faker.Random.Bool() );
             testAccount.RuleFor( entity => entity.Qing_Sequence ,  faker => 0 );
 
-            var testRoutePage = new Faker<RoutePage>(locale: "zh-CN").StrictMode(true);
+            var testRoutePage = new Faker<RoutePage>(locale: "zh_CN").StrictMode(true);
 
-            testRoutePage.RuleFor(e => e.Id , faker=> (faker.IndexFaker + 1));
-            testRoutePage.RuleFor(e => e.Component, faker => "admin");
-            testRoutePage.RuleFor(e => e.Meta, faker => faker.Make<RoutePageMeta>(1,(i) => new RoutePageMeta())[0] );
+            testRoutePage.RuleFor( e => e.Id ,       faker => (faker.IndexFaker + 1) );
+            testRoutePage.RuleFor( e => e.Component, faker => "admin" );
+            testRoutePage.RuleFor( e => e.Meta,      faker => faker.Make<RoutePageMeta>(1, (i) => new RoutePageMeta())[0] );
+            testRoutePage.RuleFor( e => e.Name,      faker => faker.Name.FirstName() + faker.Name.LastName() );
+            testRoutePage.RuleFor( e => e.Path,      faker => faker.Rant.Review());
+
+            testRoutePage.RuleFor( e => e.ParentId, faker => 1);
 
             testRoutePage.RuleFor(entity => entity.Qing_CreateTime, faker => DateTime.Now);
             testRoutePage.RuleFor(entity => entity.Qing_UpdateTime, faker => DateTime.Now);
@@ -158,8 +162,7 @@ namespace WebAPI.Controllers
 
             db.RoutePages.Include(p => p.ParentId);
 
-
-            List<View_AccountFemale> list_2 = (from x in db.view_AccountFemales select x).ToList();
+            List<View_AccountFemale> list_2 = ( from x in db.view_AccountFemales select x ).ToList();
             return Ok(new { list,list_2});
         }
 

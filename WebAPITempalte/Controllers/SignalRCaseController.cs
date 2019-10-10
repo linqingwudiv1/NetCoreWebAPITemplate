@@ -52,7 +52,7 @@ namespace WebAPI.Controllers
                         string FileTempName = DateTime.Now.ToString("ddHHmmssff-") + fileitem.FileName;
                         string filePath = @".Cache/Image/" + FileTempName;
 
-                        using (FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write))
+                        using ( FileStream fs = new FileStream( filePath, FileMode.CreateNew, FileAccess.Write ) )
                         {
                             fileitem.CopyTo(fs);
 
