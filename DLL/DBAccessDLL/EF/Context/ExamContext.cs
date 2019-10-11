@@ -21,6 +21,9 @@ namespace DBAccessDLL.EF.Context
         /// </summary>
         virtual public DbSet<RoutePage> RoutePages { get; protected set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         virtual public DbSet<Role> Roles { get; protected set; }
 
         /// <summary>

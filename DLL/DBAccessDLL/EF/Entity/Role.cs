@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace DBAccessDLL.EF.Entity
@@ -14,8 +15,9 @@ namespace DBAccessDLL.EF.Entity
         /// <summary>
         /// 
         /// </summary>
+        [Key]
         public Int64 Id { get; set; }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -25,6 +27,16 @@ namespace DBAccessDLL.EF.Entity
         /// 
         /// </summary>
         public string Descrption { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<AccountRole> AccountRoles { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<RoutePageRole> RouteRoles { get; set; }
     }
 
     /// <summary>
@@ -38,7 +50,8 @@ namespace DBAccessDLL.EF.Entity
         /// <param name="builder"></param>
         public void Configure(EntityTypeBuilder<Role> builder)
         {
-            builder.ToTable("Role");
+            var tableBuilder = builder.ToTable("Role").SetupBaseEntity<Role>();
         }
+
     }
 }

@@ -8,9 +8,9 @@ using System.ComponentModel.DataAnnotations;
 namespace DBAccessDLL.EF.Entity
 {
     /// <summary>
-    /// 用户类
+    /// 路由得Role列表
     /// </summary>
-    public class AccountRole : BaseEntity
+    public class RoutePageRole : BaseEntity
     {
         /// <summary>
         /// 
@@ -22,12 +22,12 @@ namespace DBAccessDLL.EF.Entity
         /// 
         /// </summary>
         [Required]
-        public Int64 AccountId { get; set; }
+        public Int64 RoutePageId { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Account account { get; set; }
+        public RoutePage routePage { get; set; }
 
         /// <summary>
         /// 
@@ -44,20 +44,20 @@ namespace DBAccessDLL.EF.Entity
     /// <summary>
     /// Entity Config
     /// </summary>
-    public class AccountRoleEFConfig : IEntityTypeConfiguration<AccountRole>
+    public class RoutePageRoleEFConfig : IEntityTypeConfiguration<RoutePageRole>
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="builder"></param>
-        public void Configure(EntityTypeBuilder<AccountRole> builder)
+        public void Configure(EntityTypeBuilder<RoutePageRole> builder)
         {
             #region 水平拆分处理处
 
-            EntityTypeBuilder<AccountRole> tableBuilder = builder.ToTable("AccountRole");
+            EntityTypeBuilder<RoutePageRole> tableBuilder = builder.ToTable("RoutePageRole");
 
-            tableBuilder.HasOne<Account>( p => p.account ).WithMany( c => c.AccountRoles ).HasForeignKey(c => c.AccountId);
-            tableBuilder.HasOne<Role>( p => p.role).WithMany( c => c.AccountRoles ).HasForeignKey(c => c.RoleId);
+            tableBuilder.HasOne<RoutePage>(p => p.routePage).WithMany(c => c.RoutePageRoles).HasForeignKey(c => c.RoutePageId);
+            tableBuilder.HasOne<Role>(p => p.role).WithMany(c => c.RouteRoles).HasForeignKey(c => c.RoleId);
 
             #endregion
 
