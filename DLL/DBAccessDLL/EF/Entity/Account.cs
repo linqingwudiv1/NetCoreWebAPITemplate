@@ -12,11 +12,15 @@ namespace DBAccessDLL.EF.Entity
     /// </summary>
     public class Account : BaseEntity
     {
+        public Account() 
+        {
+        }
+
         /// <summary>
         /// 
         /// </summary>
         [Key]
-        public int Id { get; set; }
+        public Int64 Id { get; set; }
 
         /// <summary>
         /// 
@@ -57,6 +61,11 @@ namespace DBAccessDLL.EF.Entity
         /// 
         /// </summary>
         public string Phone { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<AccountRole> AccountRoles { get; set; }
     }
 
     /// <summary>
@@ -72,12 +81,13 @@ namespace DBAccessDLL.EF.Entity
         {
             #region 水平拆分处理处
 
-            builder.ToTable("Account");
+            EntityTypeBuilder<Account> tableBuilder = builder.ToTable("Account");
+
+            tableBuilder.HasMany<AccountRole>( p => p.AccountRoles ).WithOne( c => c.account ).HasForeignKey( c => c.AccountId );
 
             #endregion
 
             builder.SetupBaseEntity();
-
         }
 
     }

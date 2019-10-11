@@ -45,7 +45,7 @@ namespace WebAPI.Controllers
                 IList<string> list = new List<string>();
                 IFormFileCollection files = HttpContext.Request.Form.Files;
 
-                if (files.Count > 0)
+                if ( files.Count > 0 )
                 {
                     foreach (IFormFile fileitem in files)
                     {
@@ -60,6 +60,7 @@ namespace WebAPI.Controllers
                             ret_count++;
                         }
                     }
+
                 }
 
                 IClientProxy TargetChild = _hubContext.Clients.User(ChildUE4);

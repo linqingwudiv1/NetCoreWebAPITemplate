@@ -8,7 +8,7 @@ namespace DBAccessDLL.EF.Entity
     /// <summary>
     /// 
     /// </summary>
-    //[Owned]
+    [Owned]
     public class RoutePageMeta
     {
         /// <summary>
@@ -45,5 +45,6 @@ namespace DBAccessDLL.EF.Entity
         /// 是否隐藏
         /// </summary>
         public bool Hidden { get; set; }
+
     }
 }

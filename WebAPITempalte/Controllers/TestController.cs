@@ -95,7 +95,7 @@ namespace WebAPI.Controllers
 
             var testAccount = new Faker<Account>(locale: "zh_CN").StrictMode(true);
 
-            testAccount.RuleFor( entity => entity.Id,            faker => Math.Abs( Guid.NewGuid().GetHashCode() )        );
+            testAccount.RuleFor( entity => entity.Id,            faker => faker.IndexFaker + 1                            );
             testAccount.RuleFor( entity => entity.Name,          faker => faker.Random.String2(8, 16, charSet)            );
             testAccount.RuleFor( entity => entity.Introduction,  faker => faker.Rant.Review()                             );
             testAccount.RuleFor( entity => entity.Avatar,        faker => faker.Image.PlaceholderUrl(256, 256)            );
@@ -112,6 +112,35 @@ namespace WebAPI.Controllers
             testAccount.RuleFor( entity => entity.Qing_Version  ,  faker => 0  );
             testAccount.RuleFor( entity => entity.Qing_IsDelete ,  faker => faker.Random.Bool() );
             testAccount.RuleFor( entity => entity.Qing_Sequence ,  faker => 0 );
+            testAccount.RuleFor( entity => entity.AccountRoles , faker => 
+            {
+                var bAddRole = faker.Random.Bool();
+                if (bAddRole)
+                {
+                    var accountRoleList = faker.Make<AccountRole>(1, ()=> 
+                    {
+                        return new AccountRole
+                        {
+                            Id = Math.Abs(Guid.NewGuid().GetHashCode()),
+                            AccountId = faker.IndexFaker + 1,
+                            account = null,
+                            Qing_CreateTime = DateTime.Now,
+                            Qing_DeleteTime = DateTime.Now,
+                            Qing_UpdateTime = DateTime.Now,
+                            Qing_IsDelete = false,
+                            Qing_Sequence = 0,
+                            Qing_Version = 0,
+                            RoleId = 1
+                        };
+                    }).ToList();
+
+                    return accountRoleList;
+                }
+                else 
+                {
+                    return null;
+                }
+            });
 
             var testRoutePage = new Faker<RoutePage>(locale: "zh_CN").StrictMode(true);
 
@@ -134,10 +163,10 @@ namespace WebAPI.Controllers
             #endregion
 
             Account[] accountList = testAccount.Generate(1000).ToArray();
-            RoutePage[] RoutePages = testRoutePage.Generate(100).ToArray();
+            //RoutePage[] RoutePages = testRoutePage.Generate(100).ToArray();
 
             db.Accounts.AddRange(accountList);
-            db.RoutePages.AddRange(RoutePages);
+            //db.RoutePages.AddRange(RoutePages);
             
             return Ok(db.SaveChanges());
         }
@@ -190,16 +219,16 @@ namespace WebAPI.Controllers
                 sheet1.AutoSizeColumn(0);
                 rowIndex++;
 
-                var sheet2 = workbook.CreateSheet("Sheet2");
-                var style1 = workbook.CreateCellStyle();
+                ISheet sheet2 = workbook.CreateSheet("Sheet2");
+                ICellStyle style1 = workbook.CreateCellStyle();
                 style1.FillForegroundColor = HSSFColor.Blue.Index2;
                 style1.FillPattern = FillPattern.SolidForeground;
 
-                var style2 = workbook.CreateCellStyle();
+                ICellStyle style2 = workbook.CreateCellStyle();
                 style2.FillForegroundColor = HSSFColor.Yellow.Index2;
                 style2.FillPattern = FillPattern.SolidForeground;
 
-                var cell2 = sheet2.CreateRow(0).CreateCell(0);
+                ICell cell2 = sheet2.CreateRow(0).CreateCell(0);
                 cell2.CellStyle = style1;
                 cell2.SetCellValue(0);
 
@@ -324,12 +353,12 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        /// 
+        /// call upload on UE4 Client example 
         /// </summary>
         /// <param name="size"></param>
         /// <param name="filename"></param>
         /// <returns></returns>
-        [HttpPost()]
+        [HttpPost]
         public IActionResult UploadImageFromCS(int size = 0, string filename = "")
         {
             Console.WriteLine($" file {size}");
