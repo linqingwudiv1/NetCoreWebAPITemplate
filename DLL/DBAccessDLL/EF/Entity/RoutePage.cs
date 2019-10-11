@@ -40,6 +40,11 @@ namespace DBAccessDLL.EF.Entity
         /// 
         /// </summary>
         public RoutePageMeta Meta { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<RoutePageRole> RoutePageRoles { get; set; }
     }
 
     /// <summary>

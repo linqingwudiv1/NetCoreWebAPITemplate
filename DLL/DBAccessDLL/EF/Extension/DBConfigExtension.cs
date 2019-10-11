@@ -15,7 +15,7 @@ namespace DBAccessDLL.EF
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="target"></param>
-        static public EntityTypeBuilder<T> SetupBaseEntity<T>(this EntityTypeBuilder<T> targetBuilder) where T : BaseEntity
+        static public EntityTypeBuilder<T> SetupBaseEntity<T>(this EntityTypeBuilder<T> targetBuilder, bool bUseSoftDelete = true) where T : BaseEntity
         {
             targetBuilder.Property<bool>     (  x => x.Qing_IsDelete    ).IsRequired(true).HasDefaultValue(false);
             targetBuilder.Property<Int64>    (  x => x.Qing_Version     ).IsRequired(true).HasDefaultValue(0);
@@ -24,8 +24,11 @@ namespace DBAccessDLL.EF
             targetBuilder.Property<Int64>    (  x => x.Qing_Sequence    ).IsRequired(true).HasDefaultValue(0);
             targetBuilder.Property<DateTime?>(  x => x.Qing_DeleteTime  ).IsRequired(false);
 
-            targetBuilder.UseSofeDelete();
-
+            if (bUseSoftDelete)
+            {
+                targetBuilder.UseSofeDelete();
+            }
+            
             return targetBuilder;
         }
 
