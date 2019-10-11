@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace WebAPI.Controllers
@@ -25,6 +26,10 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult GetRoles()
         {
+            ExamContext db = new ExamContext();
+
+            IList<Role> role = (from x in db.Roles select x).DefaultIfEmpty().ToList();
+
             DTO_ReturnModel<IList<Role>> ret_model = new DTO_ReturnModel<IList<Role>>();
             ret_model = new DTO_ReturnModel<IList<Role>>();
 
@@ -41,7 +46,9 @@ namespace WebAPI.Controllers
         {
             ExamContext db = new ExamContext();
 
-            DTO_ReturnModel<Role> ret_model = new DTO_ReturnModel<Role>();
+            Role role = db.Roles.Find(id);
+
+            DTO_ReturnModel<Role> ret_model = new DTO_ReturnModel<Role>(role);
             return Ok();
         }
 
@@ -52,6 +59,11 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult AddRole([FromBody]Role data)
         {
+            if (data != null) 
+            {
+                data.Id = Math.Abs(Guid.NewGuid().GetHashCode());   
+            }
+
             return Ok();
         }
 
@@ -75,6 +87,6 @@ namespace WebAPI.Controllers
         {
             return Ok(new DTO_ReturnModel<dynamic>(null));
         }
-
     }
 }
+ 

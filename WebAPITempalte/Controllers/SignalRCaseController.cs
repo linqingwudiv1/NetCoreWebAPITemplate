@@ -60,7 +60,6 @@ namespace WebAPI.Controllers
                             ret_count++;
                         }
                     }
-
                 }
 
                 IClientProxy TargetChild = _hubContext.Clients.User(ChildUE4);

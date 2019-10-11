@@ -1,11 +1,26 @@
-﻿using DTOModelDLL.API.Users;
+﻿using DBAccessDLL.EF.Context;
+using DTOModelDLL.API.Users;
 using DTOModelDLL.Common.Store;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NetApplictionServiceDLL;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BusinessDLL.Extensison
 {
+
+
+    /// <summary>
+    /// 登录状态
+    /// </summary>
+    public enum EM_LoginState 
+    {
+        Pass,
+        NoExist,
+        PasswordError
+    }
+
     /// <summary>
     /// 通用全局业务扩展，例如登录，注销
     /// </summary>
@@ -35,16 +50,29 @@ namespace BusinessDLL.Extensison
         /// <param name="controller"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        static public dynamic LoginLogic(this Controller controller, DTOAPI_Login data)
+        static public EM_LoginState LoginLogic(this Controller controller, DTOAPI_Login data)
         {
+            ExamContext db = new ExamContext();
+
+            var account = ( from x in db.Accounts.Include(obj=>obj.AccountRoles)
+                            where 
+                                x.Username == data.username 
+                            select x ).FirstOrDefault();
+
+            if (account == null) 
+            {
+                return EM_LoginState.NoExist;
+            }
+
             if (data.username == temp_storeAccount.username)
             {
                 controller.HttpContext.Session.SetStoreAccount(temp_storeAccount);
-                return new { accessToken = "Admin-Token" };
+
+                return EM_LoginState.Pass; //new { accessToken = "Admin-Token" };
             }
             else
             {
-                return null;
+                return EM_LoginState.PasswordError;
             }
         }
 
