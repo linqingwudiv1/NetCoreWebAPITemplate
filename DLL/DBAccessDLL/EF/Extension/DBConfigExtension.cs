@@ -40,7 +40,7 @@ namespace DBAccessDLL.EF
         /// <returns></returns>
         static public EntityTypeBuilder<T> UseSofeDelete<T>(this EntityTypeBuilder<T> targetBuilder) where T : BaseEntity 
         {
-            targetBuilder.HasQueryFilter(x => x.Qing_IsDelete == false);
+            targetBuilder.HasQueryFilter( x => x.Qing_IsDelete == false );
             return targetBuilder;
         }
     }

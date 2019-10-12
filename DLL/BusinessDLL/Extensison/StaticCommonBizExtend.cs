@@ -26,23 +26,6 @@ namespace BusinessDLL.Extensison
     /// </summary>
     public static class StaticBizExtend
     {
-        /// <summary>
-        /// 模拟数据
-        /// </summary>
-        static DTO_StoreAccount temp_storeAccount = new DTO_StoreAccount
-        {
-            id = 0,
-            username = "admin",
-            name = "linqing",
-            avatar = "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
-            introduction = " role ",
-            email = "aa875191946@qq.com",
-            phone = "184****8004",
-            roles = new List<string> { "admin", "editor" }
-
-        };
-
-
 
         /// <summary>
         /// 登录操作
@@ -54,7 +37,10 @@ namespace BusinessDLL.Extensison
         {
             ExamContext db = new ExamContext();
 
-            var account = ( from x in db.Accounts.Include(obj=>obj.AccountRoles)
+            var account = ( from 
+                                x 
+                            in 
+                                db.Accounts.Include( obj => obj.AccountRoles )
                             where 
                                 x.Username == data.username 
                             select x ).FirstOrDefault();
@@ -64,13 +50,27 @@ namespace BusinessDLL.Extensison
                 return EM_LoginState.NoExist;
             }
 
-            if (data.username == temp_storeAccount.username)
+            if (account.Password == data.password)
             {
-                controller.HttpContext.Session.SetStoreAccount(temp_storeAccount);
+                IList<string> roles = ( from x in account.AccountRoles select x.role.Name).ToList();
 
-                return EM_LoginState.Pass; //new { accessToken = "Admin-Token" };
+                DTO_StoreAccount storeAccount = new DTO_StoreAccount
+                {
+                    id = account.Id,
+                    username = account.Username,
+                    password = account.Password,
+                    avatar = account.Avatar,
+                    email = account.Email,
+                    name = account.Name,
+                    introduction = account.Introduction,
+                    phone = account.Phone,
+                    roles = roles
+                };
+
+                controller.HttpContext.Session.SetStoreAccount(storeAccount);
+                return EM_LoginState.Pass;
             }
-            else
+            else 
             {
                 return EM_LoginState.PasswordError;
             }

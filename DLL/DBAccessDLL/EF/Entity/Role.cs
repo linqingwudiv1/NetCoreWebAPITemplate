@@ -29,12 +29,12 @@ namespace DBAccessDLL.EF.Entity
         public string Descrption { get; set; }
 
         /// <summary>
-        /// 
+        /// 关联的AccountRoles数据
         /// </summary>
         public ICollection<AccountRole> AccountRoles { get; set; }
 
         /// <summary>
-        /// 
+        /// 关联的
         /// </summary>
         public ICollection<RoutePageRole> RouteRoles { get; set; }
     }
