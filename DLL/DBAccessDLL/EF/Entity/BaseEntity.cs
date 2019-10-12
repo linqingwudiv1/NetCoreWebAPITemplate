@@ -34,10 +34,11 @@ namespace DBAccessDLL.EF.Entity
         /// 数据最近一次修改时间
         /// </summary>
         public DateTime Qing_UpdateTime { get; set; }
-        
+
         /// <summary>
         /// 软删除事件
         /// </summary>
         public DateTime? Qing_DeleteTime { get; set; }
     }
+
 }
