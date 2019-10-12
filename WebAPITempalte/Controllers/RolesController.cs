@@ -7,6 +7,7 @@ using NetApplictionServiceDLL;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using DTOModelDLL.API.Roles;
 
 namespace WebAPI.Controllers
 {
@@ -49,7 +50,7 @@ namespace WebAPI.Controllers
             Role role = db.Roles.Find(id);
 
             DTO_ReturnModel<Role> ret_model = new DTO_ReturnModel<Role>(role);
-            return Ok();
+            return Ok(ret_model);
         }
 
         /// <summary>
@@ -57,14 +58,36 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult AddRole([FromBody]Role data)
+        public IActionResult AddRole([FromBody]DTOAPIReq_Role data)
         {
-            if (data != null) 
+            if (data == null)
             {
-                data.Id = Math.Abs(Guid.NewGuid().GetHashCode());   
+                return NotFound("没有正确添加数据");
             }
 
-            return Ok();
+            Role role = new Role();
+
+
+            role.Id = Math.Abs(Guid.NewGuid().GetHashCode());
+            role.Name = data.Name;
+            role.Descrption = data.Descrption;
+
+            DTO_ReturnModel<int> ret_model = new DTO_ReturnModel<int>();
+            using (ExamContext db = new ExamContext())
+            {
+                try
+                {
+                    db.Roles.Add(role);
+                    ret_model.data = db.SaveChanges();
+                }
+                catch (Exception ex) 
+                {
+                    ret_model.desc = ex.Message;
+                    ret_model.data = -1;
+                }
+            }
+
+            return Ok(ret_model);
         }
 
         /// <summary>
@@ -72,9 +95,35 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public IActionResult UpdateRole(Int64 id, [FromBody]Role data)
+        public IActionResult UpdateRole(Int64 id, [FromBody]DTOAPIReq_Role data)
         {
-            return Ok(null);
+            DTO_ReturnModel<int> ret_model = new DTO_ReturnModel<int>();
+            
+            using (ExamContext db = new ExamContext()) 
+            {
+                try
+                {
+                    Role role = db.Roles.Find(id);
+
+                    if (role == null)
+                    {
+                        return NotFound(ret_model);
+                    }
+
+                    role.Name = data.Name;
+                    role.Descrption = data.Descrption;
+                    
+                    ret_model.data = db.SaveChanges();
+                }
+                catch (Exception ex) 
+                {
+                    ret_model.data = -1;
+                    ret_model.desc = ex.Message;
+                    return NotFound(ret_model);
+                }
+            }
+
+            return Ok(ret_model);
         }
 
         /// <summary>
@@ -85,7 +134,23 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteRole(Int64 id) 
         {
-            return Ok(new DTO_ReturnModel<dynamic>(null));
+            DTO_ReturnModel<int> ret_model = new DTO_ReturnModel<int>();
+            using (ExamContext db = new ExamContext()) 
+            {
+                try
+                {
+                    Role role = db.Roles.Find(id);
+
+
+                    db.SaveChanges();
+                }
+                catch (Exception ex) 
+                {
+                    ret_model.data = -1;
+                    ret_model.desc = ex.Message;
+                }
+            }
+        return Ok();
         }
     }
 }

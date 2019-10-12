@@ -12,7 +12,7 @@ namespace DTOModelDLL.Common.Store
         /// <summary>
         /// 
         /// </summary>
-        public int id { get; set; }
+        public Int64 id { get; set; }
 
         /// <summary>
         /// 
@@ -48,6 +48,8 @@ namespace DTOModelDLL.Common.Store
         /// 
         /// </summary>
         public string phone { get; set; }
+
+        public string sex { get; set; }
 
         /// <summary>
         /// 
