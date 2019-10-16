@@ -51,18 +51,17 @@ namespace DBAccessDLL.EF.Context.Base
         /// 
         /// </summary>
         /// <returns></returns>
-        public override int SaveChanges() 
+        public override int SaveChanges()
         {
             var validationErrors = this.ChangeTracker;
 
-            if ( this.ChangeTracker != null ) 
+            if (this.ChangeTracker != null)
             {
                 var entities = this.ChangeTracker
                     .Entries()
-                    .Where(x => x.State == EntityState.Modified || 
-                                x.State == EntityState.Added && 
-                                x.Entity != null && 
-                                typeof(BaseEntity).IsAssignableFrom(x.Entity.GetType()))
+                    .Where( x => x.State == EntityState.Modified &&
+                                 x.Entity != null &&
+                                 typeof(BaseEntity).IsAssignableFrom(x.Entity.GetType()) )
                     .Select(x => x)
                     .ToList();
 
@@ -70,31 +69,13 @@ namespace DBAccessDLL.EF.Context.Base
                 foreach (var entity in entities)
                 {
                     BaseEntity entityBase = entity.Entity as BaseEntity;
-                    if (entity.State == EntityState.Added)
-                    {
-                        entityBase.Fill();
-                    }
+                    entityBase.Qing_UpdateTime = DateTime.Now;
+                    entityBase.Qing_Version++;
                 }
             }
 
             return base.SaveChanges();
 
-#if Debug
-
-#endif
-            var objectContextAdapter = this as IObjectContextAdapter;
-            if (objectContextAdapter != null)
-            {
-                objectContextAdapter.ObjectContext.DetectChanges();
-                foreach (ObjectStateEntry entry in objectContextAdapter.ObjectContext.ObjectStateManager.GetObjectStateEntries(EntityState.Modified))
-                {
-                    var v = entry.Entity as IVersionedRow;
-                    if (v != null)
-                        v.RowVersion++;
-                }
-            }
-
-            return base.SaveChanges();
         }
     }
 }

@@ -9,5 +9,6 @@
         /// Case: LTE数据库
         /// </summary>
         public string LTEConn { get; set; }
+
     }
 }

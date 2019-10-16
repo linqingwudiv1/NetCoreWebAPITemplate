@@ -18,6 +18,7 @@ using Npoi.Core.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -94,8 +95,8 @@ namespace WebAPI.Controllers
             const string charSet = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789~!@#$%^&*()_+-=`[]{};':"",./<>?";
 
             var testAccount = new Faker<Account>(locale: "zh_CN").StrictMode(true);
-
-            testAccount.RuleFor( entity => entity.Id,            faker => faker.IndexFaker + 1                            );
+            long max_id_account = db.Accounts.AsEnumerable().Select(x=>x.Id) .DefaultIfEmpty(0).Max() ;
+            testAccount.RuleFor( entity => entity.Id,            faker => max_id_account + faker.IndexFaker + 1           );
             testAccount.RuleFor( entity => entity.Name,          faker => faker.Random.String2(8, 16, charSet)            );
             testAccount.RuleFor( entity => entity.Introduction,  faker => faker.Rant.Review()                             );
             testAccount.RuleFor( entity => entity.Avatar,        faker => faker.Image.PlaceholderUrl(256, 256)            );
@@ -122,7 +123,7 @@ namespace WebAPI.Controllers
                         return new AccountRole
                         {
                             Id = Math.Abs(Guid.NewGuid().GetHashCode()),
-                            AccountId = faker.IndexFaker + 1,
+                            AccountId = max_id_account + faker.IndexFaker + 1,
                             account = null,
                             Qing_CreateTime = DateTime.Now,
                             Qing_DeleteTime = DateTime.Now,
@@ -162,9 +163,17 @@ namespace WebAPI.Controllers
 
             #endregion
 
-            Account[] accountList = testAccount.Generate(1000).ToArray();
+            Account[] accountList = testAccount.Generate(100000).ToArray();
             //RoutePage[] RoutePages = testRoutePage.Generate(100).ToArray();
 
+            //try
+            //{
+
+            //}
+            //catch (DbContextOptionsBuilder.EnableSensitiveDataLogging) 
+            //{
+            
+            //}
             db.Accounts.AddRange(accountList);
             //db.RoutePages.AddRange(RoutePages);
             
@@ -187,12 +196,40 @@ namespace WebAPI.Controllers
                 db.Database.EnsureCreated();
             }
 
-            List<Account> list = (from x in db.Accounts select x).ToList();
 
-            db.RoutePages.Include(p => p.ParentId);
+            Stopwatch Sw = new Stopwatch();
+            Sw.Start();
 
-            List<View_AccountFemale> list_2 = ( from x in db.view_AccountFemales select x ).ToList();
-            return Ok(new { list,list_2});
+            var query = (from x in 
+                            db.Accounts.Include(e =>e.AccountRoles )
+                                       .ThenInclude(o => o.role )
+                        select 
+                            new 
+                            { 
+                                x.Id,
+                                x.Name,
+                                x.Username,
+                                x.Sex,
+                                x.Email,
+                                x.Avatar,
+                                x.Password,
+                                x.Introduction,
+                                x.Phone,
+                                x.Qing_IsDelete,
+                                x.Qing_CreateTime,
+                                x.Qing_DeleteTime,
+                                x.Qing_Sequence,
+                                x.Qing_Version,
+                                x.Qing_UpdateTime,
+                                Roles = x.AccountRoles.Select(x=> x.role.Name)
+                            });
+
+            var list = query.Take(100).ToList();
+            Sw.Stop();
+            
+
+            //List<View_AccountFemale> list_2 = ( from x in db.view_AccountFemales select x ).ToList();
+            return Ok(new { time = Sw.ElapsedMilliseconds.ToString() + "ms.", list /*,list_2*/ });
         }
 
         /// <summary>

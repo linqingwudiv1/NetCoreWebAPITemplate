@@ -14,7 +14,6 @@ namespace DBAccessDLL.EF.Entity
         /// </summary>
         public bool Qing_IsDelete { get; set; }
 
-
         /// <summary>
         /// 数据版本 Optimistic locking 乐观锁字段
         /// </summary>
@@ -40,5 +39,4 @@ namespace DBAccessDLL.EF.Entity
         /// </summary>
         public DateTime? Qing_DeleteTime { get; set; }
     }
-
 }

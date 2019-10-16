@@ -65,5 +65,6 @@ namespace DBAccessDLL.EF.Entity
 
             builder.SetupBaseEntity<RoutePage>();
         }
+
     }
 }

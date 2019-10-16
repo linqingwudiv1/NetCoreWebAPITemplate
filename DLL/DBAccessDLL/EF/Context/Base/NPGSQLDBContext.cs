@@ -16,16 +16,29 @@ namespace DBAccessDLL.EF.Context.Base
     public class NPGSQLDBContext<DBCtx> : BaseDBContext<DBCtx> where DBCtx : BaseDBContext<DBCtx>
     {
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_ConnString"></param>
         public NPGSQLDBContext(string _ConnString = "")
         : base(_ConnString)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        /// <param name="_ConnString"></param>
         public NPGSQLDBContext(DbContextOptions<DBCtx> options, string _ConnString = "")
         : base(options,_ConnString)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql(ConnString);

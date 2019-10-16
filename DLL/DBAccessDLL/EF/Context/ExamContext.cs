@@ -19,7 +19,17 @@ namespace DBAccessDLL.EF.Context
         /// <summary>
         /// 
         /// </summary>
+        virtual public DbSet<AccountRole> AccountRoles { get; protected set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         virtual public DbSet<RoutePage> RoutePages { get; protected set; }
+
+        /// <summary>
+        /// 可访问页面权限列表
+        /// </summary>
+        virtual public DbSet<RoutePageRole> RoutePageRoles { get; protected set; }
 
         /// <summary>
         /// 
@@ -57,8 +67,13 @@ namespace DBAccessDLL.EF.Context
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.ApplyConfiguration<Account>(new AccountEFConfig());
+            modelBuilder.ApplyConfiguration<AccountRole>(new AccountRoleEFConfig());
             modelBuilder.ApplyConfiguration<RoutePage>(new RoutePageEFConfig());
+            modelBuilder.ApplyConfiguration<RoutePageRole>(new RoutePageRoleEFConfig());
+            modelBuilder.ApplyConfiguration<Role>(new RoleEFConfig());
+
             // Database 必须存在 View_AccountFemale 视图
             modelBuilder.ApplyConfiguration<View_AccountFemale>(new View_AccountFemaleEFConfig());
 
