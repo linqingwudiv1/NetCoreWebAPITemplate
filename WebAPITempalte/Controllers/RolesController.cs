@@ -67,7 +67,6 @@ namespace WebAPI.Controllers
 
             Role role = new Role();
 
-
             role.Id = Math.Abs(Guid.NewGuid().GetHashCode());
             role.Name = data.Name;
             role.Descrption = data.Descrption;
@@ -132,7 +131,7 @@ namespace WebAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public IActionResult DeleteRole(Int64 id) 
+        public IActionResult DeleteRole( Int64 id ) 
         {
             DTO_ReturnModel<int> ret_model = new DTO_ReturnModel<int>();
             using (ExamContext db = new ExamContext()) 
@@ -140,8 +139,6 @@ namespace WebAPI.Controllers
                 try
                 {
                     Role role = db.Roles.Find(id);
-
-
                     db.SaveChanges();
                 }
                 catch (Exception ex) 
@@ -150,7 +147,8 @@ namespace WebAPI.Controllers
                     ret_model.desc = ex.Message;
                 }
             }
-        return Ok();
+
+            return Ok();
         }
     }
 }

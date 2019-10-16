@@ -6,10 +6,10 @@ using System.Text;
 namespace DBAccessDLL.EF.Entity
 {
     /// <summary>
-    /// 
+    /// RoutePage 子表/详情表
     /// </summary>
     [Owned]
-    public class RoutePageMeta
+    public  class RoutePageMeta
     {
         /// <summary>
         /// 

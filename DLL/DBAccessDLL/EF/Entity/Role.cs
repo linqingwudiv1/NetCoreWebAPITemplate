@@ -50,7 +50,25 @@ namespace DBAccessDLL.EF.Entity
         /// <param name="builder"></param>
         public void Configure(EntityTypeBuilder<Role> builder)
         {
+
+
             var tableBuilder = builder.ToTable("Role").SetupBaseEntity<Role>();
+
+            tableBuilder.HasMany<AccountRole>(p => p.AccountRoles).WithOne(c => c.role).HasForeignKey(c => c.RoleId);
+            tableBuilder.HasMany<RoutePageRole>(p => p.RouteRoles).WithOne(c => c.role).HasForeignKey(c => c.RoleId);
+#if DEBUG
+            #region Default Database
+            
+            Role[] default_roles = {
+                                     new Role { Id = 1, Descrption = "系统管理员", Name = "admin"  } ,
+                                     new Role { Id = 2, Descrption = "系统运维员", Name = "editor" } ,
+                                     new Role { Id = 3, Descrption = "访客",       Name = "guest"  }
+                                   };
+
+            tableBuilder.HasData(default_roles);
+            #endregion
+#endif
+
         }
 
     }
