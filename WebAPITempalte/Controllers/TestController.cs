@@ -96,7 +96,7 @@ namespace WebAPI.Controllers
 
             const string charSet = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789~!@#$%^&*()_+-=`[]{};':"",./<>?";
 
-            var testAccount = new Faker<Account>(locale: "zh_CN").StrictMode(true);
+            var testAccount = new Faker<Account>(locale: "zh_CN");//.StrictMode(true);
 
             long max_id_account = (
                 from
@@ -124,21 +124,12 @@ namespace WebAPI.Controllers
             testAccount.RuleFor(entity => entity.Username, faker => faker.Name.FirstName() + faker.Name.LastName());
             testAccount.RuleFor(entity => entity.Phone, faker => faker.Phone.PhoneNumber());
             testAccount.RuleFor(entity => entity.Sex, faker => faker.Random.Int(0, 2));
-
-            testAccount.RuleFor(entity => entity.Qing_CreateTime, faker => DateTime.Now);
-            testAccount.RuleFor(entity => entity.Qing_UpdateTime, faker => DateTime.Now);
-            testAccount.RuleFor(entity => entity.Qing_DeleteTime, faker => null);
-
-            testAccount.RuleFor(entity => entity.Qing_Version, faker => 0);
             testAccount.RuleFor(entity => entity.Qing_IsDelete, faker => faker.Random.Bool());
-            testAccount.RuleFor(entity => entity.Qing_Sequence, faker => 0);
-
             testAccount.RuleFor(entity => entity.AccountRoles, faker =>
             {
-                var bAddRole = faker.Random.Bool();
-
+                bool bAddRole = faker.Random.Bool();
                 //随机生成
-                if (bAddRole)
+                if ( bAddRole )
                 {
                     List<AccountRole> accountRoleList = faker.Make<AccountRole>(1, () =>
                     {
@@ -147,12 +138,6 @@ namespace WebAPI.Controllers
                             Id = max_id_accountRole + faker.IndexFaker + 1,
                             AccountId = max_id_account + faker.IndexFaker + 1,
                             account = null,
-                            //Qing_CreateTime = DateTime.Now,
-                            //Qing_DeleteTime = DateTime.Now,
-                            //Qing_UpdateTime = DateTime.Now,
-                            //Qing_IsDelete = false,
-                            //Qing_Sequence = 0,
-                            //Qing_Version = 0,
                             RoleId = 1
                         };
 
@@ -166,23 +151,15 @@ namespace WebAPI.Controllers
                 }
             });
 
-            var testRoutePage = new Faker<RoutePage>(locale: "zh_CN").StrictMode(true);
+            Faker<RoutePage> testRoutePage = new Faker<RoutePage>(locale: "zh_CN");
 
             testRoutePage.RuleFor(e => e.Id, faker => (faker.IndexFaker + 1));
             testRoutePage.RuleFor(e => e.Component, faker => "admin");
             testRoutePage.RuleFor(e => e.Meta, faker => faker.Make<RoutePageMeta>(1, (i) => new RoutePageMeta())[0]);
             testRoutePage.RuleFor(e => e.Name, faker => faker.Name.FirstName() + faker.Name.LastName());
             testRoutePage.RuleFor(e => e.Path, faker => faker.Rant.Review());
-
             testRoutePage.RuleFor(e => e.ParentId, faker => 1);
-
-            testRoutePage.RuleFor(entity => entity.Qing_CreateTime, faker => DateTime.Now);
-            testRoutePage.RuleFor(entity => entity.Qing_UpdateTime, faker => DateTime.Now);
-            testRoutePage.RuleFor(entity => entity.Qing_DeleteTime, faker => null);
-
-            testRoutePage.RuleFor(entity => entity.Qing_Version, faker => 0);
             testRoutePage.RuleFor(entity => entity.Qing_IsDelete, faker => faker.Random.Bool());
-            testRoutePage.RuleFor(entity => entity.Qing_Sequence, faker => 0);
 
             #endregion
 
@@ -232,10 +209,10 @@ namespace WebAPI.Controllers
                          select
                              new
                              {
-                                 x.Id,
-                                 x.Name,
-                                 x.Username,
-                                 x.Sex,
+                                 x.Id   ,
+                                 x.Name ,
+                                 x.Username ,
+                                 x.Sex  ,
                                  x.Email,
                                  x.Avatar,
                                  x.Password,
@@ -253,7 +230,6 @@ namespace WebAPI.Controllers
             var list = query.Take(100).ToList();
             Sw.Stop();
 
-
             //List<View_AccountFemale> list_2 = ( from x in db.view_AccountFemales select x ).ToList();
             return Ok(new { time = Sw.ElapsedMilliseconds.ToString() + "ms.", list /*,list_2*/ });
         }
@@ -267,6 +243,7 @@ namespace WebAPI.Controllers
         [HttpPut]
         public IActionResult EFCore_UpdateTest(int DebugThreadCount = 10, Int64 Id = 1)
         {
+
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
             Faker faker = new Faker(locale: "zh_CN");
 
@@ -274,26 +251,46 @@ namespace WebAPI.Controllers
             {
                 Thread thread = new Thread(new ThreadStart(() =>
                 {
-                    using (ExamContext db = new ExamContext(sqliteDBConn))
+                    int count = 0;
+                    while (true)
                     {
-                        while (true)
+                        try
                         {
-                            try
+                            ExamContext db = new ExamContext(sqliteDBConn);
+                            Account account = db.Accounts.Find(Id);
+
+                            if (account != null)
                             {
-                                Account account = db.Accounts.Find(Id);
-                                if (account != null)
-                                {
-                                    account.Name = (faker.Name.FirstName() + faker.Name.LastName());
-                                    db.SaveChanges();
-                                }
+                                account.Name = (faker.Name.FirstName() + faker.Name.LastName());
+                                db.SaveChanges();
                             }
-                            catch (Exception /*ex*/)
+                            else
                             {
-                                continue;
+                                Console.WriteLine($"not account.....{count}");
                             }
+
+                            count++;
+                            //Thread.Sleep(10);
+
+                            if (count >= 1000)
+                            {
+                                break;
+                            }
+                        }
+                        catch (DbUpdateConcurrencyException /*ex*/)
+                        {
+                            //locking....
+                            //Thread.Sleep(10);
+                            continue;
+                        }
+                        catch (Exception /*ex*/)
+                        {
+                            //Other Exception....
+                            break;
                         }
                     }
                 }));
+                thread.Start();
             }
 
             return Ok();
@@ -528,7 +525,7 @@ namespace WebAPI.Controllers
                 DTO_ReturnModel<dynamic> ret = new DTO_ReturnModel<dynamic>(ret_model);
                 return Ok(ret);
             }
-            catch (Exception ex)
+            catch ( Exception ex )
             {
                 return NotFound(new DTO_ReturnModel<dynamic>(ex.Message, 400));
             }

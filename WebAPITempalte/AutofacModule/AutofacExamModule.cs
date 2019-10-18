@@ -17,7 +17,6 @@ namespace WebAPI.AutofacModule
         protected override void Load(ContainerBuilder builder)
         {
             // 示例
-            
             builder.Register(c => new CoreHelper()).As<ICoreHelper>().InstancePerLifetimeScope();
             
             // 注册到BaseController的所有子类

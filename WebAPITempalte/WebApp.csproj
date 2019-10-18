@@ -88,6 +88,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include=".Config\nlog.config" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DLL\BaseDLL\BaseDLL.csproj" />
     <ProjectReference Include="..\DLL\BusinessDLL\BusinessDLL.csproj" />
     <ProjectReference Include="..\DLL\DBAccessDLL\DBAccessDLL.csproj" />

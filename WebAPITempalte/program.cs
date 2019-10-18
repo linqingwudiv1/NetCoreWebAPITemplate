@@ -1,16 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System;
-using Autofac.Extensions.DependencyInjection;
-using System.Diagnostics;
-using Autofac;
 using System.IO;
-using log4net;
-using System.Linq;
-using DBAccessDLL.EF.Context;
-using System.Configuration;
-using Microsoft.Extensions.Hosting;
 
 namespace WebAPI
 {
@@ -56,6 +50,7 @@ namespace WebAPI
         /// <returns></returns>
         public static IHostBuilder CreateHostBuilder(string[] args) 
         {
+            var logger = NLogBuilder.ConfigureNLog("nlog.config");
             string path = Directory.GetCurrentDirectory() + @"\.Config\HostAddress.json";
             using ( FileStream file = new FileStream ( path, FileMode.Open, FileAccess.Read) )
             {

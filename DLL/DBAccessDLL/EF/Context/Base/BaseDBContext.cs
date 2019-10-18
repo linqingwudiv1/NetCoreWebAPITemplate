@@ -73,8 +73,16 @@ namespace DBAccessDLL.EF.Context.Base
                     entityBase.Qing_Version++;
                 }
             }
-
-            return base.SaveChanges();
+            try
+            {
+                return base.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException )
+            {
+                return 0;
+                //return base.SaveChanges();
+            }
+            
 
         }
     }

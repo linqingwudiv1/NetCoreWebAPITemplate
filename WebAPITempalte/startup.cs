@@ -1,9 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using DBAccessDLL.Static;
-using log4net;
-using log4net.Config;
-using log4net.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
+using NLog;
 using System;
 using System.IO;
 using WebAPI.AutofacModule;
@@ -28,10 +26,6 @@ namespace WebAPI
     /// </summary>
     public class Startup
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public static ILoggerRepository net4log { get; set; }
 
         /// <summary>
         /// 
@@ -48,8 +42,17 @@ namespace WebAPI
         /// </summary>
         private void InitNet4Log()
         {
-            net4log = LogManager.CreateRepository("NETCoreRepository");
-            XmlConfigurator.Configure(net4log, new FileInfo(@"\.Config\net4log.config"));
+            //net4log = LogManager.CreateRepository("NETCoreRepository");
+            //XmlConfigurator.Configure(net4log, new FileInfo(@"\.Config\net4log.config"));
+        }
+        private void InitNLog() 
+        {
+            Logger logger = LogManager.GetLogger("test");
+            logger.Trace("测试test");
+            logger.Info("测试test");
+            logger.Warn("测试test");
+            logger.Error("测试test");
+            logger.Fatal("测试test");
         }
 
         /// <summary>
@@ -100,6 +103,7 @@ namespace WebAPI
             #region Initilize
 
             InitNet4Log();
+            InitNLog();
             InitSessionOpts();
             InitOther();
 
@@ -129,7 +133,8 @@ namespace WebAPI
         /// This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            ILog log = LogManager.GetLogger(net4log.Name, typeof(Startup));
+            Logger log = LogManager.GetLogger("Startup", typeof(Startup));
+
             try
             {
                 string[] origins = new string[]
@@ -281,7 +286,8 @@ namespace WebAPI
                                IWebHostEnvironment env, 
                                ILoggerFactory loggerFactory )
         {
-            ILog log = LogManager.GetLogger(net4log.Name, typeof(Startup));
+            //ILog log = LogManager.GetLogger(net4log.Name, typeof(Startup));
+            Logger log = LogManager.GetLogger("Startup", typeof(Startup));
             try
             {
                 #region MVC 和WebAPI 相关
