@@ -37,7 +37,7 @@ namespace DBAccessDLL.EF
         /// <returns></returns>
         static public IQueryable<T> QueryPages<T>(this DbSet<T> query, int pageSize, int pageNum) where T : class
         {
-            query.Skip(pageSize * (pageNum - 1)).Take(pageSize);
+            query.Skip( pageSize * (pageNum - 1) ).Take(pageSize);
             return query;
         }
 

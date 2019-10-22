@@ -38,7 +38,7 @@ namespace DBAccessDLL.EF.Entity
         /// <summary>
         /// 
         /// </summary>
-        public Role role { get; set; }
+        public virtual Role role { get; set; }
     }
 
     /// <summary>

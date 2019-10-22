@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using NLog;
+using NLog.Web;
 using System;
 using System.IO;
 
@@ -11,12 +13,12 @@ namespace WebAPI
     /// <summary>
     /// 主函数
     /// </summary>
-    public class Program
+    public static class Program
     {
         /// <summary>
         /// 
         /// </summary>
-        private class HostAddressModel
+        public class HostAddressModel
         {
             /// <summary>
             /// 
@@ -26,7 +28,7 @@ namespace WebAPI
         /// <summary>
         /// 
         /// </summary>
-        private static HostAddressModel HostAddress { get; set; }
+        private static HostAddressModel HostAddress = new HostAddressModel();//{ get; set; }
 
         /// <summary>
         /// 初始化
@@ -38,7 +40,7 @@ namespace WebAPI
             {
                 CreateHostBuilder(args).Build().Run();
             }
-            catch (Exception ex) 
+            catch (Exception)
             {
             }
         }
@@ -50,9 +52,12 @@ namespace WebAPI
         /// <returns></returns>
         public static IHostBuilder CreateHostBuilder(string[] args) 
         {
-            var logger = NLogBuilder.ConfigureNLog("nlog.config");
-            string path = Directory.GetCurrentDirectory() + @"\.Config\HostAddress.json";
-            using ( FileStream file = new FileStream ( path, FileMode.Open, FileAccess.Read) )
+            // Initilize nlog
+            LogFactory loggerFactory = NLogBuilder.ConfigureNLog(@"./.Config/nlog.config");
+            
+            string path = Directory.GetCurrentDirectory() + @"/.Config/HostAddress.json";
+
+            using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 using (StreamReader sr = new StreamReader(file))
                 {
@@ -61,8 +66,7 @@ namespace WebAPI
                 }
             }
 
-            Console.WriteLine("Kestrel地址：" + Program.HostAddress.HostAddress);
-            Console.WriteLine("Note：如需修改,请修改配置文件 HostAddress.json并重启服务.");
+            Console.WriteLine("Kestrel地址:" + Program.HostAddress.HostAddress);
 
             IHostBuilder host = Host.CreateDefaultBuilder(args)
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())

@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 using NetApplictionServiceDLL;
+using NLog;
 using Npoi.Core.HSSF.Util;
 using Npoi.Core.SS.UserModel;
 using Npoi.Core.SS.Util;
@@ -52,6 +52,13 @@ namespace WebAPI.Controllers
         /// <param name="_Opt_API"></param>
         public TestController(IOptions<Option_ConnctionString> Opt, IOptions<Opt_API_LTEUrl> _Opt_API)
         {
+            if (Opt == null || _Opt_API == null) 
+            {
+                LogManager.GetLogger("TestController").Error("Opt == null || _Opt_API == null");
+
+                return;
+            }
+
             Opt_Conn = Opt.Value;
             Opt_API = _Opt_API.Value;
         }
@@ -85,102 +92,105 @@ namespace WebAPI.Controllers
         public IActionResult EFCore_InsertTest(int generateCount = 1000)
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
-            ExamContext db = new ExamContext(sqliteDBConn);
 
-            if (!db.Database.CanConnect())
+            using (ExamContext db = new ExamContext(sqliteDBConn)) 
             {
-                db.Database.EnsureCreated();
-            }
 
-            #region Faker 数据模拟
-
-            const string charSet = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789~!@#$%^&*()_+-=`[]{};':"",./<>?";
-
-            var testAccount = new Faker<Account>(locale: "zh_CN");//.StrictMode(true);
-
-            long max_id_account = (
-                from
-                    x
-                in
-                    db.Accounts.IgnoreQueryFilters().AsEnumerable()
-                select
-                    x.Id).DefaultIfEmpty(0).Max();
-            long max_id_accountRole = (
-                from
-                    x
-                in
-                    db.AccountRoles.IgnoreQueryFilters().AsEnumerable()
-                select
-                    x.Id).DefaultIfEmpty(0).Max();
-
-            // long max_id_accountRole = db.AccountRoles
-
-            testAccount.RuleFor(entity => entity.Id, faker => max_id_account + faker.IndexFaker + 1);
-            testAccount.RuleFor(entity => entity.Name, faker => faker.Random.String2(8, 16, charSet));
-            testAccount.RuleFor(entity => entity.Introduction, faker => faker.Rant.Review());
-            testAccount.RuleFor(entity => entity.Avatar, faker => faker.Image.PlaceholderUrl(256, 256));
-            testAccount.RuleFor(entity => entity.Email, faker => faker.Phone.PhoneNumber() + "@Qing.com");
-            testAccount.RuleFor(entity => entity.Password, faker => faker.Random.String2(8, 16, charSet));
-            testAccount.RuleFor(entity => entity.Username, faker => faker.Name.FirstName() + faker.Name.LastName());
-            testAccount.RuleFor(entity => entity.Phone, faker => faker.Phone.PhoneNumber());
-            testAccount.RuleFor(entity => entity.Sex, faker => faker.Random.Int(0, 2));
-            testAccount.RuleFor(entity => entity.Qing_IsDelete, faker => faker.Random.Bool());
-            testAccount.RuleFor(entity => entity.AccountRoles, faker =>
-            {
-                bool bAddRole = faker.Random.Bool();
-                //随机生成
-                if ( bAddRole )
+                if (!db.Database.CanConnect())
                 {
-                    List<AccountRole> accountRoleList = faker.Make<AccountRole>(1, () =>
+                    db.Database.EnsureCreated();
+                }
+                #region Faker 数据模拟
+
+                const string charSet = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789~!@#$%^&*()_+-=`[]{};':"",./<>?";
+
+                var testAccount = new Faker<Account>(locale: "zh_CN");//.StrictMode(true);
+
+                long max_id_account = (
+                    from
+                        x
+                    in
+                        db.Accounts.IgnoreQueryFilters().AsEnumerable()
+                    select
+                        x.Id).DefaultIfEmpty(0).Max();
+                long max_id_accountRole = (
+                    from
+                        x
+                    in
+                        db.AccountRoles.IgnoreQueryFilters().AsEnumerable()
+                    select
+                        x.Id).DefaultIfEmpty(0).Max();
+
+                // long max_id_accountRole = db.AccountRoles
+
+                testAccount.RuleFor(entity => entity.Id, faker => max_id_account + faker.IndexFaker + 1);
+                testAccount.RuleFor(entity => entity.Name, faker => faker.Random.String2(8, 16, charSet));
+                testAccount.RuleFor(entity => entity.Introduction, faker => faker.Rant.Review());
+                testAccount.RuleFor(entity => entity.Avatar, faker => faker.Image.PlaceholderUrl(256, 256));
+                testAccount.RuleFor(entity => entity.Email, faker => faker.Phone.PhoneNumber() + "@Qing.com");
+                testAccount.RuleFor(entity => entity.Password, faker => faker.Random.String2(8, 16, charSet));
+                testAccount.RuleFor(entity => entity.Username, faker => faker.Name.FirstName() + faker.Name.LastName());
+                testAccount.RuleFor(entity => entity.Phone, faker => faker.Phone.PhoneNumber());
+                testAccount.RuleFor(entity => entity.Sex, faker => faker.Random.Int(0, 2));
+                testAccount.RuleFor(entity => entity.Qing_IsDelete, faker => faker.Random.Bool());
+                testAccount.RuleFor(entity => entity.AccountRoles, faker =>
+                {
+                    bool bAddRole = faker.Random.Bool();
+                    //随机生成
+                    if (bAddRole)
                     {
-                        return new AccountRole
+                        List<AccountRole> accountRoleList = faker.Make<AccountRole>(1, () =>
                         {
-                            Id = max_id_accountRole + faker.IndexFaker + 1,
-                            AccountId = max_id_account + faker.IndexFaker + 1,
-                            account = null,
-                            RoleId = 1
-                        };
+                            return new AccountRole
+                            {
+                                Id = max_id_accountRole + faker.IndexFaker + 1,
+                                AccountId = max_id_account + faker.IndexFaker + 1,
+                                account = null,
+                                RoleId = 1
+                            };
 
-                    }).ToList();
+                        }).ToList();
 
-                    return accountRoleList;
-                }
-                else
+                        return accountRoleList;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                });
+
+                Faker<RoutePage> testRoutePage = new Faker<RoutePage>(locale: "zh_CN");
+
+                testRoutePage.RuleFor(e => e.Id, faker => (faker.IndexFaker + 1));
+                testRoutePage.RuleFor(e => e.Component, faker => "admin");
+                testRoutePage.RuleFor(e => e.Meta, faker => faker.Make<RoutePageMeta>(1, (i) => new RoutePageMeta())[0]);
+                testRoutePage.RuleFor(e => e.Name, faker => faker.Name.FirstName() + faker.Name.LastName());
+                testRoutePage.RuleFor(e => e.Path, faker => faker.Rant.Review());
+                testRoutePage.RuleFor(e => e.ParentId, faker => 1);
+                testRoutePage.RuleFor(entity => entity.Qing_IsDelete, faker => faker.Random.Bool());
+
+                #endregion
+
+                Stopwatch sw_insert = new Stopwatch();
+                Stopwatch sw_generate = new Stopwatch();
+
+                sw_generate.Start();
+                Account[] accountList = testAccount.Generate(generateCount).ToArray();
+                sw_generate.Stop();
+
+                sw_insert.Start();
+                db.Accounts.AddRange(accountList);
+                int effectRowCount = db.SaveChanges();
+                sw_insert.Stop();
+
+                return Ok(new
                 {
-                    return null;
-                }
-            });
+                    effectRowCount,
+                    GenerateTime = sw_generate.ElapsedMilliseconds + "ms",
+                    InsertTime = sw_insert.ElapsedMilliseconds + "ms"
+                });
 
-            Faker<RoutePage> testRoutePage = new Faker<RoutePage>(locale: "zh_CN");
-
-            testRoutePage.RuleFor(e => e.Id, faker => (faker.IndexFaker + 1));
-            testRoutePage.RuleFor(e => e.Component, faker => "admin");
-            testRoutePage.RuleFor(e => e.Meta, faker => faker.Make<RoutePageMeta>(1, (i) => new RoutePageMeta())[0]);
-            testRoutePage.RuleFor(e => e.Name, faker => faker.Name.FirstName() + faker.Name.LastName());
-            testRoutePage.RuleFor(e => e.Path, faker => faker.Rant.Review());
-            testRoutePage.RuleFor(e => e.ParentId, faker => 1);
-            testRoutePage.RuleFor(entity => entity.Qing_IsDelete, faker => faker.Random.Bool());
-
-            #endregion
-
-            Stopwatch sw_insert = new Stopwatch();
-            Stopwatch sw_generate = new Stopwatch();
-
-            sw_generate.Start();
-            Account[] accountList = testAccount.Generate(generateCount).ToArray();
-            sw_generate.Stop();
-
-            sw_insert.Start();
-            db.Accounts.AddRange(accountList);
-            int effectRowCount = db.SaveChanges();
-            sw_insert.Stop();
-
-            return Ok(new
-            {
-                effectRowCount,
-                GenerateTime = sw_generate.ElapsedMilliseconds + "ms",
-                InsertTime = sw_insert.ElapsedMilliseconds + "ms"
-            });
+            }
 
         }
 
@@ -193,45 +203,47 @@ namespace WebAPI.Controllers
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
 
-            ExamContext db = new ExamContext(sqliteDBConn);
-
-            if (!db.Database.CanConnect())
+            using (ExamContext db = new ExamContext(sqliteDBConn))
             {
-                db.Database.EnsureCreated();
+
+                if (!db.Database.CanConnect())
+                {
+                    db.Database.EnsureCreated();
+                }
+
+                Stopwatch Sw = new Stopwatch();
+                Sw.Start();
+
+                var query = (from x in
+                                db.Accounts.Include(e => e.AccountRoles)
+                                           .ThenInclude(o => o.role)
+                             select
+                                 new
+                                 {
+                                     x.Id               ,
+                                     x.Name             ,
+                                     x.Username         ,
+                                     x.Sex              ,
+                                     x.Email            ,
+                                     x.Avatar           ,
+                                     x.Password         ,
+                                     x.Introduction     ,
+                                     x.Phone            ,
+                                     x.Qing_IsDelete    ,
+                                     x.Qing_CreateTime  ,
+                                     x.Qing_DeleteTime  ,
+                                     x.Qing_Sequence    ,
+                                     x.Qing_Version     ,
+                                     x.Qing_UpdateTime  ,
+                                     Roles = x.AccountRoles.Select( x => x.role.Name )
+                                 });
+
+                var list = query.Take(100).ToList();
+                Sw.Stop();
+
+                //List<View_AccountFemale> list_2 = ( from x in db.view_AccountFemales select x ).ToList();
+                return Ok(new { time = Sw.ElapsedMilliseconds.ToString() + "ms.", list /*,list_2*/ });
             }
-
-            Stopwatch Sw = new Stopwatch();
-            Sw.Start();
-
-            var query = (from x in
-                            db.Accounts.Include(e => e.AccountRoles)
-                                       .ThenInclude(o => o.role)
-                         select
-                             new
-                             {
-                                 x.Id   ,
-                                 x.Name ,
-                                 x.Username ,
-                                 x.Sex  ,
-                                 x.Email,
-                                 x.Avatar,
-                                 x.Password,
-                                 x.Introduction,
-                                 x.Phone,
-                                 x.Qing_IsDelete,
-                                 x.Qing_CreateTime,
-                                 x.Qing_DeleteTime,
-                                 x.Qing_Sequence,
-                                 x.Qing_Version,
-                                 x.Qing_UpdateTime,
-                                 Roles = x.AccountRoles.Select(x => x.role.Name)
-                             });
-
-            var list = query.Take(100).ToList();
-            Sw.Stop();
-
-            //List<View_AccountFemale> list_2 = ( from x in db.view_AccountFemales select x ).ToList();
-            return Ok(new { time = Sw.ElapsedMilliseconds.ToString() + "ms.", list /*,list_2*/ });
         }
 
         /// <summary>
@@ -243,6 +255,7 @@ namespace WebAPI.Controllers
         [HttpPut]
         public IActionResult EFCore_UpdateTest(int DebugThreadCount = 10, Int64 Id = 1)
         {
+            var logger = LogManager.GetLogger("SQLite3Store"); // LogManager.GetLogger("UpdateTest"); 
 
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
             Faker faker = new Faker(locale: "zh_CN");
@@ -262,26 +275,35 @@ namespace WebAPI.Controllers
                             if (account != null)
                             {
                                 account.Name = (faker.Name.FirstName() + faker.Name.LastName());
-                                db.SaveChanges();
+                                account.Qing_Sequence++;
+                                
+                                int effectCount = db.SaveChanges();
+
+                                if ( effectCount < 0 )
+                                {
+                                    Thread.Sleep(10);
+                                    continue;
+                                }
+                                else 
+                                {
+                                    logger.Trace(@$" 
+                                                     Optimistic locking..... Name : { account.Name }          , 
+                                                     Qing_Version                 : { account.Qing_Version  } ,
+                                                     Qing_Sequence                : { account.Qing_Sequence } ");
+                                }
                             }
                             else
                             {
                                 Console.WriteLine($"not account.....{count}");
+                                break;
                             }
 
                             count++;
-                            //Thread.Sleep(10);
 
                             if (count >= 1000)
                             {
                                 break;
                             }
-                        }
-                        catch (DbUpdateConcurrencyException /*ex*/)
-                        {
-                            //locking....
-                            //Thread.Sleep(10);
-                            continue;
                         }
                         catch (Exception /*ex*/)
                         {
@@ -408,7 +430,7 @@ namespace WebAPI.Controllers
 
                     using (FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write))
                     {
-                        await fileitem.CopyToAsync(fs);
+                        await fileitem.CopyToAsync(fs).ConfigureAwait(false);
                         list.Add(Request.HttpContext.Connection.RemoteIpAddress.ToString() + "/" + filePath);
                         ret_count++;
                     }

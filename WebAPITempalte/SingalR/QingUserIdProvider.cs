@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
+/// <summary>
+/// 
+/// </summary>
 namespace WebApp.SingalR
 {
     /// <summary>
@@ -14,6 +17,11 @@ namespace WebApp.SingalR
         /// <returns></returns>
         public string GetUserId(HubConnectionContext connection)
         {
+            if (connection == null) 
+            {
+                return "";
+            }
+
             //One Conn One ID 
             return connection.ConnectionId;
         }

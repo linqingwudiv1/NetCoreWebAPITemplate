@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebApp.SingalR
@@ -17,10 +13,12 @@ namespace WebApp.SingalR
         /// Event
         /// </summary>
         public static readonly string Event_ReceiveMessage = "ReceiveMessage";
+        
         /// <summary>
         /// Event
         /// </summary>
         public static readonly string Event_ReceiveOnConnected = "ReceiveOnConnected";
+        
         /// <summary>
         /// Event
         /// </summary>
@@ -30,11 +28,11 @@ namespace WebApp.SingalR
         /// 
         /// </summary>
         /// <param name="user"></param>
-        /// <param name="message"></param>
         /// <returns></returns>
-        public async Task SendMessage(string user, string message)
+        public async Task SendMessage(string user)
+
         {
-            await Clients.User(user).SendAsync(Event_ReceiveMessage, user, "hello world!");
+            await Clients.User(user).SendAsync(Event_ReceiveMessage, user, "hello world!").ConfigureAwait(false);
         }
 
         /// <summary>

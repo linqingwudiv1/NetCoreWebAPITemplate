@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
@@ -45,14 +44,9 @@ namespace WebAPI
             //net4log = LogManager.CreateRepository("NETCoreRepository");
             //XmlConfigurator.Configure(net4log, new FileInfo(@"\.Config\net4log.config"));
         }
-        private void InitNLog() 
+        private void InitNLog(IWebHostEnvironment env) 
         {
-            Logger logger = LogManager.GetLogger("test");
-            logger.Trace("测试test");
-            logger.Info("测试test");
-            logger.Warn("测试test");
-            logger.Error("测试test");
-            logger.Fatal("测试test");
+            Logger logger = LogManager.GetLogger("Starup");
         }
 
         /// <summary>
@@ -73,7 +67,7 @@ namespace WebAPI
         }
 
         /// <summary>
-        /// 
+        /// Initilize Directory
         /// </summary>
         private void InitOther()
         {
@@ -91,7 +85,6 @@ namespace WebAPI
             {
                 Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\.LocalDB");
             }
-
         }
 
         /// <summary>
@@ -103,7 +96,7 @@ namespace WebAPI
             #region Initilize
 
             InitNet4Log();
-            InitNLog();
+            InitNLog(env);
             InitSessionOpts();
             InitOther();
 
@@ -133,7 +126,7 @@ namespace WebAPI
         /// This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            Logger log = LogManager.GetLogger("Startup", typeof(Startup));
+            Logger log = LogManager.GetLogger("Startup");
 
             try
             {
@@ -280,14 +273,12 @@ namespace WebAPI
         ///  This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// </summary>
         /// <param name="app"></param>
-        /// <param name="env"></param>
-        /// <param name="loggerFactory"></param>
-        public void Configure( IApplicationBuilder app, 
+        public void Configure( IApplicationBuilder app /*, 
                                IWebHostEnvironment env, 
-                               ILoggerFactory loggerFactory )
+                               ILoggerFactory loggerFactory*/ )
         {
-            //ILog log = LogManager.GetLogger(net4log.Name, typeof(Startup));
-            Logger log = LogManager.GetLogger("Startup", typeof(Startup));
+
+            Logger log = LogManager.GetLogger("Startup");
             try
             {
                 #region MVC 和WebAPI 相关
@@ -304,7 +295,7 @@ namespace WebAPI
                 app.UseAuthorization();
 
                 string path = Path.Combine(Directory.GetCurrentDirectory(), ".Cache");
-                
+
                 app.UseStaticFiles
                 ( new StaticFileOptions
                   {
@@ -325,8 +316,6 @@ namespace WebAPI
                 });
 
                 #endregion
-
-
 
                 #region SingalR
                 app.UseEndpoints(c =>

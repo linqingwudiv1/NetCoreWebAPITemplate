@@ -39,12 +39,12 @@ namespace DBAccessDLL.EF.Entity
         /// <summary>
         /// 
         /// </summary>
-        public RoutePageMeta Meta { get; set; }
+        public virtual RoutePageMeta Meta { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<RoutePageRole> RoutePageRoles { get; set; }
+        public virtual ICollection<RoutePageRole> RoutePageRoles { get; set; }
     }
 
     /// <summary>

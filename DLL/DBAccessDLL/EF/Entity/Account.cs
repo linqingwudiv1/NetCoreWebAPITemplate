@@ -12,6 +12,9 @@ namespace DBAccessDLL.EF.Entity
     /// </summary>
     public class Account : BaseEntity
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public Account() 
         {
         }
@@ -65,7 +68,12 @@ namespace DBAccessDLL.EF.Entity
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<AccountRole> AccountRoles { get; set; }
+        public virtual ICollection<AccountRole> AccountRoles { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual ICollection<BizAccountLog> BizAccountLogs { get; set; }
     }
 
     /// <summary>
@@ -83,12 +91,17 @@ namespace DBAccessDLL.EF.Entity
 
             EntityTypeBuilder<Account> tableBuilder = builder.ToTable("Account");
 
-            tableBuilder.HasMany<AccountRole>( p => p.AccountRoles ).WithOne( c => c.account ).HasForeignKey( c => c.AccountId );
+            tableBuilder.HasMany<AccountRole>( p => p.AccountRoles )
+                        .WithOne( c => c.account )
+                        .HasForeignKey( c => c.AccountId );
+
+            tableBuilder.HasMany<BizAccountLog>( p => p.BizAccountLogs )
+                        .WithOne( c => c.Accounts )
+                        .HasForeignKey( c => c.AccountId );
 
             #endregion
 
             builder.SetupBaseEntity();
         }
-
     }
 }

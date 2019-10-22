@@ -6,9 +6,9 @@
 
 using DBAccessDLL.EF.Entity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
-using System.ComponentModel.DataAnnotations;
-using System.Configuration;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DBAccessDLL.EF.Context.Base
@@ -48,7 +48,7 @@ namespace DBAccessDLL.EF.Context.Base
         }
 
         /// <summary>
-        /// 
+        /// return -1 is DbUpdateConcurrencyException
         /// </summary>
         /// <returns></returns>
         public override int SaveChanges()
@@ -57,7 +57,7 @@ namespace DBAccessDLL.EF.Context.Base
 
             if (this.ChangeTracker != null)
             {
-                var entities = this.ChangeTracker
+                List<EntityEntry> entities = this.ChangeTracker
                     .Entries()
                     .Where( x => x.State == EntityState.Modified &&
                                  x.Entity != null &&
@@ -66,23 +66,23 @@ namespace DBAccessDLL.EF.Context.Base
                     .ToList();
 
                 // Set the create/modified date as appropriate
-                foreach (var entity in entities)
+                foreach (EntityEntry entity in entities)
                 {
                     BaseEntity entityBase = entity.Entity as BaseEntity;
+
                     entityBase.Qing_UpdateTime = DateTime.Now;
                     entityBase.Qing_Version++;
                 }
             }
+
             try
             {
                 return base.SaveChanges();
             }
             catch (DbUpdateConcurrencyException )
             {
-                return 0;
-                //return base.SaveChanges();
+                return -1;
             }
-            
 
         }
     }

@@ -34,6 +34,11 @@ namespace DBAccessDLL.EF.Context
         /// <summary>
         /// 
         /// </summary>
+        virtual public DbSet<BizSystemLog> SystemLogs { get; protected set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         virtual public DbSet<Role> Roles { get; protected set; }
 
         /// <summary>
@@ -73,7 +78,7 @@ namespace DBAccessDLL.EF.Context
             modelBuilder.ApplyConfiguration<RoutePage>(new RoutePageEFConfig());
             modelBuilder.ApplyConfiguration<RoutePageRole>(new RoutePageRoleEFConfig());
             modelBuilder.ApplyConfiguration<Role>(new RoleEFConfig());
-
+            modelBuilder.ApplyConfiguration<BizSystemLog>(new SystemLogEFConfig());
             // Database 必须存在 View_AccountFemale 视图
             modelBuilder.ApplyConfiguration<View_AccountFemale>(new View_AccountFemaleEFConfig());
 

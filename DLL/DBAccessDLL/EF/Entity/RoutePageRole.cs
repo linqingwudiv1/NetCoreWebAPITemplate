@@ -27,7 +27,7 @@ namespace DBAccessDLL.EF.Entity
         /// <summary>
         /// 
         /// </summary>
-        public RoutePage routePage { get; set; }
+        public virtual RoutePage routePage { get; set; }
 
         /// <summary>
         /// 
@@ -38,7 +38,7 @@ namespace DBAccessDLL.EF.Entity
         /// <summary>
         /// 
         /// </summary>
-        public Role role { get; set; }
+        public virtual Role role { get; set; }
     }
 
     /// <summary>

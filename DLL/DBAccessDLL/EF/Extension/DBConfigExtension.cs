@@ -17,14 +17,14 @@ namespace DBAccessDLL.EF
         /// <param name="target"></param>
         static public EntityTypeBuilder<T> SetupBaseEntity<T>(this EntityTypeBuilder<T> targetBuilder, bool bUseSoftDelete = true) where T : BaseEntity
         {
-            targetBuilder.Property<bool>     (  x => x.Qing_IsDelete    ).IsRequired( true  ).HasDefaultValue(false);
-            targetBuilder.Property<Int64>    (  x => x.Qing_Version     ).IsRequired( true  ).HasDefaultValue(0).IsConcurrencyToken(true);
-            targetBuilder.Property<DateTime> (  x => x.Qing_CreateTime  ).IsRequired( true  ).HasDefaultValueSql("CURRENT_TIMESTAMP");
-            targetBuilder.Property<DateTime> (  x => x.Qing_UpdateTime  ).IsRequired( true  ).HasDefaultValueSql("CURRENT_TIMESTAMP");
-            targetBuilder.Property<Int64>    (  x => x.Qing_Sequence    ).IsRequired( true  ).HasDefaultValue(0);
-            targetBuilder.Property<DateTime?>(  x => x.Qing_DeleteTime  ).IsRequired( false );
+            targetBuilder.Property<bool>     ( x => x.Qing_IsDelete   ).IsRequired( true  ).HasDefaultValue(false);
+            targetBuilder.Property<Int64>    ( x => x.Qing_Version    ).IsRequired( true  ).HasDefaultValue(0).IsConcurrencyToken(true);
+            targetBuilder.Property<DateTime> ( x => x.Qing_CreateTime ).IsRequired( true  ).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            targetBuilder.Property<DateTime> ( x => x.Qing_UpdateTime ).IsRequired( true  ).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            targetBuilder.Property<Int64>    ( x => x.Qing_Sequence   ).IsRequired( true  ).HasDefaultValue(0);
+            targetBuilder.Property<DateTime?>( x => x.Qing_DeleteTime ).IsRequired( false );
 
-            if (bUseSoftDelete)
+            if ( bUseSoftDelete )
             {
                 targetBuilder.UseSofeDelete();
             }
