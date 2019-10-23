@@ -56,13 +56,18 @@ namespace DBAccessDLL.EF.Entity
 
             EntityTypeBuilder<RoutePageRole> tableBuilder = builder.ToTable("RoutePageRole");
 
-            tableBuilder.HasOne<RoutePage>(p => p.routePage).WithMany(c => c.RoutePageRoles).HasForeignKey(c => c.RoutePageId);
-            tableBuilder.HasOne<Role>(p => p.role).WithMany(c => c.RouteRoles).HasForeignKey(c => c.RoleId);
+            tableBuilder.HasOne<RoutePage>(p => p.routePage)
+                        .WithMany(c => c.RoutePageRoles)
+                        .HasForeignKey(c => c.RoutePageId);
+
+            tableBuilder.HasOne<Role>(p => p.role)
+                        .WithMany(c => c.RouteRoles)
+                        .HasForeignKey(c => c.RoleId);
+
 
             #endregion
 
             builder.SetupBaseEntity();
         }
-
     }
 }

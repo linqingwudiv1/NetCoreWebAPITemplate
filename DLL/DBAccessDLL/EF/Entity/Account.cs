@@ -69,11 +69,6 @@ namespace DBAccessDLL.EF.Entity
         /// 
         /// </summary>
         public virtual ICollection<AccountRole> AccountRoles { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual ICollection<BizAccountLog> BizAccountLogs { get; set; }
     }
 
     /// <summary>
@@ -93,10 +88,6 @@ namespace DBAccessDLL.EF.Entity
 
             tableBuilder.HasMany<AccountRole>( p => p.AccountRoles )
                         .WithOne( c => c.account )
-                        .HasForeignKey( c => c.AccountId );
-
-            tableBuilder.HasMany<BizAccountLog>( p => p.BizAccountLogs )
-                        .WithOne( c => c.Accounts )
                         .HasForeignKey( c => c.AccountId );
 
             #endregion

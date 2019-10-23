@@ -100,6 +100,7 @@ namespace WebAPI.Controllers
                 {
                     db.Database.EnsureCreated();
                 }
+
                 #region Faker 数据模拟
 
                 const string charSet = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789~!@#$%^&*()_+-=`[]{};':"",./<>?";
@@ -123,29 +124,30 @@ namespace WebAPI.Controllers
 
                 // long max_id_accountRole = db.AccountRoles
 
-                testAccount.RuleFor(entity => entity.Id, faker => max_id_account + faker.IndexFaker + 1);
-                testAccount.RuleFor(entity => entity.Name, faker => faker.Random.String2(8, 16, charSet));
-                testAccount.RuleFor(entity => entity.Introduction, faker => faker.Rant.Review());
-                testAccount.RuleFor(entity => entity.Avatar, faker => faker.Image.PlaceholderUrl(256, 256));
-                testAccount.RuleFor(entity => entity.Email, faker => faker.Phone.PhoneNumber() + "@Qing.com");
-                testAccount.RuleFor(entity => entity.Password, faker => faker.Random.String2(8, 16, charSet));
-                testAccount.RuleFor(entity => entity.Username, faker => faker.Name.FirstName() + faker.Name.LastName());
-                testAccount.RuleFor(entity => entity.Phone, faker => faker.Phone.PhoneNumber());
-                testAccount.RuleFor(entity => entity.Sex, faker => faker.Random.Int(0, 2));
-                testAccount.RuleFor(entity => entity.Qing_IsDelete, faker => faker.Random.Bool());
-                testAccount.RuleFor(entity => entity.AccountRoles, faker =>
+                testAccount.RuleFor( entity => entity.Id, faker => max_id_account + faker.IndexFaker + 1 );
+                testAccount.RuleFor( entity => entity.Name, faker => faker.Random.String2(8, 16, charSet ));
+                testAccount.RuleFor( entity => entity.Introduction, faker => faker.Rant.Review());
+                testAccount.RuleFor( entity => entity.Avatar, faker => faker.Image.PlaceholderUrl( 256, 256 ));
+                testAccount.RuleFor( entity => entity.Email, faker => faker.Phone.PhoneNumber() + "@Qing.com");
+                testAccount.RuleFor( entity => entity.Password, faker => faker.Random.String2(8, 16, charSet));
+                testAccount.RuleFor( entity => entity.Username, faker => faker.Name.FirstName() + faker.Name.LastName());
+                testAccount.RuleFor( entity => entity.Phone, faker => faker.Phone.PhoneNumber());
+                testAccount.RuleFor( entity => entity.Sex, faker => faker.Random.Int(0, 2));
+                testAccount.RuleFor( entity => entity.Qing_IsDelete, faker => faker.Random.Bool());
+                                     
+                testAccount.RuleFor( entity => entity.AccountRoles, faker =>
                 {
                     bool bAddRole = faker.Random.Bool();
                     //随机生成
-                    if (bAddRole)
+                    if ( bAddRole )
                     {
                         List<AccountRole> accountRoleList = faker.Make<AccountRole>(1, () =>
                         {
                             return new AccountRole
                             {
-                                Id = max_id_accountRole + faker.IndexFaker + 1,
-                                AccountId = max_id_account + faker.IndexFaker + 1,
-                                account = null,
+                                Id = max_id_accountRole + faker.IndexFaker +    1 ,
+                                AccountId = max_id_account + faker.IndexFaker + 1 ,
+                                account = null  ,
                                 RoleId = 1
                             };
 

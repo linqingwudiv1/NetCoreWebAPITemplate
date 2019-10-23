@@ -25,7 +25,7 @@ namespace DBAccessDLL.EF.Context
         /// 
         /// </summary>
         virtual public DbSet<RoutePage> RoutePages { get; protected set; }
-
+     
         /// <summary>
         /// 可访问页面权限列表
         /// </summary>
@@ -72,13 +72,13 @@ namespace DBAccessDLL.EF.Context
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.ApplyConfiguration<Account>(new AccountEFConfig());
             modelBuilder.ApplyConfiguration<AccountRole>(new AccountRoleEFConfig());
             modelBuilder.ApplyConfiguration<RoutePage>(new RoutePageEFConfig());
             modelBuilder.ApplyConfiguration<RoutePageRole>(new RoutePageRoleEFConfig());
             modelBuilder.ApplyConfiguration<Role>(new RoleEFConfig());
             modelBuilder.ApplyConfiguration<BizSystemLog>(new SystemLogEFConfig());
+
             // Database 必须存在 View_AccountFemale 视图
             modelBuilder.ApplyConfiguration<View_AccountFemale>(new View_AccountFemaleEFConfig());
 

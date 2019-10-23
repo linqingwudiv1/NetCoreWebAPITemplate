@@ -23,12 +23,6 @@ namespace DBAccessDLL.EF.Entity
         /// </summary>
         public Int64 AccountId { get; set; }
 
-
-        /// <summary>
-        /// 关联Account
-        /// </summary>
-        public Account Accounts{ get; set; }
-
         /// <summary>
         /// 机器名
         /// </summary>
@@ -80,8 +74,6 @@ namespace DBAccessDLL.EF.Entity
             var tableBuilder = builder.ToTable("BizAccountLog");
             tableBuilder.Property(x => x.Id).HasIdentityOptions(1, 1);
             tableBuilder.Property(x => x.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-            tableBuilder.HasOne(p => p.Accounts).WithMany(c => c.BizAccountLogs).HasForeignKey(p => p.AccountId);
         }
     }
 }
