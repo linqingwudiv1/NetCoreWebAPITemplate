@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace DBAccessDLL.EF.Entity
@@ -19,21 +20,24 @@ namespace DBAccessDLL.EF.Entity
         /// <summary>
         /// 
         /// </summary>
-        public Int64 ParentId { get; set; }
+        public Nullable<Int64> ParentId { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [Required]
         public string Path { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [Required]
         public string Component { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [Required]
         public string Name { get; set; }
 
         /// <summary>
@@ -58,12 +62,16 @@ namespace DBAccessDLL.EF.Entity
         /// <param name="builder"></param>
         public void Configure(EntityTypeBuilder<RoutePage> builder)
         {
-            builder.ToTable("RoutePage").OwnsOne<RoutePageMeta>(p => p.Meta, c =>
+            var tableBuilder = builder.ToTable("RoutePage")
+                   .OwnsOne<RoutePageMeta>(p => p.Meta, c =>
             {
                 c.ToTable("RoutePageMeta");
             });
 
-            builder.SetupBaseEntity<RoutePage>();
+            tableBuilder.Property(x => x.ParentId).HasDefaultValue(null);
+
+
+            tableBuilder.SetupBaseEntity<RoutePage>();
         }
 
     }

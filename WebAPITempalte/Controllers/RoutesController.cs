@@ -61,10 +61,14 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult AddRoutePage(/*DTOAPIReq_AddRoleRoute routepage*/ ) 
+        public IActionResult AddRoutePage(DTOAPIReq_AddRoutePages routepage ) 
         {
             using (ExamContext db = new ExamContext())
             {
+                RoutePage newRoutePage = new RoutePage();
+                
+                newRoutePage.Meta = new RoutePageMeta();
+
                 //RoutePage routePage = db.RoutePages.Find(Id);
 
                 DTO_ReturnModel<RoutePage> ret_model = new DTO_ReturnModel<RoutePage>(null) ;
@@ -78,9 +82,10 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut]
-        public IActionResult UpdateRoutePage(/*DTOAPIReq_UpdateRoles routepage*/) 
+        public IActionResult UpdateRoutePage(/* DTOAPIReq_UpdateRoles routepage */) 
         {
             DTO_ReturnModel<RoutePage> ret_model = new DTO_ReturnModel<RoutePage>(null);
+
             return Ok(ret_model);
         }
     }
