@@ -22,7 +22,7 @@ namespace WebApp.SingalR
                 return "";
             }
 
-            //One Conn One ID 
+            //One connection One ID 
             return connection.ConnectionId;
         }
     }
