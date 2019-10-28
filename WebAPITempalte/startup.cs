@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using NLog;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using WebAPI.AutofacModule;
 using WebApp.SingalR;
@@ -231,7 +232,7 @@ namespace WebAPI
                 #endregion
 
 #if DEBUG
-                #region Swagger Doc 文档接入. 生产环境不暴露 Swagger
+                #region Swagger Doc 文档接入. 生产Release环境不建议暴露 Swagger 接口
                 // Register the Swagger generator, defining one or more Swagger documents
                 services.AddSwaggerGen(c =>
                 {
@@ -239,23 +240,20 @@ namespace WebAPI
                         new OpenApiInfo
                         {
                             Version = "v1",
-                            Title = " WebAPI 文档",
-                            Description = "WebAPI 文档"
-                            //TermsOfService = "www.cnblogs.com/linqing"
+                            Title = " WebAPI Doc",
+                            Description = "WebAPI Doc"//,
+                            //TermsOfService = new Uri("www.cnblogs.com/linqing")
                         }
                     );
 
                     // Set the comments path for the Swagger JSON and UI.
-                    String basePath = PlatformServices.Default.Application.ApplicationBasePath;
-                    String xmlPath = Path.Combine(basePath, @"Doc\Swagger\WebAPIDoc.xml");
+                    String basePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"Doc\Swagger\");
 
-                    if (File.Exists(xmlPath))
+                    string[] files = Directory.GetFiles(basePath,"*.xml");
+
+                    foreach (var file in files) 
                     {
-                        c.IncludeXmlComments(xmlPath);
-                    }
-                    else
-                    {
-                        log.Error($"[Error]: Swagger :No Exists Path : " + xmlPath);
+                        c.IncludeXmlComments(file);
                     }
                 });
 

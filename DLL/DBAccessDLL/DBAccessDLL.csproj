@@ -9,6 +9,12 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE;Q_SqliteDB</DefineConstants>
+    <DocumentationFile>..\..\WebAPITempalte\bin\Debug\netcoreapp3.0\Doc\Swagger\DBAccessDLL.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath></OutputPath>
+    <DocumentationFile>..\..\WebAPITempalte\bin\Release\netcoreapp3.0\Doc\Swagger\DBAccessDLL.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

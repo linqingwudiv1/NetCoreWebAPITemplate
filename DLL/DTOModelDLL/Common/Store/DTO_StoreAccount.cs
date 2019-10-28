@@ -49,7 +49,11 @@ namespace DTOModelDLL.Common.Store
         /// </summary>
         public string phone { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string sex { get; set; }
+
 
         /// <summary>
         /// 

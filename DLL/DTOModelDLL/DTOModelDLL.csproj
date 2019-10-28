@@ -5,7 +5,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>..\..\WebAPITempalte\bin\Debug\netcoreapp3.0\Doc\Swagger\DTOModelDLL.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>..\..\WebAPITempalte\bin\Release\netcoreapp3.0\Doc\Swagger\DTOModelDLL.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
