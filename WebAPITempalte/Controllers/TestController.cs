@@ -33,6 +33,7 @@ namespace WebAPI.Controllers
     [Route("api/[controller]/[action]")]
     [EnableCors("WebAPIPolicy")]
     [ApiController]
+
     public class TestController : BaseController
     {
         /// <summary>
@@ -93,10 +94,10 @@ namespace WebAPI.Controllers
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
 
-            using (ExamContext db = new ExamContext(sqliteDBConn)) 
+            using ( ExamContext db = new ExamContext(sqliteDBConn) ) 
             {
 
-                if (!db.Database.CanConnect())
+                if ( !db.Database.CanConnect() )
                 {
                     db.Database.EnsureCreated();
                 }

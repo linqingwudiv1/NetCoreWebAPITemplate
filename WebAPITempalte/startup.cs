@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using DBAccessDLL.Static;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -18,6 +20,8 @@ using System.Collections.Generic;
 using System.IO;
 using WebAPI.AutofacModule;
 using WebApp.SingalR;
+using NetApplictionServiceDLL;
+using System.Text;
 
 namespace WebAPI
 {
@@ -136,7 +140,7 @@ namespace WebAPI
                     "http://localhost:8080",
                     "http://localhost:8081",
                     "http://localhost:8082",
-                    "http://wakelu.com",
+                    "http://www.wakelu.com",
                     "http://192.168.1.131:8080"
                 };
 
@@ -187,6 +191,24 @@ namespace WebAPI
 
                 #endregion
 
+                #region Jwt
+
+                services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                        .AddJwtBearer(opt =>
+                        opt.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = true,                  //是否验证Issuer
+                            ValidateAudience = true,                //是否验证Audience
+                            ValidateLifetime = true,                //是否验证失效时间
+                            ClockSkew = TimeSpan.FromSeconds(30),   
+                            ValidateIssuerSigningKey = true,        //是否验证SecurityKey
+                            ValidAudience = GJWT.Domain ,           //Audience
+                            ValidIssuer = GJWT.Domain,              // Issuer，这两项和前面签发jwt的设置一致
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GJWT.SecurityKey)) // 拿到SecurityKey
+                        }) ;
+
+                #endregion
+
                 //防止Json序列化-改变对象列的大小写
 
                 services.AddControllersWithViews(opts => 
@@ -208,6 +230,7 @@ namespace WebAPI
                 //    opts.InstanceName = "SampleInstance";
                 //    opts.ConfigurationOptions.Password = "abc123,";
                 //});
+
 
                 services.AddSession( ( opt ) => 
                 {
@@ -233,6 +256,7 @@ namespace WebAPI
 
 #if DEBUG
                 #region Swagger Doc 文档接入. 生产Release环境不建议暴露 Swagger 接口
+
                 // Register the Swagger generator, defining one or more Swagger documents
                 services.AddSwaggerGen(c =>
                 {
@@ -284,6 +308,7 @@ namespace WebAPI
                 app.UseRouting();
 
                 #region 其他常用配置
+
                 app.UseHsts();
                 app.UseHttpsRedirection();
                 app.UseCookiePolicy();
@@ -292,14 +317,18 @@ namespace WebAPI
                 app.UseAuthentication();
                 app.UseAuthorization();
 
+                app.UseAuthentication();
+
                 string path = Path.Combine(Directory.GetCurrentDirectory(), ".Cache");
 
                 app.UseStaticFiles
-                ( new StaticFileOptions
-                  {
-                      FileProvider = new PhysicalFileProvider(path),
-                      RequestPath = "/Cache"
-                  });
+                ( 
+                    new StaticFileOptions
+                    {
+                        FileProvider = new PhysicalFileProvider(path),
+                        RequestPath = "/Cache"
+                    }
+                );
 
                 #endregion
 

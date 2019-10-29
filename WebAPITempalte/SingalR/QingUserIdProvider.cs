@@ -17,6 +17,7 @@ namespace WebApp.SingalR
         /// <returns></returns>
         public string GetUserId(HubConnectionContext connection)
         {
+
             if (connection == null) 
             {
                 return "";
