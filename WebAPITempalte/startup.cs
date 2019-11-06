@@ -2,7 +2,6 @@
 using Autofac.Extensions.DependencyInjection;
 using DBAccessDLL.Static;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,16 +11,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using NetApplictionServiceDLL;
 using Newtonsoft.Json.Serialization;
 using NLog;
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using WebAPI.AutofacModule;
 using WebApp.SingalR;
-using NetApplictionServiceDLL;
-using System.Text;
 
 namespace WebAPI
 {
@@ -146,7 +145,6 @@ namespace WebAPI
 
                 // Cors Support 跨域支持
 
-
                 services.AddCors(opt => opt.AddPolicy("WebAPIPolicy", builder =>
                 {
                     builder.WithOrigins(origins)
@@ -205,7 +203,7 @@ namespace WebAPI
                             ValidAudience = GJWT.Domain ,           //Audience
                             ValidIssuer = GJWT.Domain,              // Issuer，这两项和前面签发jwt的设置一致
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GJWT.SecurityKey)) // 拿到SecurityKey
-                        }) ;
+                        });
 
                 #endregion
 
@@ -224,14 +222,6 @@ namespace WebAPI
 
                 #region Session Config : Redis or Sql Server
 
-                //services.AddStackExchangeRedisCache(opts =>
-                //{
-                //    opts.Configuration = "localhost";
-                //    opts.InstanceName = "SampleInstance";
-                //    opts.ConfigurationOptions.Password = "abc123,";
-                //});
-
-
                 services.AddSession( ( opt ) => 
                 {
                     opt.Cookie.HttpOnly     = this.GSessionOpts .Cookie.HttpOnly      ;
@@ -239,23 +229,20 @@ namespace WebAPI
                     opt.Cookie.Name         = this.GSessionOpts .Cookie.Name          ;
                     opt.Cookie.SecurePolicy = this.GSessionOpts .Cookie.SecurePolicy  ;
                     opt.Cookie.SameSite     = this.GSessionOpts .Cookie.SameSite      ;
-                    opt.IdleTimeout         = this.GSessionOpts.IdleTimeout           ;
+                    opt.IdleTimeout         = this.GSessionOpts .IdleTimeout          ;
                 });
 
-
                 #endregion
-
 
                 #region SingalR
 
                 services.AddSignalR();
-
                 services.AddSingleton<IUserIdProvider, QingUserIdProvider>();
 
                 #endregion
 
-#if DEBUG
-                #region Swagger Doc 文档接入. 生产Release环境不建议暴露 Swagger 接口
+#if DEBUG // Release环境不建议暴露 Swagger 接口
+                #region Swagger Doc 文档接入.
 
                 // Register the Swagger generator, defining one or more Swagger documents
                 services.AddSwaggerGen(c =>
@@ -265,12 +252,10 @@ namespace WebAPI
                         {
                             Version = "v1",
                             Title = " WebAPI Doc",
-                            Description = "WebAPI Doc"//,
-                            //TermsOfService = new Uri("www.cnblogs.com/linqing")
+                            Description = "WebAPI Doc"
                         }
                     );
 
-                    // Set the comments path for the Swagger JSON and UI.
                     String basePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"Doc\Swagger\");
 
                     string[] files = Directory.GetFiles(basePath,"*.xml");
@@ -297,7 +282,7 @@ namespace WebAPI
         /// <param name="app"></param>
         public void Configure( IApplicationBuilder app /*, 
                                IWebHostEnvironment env, 
-                               ILoggerFactory loggerFactory*/ )
+                               ILoggerFactory loggerFactory */ )
         {
 
             Logger log = LogManager.GetLogger("Startup");
@@ -342,13 +327,20 @@ namespace WebAPI
                     c.MapAreaControllerRoute(name: "TestArea", areaName: "TestArea", pattern: "TestArea/{controller}/{action}");
                 });
 
+                app.UseEndpoints(c => 
+                {
+                    c.MapControllerRoute("default", "{controller=Home}/{action=Index}");
+                });
+
                 #endregion
 
                 #region SingalR
+
                 app.UseEndpoints(c =>
                 {
                     c.MapHub<CommonHub>("/commonHub");
                 });
+
                 #endregion
 
                 #region Swagger

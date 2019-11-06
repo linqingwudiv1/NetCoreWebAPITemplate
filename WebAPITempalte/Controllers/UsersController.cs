@@ -2,10 +2,18 @@
 using DTOModelDLL.API.Users;
 using DTOModelDLL.Common;
 using DTOModelDLL.Common.Store;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using NetApplictionServiceDLL;
 using NetApplictionServiceDLL.Filter;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
 
 namespace WebAPI.Controllers
 {
@@ -20,7 +28,7 @@ namespace WebAPI.Controllers
         /// <summary>
         /// 
         /// </summary>
-        static int ChildUE4 { get; set; } 
+        static int ChildUE4 { get; set; }
 
         /// <summary>
         /// Vue项目测试接口
@@ -38,6 +46,94 @@ namespace WebAPI.Controllers
         public IActionResult Login([FromBody] DTOAPI_Login userInfo)
         {
             return Ok(new DTO_ReturnModel<dynamic>(this.LoginLogic(userInfo), 20000));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult JWTLogin( [FromBody]DTOAPI_Login userInfo)
+        {
+            if (userInfo == null)
+            {
+                return NotFound();
+            }
+
+            if (!string.IsNullOrEmpty(userInfo.username) && !string.IsNullOrEmpty(userInfo.password))
+            {
+                var claims = new[]
+                {
+                    // 时间戳
+                    new Claim( JwtRegisteredClaimNames.Nbf,  $"{ new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}                ") ,
+                    // 过期日期
+                    new Claim( JwtRegisteredClaimNames.Exp,  $"{ new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeSeconds()} ") ,
+                    // 
+                    new Claim( ClaimTypes.Name, userInfo.username ) ,
+                    // Custom Data
+                    new Claim("customType", "hi!linqing")
+                };
+
+                //  key
+                SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GJWT.SecurityKey));
+
+                // 加密方式
+                SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                //
+                JwtSecurityToken token = new JwtSecurityToken(
+                    issuer  : GJWT.Domain ,
+                    audience: GJWT.Domain ,
+                    claims  : claims ,
+                    expires : DateTime.Now.AddMinutes(30) ,
+                    signingCredentials: creds );
+
+                // new JwtSecurityTokenHandler().create
+                return Ok(new
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(token)
+                });
+            }
+            else
+            {
+                return BadRequest(new { message = "username or password is incorrect." });
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize]
+        public IActionResult JWTTest() 
+        {
+            string token = "";
+
+            var task = this.HttpContext.AuthenticateAsync();
+            task.Wait();
+            var claims = task.Result.Principal.Claims; 
+
+            //task.Result.Principal.Claims;
+
+            //task.Wait();
+            //task.Result.;
+
+            //JwtSecurityToken qToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
+            if (claims != null && claims.Any())
+            {
+                //Claim user = (from x in claims where x.Type == ClaimTypes.Name select x ).FirstOrDefault(null);
+
+                Claim customType = ( from x in claims where x.Type == "customType" select x ).FirstOrDefault(null);
+
+                return Ok($"User Claim : {user.Value}, customType :{ customType.Value}");
+            }
+            else 
+            {
+                return Ok($"过期 ");
+            }
+
         }
 
         /// <summary>
