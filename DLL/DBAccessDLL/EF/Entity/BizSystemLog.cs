@@ -69,5 +69,6 @@ namespace DBAccessDLL.EF.Entity
             tableBuilder.Property(x => x.Id).HasIdentityOptions(1, 1);
             tableBuilder.Property(x => x.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP");
         }
+
     }
 }

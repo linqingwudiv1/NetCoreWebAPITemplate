@@ -66,9 +66,9 @@ namespace WebAPI.Controllers
                 var claims = new[]
                 {
                     // 时间戳
-                    new Claim( JwtRegisteredClaimNames.Nbf,  $"{ new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}                ") ,
+                    new Claim( JwtRegisteredClaimNames.Nbf,  $"{ new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}") ,
                     // 过期日期
-                    new Claim( JwtRegisteredClaimNames.Exp,  $"{ new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeSeconds()} ") ,
+                    new Claim( JwtRegisteredClaimNames.Exp,  $"{ new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeSeconds()}") ,
                     // 
                     new Claim( ClaimTypes.Name, userInfo.username ) ,
                     // Custom Data
@@ -107,33 +107,19 @@ namespace WebAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Authorize]
-        public IActionResult JWTTest() 
+        public async System.Threading.Tasks.Task<IActionResult> JWTTestAsync() 
         {
-            string token = "";
+            AuthenticateResult result = await this.HttpContext.AuthenticateAsync().ConfigureAwait(true);
 
-            var task = this.HttpContext.AuthenticateAsync();
-            task.Wait();
-            var claims = task.Result.Principal.Claims; 
-
-            //task.Result.Principal.Claims;
-
-            //task.Wait();
-            //task.Result.;
-
-            //JwtSecurityToken qToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
-            if (claims != null && claims.Any())
+            if (result.Principal.Claims != null && result.Principal.Claims.Any())
             {
-                //Claim user = (from x in claims where x.Type == ClaimTypes.Name select x ).FirstOrDefault(null);
-
-                Claim customType = ( from x in claims where x.Type == "customType" select x ).FirstOrDefault(null);
-
-                return Ok($"User Claim : {user.Value}, customType :{ customType.Value}");
+                Claim customType = ( from x in result.Principal.Claims where x.Type == "customType" select x ).FirstOrDefault(null);
+                return Ok($"User Claim : { result.Principal.Identity.Name }, customType :{ customType.Value}");
             }
             else 
             {
-                return Ok($"过期 ");
+                return Ok($"过期");
             }
-
         }
 
         /// <summary>

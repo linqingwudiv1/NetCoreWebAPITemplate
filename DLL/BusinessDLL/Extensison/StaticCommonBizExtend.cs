@@ -1,4 +1,5 @@
 ﻿using DBAccessDLL.EF.Context;
+using DBAccessDLL.EF.Entity;
 using DTOModelDLL.API.Users;
 using DTOModelDLL.Common.Store;
 using Microsoft.AspNetCore.Mvc;
@@ -24,9 +25,8 @@ namespace BusinessDLL.Extensison
     /// <summary>
     /// 通用全局业务扩展，例如登录，注销
     /// </summary>
-    public static class StaticBizExtend
+    public static class StaticBizExtend 
     {
-
         /// <summary>
         /// 登录操作
         /// </summary>
@@ -37,7 +37,7 @@ namespace BusinessDLL.Extensison
         {
             ExamContext db = new ExamContext();
 
-            var account = ( from 
+            Account account = ( from 
                                 x 
                             in 
                                 db.Accounts.Include( obj => obj.AccountRoles )
@@ -68,6 +68,7 @@ namespace BusinessDLL.Extensison
                 };
 
                 controller.HttpContext.Session.SetStoreAccount(storeAccount);
+
                 return EM_LoginState.Pass;
             }
             else 

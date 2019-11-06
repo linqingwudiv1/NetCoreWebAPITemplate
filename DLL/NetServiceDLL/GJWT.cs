@@ -17,6 +17,5 @@ namespace NetApplictionServiceDLL
         /// 
         /// </summary>
         public static readonly string Domain = "https://localhost:44386/";
-
     }
 }
