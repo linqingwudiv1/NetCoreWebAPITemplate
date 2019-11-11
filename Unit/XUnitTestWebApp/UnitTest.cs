@@ -3,6 +3,7 @@ using DBAccessDLL.EF.Context;
 using DBAccessDLL.EF.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using Xunit;
 
@@ -13,13 +14,19 @@ namespace XUnitTestWebApp
     /// </summary>
     public class UnitTest
     {
+
+        [Fact]
+        public void Test1() 
+        {
+
+        }
+
         /// <summary>
         /// 
         /// </summary>
         [Fact]
         public void Test()
         {
-
             int DebugThreadCount = 10;
             int Id = 3;
             string sqliteDBConn = "Data Source=.LocalDB/sqliteTestDB.db";

@@ -104,8 +104,8 @@ namespace WebAPI.Controllers
 
                 #region Faker 数据模拟
 
-                const string charSet = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789~!@#$%^&*()_+-=`[]{};':"",./<>?";
-
+                //const string charSet = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-=`[]{};':"",./<>?";
+                const string charSet = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
                 var testAccount = new Faker<Account>(locale: "zh_CN");//.StrictMode(true);
 
                 long max_id_account = (
@@ -164,13 +164,13 @@ namespace WebAPI.Controllers
 
                 Faker<RoutePage> testRoutePage = new Faker<RoutePage>(locale: "zh_CN");
 
-                testRoutePage.RuleFor(e => e.Id, faker => (faker.IndexFaker + 1));
-                testRoutePage.RuleFor(e => e.Component, faker => "admin");
-                testRoutePage.RuleFor(e => e.Meta, faker => faker.Make<RoutePageMeta>(1, (i) => new RoutePageMeta())[0]);
-                testRoutePage.RuleFor(e => e.Name, faker => faker.Name.FirstName() + faker.Name.LastName());
-                testRoutePage.RuleFor(e => e.Path, faker => faker.Rant.Review());
-                testRoutePage.RuleFor(e => e.ParentId, faker => 1);
-                testRoutePage.RuleFor(entity => entity.Qing_IsDelete, faker => faker.Random.Bool());
+                testRoutePage.RuleFor( e => e.Id, faker => (faker.IndexFaker + 1) );
+                testRoutePage.RuleFor( e => e.Component, faker => "admin" );
+                testRoutePage.RuleFor( e => e.Meta, faker => faker.Make<RoutePageMeta>( 1, (i) => new RoutePageMeta())[0] );
+                testRoutePage.RuleFor( e => e.Name, faker => faker.Name.FirstName() + faker.Name.LastName() );
+                testRoutePage.RuleFor( e => e.Path, faker => faker.Rant.Review() );
+                testRoutePage.RuleFor( e => e.ParentId, faker => 1 );
+                testRoutePage.RuleFor( entity => entity.Qing_IsDelete, faker => faker.Random.Bool() );
 
                 #endregion
 
@@ -289,8 +289,7 @@ namespace WebAPI.Controllers
                                 }
                                 else 
                                 {
-                                    logger.Trace(@$" 
-                                                     Optimistic locking..... Name : { account.Name }          , 
+                                    logger.Trace(@$" Optimistic locking..... Name : { account.Name          } , 
                                                      Qing_Version                 : { account.Qing_Version  } ,
                                                      Qing_Sequence                : { account.Qing_Sequence } ");
                                 }

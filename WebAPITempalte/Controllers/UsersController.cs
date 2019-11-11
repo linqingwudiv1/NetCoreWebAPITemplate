@@ -14,6 +14,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -63,19 +64,19 @@ namespace WebAPI.Controllers
 
             if (!string.IsNullOrEmpty(userInfo.username) && !string.IsNullOrEmpty(userInfo.password))
             {
-                var claims = new[]
+                Claim[] claims = new[]
                 {
                     // 时间戳
                     new Claim( JwtRegisteredClaimNames.Nbf,  $"{ new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}") ,
                     // 过期日期
-                    new Claim( JwtRegisteredClaimNames.Exp,  $"{ new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeSeconds()}") ,
+                    new Claim( JwtRegisteredClaimNames.Exp,  $"{ new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeSeconds()}"),
                     // 
                     new Claim( ClaimTypes.Name, userInfo.username ) ,
                     // Custom Data
                     new Claim("customType", "hi!linqing")
                 };
 
-                //  key
+                // Key
                 SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GJWT.SecurityKey));
 
                 // 加密方式
@@ -83,17 +84,18 @@ namespace WebAPI.Controllers
 
                 //
                 JwtSecurityToken token = new JwtSecurityToken(
-                    issuer  : GJWT.Domain ,
-                    audience: GJWT.Domain ,
-                    claims  : claims ,
-                    expires : DateTime.Now.AddMinutes(30) ,
-                    signingCredentials: creds );
+                    issuer   : GJWT.Domain ,
+                    audience : GJWT.Domain ,
+                    claims   : claims ,
+                    expires  : DateTime.Now.AddMinutes(30) ,
+                    signingCredentials : creds );
 
                 // new JwtSecurityTokenHandler().create
                 return Ok(new
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token)
                 });
+
             }
             else
             {
@@ -107,14 +109,15 @@ namespace WebAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Authorize]
-        public async System.Threading.Tasks.Task<IActionResult> JWTTestAsync() 
+        public async Task<IActionResult> JWTTestAsync() 
         {
             AuthenticateResult result = await this.HttpContext.AuthenticateAsync().ConfigureAwait(true);
 
             if (result.Principal.Claims != null && result.Principal.Claims.Any())
             {
-                Claim customType = ( from x in result.Principal.Claims where x.Type == "customType" select x ).FirstOrDefault(null);
-                return Ok($"User Claim : { result.Principal.Identity.Name }, customType :{ customType.Value}");
+                Claim customType = ( from x in result.Principal.Claims.DefaultIfEmpty() where x.Type == "customType" select x ).FirstOrDefault(null);
+
+                return Ok($"User Claim : { result.Principal.Identity.Name } , customType :{ customType.Value }");
             }
             else 
             {
@@ -144,7 +147,6 @@ namespace WebAPI.Controllers
         public IActionResult Info([FromBody] DTOAPIReq_Info Info)
         {
             DTO_StoreAccount store_account = this.GetStoreAccount();
-
             return Ok(new DTO_ReturnModel<dynamic>(store_account, 20000));
         }
     }

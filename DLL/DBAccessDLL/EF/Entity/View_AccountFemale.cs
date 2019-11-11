@@ -65,7 +65,7 @@ namespace DBAccessDLL.EF.Entity
         /// <param name="builder"></param>
         public void Configure(EntityTypeBuilder<View_AccountFemale> builder)
         {
-            #region 水平拆分处理处
+            #region //水平拆分处理处
             builder.ToView<View_AccountFemale>("View_AccountFemale").SetupBaseEntity();
             #endregion
         }

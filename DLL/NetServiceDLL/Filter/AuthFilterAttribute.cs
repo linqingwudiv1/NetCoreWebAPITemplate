@@ -84,14 +84,13 @@ namespace NetApplictionServiceDLL.Filter
                 {
                     break;
                 }
-                case string topic when String.IsNullOrWhiteSpace(topic):
                 default:
                 {
                     break;
                 }
             }
 
-            if (controller != null)
+            if ( controller != null )
             {
                 DTO_StoreAccount storeAccount = controller.HttpContext.Session.GetStoreAccount();
 
