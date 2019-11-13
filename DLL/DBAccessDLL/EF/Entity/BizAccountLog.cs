@@ -47,7 +47,6 @@ namespace DBAccessDLL.EF.Entity
         [Required]
         public string Logger { get; set; }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -72,6 +71,7 @@ namespace DBAccessDLL.EF.Entity
         public void Configure(EntityTypeBuilder<BizAccountLog> builder)
         {
             var tableBuilder = builder.ToTable("BizAccountLog");
+
             tableBuilder.Property(x => x.Id).HasIdentityOptions(1, 1);
             tableBuilder.Property(x => x.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP");
         }
