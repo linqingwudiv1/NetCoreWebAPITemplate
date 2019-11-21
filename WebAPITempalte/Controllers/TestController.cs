@@ -125,15 +125,15 @@ namespace WebAPI.Controllers
 
                 // long max_id_accountRole = db.AccountRoles
 
-                testAccount.RuleFor( entity => entity.Id, faker => max_id_account + faker.IndexFaker + 1 );
-                testAccount.RuleFor( entity => entity.Name, faker => faker.Random.String2(8, 16, charSet ));
-                testAccount.RuleFor( entity => entity.Introduction, faker => faker.Rant.Review());
-                testAccount.RuleFor( entity => entity.Avatar, faker => faker.Image.PlaceholderUrl( 256, 256 ));
-                testAccount.RuleFor( entity => entity.Email, faker => faker.Phone.PhoneNumber() + "@Qing.com");
-                testAccount.RuleFor( entity => entity.Password, faker => faker.Random.String2(8, 16, charSet));
-                testAccount.RuleFor( entity => entity.Username, faker => faker.Name.FirstName() + faker.Name.LastName());
-                testAccount.RuleFor( entity => entity.Phone, faker => faker.Phone.PhoneNumber());
-                testAccount.RuleFor( entity => entity.Sex, faker => faker.Random.Int(0, 2));
+                testAccount.RuleFor( entity => entity.Id,            faker => max_id_account + faker.IndexFaker + 1 );
+                testAccount.RuleFor( entity => entity.Name,          faker => faker.Random.String2(8, 16, charSet ));
+                testAccount.RuleFor( entity => entity.Introduction,  faker => faker.Rant.Review());
+                testAccount.RuleFor( entity => entity.Avatar,        faker => faker.Image.PlaceholderUrl( 256, 256 ));
+                testAccount.RuleFor( entity => entity.Email,         faker => faker.Phone.PhoneNumber() + "@Qing.com");
+                testAccount.RuleFor( entity => entity.Password,      faker => faker.Random.String2(8, 16, charSet));
+                testAccount.RuleFor( entity => entity.Username,      faker => faker.Name.FirstName() + faker.Name.LastName());
+                testAccount.RuleFor( entity => entity.Phone,         faker => faker.Phone.PhoneNumber());
+                testAccount.RuleFor( entity => entity.Sex,           faker => faker.Random.Int(0, 2));
                 testAccount.RuleFor( entity => entity.Qing_IsDelete, faker => faker.Random.Bool());
                                      
                 testAccount.RuleFor( entity => entity.AccountRoles, faker =>
@@ -223,22 +223,22 @@ namespace WebAPI.Controllers
                              select
                                  new
                                  {
-                                     x.Id               ,
-                                     x.Name             ,
-                                     x.Username         ,
-                                     x.Sex              ,
-                                     x.Email            ,
-                                     x.Avatar           ,
-                                     x.Password         ,
-                                     x.Introduction     ,
-                                     x.Phone            ,
-                                     x.Qing_IsDelete    ,
-                                     x.Qing_CreateTime  ,
-                                     x.Qing_DeleteTime  ,
-                                     x.Qing_Sequence    ,
-                                     x.Qing_Version     ,
-                                     x.Qing_UpdateTime  ,
-                                     Roles = x.AccountRoles.Select( x => x.role.Name )
+                                    x.Id              ,
+                                    x.Name            ,
+                                    x.Username        ,
+                                    x.Sex             ,
+                                    x.Email           ,
+                                    x.Avatar          ,
+                                    x.Password        ,
+                                    x.Introduction    ,
+                                    x.Phone           ,
+                                    x.Qing_IsDelete   ,
+                                    x.Qing_CreateTime ,
+                                    x.Qing_DeleteTime ,
+                                    x.Qing_Sequence   ,
+                                    x.Qing_Version    ,
+                                    x.Qing_UpdateTime ,
+                                    Roles = x.AccountRoles.Select( x => x.role.Name )
                                  });
 
                 var list = query.Take(100).ToList();
@@ -250,6 +250,16 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult ThreadingPoolTest() 
+        {
+            return View();
+        }
+
+        /// <summary>
         /// 乐观更新 Optimistic locking Test
         /// </summary>
         /// <param name="DebugThreadCount"></param>
@@ -258,14 +268,14 @@ namespace WebAPI.Controllers
         [HttpPut]
         public IActionResult EFCore_UpdateTest(int DebugThreadCount = 10, Int64 Id = 1)
         {
-            var logger = LogManager.GetLogger("SQLite3Store"); // LogManager.GetLogger("UpdateTest"); 
-
+            Logger logger = LogManager.GetLogger("SQLite3Store"); // LogManager.GetLogger("UpdateTest"); 
+            
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
             Faker faker = new Faker(locale: "zh_CN");
 
             for (int i = 0; i < DebugThreadCount; i++)
             {
-                Thread thread = new Thread(new ThreadStart(() =>
+                Task.Run(() =>
                 {
                     int count = 0;
                     while (true)
@@ -279,15 +289,15 @@ namespace WebAPI.Controllers
                             {
                                 account.Name = (faker.Name.FirstName() + faker.Name.LastName());
                                 account.Qing_Sequence++;
-                                
-                                int effectCount = db.SaveChanges();
 
-                                if ( effectCount < 0 )
+                                int effectCount = db.SaveChanges();
+                                
+                                if (effectCount < 0)
                                 {
                                     Thread.Sleep(10);
                                     continue;
                                 }
-                                else 
+                                else
                                 {
                                     logger.Trace(@$" Optimistic locking..... Name : { account.Name          } , 
                                                      Qing_Version                 : { account.Qing_Version  } ,
@@ -296,7 +306,7 @@ namespace WebAPI.Controllers
                             }
                             else
                             {
-                                Console.WriteLine($"not account.....{count}");
+                                Console.WriteLine($" not account.....{count} ");
                                 break;
                             }
 
@@ -313,8 +323,7 @@ namespace WebAPI.Controllers
                             break;
                         }
                     }
-                }));
-                thread.Start();
+                });
             }
 
             return Ok();
@@ -440,6 +449,7 @@ namespace WebAPI.Controllers
             }
 
             dynamic ret_model = new { list, effectCount = ret_count };
+ 
             dynamic ret = new DTO_ReturnModel<dynamic>(ret_model);
             return Ok(ret);
         }
@@ -454,7 +464,7 @@ namespace WebAPI.Controllers
             int ret_count = 0;
             IList<string> list = new List<string>();
             IFormFileCollection files = HttpContext.Request.Form.Files;
-
+            //TaskScheduler.
             if (files.Count > 0)
             {
                 foreach (var fileitem in files)
@@ -467,12 +477,12 @@ namespace WebAPI.Controllers
                         list.Add(Request.HttpContext.Connection.RemoteIpAddress.ToString() + "/" + filePath);
                         ret_count++;
                     }
+
                 }
             }
 
             dynamic ret_model = new { list, effectCount = ret_count };
             DTO_ReturnModel<dynamic> ret = new DTO_ReturnModel<dynamic>(ret_model);
-
 
             return Ok(ret);
         }

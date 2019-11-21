@@ -195,15 +195,16 @@ namespace WebAPI
                         .AddJwtBearer(opt =>
                         opt.TokenValidationParameters = new TokenValidationParameters
                         {
-                            ValidateIssuer = true,                  // 是否验证Issuer
-                            ValidateAudience = true,                // 是否验证Audience
-                            ValidateLifetime = true,                // 是否验证失效时间
+                            ValidateIssuer = true   ,               // 是否验证Issuer
+                            ValidateAudience = true ,               // 是否验证Audience
+                            ValidateLifetime = true ,               // 是否验证失效时间
                             ClockSkew = TimeSpan.FromSeconds(30),   // 
                             ValidateIssuerSigningKey = true,        // 是否验证SecurityKey
                             ValidAudience = GJWT.Domain ,           // Audience
                             ValidIssuer = GJWT.Domain,              // Issuer,这两项和前面签发jwt的设置一致
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GJWT.SecurityKey)) // 拿到SecurityKey
                         });
+
 
                 #endregion
 
