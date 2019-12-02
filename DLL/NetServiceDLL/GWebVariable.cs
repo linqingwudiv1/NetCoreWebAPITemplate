@@ -7,7 +7,7 @@ namespace NetApplictionServiceDLL
     /// <summary>
     /// 
     /// </summary>
-    public static class GVariable
+    public static class GWebVariable
     {
         /// <summary>
         /// 用户 Session key

@@ -1,13 +1,13 @@
 ﻿using DBAccessDLL.EF.Context;
 using DBAccessDLL.EF.Entity;
+using DTOModelDLL.API.Roles;
 using DTOModelDLL.Common;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using DTOModelDLL.API.Roles;
+using System.Linq;
 
 namespace WebAPI.Controllers
 {
@@ -32,6 +32,7 @@ namespace WebAPI.Controllers
                 IList<Role> role = (from x in db.Roles select x).DefaultIfEmpty().ToList();
 
                 DTO_ReturnModel<IList<Role>> ret_model = new DTO_ReturnModel<IList<Role>>();
+
                 ret_model = new DTO_ReturnModel<IList<Role>>();
 
                 return Ok(ret_model);

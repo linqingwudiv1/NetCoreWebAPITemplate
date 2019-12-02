@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DBAccessDLL.EF.Context;
 using DBAccessDLL.Static;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -67,7 +70,8 @@ namespace WebAPI
             GSessionOpts.Cookie.SecurePolicy = CookieSecurePolicy.None;
             GSessionOpts.Cookie.SameSite = SameSiteMode.Lax;
             GSessionOpts.IdleTimeout = TimeSpan.FromMinutes(1440);
-            #endregion 
+
+            #endregion
         }
 
         /// <summary>
@@ -109,10 +113,10 @@ namespace WebAPI
             IConfigurationBuilder builder = new ConfigurationBuilder()
                                                 .AddInMemoryCollection()
                                                 .SetBasePath(env.ContentRootPath)
-                                                .AddJsonFile(@".Config\appsettings.json", optional: false, reloadOnChange: true)
+                                                .AddJsonFile( @".Config\appsettings.json", optional: false, reloadOnChange: true)
                                                 .AddJsonFile($@".Config\appsettings.{env.EnvironmentName}.json", optional: true)
-                                                .AddJsonFile(@".Config\ConnectionString.json", optional: false, reloadOnChange: true)
-                                                .AddJsonFile(@".Config\APILTEUrl.json", optional: false, reloadOnChange: true)
+                                                .AddJsonFile( @".Config\ConnectionString.json", optional: false, reloadOnChange: true)
+                                                .AddJsonFile( @".Config\APILTEUrl.json", optional: false, reloadOnChange: true)
                                                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
@@ -157,12 +161,7 @@ namespace WebAPI
 
                 #region EF DI注入
 
-                /*
-                services.AddEntityFrameworkSqlServer().
-                    AddDbContext<LTEContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
-                */
-
-                //services.AddEntityFrameworkSqlServer().AddDbContext<ExamContext>(opt => opt);
+                //services.AddDbContextPool<ExamContext>(opt=> {opt }, 128);
 
                 #endregion
 
@@ -186,7 +185,9 @@ namespace WebAPI
                 services.AddOptions()
                         .Configure<Option_ConnctionString>(Configuration.GetSection("ConnectionStrings"))
                         .Configure<Opt_API_LTEUrl>(Configuration.GetSection("APILTEUrl"));
-
+                
+                // services.AddOptions()
+                
                 #endregion
 
                 #region Jwt
@@ -308,7 +309,7 @@ namespace WebAPI
                 string path = Path.Combine(Directory.GetCurrentDirectory(), ".Cache");
 
                 app.UseStaticFiles
-                ( 
+                (
                     new StaticFileOptions
                     {
                         FileProvider = new PhysicalFileProvider(path),

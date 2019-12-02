@@ -61,7 +61,6 @@
     <Folder Include=".LocalDB\" />
     <Folder Include="Areas\TestArea\Data\" />
     <Folder Include="Areas\TestArea\Models\" />
-    <Folder Include="Base\" />
     <Folder Include="Doc\Swagger\" />
     <Folder Include="ExportExcel\" />
     <Folder Include="Properties\PublishProfiles\" />
@@ -104,6 +103,7 @@
     <ProjectReference Include="..\DLL\DBAccessDLL\DBAccessDLL.csproj" />
     <ProjectReference Include="..\DLL\DTOModelDLL\DTOModelDLL.csproj" />
     <ProjectReference Include="..\DLL\NetServiceDLL\NetApplictionServiceDLL.csproj" />
+    <ProjectReference Include="..\MQService\MQService.csproj" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

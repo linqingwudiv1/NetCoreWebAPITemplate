@@ -44,7 +44,6 @@ namespace DBAccessDLL.EF.Context
         /// <summary>
         /// 视图：Account
         /// </summary>
-        /// <param name="_ConnString"></param>
         virtual public DbSet<View_AccountFemale> view_AccountFemales { get; }
 
         /// <summary>
@@ -63,7 +62,6 @@ namespace DBAccessDLL.EF.Context
         public ExamContext(DbContextOptions<ExamContext> options, string _ConnString = "") 
             : base(options, _ConnString)
         {
-
         }
 
         /// <summary>

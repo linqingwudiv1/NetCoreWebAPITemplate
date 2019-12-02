@@ -1,12 +1,17 @@
-﻿using Autofac.Extensions.DependencyInjection;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using BaseDLL;
+using BaseDLL.Helper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using NLog;
 using NLog.Web;
 using System;
 using System.IO;
+using WebApp.Base;
 
 namespace WebAPI
 {
@@ -38,7 +43,9 @@ namespace WebAPI
         {
             try
             {
-                CreateHostBuilder(args).Build().Run();
+                var host = CreateHostBuilder(args).Build().BindDI();
+                
+                host.Run();
             }
             catch (Exception)
             {
@@ -54,7 +61,7 @@ namespace WebAPI
         {
             // Initilize nlog
             LogFactory loggerFactory = NLogBuilder.ConfigureNLog(@"./.Config/nlog.config");
-            
+
             string path = Directory.GetCurrentDirectory() + @"/.Config/HostAddress.json";
 
             using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
@@ -69,19 +76,50 @@ namespace WebAPI
             Console.WriteLine("Kestrel地址:" + Program.HostAddress.HostAddress);
 
             IHostBuilder host = Host.CreateDefaultBuilder(args)
-                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                .ConfigureWebHost(webBuilder =>
-                {
-                    webBuilder.UseKestrel()
-                              .UseContentRoot(Directory.GetCurrentDirectory())
-                              .UseIIS()
-                              .UseIISIntegration()
-                              .UseStartup<Startup>()
-                              .UseUrls(Program.HostAddress.HostAddress);
-                });
+                                    .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                                    .ConfigureWebHost(webBuilder =>
+                                    {
+                                        webBuilder.UseKestrel()
+                                                  .UseContentRoot(Directory.GetCurrentDirectory())
+                                                  .UseIIS()
+                                                  .UseIISIntegration()
+                                                  .UseStartup<Startup>()
+                                                  .UseUrls(Program.HostAddress.HostAddress);
+                                    });
 
             return host;
-
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="host"></param>
+        /// <returns></returns>
+        public static IHost BindDI(this IHost host) 
+        {
+            ServiceCollection collection = new ServiceCollection();
+            collection.AddScoped<ICoreHelper, CoreHelper>();
+            collection.AddScoped<itestservice, mytestservice>();
+
+            // ...
+            // Add other services
+            // ...
+            //serviceProvider = collection.BuildServiceProvider();
+
+            ContainerBuilder builder = new ContainerBuilder();
+            
+            builder.Populate(collection);
+            IContainer appContainer = builder.Build();
+
+            //var autofacServiceProvider = new AutofacServiceProvider(appContainer);
+            //autofacServiceProvider.LifetimeScope
+
+            return host;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ServiceProvider serviceProvider ;
     }
 }

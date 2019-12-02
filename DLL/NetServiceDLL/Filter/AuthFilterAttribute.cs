@@ -1,10 +1,7 @@
 ﻿using DTOModelDLL.Common.Store;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 
 
@@ -76,7 +73,7 @@ namespace NetApplictionServiceDLL.Filter
             Controller controller = filterContext.Controller as Controller;
 
             //token
-            String Token = filterContext.HttpContext.Request.Query[GVariable.QingTokenAvg];
+            String Token = filterContext.HttpContext.Request.Query[GWebVariable.QingTokenAvg];
 
             switch (Token)
             {
@@ -135,7 +132,7 @@ namespace NetApplictionServiceDLL.Filter
                     filterContext
                         .HttpContext
                         .Response
-                        .Redirect(GVariable.LoginUri);
+                        .Redirect(GWebVariable.LoginUri);
                     break;
                 }
                 case ActionAuthType.Unauth:
@@ -154,8 +151,8 @@ namespace NetApplictionServiceDLL.Filter
         {
             String ret_token = String.Empty;
 
-            String HeaderToken = filterContext.HttpContext.Request.Headers[GVariable.QingTokenHeader];
-            String CookieToken = filterContext.HttpContext.Request.Cookies[GVariable.QingTokenAvg];
+            String HeaderToken = filterContext.HttpContext.Request.Headers[GWebVariable.QingTokenHeader];
+            String CookieToken = filterContext.HttpContext.Request.Cookies[GWebVariable.QingTokenAvg];
 
             if ( !String.IsNullOrEmpty(HeaderToken) && !String.IsNullOrWhiteSpace(HeaderToken) )
             {

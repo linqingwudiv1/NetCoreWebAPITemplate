@@ -27,7 +27,7 @@ namespace NetApplictionServiceDLL
         /// <returns></returns>
         public static DTO_StoreAccount GetStoreAccount(this ISession session)
         {
-            return session.GetObject<DTO_StoreAccount>(GVariable.StoreAccount);
+            return session.GetObject<DTO_StoreAccount>(GWebVariable.StoreAccount);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace NetApplictionServiceDLL
         /// <param name="data"></param>
         public static void SetStoreAccount(this ISession session, DTO_StoreAccount data)
         {
-            session.SetObject(GVariable.StoreAccount, data);
+            session.SetObject(GWebVariable.StoreAccount, data);
         }
     }
 }

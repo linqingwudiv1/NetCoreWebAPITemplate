@@ -1,4 +1,5 @@
-﻿using Bogus;
+﻿using BaseDLL;
+using Bogus;
 using DBAccessDLL.EF.Context;
 using DBAccessDLL.EF.Entity;
 using DBAccessDLL.Static;
@@ -24,6 +25,9 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using BaseDLL.Helper;
+using WebApp.Base;
 
 namespace WebAPI.Controllers
 {
@@ -94,9 +98,8 @@ namespace WebAPI.Controllers
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
 
-            using ( ExamContext db = new ExamContext(sqliteDBConn) ) 
+            using (ExamContext db = new ExamContext(sqliteDBConn))
             {
-
                 if ( !db.Database.CanConnect() )
                 {
                     db.Database.EnsureCreated();
@@ -115,6 +118,7 @@ namespace WebAPI.Controllers
                         db.Accounts.IgnoreQueryFilters().AsEnumerable()
                     select
                         x.Id).DefaultIfEmpty(0).Max();
+
                 long max_id_accountRole = (
                     from
                         x
@@ -126,7 +130,7 @@ namespace WebAPI.Controllers
                 // long max_id_accountRole = db.AccountRoles
 
                 testAccount.RuleFor( entity => entity.Id,            faker => max_id_account + faker.IndexFaker + 1 );
-                testAccount.RuleFor( entity => entity.Name,          faker => faker.Random.String2(8, 16, charSet ));
+                testAccount.RuleFor( entity => entity.Name,          faker => faker.Random.String2(8, 16, charSet ) );
                 testAccount.RuleFor( entity => entity.Introduction,  faker => faker.Rant.Review());
                 testAccount.RuleFor( entity => entity.Avatar,        faker => faker.Image.PlaceholderUrl( 256, 256 ));
                 testAccount.RuleFor( entity => entity.Email,         faker => faker.Phone.PhoneNumber() + "@Qing.com");
@@ -135,7 +139,7 @@ namespace WebAPI.Controllers
                 testAccount.RuleFor( entity => entity.Phone,         faker => faker.Phone.PhoneNumber());
                 testAccount.RuleFor( entity => entity.Sex,           faker => faker.Random.Int(0, 2));
                 testAccount.RuleFor( entity => entity.Qing_IsDelete, faker => faker.Random.Bool());
-                                     
+
                 testAccount.RuleFor( entity => entity.AccountRoles, faker =>
                 {
                     bool bAddRole = faker.Random.Bool();
@@ -192,7 +196,6 @@ namespace WebAPI.Controllers
                     GenerateTime = sw_generate.ElapsedMilliseconds + "ms",
                     InsertTime = sw_insert.ElapsedMilliseconds + "ms"
                 });
-
             }
 
         }
@@ -208,7 +211,6 @@ namespace WebAPI.Controllers
 
             using (ExamContext db = new ExamContext(sqliteDBConn))
             {
-
                 if (!db.Database.CanConnect())
                 {
                     db.Database.EnsureCreated();
@@ -223,28 +225,28 @@ namespace WebAPI.Controllers
                              select
                                  new
                                  {
-                                    x.Id              ,
-                                    x.Name            ,
-                                    x.Username        ,
-                                    x.Sex             ,
-                                    x.Email           ,
-                                    x.Avatar          ,
-                                    x.Password        ,
-                                    x.Introduction    ,
-                                    x.Phone           ,
-                                    x.Qing_IsDelete   ,
-                                    x.Qing_CreateTime ,
-                                    x.Qing_DeleteTime ,
-                                    x.Qing_Sequence   ,
-                                    x.Qing_Version    ,
-                                    x.Qing_UpdateTime ,
-                                    Roles = x.AccountRoles.Select( x => x.role.Name )
+                                     x.Id ,
+                                     x.Name ,
+                                     x.Username ,
+                                     x.Sex ,
+                                     x.Email ,
+                                     x.Avatar ,
+                                     x.Password ,
+                                     x.Introduction ,
+                                     x.Phone ,
+                                     x.Qing_IsDelete ,
+                                     x.Qing_CreateTime ,
+                                     x.Qing_DeleteTime ,
+                                     x.Qing_Sequence ,
+                                     x.Qing_Version ,
+                                     x.Qing_UpdateTime ,
+                                     Roles = x.AccountRoles.Select(x => x.role.Name)
                                  });
 
                 var list = query.Take(100).ToList();
+
                 Sw.Stop();
 
-                //List<View_AccountFemale> list_2 = ( from x in db.view_AccountFemales select x ).ToList();
                 return Ok(new { time = Sw.ElapsedMilliseconds.ToString() + "ms.", list /*,list_2*/ });
             }
         }
@@ -275,6 +277,7 @@ namespace WebAPI.Controllers
 
             for (int i = 0; i < DebugThreadCount; i++)
             {
+
                 Task.Run(() =>
                 {
                     int count = 0;
@@ -471,13 +474,12 @@ namespace WebAPI.Controllers
                 {
                     string filePath = @".Cache/Image/" + fileitem.FileName;
 
-                    using (FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write))
+                    using ( FileStream fs = new FileStream( filePath, FileMode.CreateNew, FileAccess.Write ))
                     {
                         fileitem.CopyTo(fs);
                         list.Add(Request.HttpContext.Connection.RemoteIpAddress.ToString() + "/" + filePath);
                         ret_count++;
                     }
-
                 }
             }
 
@@ -575,5 +577,18 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult T() 
+        {
+            //CoreHelper q = Program.serviceProvider.GetService<CoreHelper>();
+            itestservice service = Program.serviceProvider.GetService<itestservice>();
+            
+            return Ok( service.test() );
+        }
     }
 }

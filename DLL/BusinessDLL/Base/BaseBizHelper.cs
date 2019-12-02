@@ -3,7 +3,7 @@
     /// <summary>
     /// Biz 基础
     /// </summary>
-    public abstract class BaseBizHelper
+    public abstract class BaseBizHelper : IBaseBizHelper
     {
 
     }

@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-
+            
             if (!string.IsNullOrEmpty(userInfo.username) && !string.IsNullOrEmpty(userInfo.password))
             {
                 Claim[] claims = new[]
@@ -90,12 +90,10 @@ namespace WebAPI.Controllers
                     expires  : DateTime.Now.AddMinutes(30) ,
                     signingCredentials : creds );
 
-                // new JwtSecurityTokenHandler().create
                 return Ok(new
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token)
                 });
-
             }
             else
             {
@@ -147,6 +145,7 @@ namespace WebAPI.Controllers
         public IActionResult Info([FromBody] DTOAPIReq_Info Info)
         {
             DTO_StoreAccount store_account = this.GetStoreAccount();
+
             return Ok(new DTO_ReturnModel<dynamic>(store_account, 20000));
         }
     }

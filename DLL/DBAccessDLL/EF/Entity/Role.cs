@@ -23,6 +23,9 @@ namespace DBAccessDLL.EF.Entity
         /// </summary>
         public String Name { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public String DisplayName { get; set; }
 
         /// <summary>

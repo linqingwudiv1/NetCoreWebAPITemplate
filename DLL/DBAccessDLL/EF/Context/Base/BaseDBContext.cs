@@ -43,8 +43,6 @@ namespace DBAccessDLL.EF.Context.Base
         : base(options)
         {
             ConnString = _ConnString;
-
-
         }
 
         /// <summary>
