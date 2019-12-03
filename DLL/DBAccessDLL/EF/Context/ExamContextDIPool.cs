@@ -1,15 +1,13 @@
 ﻿using DBAccessDLL.EF.Context.Base;
 using DBAccessDLL.EF.Entity;
 using Microsoft.EntityFrameworkCore;
-using DBAccessDLL.EF;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DBAccessDLL.EF.Context
 {
     /// <summary>
-    /// Test数据库,对数据的操作应该写在这里...
+    /// 线程池DI，不推荐. 理由:不能对EF进行水平业务拆分的规则处理
     /// </summary>
-    public class ExamContext : CommonDBContext<ExamContext>
+    public class ExamContextDIPool : CommonDBContext<ExamContextDIPool>
     {
         /// <summary>
         /// 实体:DbQuery
@@ -49,21 +47,12 @@ namespace DBAccessDLL.EF.Context
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="_ConnString">多表组合</param>
-        public ExamContext(string _ConnString = "")
-            : base( _ConnString)
+        /// <param name="options">多表组合</param>
+        public ExamContextDIPool(DbContextOptions<ExamContextDIPool> options)
+            :base(options)
         {
         }
 
-        /// <summary>
-        /// ExamContext
-        /// </summary>
-        /// <param name="options"></param>
-        /// <param name="_ConnString"></param>
-        public ExamContext(DbContextOptions<ExamContext> options, string _ConnString = "") 
-            : base(options, _ConnString)
-        {
-        }
         /// <summary>
         /// 
         /// </summary>

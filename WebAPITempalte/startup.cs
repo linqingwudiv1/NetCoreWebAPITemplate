@@ -1,5 +1,5 @@
-﻿using Autofac;
-using Autofac.Extensions.DependencyInjection;
+﻿using BaseDLL;
+using BaseDLL.Helper;
 using DBAccessDLL.EF.Context;
 using DBAccessDLL.Static;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -20,9 +19,10 @@ using NetApplictionServiceDLL;
 using Newtonsoft.Json.Serialization;
 using NLog;
 using System;
+using System.Configuration;
 using System.IO;
 using System.Text;
-using WebAPI.AutofacModule;
+using WebApp.Base;
 using WebApp.SingalR;
 
 namespace WebAPI
@@ -42,6 +42,8 @@ namespace WebAPI
         /// 
         /// </summary>
         private SessionOptions GSessionOpts;
+
+        #region private method
 
         /// <summary>
         /// 
@@ -95,6 +97,10 @@ namespace WebAPI
             }
         }
 
+        
+
+        #endregion
+
         /// <summary>
         /// 
         /// </summary>
@@ -122,14 +128,7 @@ namespace WebAPI
             Configuration = builder.Build();
         }
 
-        /// <summary>
-        /// Autofac 注入
-        /// </summary>
-        /// <param name="builder"></param>
-        public void ConfigureContainer(ContainerBuilder builder)
-        {
-            builder.RegisterModule(new AutofacExamModule());
-        }
+
 
         /// This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -138,17 +137,24 @@ namespace WebAPI
 
             try
             {
-                string[] origins = new string[]
+
+                services.AddScoped<ICoreHelper, CoreHelper>( ( service ) => 
                 {
+                    return new CoreHelper(); 
+                } );
+
+                services.AddScoped<itestservice, mytestservice>();
+
+                #region Cors Support 跨域支持
+
+                string[] origins = new string[]
+{
                     "http://localhost:8080",
                     "http://localhost:8081",
                     "http://localhost:8082",
                     "http://www.wakelu.com",
                     "http://192.168.1.131:8080"
-                };
-
-                // Cors Support 跨域支持
-
+};
                 services.AddCors(opt => opt.AddPolicy("WebAPIPolicy", builder =>
                 {
                     builder.WithOrigins(origins)
@@ -156,21 +162,18 @@ namespace WebAPI
                            .AllowCredentials()
                            .AllowAnyHeader();
                 }));
+                #endregion
 
                 #region Add framework services. 配置项注入
 
                 #region EF DI注入
-
-                //services.AddDbContextPool<ExamContext>(opt=> {opt }, 128);
-
-                #endregion
-
-                #region Autofac
-
-                services.AddAutofac( c=> 
+                string connstr = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
+                
+                services.AddDbContextPool<ExamContextDIPool>((opt) =>
                 {
-                });
-
+                    opt.UseSqlite(connstr);
+                }, 100);
+                
                 #endregion
 
                 #region ApplicationInsights
@@ -223,6 +226,12 @@ namespace WebAPI
                   .AddNewtonsoftJson( op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
                 #region Session Config : Redis or Sql Server
+
+                //services.AddDistributedSqlServerCache();
+
+                //services.AddStackExchangeRedisCache( ( opt ) => 
+                //{
+                //});
 
                 services.AddSession( ( opt ) => 
                 {
@@ -358,7 +367,7 @@ namespace WebAPI
             }
             catch (Exception ex)
             {
-                log.Info($"error :{ex.Message}");
+                log.Info($" Error : { ex.Message } ");
             }
         }
     }

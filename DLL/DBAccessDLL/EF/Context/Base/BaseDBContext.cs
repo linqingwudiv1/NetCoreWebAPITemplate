@@ -46,7 +46,7 @@ namespace DBAccessDLL.EF.Context.Base
         }
 
         /// <summary>
-        /// return -1 is DbUpdateConcurrencyException
+        /// return -1 is DbUpdateConcurrencyException ( 乐观锁... )
         /// </summary>
         /// <returns></returns>
         public override int SaveChanges()

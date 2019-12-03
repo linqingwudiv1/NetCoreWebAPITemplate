@@ -5,7 +5,9 @@ using System.Text;
 namespace NetApplictionServiceDLL
 {
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     public static class GJWT
     {
         /// <summary>

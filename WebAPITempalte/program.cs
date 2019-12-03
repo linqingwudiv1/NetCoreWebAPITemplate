@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using BaseDLL;
 using BaseDLL.Helper;
 using Microsoft.AspNetCore.Builder;
@@ -43,7 +42,7 @@ namespace WebAPI
         {
             try
             {
-                var host = CreateHostBuilder(args).Build().BindDI();
+                var host = CreateHostBuilder(args).Build();
                 
                 host.Run();
             }
@@ -76,7 +75,7 @@ namespace WebAPI
             Console.WriteLine("Kestrel地址:" + Program.HostAddress.HostAddress);
 
             IHostBuilder host = Host.CreateDefaultBuilder(args)
-                                    .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                                    //.UseServiceProviderFactory(new AutofacServiceProviderFactory())
                                     .ConfigureWebHost(webBuilder =>
                                     {
                                         webBuilder.UseKestrel()
@@ -101,14 +100,11 @@ namespace WebAPI
             collection.AddScoped<ICoreHelper, CoreHelper>();
             collection.AddScoped<itestservice, mytestservice>();
 
-            // ...
-            // Add other services
-            // ...
             //serviceProvider = collection.BuildServiceProvider();
 
             ContainerBuilder builder = new ContainerBuilder();
             
-            builder.Populate(collection);
+            //builder.Populate(collection);
             IContainer appContainer = builder.Build();
 
             //var autofacServiceProvider = new AutofacServiceProvider(appContainer);
