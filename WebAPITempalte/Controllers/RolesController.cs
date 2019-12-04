@@ -119,7 +119,7 @@ namespace WebAPI.Controllers
 
                     role.Name = data.Name;
                     role.Descrption = data.Descrption;
-                    
+
                     ret_model.data = db.SaveChanges();
                 }
                 catch (Exception ex) 

@@ -4,7 +4,10 @@ using System.Text;
 
 namespace BusinessDLL.Base
 {
-    interface IBaseBizHelper
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IBaseBizServices
     {
     }
 }

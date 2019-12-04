@@ -1,5 +1,4 @@
-﻿using BaseDLL;
-using Bogus;
+﻿using Bogus;
 using DBAccessDLL.EF.Context;
 using DBAccessDLL.EF.Entity;
 using DBAccessDLL.Static;
@@ -25,9 +24,6 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using BaseDLL.Helper;
-using WebApp.Base;
 
 namespace WebAPI.Controllers
 {
@@ -586,9 +582,9 @@ namespace WebAPI.Controllers
         public IActionResult T() 
         {
             //CoreHelper q = Program.serviceProvider.GetService<CoreHelper>();
-            itestservice service = Program.serviceProvider.GetService<itestservice>();
+            //itestservice service = Program.serviceProvider.GetService<itestservice>();
             
-            return Ok( service.test() );
+            return Ok( );
         }
     }
 }

@@ -9,11 +9,24 @@ namespace NetApplictionServiceDLL
     /// </summary>
     public static class SessionExtensions
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         public static void SetObject(this ISession session, string key, object value)
         {
             session.SetString(key, JsonConvert.SerializeObject(value));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="session"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static T GetObject<T>(this ISession session, string key)
         {
             var value = session.GetString(key);

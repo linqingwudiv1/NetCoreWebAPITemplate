@@ -7,7 +7,7 @@ namespace DBAccessDLL.EF.Context
     /// <summary>
     /// 线程池DI，不推荐. 理由:不能对EF进行水平业务拆分的规则处理
     /// </summary>
-    public class ExamContextDIPool : CommonDBContext<ExamContextDIPool>
+    public class ExamContextDIP : CommonDBContext<ExamContextDIP>
     {
         /// <summary>
         /// 实体:DbQuery
@@ -48,7 +48,7 @@ namespace DBAccessDLL.EF.Context
         /// 
         /// </summary>
         /// <param name="options">多表组合</param>
-        public ExamContextDIPool(DbContextOptions<ExamContextDIPool> options)
+        public ExamContextDIP(DbContextOptions<ExamContextDIP> options)
             :base(options)
         {
         }

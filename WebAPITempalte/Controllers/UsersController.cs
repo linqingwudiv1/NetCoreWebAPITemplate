@@ -27,11 +27,6 @@ namespace WebAPI.Controllers
     public class UsersController : BaseController
     {
         /// <summary>
-        /// 
-        /// </summary>
-        static int ChildUE4 { get; set; }
-
-        /// <summary>
         /// Vue项目测试接口
         /// </summary>
         public UsersController()

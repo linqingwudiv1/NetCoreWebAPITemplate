@@ -56,14 +56,14 @@ namespace BusinessDLL.Extensison
 
                 DTO_StoreAccount storeAccount = new DTO_StoreAccount
                 {
-                    id = account.Id,
-                    username = account.Username,
-                    password = account.Password,
-                    avatar = account.Avatar,
-                    email = account.Email,
-                    name = account.Name,
-                    introduction = account.Introduction,
-                    phone = account.Phone,
+                    id = account.Id                     ,
+                    username = account.Username         ,
+                    password = account.Password         ,
+                    avatar = account.Avatar             ,
+                    email = account.Email               ,
+                    name = account.Name                 ,
+                    introduction = account.Introduction ,
+                    phone = account.Phone               ,
                     roles = roles
                 };
 

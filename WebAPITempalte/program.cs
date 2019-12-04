@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using BaseDLL;
 using BaseDLL.Helper;
 using Microsoft.AspNetCore.Builder;
@@ -68,6 +69,7 @@ namespace WebAPI
                 using (StreamReader sr = new StreamReader(file))
                 {
                     string json = sr.ReadToEnd();
+
                     Program.HostAddress = JsonConvert.DeserializeObject<HostAddressModel>(json);
                 }
             }
@@ -75,7 +77,7 @@ namespace WebAPI
             Console.WriteLine("Kestrel地址:" + Program.HostAddress.HostAddress);
 
             IHostBuilder host = Host.CreateDefaultBuilder(args)
-                                    //.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                                    .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                                     .ConfigureWebHost(webBuilder =>
                                     {
                                         webBuilder.UseKestrel()
@@ -88,34 +90,5 @@ namespace WebAPI
 
             return host;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="host"></param>
-        /// <returns></returns>
-        public static IHost BindDI(this IHost host) 
-        {
-            ServiceCollection collection = new ServiceCollection();
-            collection.AddScoped<ICoreHelper, CoreHelper>();
-            collection.AddScoped<itestservice, mytestservice>();
-
-            //serviceProvider = collection.BuildServiceProvider();
-
-            ContainerBuilder builder = new ContainerBuilder();
-            
-            //builder.Populate(collection);
-            IContainer appContainer = builder.Build();
-
-            //var autofacServiceProvider = new AutofacServiceProvider(appContainer);
-            //autofacServiceProvider.LifetimeScope
-
-            return host;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static ServiceProvider serviceProvider ;
     }
 }

@@ -1,5 +1,5 @@
-﻿using BaseDLL;
-using BaseDLL.Helper;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using DBAccessDLL.EF.Context;
 using DBAccessDLL.Static;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -22,7 +22,7 @@ using System;
 using System.Configuration;
 using System.IO;
 using System.Text;
-using WebApp.Base;
+using WebAPI.AutofacModule;
 using WebApp.SingalR;
 
 namespace WebAPI
@@ -53,7 +53,7 @@ namespace WebAPI
             //net4log = LogManager.CreateRepository("NETCoreRepository");
             //XmlConfigurator.Configure(net4log, new FileInfo(@"\.Config\net4log.config"));
         }
-        private void InitNLog(IWebHostEnvironment env) 
+        private void InitNLog(IWebHostEnvironment env)
         {
             Logger logger = LogManager.GetLogger("Starup");
         }
@@ -97,7 +97,7 @@ namespace WebAPI
             }
         }
 
-        
+
 
         #endregion
 
@@ -119,16 +119,23 @@ namespace WebAPI
             IConfigurationBuilder builder = new ConfigurationBuilder()
                                                 .AddInMemoryCollection()
                                                 .SetBasePath(env.ContentRootPath)
-                                                .AddJsonFile( @".Config\appsettings.json", optional: false, reloadOnChange: true)
+                                                .AddJsonFile(@".Config\appsettings.json", optional: false, reloadOnChange: true)
                                                 .AddJsonFile($@".Config\appsettings.{env.EnvironmentName}.json", optional: true)
-                                                .AddJsonFile( @".Config\ConnectionString.json", optional: false, reloadOnChange: true)
-                                                .AddJsonFile( @".Config\APILTEUrl.json", optional: false, reloadOnChange: true)
+                                                .AddJsonFile(@".Config\ConnectionString.json", optional: false, reloadOnChange: true)
+                                                .AddJsonFile(@".Config\APILTEUrl.json", optional: false, reloadOnChange: true)
                                                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
         }
 
-
+        /// <summary>
+        /// Autofac
+        /// </summary>
+        /// <param name="builder"></param>
+        public void ConfigureContainer(ContainerBuilder builder) 
+        {
+            //builder.RegisterModule(new CoreModule());
+        }
 
         /// This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -137,13 +144,24 @@ namespace WebAPI
 
             try
             {
+                #region Dependency Injection
+                // services.AddScoped<ICoreHelper, CoreHelper>((service) =>
+                // {
+                //     return new CoreHelper();
+                // });
+                // 
+                // services.AddScoped<itestservice, mytestservice>();
+                #endregion
 
-                services.AddScoped<ICoreHelper, CoreHelper>( ( service ) => 
+
+                #region Autofac Configration
+
+                services.AddAutofac((builder) =>
                 {
-                    return new CoreHelper(); 
-                } );
+                    builder.Populate(services);
+                });
 
-                services.AddScoped<itestservice, mytestservice>();
+                #endregion
 
                 #region Cors Support 跨域支持
 
@@ -169,7 +187,7 @@ namespace WebAPI
                 #region EF DI注入
                 string connstr = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
                 
-                services.AddDbContextPool<ExamContextDIPool>((opt) =>
+                services.AddDbContextPool<ExamContextDIP>((opt) =>
                 {
                     opt.UseSqlite(connstr);
                 }, 100);
