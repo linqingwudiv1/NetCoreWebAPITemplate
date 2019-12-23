@@ -1,17 +1,12 @@
-﻿using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using BaseDLL;
-using BaseDLL.Helper;
+﻿using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using NLog;
 using NLog.Web;
 using System;
 using System.IO;
-using WebApp.Base;
 
 namespace WebAPI
 {

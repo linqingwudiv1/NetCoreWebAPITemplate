@@ -22,7 +22,6 @@ using System;
 using System.Configuration;
 using System.IO;
 using System.Text;
-using WebAPI.AutofacModule;
 using WebApp.SingalR;
 
 namespace WebAPI

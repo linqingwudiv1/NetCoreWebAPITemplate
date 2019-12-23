@@ -4,6 +4,9 @@ using System.Text;
 
 namespace BaseDLL
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class GVariable
     {
         /// <summary>

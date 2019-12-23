@@ -10,8 +10,6 @@ using System.Linq;
 
 namespace BusinessDLL.Extensison
 {
-
-
     /// <summary>
     /// 登录状态
     /// </summary>

@@ -13,13 +13,31 @@ namespace BaseDLL.Helper.Redis
         //缓存池
         PooledRedisClientManager prcm = new PooledRedisClientManager();
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string RedisIPAddress = "127.0.0.1:6379";
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string RedisPassport = "";
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string RedisPassword = "";
 
         //默认缓存过期时间单位秒
         public int secondsTimeOut = 20 * 60;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_RedisIPAddress"></param>
+        /// <param name="_RedisPassport"></param>
+        /// <param name="_RedisPassword"></param>
+        /// <param name="OpenPooledRedis"></param>
         public RedisHelper( string _RedisIPAddress = "127.0.0.1:6379", 
                             string _RedisPassport = "",
                             string _RedisPassword = "", 
@@ -64,6 +82,7 @@ namespace BaseDLL.Helper.Redis
         {
             return Redis.Ttl(key);
         }
+
         /// <summary>
         /// 设置过期时间
         /// </summary>
@@ -186,7 +205,9 @@ namespace BaseDLL.Helper.Redis
         }
         #endregion
 
-        //释放资源
+        /// <summary>
+        /// 释放资源
+        /// </summary>
         public void Dispose()
         {
             if (Redis != null)

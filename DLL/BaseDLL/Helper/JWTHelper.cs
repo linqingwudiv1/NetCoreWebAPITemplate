@@ -4,6 +4,9 @@ using System.Text;
 
 namespace BaseDLL.Helper
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class JWTHelper
     {
         /// <summary>
