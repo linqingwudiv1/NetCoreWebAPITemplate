@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DTOModelDLL</name>
+    </assembly>
+    <members>
+        <member name="T:DTOModelDLL.API.Roles.DTOAPIReq_Role">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Roles.DTOAPIReq_Role.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Roles.DTOAPIReq_Role.Descrption">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:DTOModelDLL.API.Routes.DTOAPIReq_AddRoutePages">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:DTOModelDLL.API.Routes.DTOAPIReq_UpdateRolerRoutes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:DTOModelDLL.API.Routes.DTOAPIRes_GetRoutePages">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Routes.DTOAPIRes_GetRoutePages.constantRoutes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Routes.DTOAPIRes_GetRoutePages.asyncRoutes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:DTOModelDLL.API.Users.DTOAPIReq_Info">
+            <summary>
+            User/Login
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Users.DTOAPIReq_Info.username">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Users.DTOAPIReq_Info.password">
+            <summary>
+            登录密码
+            </summary>
+        </member>
+        <member name="T:DTOModelDLL.API.Users.DTOAPIRes_Info">
+            <summary>
+            User/Login
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Users.DTOAPIRes_Info.id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Users.DTOAPIRes_Info.name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Users.DTOAPIRes_Info.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Users.DTOAPIRes_Info.password">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Users.DTOAPIRes_Info.phone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Users.DTOAPIRes_Info.email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Users.DTOAPIRes_Info.avatar">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Users.DTOAPIRes_Info.introduction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Users.DTOAPIRes_Info.roles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:DTOModelDLL.API.Users.DTOAPI_Login">
+            <summary>
+            User/Login
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Users.DTOAPI_Login.username">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.API.Users.DTOAPI_Login.password">
+            <summary>
+            登录密码
+            </summary>
+        </member>
+        <member name="T:DTOModelDLL.Common.DTO_RenderEChart">
+            <summary>
+            方便EChart 前端渲染的数据Model
+            </summary>
+        </member>
+        <member name="M:DTOModelDLL.Common.DTO_RenderEChart.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.DTO_RenderEChart.ID">
+            <summary>
+            标识图表类型，方便映射，名称变更时无需前端调整
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.DTO_RenderEChart.x_arr">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.DTO_RenderEChart.y_set">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.DTO_RenderEChart.Title">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:DTOModelDLL.Common.DTO_RenderEChartItem">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:DTOModelDLL.Common.DTO_RenderEChartItem.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.DTO_RenderEChartItem.ID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.DTO_RenderEChartItem.displayName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.DTO_RenderEChartItem.Column">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.DTO_RenderEChartItem.ChartType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.DTO_RenderEChartItem.YAxisType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.DTO_RenderEChartItem.y_arr">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:DTOModelDLL.Common.DTO_ReturnModel`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:DTOModelDLL.Common.DTO_ReturnModel`1.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:DTOModelDLL.Common.DTO_ReturnModel`1.#ctor(`0,System.Int32,System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="_data"></param>
+            <param name="_code"></param>
+            <param name="_state"></param>
+            <param name="_desc"></param>
+        </member>
+        <member name="P:DTOModelDLL.Common.DTO_ReturnModel`1.code">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.DTO_ReturnModel`1.state">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.DTO_ReturnModel`1.data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.DTO_ReturnModel`1.desc">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:DTOModelDLL.Common.Store.DTO_StoreAccount">
+            <summary>
+            Store 
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.Store.DTO_StoreAccount.id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.Store.DTO_StoreAccount.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.Store.DTO_StoreAccount.password">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.Store.DTO_StoreAccount.name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.Store.DTO_StoreAccount.avatar">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.Store.DTO_StoreAccount.introduction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.Store.DTO_StoreAccount.email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.Store.DTO_StoreAccount.phone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.Store.DTO_StoreAccount.sex">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DTOModelDLL.Common.Store.DTO_StoreAccount.roles">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

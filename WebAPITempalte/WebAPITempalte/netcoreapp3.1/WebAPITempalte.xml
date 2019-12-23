@@ -1,0 +1,413 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApp</name>
+    </assembly>
+    <members>
+        <member name="T:WebAPI.Areas.TestArea.Controllers.HomeController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.Areas.TestArea.Controllers.HomeController.Index(System.Object)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WebAPI.Controllers.HomeController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.HomeController.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.HomeController.Index">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WebAPI.Controllers.RolesController">
+            <summary>
+            Vue项目展示接口
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.RolesController.GetRoles">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.RolesController.GetRole(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.RolesController.AddRole(DTOModelDLL.API.Roles.DTOAPIReq_Role)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.RolesController.UpdateRole(System.Int64,DTOModelDLL.API.Roles.DTOAPIReq_Role)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.RolesController.DeleteRole(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WebAPI.Controllers.RoutesController">
+            <summary>
+            Vue项目展示接口
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.RoutesController.GetRoutePages">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.RoutesController.GetRoutePage(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.RoutesController.AddRoutePage(DTOModelDLL.API.Routes.DTOAPIReq_AddRoutePages)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.RoutesController.UpdateRoutePage">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WebAPI.Controllers.SignalRCaseController">
+            <summary>
+            SignalRCase
+            </summary>
+        </member>
+        <member name="F:WebAPI.Controllers.SignalRCaseController._hubContext">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.SignalRCaseController.#ctor(Microsoft.AspNetCore.SignalR.IHubContext{WebApp.SingalR.CommonHub})">
+             <summary>
+            
+             </summary>
+             <param name="hubContext"></param>
+        </member>
+        <member name="M:WebAPI.Controllers.SignalRCaseController.UploadImage(System.String)">
+            <summary>
+            扫描业务示例：图片上传 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WebAPI.Controllers.TestController">
+            <summary>
+            Hello World ! net Core MVC.
+            </summary>
+        </member>
+        <member name="P:WebAPI.Controllers.TestController.Opt_Conn">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WebAPI.Controllers.TestController.Opt_API">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.#ctor(Microsoft.Extensions.Options.IOptions{DBAccessDLL.Static.Option_ConnctionString},Microsoft.Extensions.Options.IOptions{DBAccessDLL.Static.Opt_API_LTEUrl})">
+            <summary>
+            测试  
+            </summary>
+            <param name="Opt"></param>
+            <param name="_Opt_API"></param>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.HelloNetCore(System.String)">
+            <summary>
+            测试方法
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.NetCore_DBConn">
+            <summary>
+            获取数据库连接信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.EFCore_InsertTest(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="generateCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.EFCore_QueryTest">
+            <summary>
+            Note：
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.ThreadingPoolTest">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.EFCore_UpdateTest(System.Int32,System.Int64)">
+            <summary>
+            乐观更新 Optimistic locking Test
+            </summary>
+            <param name="DebugThreadCount"></param>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.Export">
+            <summary>
+            导出 Excel 示例。标准
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.Import">
+            <summary>
+             导入 Excel 读取示例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.UploadImageMulitple">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.UploadImage">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.UploadImageFromCS(System.Int32,System.String)">
+            <summary>
+            call upload on UE4 Client example 
+            </summary>
+            <param name="size"></param>
+            <param name="filename"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.ServerIPAddress">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.ScriptCase">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.T">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WebAPI.Controllers.UsersController">
+            <summary>
+            Vue项目展示接口
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.UsersController.#ctor">
+            <summary>
+            Vue项目测试接口
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.UsersController.Login(DTOModelDLL.API.Users.DTOAPI_Login)">
+            <summary>
+            登录接口
+            </summary>
+            <param name="userInfo">登录信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UsersController.JWTLogin(DTOModelDLL.API.Users.DTOAPI_Login)">
+            <summary>
+            
+            </summary>
+            <param name="userInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UsersController.JWTTestAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UsersController.Logout">
+            <summary>
+            注销
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UsersController.Info(DTOModelDLL.API.Users.DTOAPIReq_Info)">
+            <summary>
+            
+            </summary>
+            <param name="Info"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WebAPI.Program">
+            <summary>
+            主函数
+            </summary>
+        </member>
+        <member name="T:WebAPI.Program.HostAddressModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WebAPI.Program.HostAddressModel.HostAddress">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:WebAPI.Program.HostAddress">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.Program.Main(System.String[])">
+            <summary>
+            初始化
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:WebAPI.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WebAPI.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WebAPI.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:WebAPI.Startup.GSessionOpts">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.Startup.InitNet4Log">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.Startup.InitSessionOpts">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.Startup.InitOther">
+            <summary>
+            Initilize Directory
+            </summary>
+        </member>
+        <member name="M:WebAPI.Startup.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            
+            </summary>
+            <param name="env"></param>
+        </member>
+        <member name="M:WebAPI.Startup.ConfigureContainer(Autofac.ContainerBuilder)">
+            <summary>
+            Autofac
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:WebAPI.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            This method gets called by the runtime. Use this method to add services to the container.
+        </member>
+        <member name="M:WebAPI.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+             This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+        </member>
+        <member name="T:WebApp.SingalR.CommonHub">
+            <summary>
+            通用监听事件.
+            </summary>
+        </member>
+        <member name="F:WebApp.SingalR.CommonHub.Event_ReceiveMessage">
+            <summary>
+            Event
+            </summary>
+        </member>
+        <member name="F:WebApp.SingalR.CommonHub.Event_ReceiveOnConnected">
+            <summary>
+            Event
+            </summary>
+        </member>
+        <member name="F:WebApp.SingalR.CommonHub.Event_ReceiveUploadImageComplated">
+            <summary>
+            Event
+            </summary>
+        </member>
+        <member name="M:WebApp.SingalR.CommonHub.SendMessage(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApp.SingalR.CommonHub.OnConnectedAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebApp.SingalR.CommonHub.OnDisconnectedAsync(System.Exception)">
+            <summary>
+            
+            </summary>
+            <param name="exception"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WebApp.SingalR.QingUserIdProvider">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebApp.SingalR.QingUserIdProvider.GetUserId(Microsoft.AspNetCore.SignalR.HubConnectionContext)">
+            <summary>
+            Provider user identity of Connection 
+            </summary>
+            <param name="connection"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

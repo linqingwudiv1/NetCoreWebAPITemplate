@@ -9,6 +9,11 @@ namespace DBAccessDLL.EF.DesignTime
     /// </summary>
     public class DesignTimeExamContextFactory : IDesignTimeDbContextFactory<ExamContext>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public ExamContext CreateDbContext(string[] args)
         {
             string connectionString = "Data Source=.LocalDB/sqliteTestDB.db";

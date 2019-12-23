@@ -1,0 +1,786 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DBAccessDLL</name>
+    </assembly>
+    <members>
+        <member name="T:DBAccessDLL.EF.Context.Base.BaseDBContext`1">
+            <summary>
+            基础
+            </summary>
+            <typeparam name="DBCtx"></typeparam>
+        </member>
+        <member name="P:DBAccessDLL.EF.Context.Base.BaseDBContext`1.ConnString">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:DBAccessDLL.EF.Context.Base.BaseDBContext`1.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="_ConnString"></param>
+        </member>
+        <member name="M:DBAccessDLL.EF.Context.Base.BaseDBContext`1.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{`0},System.String)">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+            <param name="_ConnString"></param>
+        </member>
+        <member name="M:DBAccessDLL.EF.Context.Base.BaseDBContext`1.SaveChanges">
+            <summary>
+            return -1 is DbUpdateConcurrencyException ( 乐观锁... )
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DBAccessDLL.EF.Context.Base.CommonDBContext`1">
+            <summary>
+            常用
+            </summary>
+            <typeparam name="DBCtx"></typeparam>
+        </member>
+        <member name="M:DBAccessDLL.EF.Context.Base.CommonDBContext`1.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="_ConnString"></param>
+        </member>
+        <member name="M:DBAccessDLL.EF.Context.Base.CommonDBContext`1.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{`0},System.String)">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+            <param name="_ConnString"></param>
+        </member>
+        <member name="M:DBAccessDLL.EF.Context.Base.CommonDBContext`1.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="optionsBuilder"></param>
+        </member>
+        <member name="T:DBAccessDLL.EF.Context.ExamContext">
+            <summary>
+            Test数据库,对数据的操作应该写在这里...
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Context.ExamContext.Accounts">
+            <summary>
+            实体:DbQuery
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Context.ExamContext.AccountRoles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Context.ExamContext.RoutePages">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Context.ExamContext.RoutePageRoles">
+            <summary>
+            可访问页面权限列表
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Context.ExamContext.SystemLogs">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Context.ExamContext.Roles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Context.ExamContext.view_AccountFemales">
+            <summary>
+            视图：Account
+            </summary>
+        </member>
+        <member name="M:DBAccessDLL.EF.Context.ExamContext.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="_ConnString">多表组合</param>
+        </member>
+        <member name="M:DBAccessDLL.EF.Context.ExamContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{DBAccessDLL.EF.Context.ExamContext},System.String)">
+            <summary>
+            ExamContext
+            </summary>
+            <param name="options"></param>
+            <param name="_ConnString"></param>
+        </member>
+        <member name="M:DBAccessDLL.EF.Context.ExamContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="modelBuilder"></param>
+        </member>
+        <member name="T:DBAccessDLL.EF.Context.ExamContextDIP">
+            <summary>
+            线程池DI，不推荐. 理由:不能对EF进行水平业务拆分的规则处理
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Context.ExamContextDIP.Accounts">
+            <summary>
+            实体:DbQuery
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Context.ExamContextDIP.AccountRoles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Context.ExamContextDIP.RoutePages">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Context.ExamContextDIP.RoutePageRoles">
+            <summary>
+            可访问页面权限列表
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Context.ExamContextDIP.SystemLogs">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Context.ExamContextDIP.Roles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Context.ExamContextDIP.view_AccountFemales">
+            <summary>
+            视图：Account
+            </summary>
+        </member>
+        <member name="M:DBAccessDLL.EF.Context.ExamContextDIP.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{DBAccessDLL.EF.Context.ExamContextDIP})">
+            <summary>
+            
+            </summary>
+            <param name="options">多表组合</param>
+        </member>
+        <member name="M:DBAccessDLL.EF.Context.ExamContextDIP.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="modelBuilder"></param>
+        </member>
+        <member name="T:DBAccessDLL.EF.DesignTime.DesignTimeExamContextFactory">
+            <summary>
+            数据库迁移 代理映射
+            </summary>
+        </member>
+        <member name="M:DBAccessDLL.EF.DesignTime.DesignTimeExamContextFactory.CreateDbContext(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.Account">
+            <summary>
+            用户类
+            </summary>
+        </member>
+        <member name="M:DBAccessDLL.EF.Entity.Account.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Account.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Account.Username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Account.Password">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Account.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Account.Avatar">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Account.Introduction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Account.Email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Account.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Account.Phone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Account.AccountRoles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.AccountEFConfig">
+            <summary>
+            Entit Config
+            </summary>
+        </member>
+        <member name="M:DBAccessDLL.EF.Entity.AccountEFConfig.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{DBAccessDLL.EF.Entity.Account})">
+            <summary>
+            
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.AccountRole">
+            <summary>
+            用户类
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.AccountRole.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.AccountRole.AccountId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.AccountRole.account">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.AccountRole.RoleId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.AccountRole.role">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.AccountRoleEFConfig">
+            <summary>
+            Entity Config
+            </summary>
+        </member>
+        <member name="M:DBAccessDLL.EF.Entity.AccountRoleEFConfig.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{DBAccessDLL.EF.Entity.AccountRole})">
+            <summary>
+            
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.BaseEntity">
+            <summary>
+            基础实体类/
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BaseEntity.Qing_IsDelete">
+            <summary>
+            Soft Delete 软删除
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BaseEntity.Qing_Version">
+            <summary>
+            数据版本 Optimistic locking 乐观锁字段
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BaseEntity.Qing_Sequence">
+            <summary>
+            预留/消息队列用:概指当前行数据是第几个消息，方便用于事件回溯扩展(Event Sourcing)
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BaseEntity.Qing_CreateTime">
+            <summary>
+            数据创建时间
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BaseEntity.Qing_UpdateTime">
+            <summary>
+            数据最近一次修改时间
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BaseEntity.Qing_DeleteTime">
+            <summary>
+            软删除事件
+            </summary>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.BizAccountLog">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BizAccountLog.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BizAccountLog.AccountId">
+            <summary>
+            关联Account ID
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BizAccountLog.MachineName">
+            <summary>
+            机器名
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BizAccountLog.Level">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BizAccountLog.Message">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BizAccountLog.Logger">
+            <summary>
+            IP地址/或用户ID
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BizAccountLog.Exception">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BizAccountLog.CreateTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.BizAccountLogEFConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:DBAccessDLL.EF.Entity.BizAccountLogEFConfig.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{DBAccessDLL.EF.Entity.BizAccountLog})">
+            <summary>
+             
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.BizSystemLog">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BizSystemLog.Id">
+            <summary>
+            Primary Key
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BizSystemLog.MachineName">
+            <summary>
+            机器名
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BizSystemLog.Level">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BizSystemLog.Message">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BizSystemLog.Logger">
+            <summary>
+            IP地址/或用户ID
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BizSystemLog.Exception">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.BizSystemLog.CreateTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.SystemLogEFConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:DBAccessDLL.EF.Entity.SystemLogEFConfig.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{DBAccessDLL.EF.Entity.BizSystemLog})">
+            <summary>
+             
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.Role">
+            <summary>
+            Account 角色 Account Role
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Role.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Role.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Role.DisplayName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Role.Organization">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Role.Descrption">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Role.AccountRoles">
+            <summary>
+            关联的AccountRoles数据
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Role.RouteRoles">
+            <summary>
+            关联的
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Role.ParentId">
+            <summary>
+            父级ID
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Role.Parent">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.Role.Children">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.RoleEFConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:DBAccessDLL.EF.Entity.RoleEFConfig.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{DBAccessDLL.EF.Entity.Role})">
+            <summary>
+            
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.RoutePage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePage.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePage.ParentId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePage.Path">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePage.Component">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePage.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePage.Meta">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePage.RoutePageRoles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.RoutePageEFConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:DBAccessDLL.EF.Entity.RoutePageEFConfig.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{DBAccessDLL.EF.Entity.RoutePage})">
+            <summary>
+            
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.RoutePageMeta">
+            <summary>
+            RoutePage 子表/详情表
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePageMeta.ActiveMenu">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePageMeta.Title">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePageMeta.Icon">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePageMeta.Affix">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePageMeta.NoCache">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePageMeta.AlwaysShow">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePageMeta.Hidden">
+            <summary>
+            是否隐藏
+            </summary>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.RoutePageRole">
+            <summary>
+            路由得Role列表
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePageRole.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePageRole.RoutePageId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePageRole.routePage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePageRole.RoleId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.RoutePageRole.role">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.RoutePageRoleEFConfig">
+            <summary>
+            Entity Config
+            </summary>
+        </member>
+        <member name="M:DBAccessDLL.EF.Entity.RoutePageRoleEFConfig.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{DBAccessDLL.EF.Entity.RoutePageRole})">
+            <summary>
+            
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.View_AccountFemale">
+            <summary>
+            EF 栗子 女性用户,View Case.
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.View_AccountFemale.id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.View_AccountFemale.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.View_AccountFemale.password">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.View_AccountFemale.name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.View_AccountFemale.avatar">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.View_AccountFemale.introduction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.View_AccountFemale.email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.View_AccountFemale.sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.EF.Entity.View_AccountFemale.phone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.View_AccountFemaleEFConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:DBAccessDLL.EF.Entity.View_AccountFemaleEFConfig.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{DBAccessDLL.EF.Entity.View_AccountFemale})">
+            <summary>
+            
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:DBAccessDLL.EF.Entity.BaseEntityExtension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:DBAccessDLL.EF.Entity.BaseEntityExtension.Fill``1(``0)">
+            <summary>
+            Fill Default Data
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="target"></param>
+        </member>
+        <member name="T:DBAccessDLL.EF.DBConfigExtension">
+            <summary>
+            实体配置函数扩展
+            </summary>
+        </member>
+        <member name="M:DBAccessDLL.EF.DBConfigExtension.SetupBaseEntity``1(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{``0},System.Boolean)">
+            <summary>
+            用于实体
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="targetBuilder"></param>
+            <param name="bUseSoftDelete"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DBAccessDLL.EF.DBConfigExtension.UseSofeDelete``1(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{``0})">
+            <summary>
+            用于Query 实体
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="targetBuilder"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DBAccessDLL.EF.DBQueryExtension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:DBAccessDLL.EF.DBQueryExtension.QueryPages``1(System.Linq.IQueryable{``0},System.Int32,System.Int32)">
+            <summary>
+            分页扩展
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="query"></param>
+            <param name="pageSize"></param>
+            <param name="pageNum"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DBAccessDLL.EF.DBQueryExtension.QueryPages``1(Microsoft.EntityFrameworkCore.DbSet{``0},System.Int32,System.Int32)">
+            <summary>
+            分页扩展
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="query"></param>
+            <param name="pageSize"></param>
+            <param name="pageNum"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DBAccessDLL.EF.DBQueryExtension.ToSql``1(System.Linq.IQueryable{``0})">
+             <summary>
+            
+             </summary>
+             <typeparam name="T"></typeparam>
+             <param name="query"></param>
+             <returns></returns>
+        </member>
+        <member name="T:DBAccessDLL.Static.Option_ConnctionString">
+            <summary>
+            DI注入类 ，保存配置文件中的字符串连接(分表分库自行处理逻辑)
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.Static.Option_ConnctionString.LTEConn">
+            <summary>
+            Case: LTE数据库
+            </summary>
+        </member>
+        <member name="T:DBAccessDLL.Static.Opt_API_LTEUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DBAccessDLL.Static.Opt_API_LTEUrl.BaseUrl">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

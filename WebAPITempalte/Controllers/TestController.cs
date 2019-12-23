@@ -236,7 +236,7 @@ namespace WebAPI.Controllers
                                      x.Qing_Sequence ,
                                      x.Qing_Version ,
                                      x.Qing_UpdateTime ,
-                                     Roles = x.AccountRoles.Select(x => x.role.Name)
+                                     Roles = x.AccountRoles.Select( xx => xx.role.Name)
                                  });
 
                 var list = query.Take(100).ToList();
@@ -298,7 +298,7 @@ namespace WebAPI.Controllers
                                 }
                                 else
                                 {
-                                    logger.Trace(@$" Optimistic locking..... Name : { account.Name          } , 
+                                    logger.Trace($@" Optimistic locking..... Name : { account.Name          } , 
                                                      Qing_Version                 : { account.Qing_Version  } ,
                                                      Qing_Sequence                : { account.Qing_Sequence } ");
                                 }

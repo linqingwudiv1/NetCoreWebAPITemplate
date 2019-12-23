@@ -12,7 +12,6 @@ namespace WebAPI.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="_coreHelper"></param>
         public HomeController()
         {
         }

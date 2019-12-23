@@ -4,6 +4,9 @@ using System.Text;
 
 namespace DTOModelDLL.API.Roles
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DTOAPIReq_Role
     {
         /// <summary>
@@ -15,6 +18,5 @@ namespace DTOModelDLL.API.Roles
         /// 
         /// </summary>
         public string Descrption { get; set; }
-
     }
 }

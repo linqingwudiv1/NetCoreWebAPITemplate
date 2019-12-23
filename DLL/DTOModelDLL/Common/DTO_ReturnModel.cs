@@ -17,7 +17,9 @@
         /// 
         /// </summary>
         /// <param name="_data"></param>
+        /// <param name="_code"></param>
         /// <param name="_state"></param>
+        /// <param name="_desc"></param>
         public DTO_ReturnModel(T _data,int _code = 200, int _state = 200, string _desc = "")
         {
             data    = _data;

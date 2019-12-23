@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
-/// <summary>
-/// 
-/// </summary>
 namespace WebApp.SingalR
 {
     /// <summary>

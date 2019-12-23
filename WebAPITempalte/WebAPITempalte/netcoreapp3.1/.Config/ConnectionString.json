@@ -1,0 +1,8 @@
+﻿{
+  "ConnectionStrings": {
+    "LTEConn": "Data Source=.\\LQ;Initial Catalog=Account;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=!!Hn@nsn123",
+    "JZXN_DW_165": "Data Source=10.209.240.165;Database=JZXN_DW;User ID=sa;Password=!!Hn@nsn123;Connect Timeout=600000;",
+    "JK_DW_168": "Data Source=10.209.240.168;Database=JK_DW;User ID=sa;Password=!!Hn@nsn123;Connect Timeout=600000;",
+    "PublicService_167": "Data Source=10.209.240.167;Database=PublicService;User ID=sa;Password=!!Hn@nsn123;Connect Timeout=600000;"
+  }
+}
