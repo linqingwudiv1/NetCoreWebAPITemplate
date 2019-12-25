@@ -10,8 +10,8 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netcoreapp3.0\Doc\Swagger\WebAPITempalte.xml</DocumentationFile>
-    <OutputPath>WebAPITempalte</OutputPath>
+    <DocumentationFile>bin\Debug\netcoreapp3.1\Doc\Swagger\WebAPITempalte.xml</DocumentationFile>
+    <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <NoWarn>1701;1702;CA1031;CA1034;CA1822;CA1305;CA1707;CA1801;</NoWarn>
   </PropertyGroup>
