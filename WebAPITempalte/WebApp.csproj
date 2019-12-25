@@ -61,8 +61,6 @@
     <Folder Include=".LocalDB\" />
     <Folder Include="Areas\TestArea\Data\" />
     <Folder Include="Areas\TestArea\Models\" />
-    <Folder Include="AutofacModule\" />
-    <Folder Include="Base\" />
     <Folder Include="Doc\Swagger\" />
     <Folder Include="ExportExcel\" />
     <Folder Include="Properties\PublishProfiles\" />
