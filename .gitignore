@@ -262,3 +262,7 @@ __pycache__/
 /WebAPITempalte/.Cache/Image
 
 *.db
+/App/Admin/.Cache/Image
+/App/Admin/.LocalDB
+/App/WebCoreAPI/.Cache/Image
+/App/WebCoreAPI/.LocalDB

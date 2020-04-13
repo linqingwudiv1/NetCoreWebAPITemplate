@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+        
+    Layout = null;
+    Random random = new Random();
+}
+
+<h1>Hello~this is my first Area on Net Core 2.x</h1>
+
+@{
+    <p><b> Rozor Test : </b></p>
+    for (int i = 0; i < 100; i++)
+    {
+
+        <p><b>@(i+1). </b>&nbsp; random number : @random.Next(10000) </p>
+    }
+
+}
