@@ -31,11 +31,7 @@ namespace WebCoreService.Controllers
             {
                 IList<Role> role = (from x in db.Roles select x).DefaultIfEmpty().ToList();
 
-                DTO_ReturnModel<IList<Role>> ret_model = new DTO_ReturnModel<IList<Role>>();
-
-                ret_model = new DTO_ReturnModel<IList<Role>>();
-
-                return Ok(ret_model);
+                return Ok(role);
             }
         }
 
@@ -51,8 +47,7 @@ namespace WebCoreService.Controllers
             {
                 Role role = db.Roles.Find(id);
 
-                DTO_ReturnModel<Role> ret_model = new DTO_ReturnModel<Role>(role);
-                return Ok(ret_model);
+                return Ok(role);
             }
         }
 
@@ -104,7 +99,7 @@ namespace WebCoreService.Controllers
                 return NotFound("DTOAPIReq_Role is null");
             }
 
-            DTO_ReturnModel<int> ret_model = new DTO_ReturnModel<int>();
+            int effectRowNum = 0;
             
             using (ExamContext db = new ExamContext()) 
             {
@@ -114,23 +109,21 @@ namespace WebCoreService.Controllers
 
                     if (role == null)
                     {
-                        return NotFound(ret_model);
+                        return NotFound("role is invailed");
                     }
 
                     role.Name = data.Name;
                     role.Descrption = data.Descrption;
 
-                    ret_model.data = db.SaveChanges();
+                    effectRowNum = db.SaveChanges();
                 }
                 catch (Exception ex) 
                 {
-                    ret_model.data = -1;
-                    ret_model.desc = ex.Message;
-                    return NotFound(ret_model);
+                    return NotFound(ex.Message);
                 }
             }
 
-            return Ok(ret_model);
+            return Ok(effectRowNum);
         }
 
         /// <summary>
@@ -141,22 +134,21 @@ namespace WebCoreService.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteRole( Int64 id ) 
         {
-            DTO_ReturnModel<int> ret_model = new DTO_ReturnModel<int>();
+            int effectRowNum = 0;
             using (ExamContext db = new ExamContext()) 
             {
                 try
                 {
                     Role role = db.Roles.Find(id);
-                    db.SaveChanges();
+                    effectRowNum = db.SaveChanges();
                 }
                 catch (Exception ex) 
                 {
-                    ret_model.data = -1;
-                    ret_model.desc = ex.Message;
+                    return NotFound(ex.Message);
                 }
             }
 
-            return Ok();
+            return Ok(effectRowNum);
         }
 
     }

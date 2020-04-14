@@ -41,7 +41,7 @@ namespace WebCoreService.Controllers
         [HttpPost]
         public IActionResult Login([FromBody] DTOAPI_Login userInfo)
         {
-            return Ok(new DTO_ReturnModel<dynamic>(this.LoginLogic(userInfo), 20000));
+            return Ok(userInfo);
         }
 
         /// <summary>
@@ -50,13 +50,13 @@ namespace WebCoreService.Controllers
         /// <param name="userInfo"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult JWTLogin( [FromBody]DTOAPI_Login userInfo)
+        public IActionResult JWTLogin([FromBody]DTOAPI_Login userInfo)
         {
             if (userInfo == null)
             {
                 return NotFound();
             }
-            
+
             if (!string.IsNullOrEmpty(userInfo.username) && !string.IsNullOrEmpty(userInfo.password))
             {
                 Claim[] claims = new[]
@@ -77,7 +77,7 @@ namespace WebCoreService.Controllers
                 // 加密方式
                 SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-                //
+                // Token
                 JwtSecurityToken token = new JwtSecurityToken(
                     issuer   : GJWT.Domain ,
                     audience : GJWT.Domain ,
@@ -127,7 +127,7 @@ namespace WebCoreService.Controllers
         public IActionResult Logout()
         {
             this.LogoutLogic();
-            return Ok(new DTO_ReturnModel<string>(null, 20000));
+            return Ok();
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace WebCoreService.Controllers
         {
             DTO_StoreAccount store_account = this.GetStoreAccount();
 
-            return Ok(new DTO_ReturnModel<dynamic>(store_account, 20000));
+            return Ok(store_account);
         }
     }
 }

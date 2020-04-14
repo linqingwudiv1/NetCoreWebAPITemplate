@@ -210,7 +210,7 @@ namespace WebCoreService
                 
                 #endregion
 
-                #region Jwt
+                #region JWT
 
                 services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                         .AddJwtBearer(opt =>

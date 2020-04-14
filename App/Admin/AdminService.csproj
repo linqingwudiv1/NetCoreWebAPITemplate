@@ -62,6 +62,7 @@
     <Folder Include=".LocalDB\" />
     <Folder Include="Areas\TestArea\Data\" />
     <Folder Include="Areas\TestArea\Models\" />
+    <Folder Include="Controllers\" />
     <Folder Include="Doc\Swagger\" />
     <Folder Include="ExportExcel\" />
     <Folder Include="Properties\PublishProfiles\" />

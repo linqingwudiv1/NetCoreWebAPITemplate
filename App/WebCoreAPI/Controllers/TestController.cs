@@ -417,8 +417,7 @@ namespace WebCoreService.Controllers
                 }
             }
 
-            var ret = new DTO_ReturnModel<string>(ret_str);
-            return Ok(ret);
+            return Ok(ret_str);
         }
 
         /// <summary>
@@ -449,8 +448,7 @@ namespace WebCoreService.Controllers
 
             dynamic ret_model = new { list, effectCount = ret_count };
  
-            dynamic ret = new DTO_ReturnModel<dynamic>(ret_model);
-            return Ok(ret);
+            return Ok(ret_model);
         }
 
         /// <summary>
@@ -480,9 +478,8 @@ namespace WebCoreService.Controllers
             }
 
             dynamic ret_model = new { list, effectCount = ret_count };
-            DTO_ReturnModel<dynamic> ret = new DTO_ReturnModel<dynamic>(ret_model);
 
-            return Ok(ret);
+            return Ok(ret_model);
         }
 
         /// <summary>
@@ -527,7 +524,7 @@ namespace WebCoreService.Controllers
                 }
             }
 
-            return Ok();
+            return Ok(null);
         }
 
         /// <summary>
@@ -554,12 +551,11 @@ namespace WebCoreService.Controllers
                     HostName = Dns.GetHostName()
                 };
 
-                DTO_ReturnModel<dynamic> ret = new DTO_ReturnModel<dynamic>(ret_model);
-                return Ok(ret);
+                return Ok(ret_model);
             }
             catch ( Exception ex )
             {
-                return NotFound(new DTO_ReturnModel<dynamic>(ex.Message, 400));
+                return NotFound(ex.Message);
             }
         }
 

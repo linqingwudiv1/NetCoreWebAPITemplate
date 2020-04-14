@@ -33,8 +33,7 @@ namespace WebCoreService.Controllers
             {
                 IList<RoutePage> routePages = (from x in db.RoutePages select x).ToList();
 
-                DTO_ReturnModel<IList<RoutePage>> ret_model = new DTO_ReturnModel<IList<RoutePage>>(routePages);
-                return Ok(ret_model);
+                return Ok(routePages);
             }
         }
 
@@ -52,8 +51,7 @@ namespace WebCoreService.Controllers
             {
                 RoutePage routePage = db.RoutePages.Find(Id);
 
-                DTO_ReturnModel<RoutePage> ret_model = new DTO_ReturnModel<RoutePage>(routePage);
-                return Ok(ret_model);
+                return Ok(routePage);
             }
         }
 
@@ -64,15 +62,14 @@ namespace WebCoreService.Controllers
         [HttpPost]
         public IActionResult AddRoutePage(DTOAPIReq_AddRoutePages routepage ) 
         {
+            int effectNum = 0;
             using (ExamContext db = new ExamContext())
             {
                 RoutePage newRoutePage = new RoutePage();
                 
                 newRoutePage.Meta = new RoutePageMeta();
 
-                DTO_ReturnModel<RoutePage> ret_model = new DTO_ReturnModel<RoutePage>(null) ;
-
-                return Ok(ret_model);
+                return Ok(effectNum);
             }
         }
 
@@ -83,9 +80,9 @@ namespace WebCoreService.Controllers
         [HttpPut]
         public IActionResult UpdateRoutePage(/* DTOAPIReq_UpdateRoles routepage */) 
         {
-            DTO_ReturnModel<RoutePage> ret_model = new DTO_ReturnModel<RoutePage>(null);
-
-            return Ok(ret_model);
+            int effectNum = 0;
+            
+            return Ok(effectNum);
         }
     }
 }

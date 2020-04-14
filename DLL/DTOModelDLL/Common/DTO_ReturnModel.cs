@@ -20,7 +20,7 @@
         /// <param name="_code"></param>
         /// <param name="_state"></param>
         /// <param name="_desc"></param>
-        public DTO_ReturnModel(T _data,int _code = 200, int _state = 200, string _desc = "")
+        public DTO_ReturnModel(T _data,int _code = 20000, int _state = 20000, string _desc = "")
         {
             data    = _data;
             code    = _code;
@@ -36,6 +36,7 @@
         /// 
         /// </summary>
         public int state { get; set; }
+
         /// <summary>
         /// 数据
         /// </summary>
