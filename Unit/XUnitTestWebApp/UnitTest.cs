@@ -89,7 +89,7 @@ namespace XUnitTestWebApp
                     {
                         try
                         {
-                            ExamContext db = new ExamContext(sqliteDBConn);
+                            CoreContext db = new CoreContext(sqliteDBConn);
                             Account account = db.Accounts.Find(Id);
 
                             if (account != null)

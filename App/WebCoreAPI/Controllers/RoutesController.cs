@@ -28,7 +28,7 @@ namespace WebCoreService.Controllers
         public IActionResult GetRoutePages()
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
-            using (ExamContext db = new ExamContext(sqliteDBConn))
+            using (CoreContext db = new CoreContext(sqliteDBConn))
             {
                 IList<RoutePage> routePages = (from x in db.RoutePages select x).ToList();
 
@@ -46,7 +46,7 @@ namespace WebCoreService.Controllers
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
 
-            using (ExamContext db = new ExamContext(sqliteDBConn))
+            using (CoreContext db = new CoreContext(sqliteDBConn))
             {
                 RoutePage routePage = db.RoutePages.Find(Id);
 
@@ -62,7 +62,7 @@ namespace WebCoreService.Controllers
         public IActionResult AddRoutePage(DTOAPIReq_AddRoutePages routepage ) 
         {
             int effectNum = 0;
-            using (ExamContext db = new ExamContext())
+            using (CoreContext db = new CoreContext())
             {
                 RoutePage newRoutePage = new RoutePage();
                 

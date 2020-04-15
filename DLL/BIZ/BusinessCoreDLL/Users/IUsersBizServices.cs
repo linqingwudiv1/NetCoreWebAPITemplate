@@ -4,7 +4,10 @@ using System.Text;
 
 namespace BusinessCoreDLL.Users
 {
-    interface IUsersBizServices
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IUsersBizServices
     {
         //void Login();
         //

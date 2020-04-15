@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using DBAccessCoreDLL.EF.Context;
 using DBAccessCoreDLL.Static;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -8,7 +7,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -190,10 +188,10 @@ namespace AdminService
                 #region EF DI注入
                 string connstr = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
                 
-                services.AddDbContextPool<ExamContextDIP>((opt) =>
-                {
-                    opt.UseSqlite(connstr);
-                }, 100);
+                //services.AddDbContextPool<ExamContextDIP>((opt) =>
+                //{
+                //    opt.UseSqlite(connstr);
+                //}, 100);
                 
                 #endregion
 
@@ -238,12 +236,12 @@ namespace AdminService
                 services.AddControllersWithViews(opts => 
                 {
                     opts.EnableEndpointRouting = false;
-                }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                }).SetCompatibilityVersion(CompatibilityVersion.Latest)
                   .AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver()); 
 
                 services.AddRazorPages(opts => 
                 {
-                }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                }).SetCompatibilityVersion(CompatibilityVersion.Latest)
                   .AddNewtonsoftJson( op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
                 #region Session Config : Redis or Sql Server
@@ -283,8 +281,8 @@ namespace AdminService
                         new OpenApiInfo
                         {
                             Version = "v1",
-                            Title = " WebAPI Doc",
-                            Description = "WebAPI Doc"
+                            Title = " WebCoreService Doc",
+                            Description = "WebCoreService Doc"
                         }
                     );
 
@@ -356,7 +354,7 @@ namespace AdminService
                     // WebAPI
                     c.MapControllerRoute("WebAPI", "api/{controller=Test}/{action=HelloNetCore}/{id?}");
                     // Area
-                    c.MapAreaControllerRoute(name: "TestArea", areaName: "TestArea", pattern: "TestArea/{controller}/{action}");
+                    c.MapAreaControllerRoute(name: "Exam", areaName: "Exam", pattern: "Exam/{controller=home}/{action=index}");
                 });
 
                 app.UseEndpoints(c => 
@@ -381,7 +379,7 @@ namespace AdminService
 
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My_API_V1");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebCoreService");
                 });
 
                 #endregion

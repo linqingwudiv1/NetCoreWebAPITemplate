@@ -1,4 +1,5 @@
 ﻿using Autofac.Extensions.DependencyInjection;
+using BaseDLL.Helper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
@@ -18,7 +19,7 @@ namespace WebCoreService
         /// <summary>
         /// 
         /// </summary>
-        public class HostAddressModel
+        public class HostAddressInfo
         {
             /// <summary>
             /// 
@@ -28,7 +29,7 @@ namespace WebCoreService
         /// <summary>
         /// 
         /// </summary>
-        private static HostAddressModel HostAddress = new HostAddressModel();//{ get; set; }
+        private static HostAddressInfo HostAddress = new HostAddressInfo();//{ get; set; }
 
         /// <summary>
         /// 初始化
@@ -44,6 +45,7 @@ namespace WebCoreService
             }
             catch (Exception)
             {
+
             }
         }
 
@@ -56,18 +58,8 @@ namespace WebCoreService
         {
             // Initilize nlog
             LogFactory loggerFactory = NLogBuilder.ConfigureNLog(@"./.Config/nlog.config");
-
             string path = Directory.GetCurrentDirectory() + @"/.Config/HostAddress.json";
-
-            using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
-            {
-                using (StreamReader sr = new StreamReader(file))
-                {
-                    string json = sr.ReadToEnd();
-
-                    Program.HostAddress = JsonConvert.DeserializeObject<HostAddressModel>(json);
-                }
-            }
+            Program.HostAddress = JsonHelper.loadJsonFromFile<HostAddressInfo>(path);
 
             Console.WriteLine("Kestrel地址:" + Program.HostAddress.HostAddress);
 

@@ -6,15 +6,24 @@ namespace BusinessCoreDLL.Users
     /// <summary>
     /// 
     /// </summary>
-    public class UsersBizServices : BaseBizServices, IUsersBizServices
+    class UsersBizServices : BaseBizServices, IUsersBizServices
     {
-        public readonly ExamContextDIP db;
+        /// <summary>
+        /// 
+        /// </summary>
+        public CoreContext db 
+        {
+            get { return _db; } 
+            protected set { this._db = value; } 
+        }
+
+        CoreContext _db;
         
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="db"></param>
-        public UsersBizServices(ExamContext db) : base() 
+        /// <param name="_db"></param>
+        public UsersBizServices() : base() 
         {
         }
     }

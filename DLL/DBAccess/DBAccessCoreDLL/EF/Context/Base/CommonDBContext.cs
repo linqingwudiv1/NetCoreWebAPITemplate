@@ -34,7 +34,7 @@ namespace DBAccessCoreDLL.EF.Context.Base
         : base(options, _ConnString)
         {
         }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -53,6 +53,8 @@ namespace DBAccessCoreDLL.EF.Context.Base
             optionsBuilder.UseSqlite(ConnString);
 #elif Q_MemoryDB
             // optionsBuilder.UseMemoryCache();
+#else
+            optionsBuilder.UseSqlite(ConnString);
 #endif
             base.OnConfiguring(optionsBuilder);
         }

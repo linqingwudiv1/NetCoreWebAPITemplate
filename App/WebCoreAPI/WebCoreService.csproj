@@ -61,8 +61,8 @@
 
   <ItemGroup>
     <Folder Include=".LocalDB\" />
-    <Folder Include="Areas\ExamArea\Data\" />
-    <Folder Include="Areas\ExamArea\Models\" />
+    <Folder Include="Areas\Exam\Data\" />
+    <Folder Include="Areas\Exam\Models\" />
     <Folder Include="Doc\Swagger\" />
     <Folder Include="ExportExcel\" />
     <Folder Include="Properties\PublishProfiles\" />
@@ -83,9 +83,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
     <PackageReference Include="Savorboard.NPOI.Core.Ooxml" Version="1.1.4" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.3.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.3.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -123,8 +120,13 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>$(SolutionDir)\SwaggerDoc\$(AssemblyName).xml</DocumentationFile>
+    <DefineConstants></DefineConstants>
   </PropertyGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="xcopy &quot;$(SolutionDir)/SwaggerDoc&quot; &quot;$(OutDir)/SwaggerDoc&quot; /e /y /i /r" />
+  </Target>
 
 </Project>

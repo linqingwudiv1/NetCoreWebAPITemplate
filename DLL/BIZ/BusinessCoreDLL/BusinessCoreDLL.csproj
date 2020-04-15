@@ -14,4 +14,10 @@
     <ProjectReference Include="..\..\NetServiceDLL\NetApplictionServiceDLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Roles\" />
+    <Folder Include="Routes\" />
+    <Folder Include="Articles\" />
+  </ItemGroup>
+
 </Project>

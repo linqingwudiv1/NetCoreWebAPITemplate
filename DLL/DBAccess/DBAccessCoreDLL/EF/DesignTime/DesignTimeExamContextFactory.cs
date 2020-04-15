@@ -7,20 +7,20 @@ namespace DBAccessCoreDLL.EF.DesignTime
     /// <summary>
     /// 数据库迁移 代理映射
     /// </summary>
-    public class DesignTimeExamContextFactory : IDesignTimeDbContextFactory<ExamContext>
+    public class DesignTimeExamContextFactory : IDesignTimeDbContextFactory<CoreContext>
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        public ExamContext CreateDbContext(string[] args)
+        public CoreContext CreateDbContext(string[] args)
         {
             string connectionString = "Data Source=.LocalDB/sqliteTestDB.db";
-            DbContextOptionsBuilder<ExamContext> builder = new DbContextOptionsBuilder<ExamContext>();
+            DbContextOptionsBuilder<CoreContext> builder = new DbContextOptionsBuilder<CoreContext>();
 
             builder.UseSqlite(connectionString);
-            return new ExamContext(builder.Options, connectionString);
+            return new CoreContext(builder.Options, connectionString);
         }
     }
 }

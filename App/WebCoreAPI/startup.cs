@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using BusinessCoreDLL.AutofacModule;
 using DBAccessCoreDLL.EF.Context;
 using DBAccessCoreDLL.Static;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -115,25 +116,29 @@ namespace WebCoreService
 
             #endregion
 
-            IConfigurationBuilder builder = new ConfigurationBuilder()
-                                                .AddInMemoryCollection()
-                                                .SetBasePath(env.ContentRootPath)
-                                                .AddJsonFile(@".Config\appsettings.json", optional: false, reloadOnChange: true)
-                                                .AddJsonFile($@".Config\appsettings.{env.EnvironmentName}.json", optional: true)
-                                                .AddJsonFile(@".Config\ConnectionString.json", optional: false, reloadOnChange: true)
-                                                .AddJsonFile(@".Config\APILTEUrl.json", optional: false, reloadOnChange: true)
-                                                .AddEnvironmentVariables();
+            if (env != null)
+            {
+                IConfigurationBuilder builder = new ConfigurationBuilder()
+                                    .AddInMemoryCollection()
+                                    .SetBasePath(env.ContentRootPath)
+                                    .AddJsonFile(@".Config\appsettings.json", optional: false, reloadOnChange: true)
+                                    .AddJsonFile($@".Config\appsettings.{env.EnvironmentName}.json", optional: true)
+                                    .AddJsonFile(@".Config\ConnectionString.json", optional: false, reloadOnChange: true)
+                                    .AddJsonFile(@".Config\APILTEUrl.json", optional: false, reloadOnChange: true)
+                                    .AddEnvironmentVariables();
 
-            Configuration = builder.Build();
+                Configuration = builder.Build();
+            }
+
         }
 
-        /// <summary>
-        /// Autofac
-        /// </summary>
-        /// <param name="builder"></param>
-        public void ConfigureContainer(ContainerBuilder builder) 
+        ///// <summary>
+        ///// Autofac
+        ///// </summary>
+        ///// <param name="builder"></param>
+        public void ConfigureContainer(ContainerBuilder builder)
         {
-            //builder.RegisterModule(new CoreModule());
+           builder.RegisterModule(new CoreModule());
         }
 
         /// This method gets called by the runtime. Use this method to add services to the container.
@@ -143,7 +148,7 @@ namespace WebCoreService
 
             try
             {
-                #region Dependency Injection
+                #region Dependency Injection Case
                 // services.AddScoped<ICoreHelper, CoreHelper>((service) =>
                 // {
                 //     return new CoreHelper();
@@ -155,23 +160,25 @@ namespace WebCoreService
 
                 #region Autofac Configration
 
-                services.AddAutofac((builder) =>
-                {
-                    builder.Populate(services);
-                });
+                //services.AddAutofac((builder) =>
+                //{
+                //    Console.WriteLine("---------------- autofac lambda...");
+                //    builder.Populate(services);
+                //});
 
                 #endregion
 
                 #region Cors Support 跨域支持
 
                 string[] origins = new string[]
-{
+                {
                     "http://localhost:8080",
                     "http://localhost:8081",
                     "http://localhost:8082",
                     "http://www.wakelu.com",
                     "http://192.168.1.131:8080"
-};
+                };
+
                 services.AddCors(opt => opt.AddPolicy("WebAPIPolicy", builder =>
                 {
                     builder.WithOrigins(origins)
@@ -185,17 +192,16 @@ namespace WebCoreService
 
                 #region EF DI注入
                 string connstr = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
-                
                 services.AddDbContextPool<ExamContextDIP>((opt) =>
                 {
                     opt.UseSqlite(connstr);
                 }, 100);
-                
+
                 #endregion
 
                 #region ApplicationInsights
 
-                services.AddApplicationInsightsTelemetry( opt => 
+                services.AddApplicationInsightsTelemetry(opt =>
                 {
 
                 });
@@ -205,23 +211,23 @@ namespace WebCoreService
                 services.AddOptions()
                         .Configure<Option_ConnctionString>(Configuration.GetSection("ConnectionStrings"))
                         .Configure<Opt_API_LTEUrl>(Configuration.GetSection("APILTEUrl"));
-                
+
                 // services.AddOptions()
-                
+
                 #endregion
 
-                #region JWT
+                #region Jwt
 
                 services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                         .AddJwtBearer(opt =>
                         opt.TokenValidationParameters = new TokenValidationParameters
                         {
-                            ValidateIssuer = true   ,               // 是否验证Issuer
-                            ValidateAudience = true ,               // 是否验证Audience
-                            ValidateLifetime = true ,               // 是否验证失效时间
+                            ValidateIssuer = true,               // 是否验证Issuer
+                            ValidateAudience = true,               // 是否验证Audience
+                            ValidateLifetime = true,               // 是否验证失效时间
                             ClockSkew = TimeSpan.FromSeconds(30),   // 
                             ValidateIssuerSigningKey = true,        // 是否验证SecurityKey
-                            ValidAudience = GJWT.Domain ,           // Audience
+                            ValidAudience = GJWT.Domain,           // Audience
                             ValidIssuer = GJWT.Domain,              // Issuer,这两项和前面签发jwt的设置一致
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GJWT.SecurityKey)) // 拿到SecurityKey
                         });
@@ -231,16 +237,16 @@ namespace WebCoreService
 
                 //防止Json序列化-改变对象列的大小写
 
-                services.AddControllersWithViews(opts => 
+                services.AddControllersWithViews(opts =>
                 {
                     opts.EnableEndpointRouting = false;
                 }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                  .AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver()); 
+                  .AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
-                services.AddRazorPages(opts => 
+                services.AddRazorPages(opts =>
                 {
                 }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                  .AddNewtonsoftJson( op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
+                  .AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
                 #region Session Config : Redis or Sql Server
 
@@ -250,14 +256,14 @@ namespace WebCoreService
                 //{
                 //});
 
-                services.AddSession( ( opt ) => 
+                services.AddSession((opt) =>
                 {
-                    opt.Cookie.HttpOnly     = this.GSessionOpts .Cookie.HttpOnly      ;
-                    opt.Cookie.IsEssential  = this.GSessionOpts .Cookie.IsEssential   ;
-                    opt.Cookie.Name         = this.GSessionOpts .Cookie.Name          ;
-                    opt.Cookie.SecurePolicy = this.GSessionOpts .Cookie.SecurePolicy  ;
-                    opt.Cookie.SameSite     = this.GSessionOpts .Cookie.SameSite      ;
-                    opt.IdleTimeout         = this.GSessionOpts .IdleTimeout          ;
+                    opt.Cookie.HttpOnly = this.GSessionOpts.Cookie.HttpOnly;
+                    opt.Cookie.IsEssential = this.GSessionOpts.Cookie.IsEssential;
+                    opt.Cookie.Name = this.GSessionOpts.Cookie.Name;
+                    opt.Cookie.SecurePolicy = this.GSessionOpts.Cookie.SecurePolicy;
+                    opt.Cookie.SameSite = this.GSessionOpts.Cookie.SameSite;
+                    opt.IdleTimeout = this.GSessionOpts.IdleTimeout;
                 });
 
                 #endregion
@@ -279,16 +285,16 @@ namespace WebCoreService
                         new OpenApiInfo
                         {
                             Version = "v1",
-                            Title = " WebCoreAPI Doc",
-                            Description = "WebCoreAPI Doc"
+                            Title = " WebAPI Doc",
+                            Description = "WebAPI Doc"
                         }
                     );
 
-                    String basePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"Doc\Swagger\");
+                    String basePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"SwaggerDoc\");
 
-                    string[] files = Directory.GetFiles(basePath,"*.xml");
+                    string[] files = Directory.GetFiles(basePath, "*.xml");
 
-                    foreach (var file in files) 
+                    foreach (var file in files)
                     {
                         c.IncludeXmlComments(file);
                     }
@@ -308,7 +314,7 @@ namespace WebCoreService
         ///  This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// </summary>
         /// <param name="app"></param>
-        public void Configure( IApplicationBuilder app /*, 
+        public void Configure(IApplicationBuilder app /*, 
                                IWebHostEnvironment env, 
                                ILoggerFactory loggerFactory */ )
         {
@@ -321,7 +327,7 @@ namespace WebCoreService
                 app.UseRouting();
 
                 #region 其他常用配置
-                
+
                 app.UseHsts();
                 app.UseHttpsRedirection();
                 app.UseCookiePolicy();
@@ -330,6 +336,7 @@ namespace WebCoreService
                 app.UseAuthentication();
                 app.UseAuthorization();
 
+                
                 app.UseAuthentication();
 
                 string path = Path.Combine(Directory.GetCurrentDirectory(), ".Cache");
@@ -352,10 +359,10 @@ namespace WebCoreService
                     // WebAPI
                     c.MapControllerRoute("WebAPI", "api/{controller=Test}/{action=HelloNetCore}/{id?}");
                     // Area
-                    c.MapAreaControllerRoute(name: "TestArea", areaName: "TestArea", pattern: "TestArea/{controller}/{action}");
+                    c.MapAreaControllerRoute(name: "Exam", areaName: "Exam", pattern: "Exam/{controller}/{action}");
                 });
 
-                app.UseEndpoints(c => 
+                app.UseEndpoints(c =>
                 {
                     c.MapControllerRoute("default", "{controller=Home}/{action=Index}");
                 });

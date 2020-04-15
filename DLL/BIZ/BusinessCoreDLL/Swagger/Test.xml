@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BusinessCoreDLL</name>
+    </assembly>
+    <members>
+        <member name="T:BusinessCoreDLL.AutofacModule.CoreModule">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessCoreDLL.AutofacModule.CoreModule.Load(Autofac.ContainerBuilder)">
+            <summary>
+            Autofac栗子
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:BusinessCoreDLL.Base.BaseBizServices">
+            <summary>
+            Biz 基础
+            </summary>
+        </member>
+        <member name="T:BusinessCoreDLL.Base.IBaseBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessCoreDLL.DTOModel.API.Roles.DTOAPIReq_Role">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Roles.DTOAPIReq_Role.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Roles.DTOAPIReq_Role.Descrption">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessCoreDLL.DTOModel.API.Routes.DTOAPIReq_AddRoutePages">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessCoreDLL.DTOModel.API.Routes.DTOAPIReq_UpdateRolerRoutes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessCoreDLL.DTOModel.API.Routes.DTOAPIRes_GetRoutePages">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Routes.DTOAPIRes_GetRoutePages.constantRoutes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Routes.DTOAPIRes_GetRoutePages.asyncRoutes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Info">
+            <summary>
+            User/Login
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Info.username">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Info.password">
+            <summary>
+            登录密码
+            </summary>
+        </member>
+        <member name="T:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info">
+            <summary>
+            User/Login
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.password">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.phone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.avatar">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.introduction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.roles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessCoreDLL.DTOModel.API.Users.DTOAPI_Login">
+            <summary>
+            User/Login
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPI_Login.username">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPI_Login.password">
+            <summary>
+            登录密码
+            </summary>
+        </member>
+        <member name="T:BusinessCoreDLL.Extensison.EM_LoginState">
+            <summary>
+            登录状态
+            </summary>
+        </member>
+        <member name="T:BusinessCoreDLL.Extensison.StaticBizExtend">
+            <summary>
+            通用全局业务扩展，例如登录，注销
+            </summary>
+        </member>
+        <member name="M:BusinessCoreDLL.Extensison.StaticBizExtend.LoginLogic(Microsoft.AspNetCore.Mvc.Controller,BusinessCoreDLL.DTOModel.API.Users.DTOAPI_Login)">
+            <summary>
+            登录操作
+            </summary>
+            <param name="controller"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessCoreDLL.Extensison.StaticBizExtend.LogoutLogic(Microsoft.AspNetCore.Mvc.Controller)">
+            <summary>
+            注销操作
+            </summary>
+            <param name="controller"></param>
+        </member>
+        <member name="T:BusinessCoreDLL.Users.IUsersBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessCoreDLL.Users.UsersBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.Users.UsersBizServices.db">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessCoreDLL.Users.UsersBizServices.#ctor">
+            <summary>
+            
+            </summary>
+            <param name="_db"></param>
+        </member>
+    </members>
+</doc>

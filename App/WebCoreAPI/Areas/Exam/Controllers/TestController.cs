@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using BusinessCoreDLL.Users;
 using DBAccessCoreDLL.EF.Context;
 using DBAccessCoreDLL.EF.Entity;
 using DBAccessCoreDLL.Static;
@@ -29,10 +30,10 @@ namespace WebCoreService.Areas.TestArea.Controllers
     /// <summary>
     /// Hello World ! net Core MVC.
     /// </summary>
-    [Route("api/[controller]/[action]")]
+    [Area("Exam")]
+    [Route("exam/api/[controller]/[action]")]
     [EnableCors("WebAPIPolicy")]
     [ApiController]
-
     public class TestController : BaseController
     {
         /// <summary>
@@ -50,7 +51,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
         /// </summary>
         /// <param name="Opt"></param>
         /// <param name="_Opt_API"></param>
-        public TestController(IOptions<Option_ConnctionString> Opt, IOptions<Opt_API_LTEUrl> _Opt_API)
+        public TestController(IUsersBizServices _userBiz, IOptions<Option_ConnctionString> Opt, IOptions<Opt_API_LTEUrl> _Opt_API)
         {
             if (Opt == null || _Opt_API == null) 
             {
@@ -93,7 +94,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
 
-            using (ExamContext db = new ExamContext(sqliteDBConn))
+            using (CoreContext db = new CoreContext(sqliteDBConn))
             {
                 if ( !db.Database.CanConnect() )
                 {
@@ -204,7 +205,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
 
-            using (ExamContext db = new ExamContext(sqliteDBConn))
+            using (CoreContext db = new CoreContext(sqliteDBConn))
             {
                 if (!db.Database.CanConnect())
                 {
@@ -280,7 +281,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                     {
                         try
                         {
-                            ExamContext db = new ExamContext(sqliteDBConn);
+                            CoreContext db = new CoreContext(sqliteDBConn);
                             Account account = db.Accounts.Find(Id);
 
                             if (account != null)
@@ -424,13 +425,12 @@ namespace WebCoreService.Areas.TestArea.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> UploadImageMulitple()
+        public async Task<IActionResult> UploadImageMulitple([FromForm] IFormFileCollection files)
         {
             int ret_count = 0;
             IList<string> list = new List<string>();
-            IFormFileCollection files = HttpContext.Request.Form.Files;
-
-            if (files.Count > 0)
+            IFormFileCollection files_temp = HttpContext.Request.Form.Files;
+            if (files != null && files.Count > 0)
             {
                 foreach (var fileitem in files)
                 {
@@ -455,13 +455,13 @@ namespace WebCoreService.Areas.TestArea.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult UploadImage()
+        public IActionResult UploadImage([FromForm]IFormFileCollection files)
         {
             int ret_count = 0;
             IList<string> list = new List<string>();
-            IFormFileCollection files = HttpContext.Request.Form.Files;
+            //IFormFileCollection files = HttpContext.Request.Form.Files;
             //TaskScheduler.
-            if (files.Count > 0)
+            if (files != null && files.Count > 0)
             {
                 foreach (var fileitem in files)
                 {

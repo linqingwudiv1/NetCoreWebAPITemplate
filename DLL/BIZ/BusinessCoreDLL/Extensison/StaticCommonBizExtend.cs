@@ -33,7 +33,7 @@ namespace BusinessCoreDLL.Extensison
         /// <returns></returns>
         static public EM_LoginState LoginLogic(this Controller controller, DTOAPI_Login data)
         {
-            ExamContext db = new ExamContext();
+            CoreContext db = new CoreContext();
 
             Account account = ( from 
                                 x 

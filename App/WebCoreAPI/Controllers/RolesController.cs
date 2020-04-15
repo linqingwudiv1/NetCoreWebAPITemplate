@@ -26,7 +26,7 @@ namespace WebCoreService.Controllers
         [HttpGet]
         public IActionResult GetRoles()
         {
-            using (ExamContext db = new ExamContext()) 
+            using (CoreContext db = new CoreContext()) 
             {
                 IList<Role> role = (from x in db.Roles select x).DefaultIfEmpty().ToList();
 
@@ -42,7 +42,7 @@ namespace WebCoreService.Controllers
         [HttpGet("{id}")]
         public IActionResult GetRole(Int64 id)
         {
-            using (ExamContext db = new ExamContext())
+            using (CoreContext db = new CoreContext())
             {
                 Role role = db.Roles.Find(id);
 
@@ -69,7 +69,7 @@ namespace WebCoreService.Controllers
             role.Descrption = data.Descrption;
 
             int effectRowNum = 0; 
-            using (ExamContext db = new ExamContext())
+            using (CoreContext db = new CoreContext())
             {
                 try
                 {
@@ -99,7 +99,7 @@ namespace WebCoreService.Controllers
 
             int effectRowNum = 0;
             
-            using (ExamContext db = new ExamContext()) 
+            using (CoreContext db = new CoreContext()) 
             {
                 try
                 {
@@ -133,7 +133,7 @@ namespace WebCoreService.Controllers
         public IActionResult DeleteRole( Int64 id ) 
         {
             int effectRowNum = 0;
-            using (ExamContext db = new ExamContext()) 
+            using (CoreContext db = new CoreContext()) 
             {
                 try
                 {

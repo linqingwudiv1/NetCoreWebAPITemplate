@@ -13,7 +13,7 @@ namespace WebCoreService.Controllers
     /// <summary>
     /// SignalRCase
     /// </summary>
-    [Route("api/[controller]/[action]")]
+    [Route("Exam/api/[controller]/[action]")]
     [EnableCors("WebAPIPolicy")]
     public class SignalRCaseController : BaseController
     {

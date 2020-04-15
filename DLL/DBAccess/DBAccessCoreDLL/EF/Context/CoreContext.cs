@@ -9,7 +9,7 @@ namespace DBAccessCoreDLL.EF.Context
     /// <summary>
     /// Test数据库,对数据的操作应该写在这里...
     /// </summary>
-    public class ExamContext : CommonDBContext<ExamContext>
+    public class CoreContext : CommonDBContext<CoreContext>
     {
         /// <summary>
         /// 实体:DbQuery
@@ -46,21 +46,23 @@ namespace DBAccessCoreDLL.EF.Context
         /// </summary>
         virtual public DbSet<View_AccountFemale> view_AccountFemales { get; }
 
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="_ConnString">多表组合</param>
-        public ExamContext(string _ConnString = "")
+        public CoreContext(string _ConnString = "")
             : base( _ConnString)
         {
         }
+
 
         /// <summary>
         /// ExamContext
         /// </summary>
         /// <param name="options"></param>
         /// <param name="_ConnString"></param>
-        public ExamContext(DbContextOptions<ExamContext> options, string _ConnString = "") 
+        public CoreContext(DbContextOptions<CoreContext> options, string _ConnString = "") 
             : base(options, _ConnString)
         {
         }
