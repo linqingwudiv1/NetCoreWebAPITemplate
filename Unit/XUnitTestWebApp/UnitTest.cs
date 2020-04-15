@@ -1,9 +1,8 @@
 using Bogus;
-using DBAccessDLL.EF.Context;
-using DBAccessDLL.EF.Entity;
+using DBAccessCoreDLL.EF.Context;
+using DBAccessCoreDLL.EF.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using Xunit;
 
@@ -111,13 +110,13 @@ namespace XUnitTestWebApp
                                 break;
                             }
                         }
-                        catch (DbUpdateConcurrencyException ex)
+                        catch (DbUpdateConcurrencyException)
                         {
                             //locking....
                             Thread.Sleep(10);
                             continue;
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             //Other Exception....
                             break;

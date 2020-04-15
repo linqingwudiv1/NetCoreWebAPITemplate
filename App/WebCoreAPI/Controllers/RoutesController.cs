@@ -1,14 +1,13 @@
-﻿using DBAccessDLL.EF.Context;
-using DBAccessDLL.EF.Entity;
-using DTOModelDLL.Common;
+﻿using BusinessCoreDLL.DTOModel.API.Routes;
+using DBAccessCoreDLL.EF.Context;
+using DBAccessCoreDLL.EF.Entity;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
-using DTOModelDLL.API.Routes;
+using System.Linq;
 
 
 namespace WebCoreService.Controllers
@@ -26,7 +25,7 @@ namespace WebCoreService.Controllers
         /// 
         /// </summary>
         [HttpGet]
-        public IActionResult GetRoutePages() 
+        public IActionResult GetRoutePages()
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
             using (ExamContext db = new ExamContext(sqliteDBConn))
@@ -46,8 +45,8 @@ namespace WebCoreService.Controllers
         public IActionResult GetRoutePage(Int64 Id)
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
-            
-            using ( ExamContext db = new ExamContext(sqliteDBConn) )
+
+            using (ExamContext db = new ExamContext(sqliteDBConn))
             {
                 RoutePage routePage = db.RoutePages.Find(Id);
 

@@ -1,7 +1,6 @@
-﻿using BusinessDLL.Extensison;
-using DTOModelDLL.API.Users;
-using DTOModelDLL.Common;
-using DTOModelDLL.Common.Store;
+﻿using BaseDLL.DTO.Store;
+using BusinessCoreDLL.DTOModel.API.Users;
+using BusinessCoreDLL.Extensison;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;

@@ -1,8 +1,7 @@
 ﻿using Bogus;
-using DBAccessDLL.EF.Context;
-using DBAccessDLL.EF.Entity;
-using DBAccessDLL.Static;
-using DTOModelDLL.Common;
+using DBAccessCoreDLL.EF.Context;
+using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.Static;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Swagger\Test.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BaseDLL\BaseDLL.csproj" />
+    <ProjectReference Include="..\..\DBAccess\DBAccessCoreDLL\DBAccessCoreDLL.csproj" />
+    <ProjectReference Include="..\..\NetServiceDLL\NetApplictionServiceDLL.csproj" />
+  </ItemGroup>
+
+</Project>

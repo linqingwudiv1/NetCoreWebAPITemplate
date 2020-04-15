@@ -1,10 +1,7 @@
-﻿using DTOModelDLL.Common;
-using DTOModelDLL.Common.Store;
+﻿using BaseDLL.DTO;
+using BaseDLL.DTO.Store;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NetApplictionServiceDLL
 {
@@ -22,13 +19,22 @@ namespace NetApplictionServiceDLL
             return this.HttpContext.Session.GetStoreAccount();
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public override OkObjectResult Ok([ActionResultObjectValue] object value)
         {
             DTO_ReturnModel<object> ret_data = new DTO_ReturnModel<object>(value);
             return base.Ok(ret_data);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public override NotFoundObjectResult NotFound([ActionResultObjectValue] object value)
         {
             DTO_ReturnModel<object> ret_data = new DTO_ReturnModel<object>(value, 40400,40400);

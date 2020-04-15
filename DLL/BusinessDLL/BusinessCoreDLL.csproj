@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BaseDLL\BaseDLL.csproj" />
+    <ProjectReference Include="..\DBAccessDLL\DBAccessCoreDLL.csproj" />
+    <ProjectReference Include="..\NetServiceDLL\NetApplictionServiceDLL.csproj" />
+  </ItemGroup>
+
+</Project>

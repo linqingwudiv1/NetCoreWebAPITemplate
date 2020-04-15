@@ -1,5 +1,4 @@
-﻿using DTOModelDLL.Common;
-using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -7,7 +6,6 @@ using NetApplictionServiceDLL;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using WebApp.SingalR;
 
 namespace WebCoreService.Controllers
@@ -72,13 +70,11 @@ namespace WebCoreService.Controllers
 
                 dynamic ret_model = new { list, effectCount = ret_count };
 
-                DTO_ReturnModel<dynamic> ret = new DTO_ReturnModel<dynamic>(ret_model);
-
-                return Ok(ret);
+                return Ok(ret_model);
             }
             catch (Exception ex)
             {
-                return NotFound((new DTO_ReturnModel<dynamic>(ex.Message)));
+                return NotFound(ex.Message);
             }
         }
     }

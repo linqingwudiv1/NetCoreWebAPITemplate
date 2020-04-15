@@ -1,7 +1,6 @@
-﻿using DBAccessDLL.EF.Context;
-using DBAccessDLL.EF.Entity;
-using DTOModelDLL.API.Roles;
-using DTOModelDLL.Common;
+﻿using BusinessCoreDLL.DTOModel.API.Roles;
+using DBAccessCoreDLL.EF.Context;
+using DBAccessCoreDLL.EF.Entity;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
@@ -69,22 +68,21 @@ namespace WebCoreService.Controllers
             role.Name = data.Name;
             role.Descrption = data.Descrption;
 
-            DTO_ReturnModel<int> ret_model = new DTO_ReturnModel<int>();
+            int effectRowNum = 0; 
             using (ExamContext db = new ExamContext())
             {
                 try
                 {
                     db.Roles.Add(role);
-                    ret_model.data = db.SaveChanges();
+                    effectRowNum = db.SaveChanges();
                 }
-                catch (Exception ex) 
+                catch (Exception)
                 {
-                    ret_model.desc = ex.Message;
-                    ret_model.data = -1;
+                    NotFound("数据库错误");
                 }
             }
 
-            return Ok(ret_model);
+            return Ok(effectRowNum);
         }
 
         /// <summary>

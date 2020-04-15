@@ -1,4 +1,4 @@
-﻿using DTOModelDLL.Common.Store;
+﻿using BaseDLL.DTO.Store;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 

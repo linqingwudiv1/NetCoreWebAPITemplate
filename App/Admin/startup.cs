@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using DBAccessDLL.EF.Context;
-using DBAccessDLL.Static;
+using DBAccessCoreDLL.EF.Context;
+using DBAccessCoreDLL.Static;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -115,16 +115,20 @@ namespace AdminService
 
             #endregion
 
-            IConfigurationBuilder builder = new ConfigurationBuilder()
-                                                .AddInMemoryCollection()
-                                                .SetBasePath(env.ContentRootPath)
-                                                .AddJsonFile(@".Config\appsettings.json", optional: false, reloadOnChange: true)
-                                                .AddJsonFile($@".Config\appsettings.{env.EnvironmentName}.json", optional: true)
-                                                .AddJsonFile(@".Config\ConnectionString.json", optional: false, reloadOnChange: true)
-                                                .AddJsonFile(@".Config\APILTEUrl.json", optional: false, reloadOnChange: true)
-                                                .AddEnvironmentVariables();
+            if (env != null) 
+            {
+                IConfigurationBuilder builder = new ConfigurationBuilder()
+                                    .AddInMemoryCollection()
+                                    .SetBasePath(env.ContentRootPath)
+                                    .AddJsonFile(@".Config\appsettings.json", optional: false, reloadOnChange: true)
+                                    .AddJsonFile($@".Config\appsettings.{env.EnvironmentName}.json", optional: true)
+                                    .AddJsonFile(@".Config\ConnectionString.json", optional: false, reloadOnChange: true)
+                                    .AddJsonFile(@".Config\APILTEUrl.json", optional: false, reloadOnChange: true)
+                                    .AddEnvironmentVariables();
 
-            Configuration = builder.Build();
+                Configuration = builder.Build();
+            }
+
         }
 
         /// <summary>
@@ -284,7 +288,7 @@ namespace AdminService
                         }
                     );
 
-                    String basePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"Doc\Swagger\");
+                    String basePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"SwaggerDoc\");
 
                     string[] files = Directory.GetFiles(basePath,"*.xml");
 

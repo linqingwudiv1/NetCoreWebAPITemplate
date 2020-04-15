@@ -266,3 +266,4 @@ __pycache__/
 /App/Admin/.LocalDB
 /App/WebCoreAPI/.Cache/Image
 /App/WebCoreAPI/.LocalDB
+/SwaggerDoc
