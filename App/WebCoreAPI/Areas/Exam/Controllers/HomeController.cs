@@ -17,7 +17,6 @@ namespace WebCoreService.Areas.TestArea.Controllers
         /// </summary>
         public HomeController( IUsersBizServices serives, CoreContext _db) 
         {
-            
         }
         /// <summary>
         /// 

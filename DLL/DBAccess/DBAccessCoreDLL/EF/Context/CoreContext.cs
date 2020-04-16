@@ -56,6 +56,15 @@ namespace DBAccessCoreDLL.EF.Context
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        public CoreContext(DbContextOptions<CoreContext> options)
+        : base(options)
+        {
+        }
+
 
         /// <summary>
         /// ExamContext

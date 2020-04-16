@@ -20,6 +20,17 @@
             Biz 基础
             </summary>
         </member>
+        <member name="M:BusinessCoreDLL.Base.BaseBizServices.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessCoreDLL.Base.BaseBizServices.GetCoreDB">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:BusinessCoreDLL.Base.IBaseBizServices">
             <summary>
             
@@ -184,7 +195,7 @@
             
             </summary>
         </member>
-        <member name="M:BusinessCoreDLL.Users.UsersBizServices.#ctor">
+        <member name="M:BusinessCoreDLL.Users.UsersBizServices.#ctor(DBAccessCoreDLL.EF.Context.CoreContextDIP)">
             <summary>
             
             </summary>

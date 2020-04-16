@@ -11,20 +11,22 @@ namespace BusinessCoreDLL.Users
         /// <summary>
         /// 
         /// </summary>
-        public CoreContext db 
+        public CoreContextDIP db 
         {
             get { return _db; } 
             protected set { this._db = value; } 
         }
 
-        CoreContext _db;
+        CoreContextDIP _db;
         
         /// <summary>
         /// 
         /// </summary>
         /// <param name="_db"></param>
-        public UsersBizServices() : base() 
+        public UsersBizServices(CoreContextDIP db) : base() 
         {
+            this._db = db;
         }
+
     }
 }

@@ -192,7 +192,7 @@ namespace WebCoreService
 
                 #region EF DI注入
                 string connstr = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
-                services.AddDbContextPool<ExamContextDIP>((opt) =>
+                services.AddDbContextPool<CoreContextDIP>((opt) =>
                 {
                     opt.UseSqlite(connstr);
                 }, 100);
