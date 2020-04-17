@@ -86,7 +86,7 @@ namespace DBAccessCoreDLL.EF.Context
             modelBuilder.ApplyConfiguration<Role>(new RoleEFConfig());
             modelBuilder.ApplyConfiguration<BizSystemLog>(new SystemLogEFConfig());
 
-            // Database 必须存在 View_AccountFemale 视图
+            // Database/必须存在View_AccountFemale视图
             modelBuilder.ApplyConfiguration<View_AccountFemale>(new View_AccountFemaleEFConfig());
 
             base.OnModelCreating(modelBuilder);

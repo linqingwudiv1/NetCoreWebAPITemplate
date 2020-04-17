@@ -239,12 +239,12 @@ namespace WebCoreService
                 services.AddControllersWithViews(opts =>
                 {
                     opts.EnableEndpointRouting = false;
-                }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                }).SetCompatibilityVersion(CompatibilityVersion.Latest)
                   .AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
                 services.AddRazorPages(opts =>
                 {
-                }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                }).SetCompatibilityVersion(CompatibilityVersion.Latest)
                   .AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
                 #region Session Config : Redis or Sql Server

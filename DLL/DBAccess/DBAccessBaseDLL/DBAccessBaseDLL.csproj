@@ -19,7 +19,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="IDGenerator\backup.sql" />
     <None Remove="readme.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="backup-sqlserver.sql" />
   </ItemGroup>
 
   <ItemGroup>

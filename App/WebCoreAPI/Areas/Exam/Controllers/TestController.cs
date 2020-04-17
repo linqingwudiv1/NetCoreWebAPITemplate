@@ -46,12 +46,13 @@ namespace WebCoreService.Areas.TestArea.Controllers
         /// </summary>
         private Opt_API_LTEUrl Opt_API { get; set; }
 
+
         /// <summary>
-        /// 测试  
+        /// 
         /// </summary>
         /// <param name="Opt"></param>
         /// <param name="_Opt_API"></param>
-        public TestController(IUsersBizServices _userBiz, IOptions<Option_ConnctionString> Opt, IOptions<Opt_API_LTEUrl> _Opt_API)
+        public TestController( IOptions<Option_ConnctionString> Opt, IOptions<Opt_API_LTEUrl> _Opt_API)
         {
             if (Opt == null || _Opt_API == null) 
             {
