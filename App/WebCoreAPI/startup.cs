@@ -1,8 +1,7 @@
 ﻿using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using BusinessCoreDLL.AutofacModule;
+using DBAccessBaseDLL.Static;
 using DBAccessCoreDLL.EF.Context;
-using DBAccessCoreDLL.Static;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -132,10 +131,10 @@ namespace WebCoreService
 
         }
 
-        ///// <summary>
-        ///// Autofac
-        ///// </summary>
-        ///// <param name="builder"></param>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
         public void ConfigureContainer(ContainerBuilder builder)
         {
            builder.RegisterModule(new CoreModule());
@@ -384,7 +383,7 @@ namespace WebCoreService
 
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My_API_V1");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Core_API_V1");
                 });
 
                 #endregion

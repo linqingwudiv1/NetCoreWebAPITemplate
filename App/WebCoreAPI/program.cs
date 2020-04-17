@@ -26,6 +26,7 @@ namespace WebCoreService
             /// </summary>
             public string HostAddress { get; set; }
         }
+
         /// <summary>
         /// 
         /// </summary>

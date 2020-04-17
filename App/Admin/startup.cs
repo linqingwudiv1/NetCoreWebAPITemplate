@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using DBAccessCoreDLL.Static;
+using DBAccessBaseDLL.Static;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,6 +21,8 @@ using System.Configuration;
 using System.IO;
 using System.Text;
 using WebApp.SingalR;
+
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace AdminService
 {

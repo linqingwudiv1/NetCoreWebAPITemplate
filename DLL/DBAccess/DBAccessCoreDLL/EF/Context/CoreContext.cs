@@ -1,8 +1,6 @@
-﻿using DBAccessCoreDLL.EF.Context.Base;
+﻿using DBAccessBaseDLL.EF.Context;
 using DBAccessCoreDLL.EF.Entity;
 using Microsoft.EntityFrameworkCore;
-using DBAccessCoreDLL.EF;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DBAccessCoreDLL.EF.Context
 {

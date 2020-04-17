@@ -4,14 +4,14 @@
 // #define Q_SqliteDB
 // #define Q_MemoryDB
 
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessBaseDLL.EF.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DBAccessCoreDLL.EF.Context.Base
+namespace DBAccessBaseDLL.EF.Context
 {
     /// <summary>
     /// 基础
@@ -68,8 +68,8 @@ namespace DBAccessCoreDLL.EF.Context.Base
                 {
                     BaseEntity entityBase = entity.Entity as BaseEntity;
 
-                    entityBase.Qing_UpdateTime = DateTime.Now;
-                    entityBase.Qing_Version++;
+                    entityBase.Q_UpdateTime = DateTime.Now;
+                    entityBase.Q_Version++;
                 }
             }
 

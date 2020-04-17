@@ -1,11 +1,11 @@
 ﻿using BaseDLL;
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessBaseDLL.EF.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Data.SqlTypes;
 
-namespace DBAccessCoreDLL.EF
+namespace DBAccessBaseDLL.EF.Entity
 {
     /// <summary>
     /// 实体配置函数扩展
@@ -21,12 +21,12 @@ namespace DBAccessCoreDLL.EF
         /// <returns></returns>
         static public EntityTypeBuilder<T> SetupBaseEntity<T>(this EntityTypeBuilder<T> targetBuilder, bool bUseSoftDelete = true) where T : BaseEntity
         {
-            targetBuilder.Property<bool>     ( x => x.Qing_IsDelete   ) .IsRequired( true  ) .HasDefaultValue(false);
-            targetBuilder.Property<Int64>    ( x => x.Qing_Version    ) .IsRequired( true  ) .HasDefaultValue(0).IsConcurrencyToken(true);
-            targetBuilder.Property<Int64>    ( x => x.Qing_Sequence   ) .IsRequired( true  ) .HasDefaultValue(0);
-            targetBuilder.Property<DateTime> ( x => x.Qing_CreateTime ) .IsRequired( true  ) .HasDefaultValueSql("CURRENT_TIMESTAMP");
-            targetBuilder.Property<DateTime> ( x => x.Qing_UpdateTime ) .IsRequired( true  ) .HasDefaultValueSql("CURRENT_TIMESTAMP");
-            targetBuilder.Property<DateTime> ( x => x.Qing_DeleteTime ) .IsRequired( true  ) .HasDefaultValue<DateTime>(GVariable.DefDeleteTime);
+            targetBuilder.Property<bool>     ( x => x.Q_IsDelete   ) .IsRequired( true  ) .HasDefaultValue(false);
+            targetBuilder.Property<Int64>    ( x => x.Q_Version    ) .IsRequired( true  ) .HasDefaultValue(0).IsConcurrencyToken(true);
+            targetBuilder.Property<Int64>    ( x => x.Q_Sequence   ) .IsRequired( true  ) .HasDefaultValue(0);
+            targetBuilder.Property<DateTime> ( x => x.Q_CreateTime ) .IsRequired( true  ) .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            targetBuilder.Property<DateTime> ( x => x.Q_UpdateTime ) .IsRequired( true  ) .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            targetBuilder.Property<DateTime> ( x => x.Q_DeleteTime ) .IsRequired( true  ) .HasDefaultValue<DateTime>(GVariable.DefDeleteTime);
 
             if ( bUseSoftDelete )
             {
@@ -44,7 +44,7 @@ namespace DBAccessCoreDLL.EF
         /// <returns></returns>
         static public EntityTypeBuilder<T> UseSofeDelete<T>(this EntityTypeBuilder<T> targetBuilder) where T : BaseEntity 
         {
-            targetBuilder.HasQueryFilter( x => x.Qing_IsDelete == false );
+            targetBuilder.HasQueryFilter( x => x.Q_IsDelete == false );
             return targetBuilder;
         }
     }

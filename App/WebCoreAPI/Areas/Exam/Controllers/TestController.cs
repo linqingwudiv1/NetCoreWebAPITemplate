@@ -1,8 +1,8 @@
 ﻿using Bogus;
 using BusinessCoreDLL.Users;
+using DBAccessBaseDLL.Static;
 using DBAccessCoreDLL.EF.Context;
 using DBAccessCoreDLL.EF.Entity;
-using DBAccessCoreDLL.Static;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
@@ -134,7 +134,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                 testAccount.RuleFor( entity => entity.Username,      faker => faker.Name.FirstName() + faker.Name.LastName());
                 testAccount.RuleFor( entity => entity.Phone,         faker => faker.Phone.PhoneNumber());
                 testAccount.RuleFor( entity => entity.Sex,           faker => faker.Random.Int(0, 2));
-                testAccount.RuleFor( entity => entity.Qing_IsDelete, faker => faker.Random.Bool());
+                testAccount.RuleFor( entity => entity.Q_IsDelete, faker => faker.Random.Bool());
 
                 testAccount.RuleFor( entity => entity.AccountRoles, faker =>
                 {
@@ -170,7 +170,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                 testRoutePage.RuleFor( e => e.Name, faker => faker.Name.FirstName() + faker.Name.LastName() );
                 testRoutePage.RuleFor( e => e.Path, faker => faker.Rant.Review() );
                 testRoutePage.RuleFor( e => e.ParentId, faker => 1 );
-                testRoutePage.RuleFor( entity => entity.Qing_IsDelete, faker => faker.Random.Bool() );
+                testRoutePage.RuleFor( entity => entity.Q_IsDelete, faker => faker.Random.Bool() );
 
                 #endregion
 
@@ -230,12 +230,12 @@ namespace WebCoreService.Areas.TestArea.Controllers
                                      x.Password ,
                                      x.Introduction ,
                                      x.Phone ,
-                                     x.Qing_IsDelete ,
-                                     x.Qing_CreateTime ,
-                                     x.Qing_DeleteTime ,
-                                     x.Qing_Sequence ,
-                                     x.Qing_Version ,
-                                     x.Qing_UpdateTime ,
+                                     x.Q_IsDelete ,
+                                     x.Q_CreateTime ,
+                                     x.Q_DeleteTime ,
+                                     x.Q_Sequence ,
+                                     x.Q_Version ,
+                                     x.Q_UpdateTime ,
                                      Roles = x.AccountRoles.Select( xx => xx.role.Name)
                                  });
 
@@ -287,7 +287,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                             if (account != null)
                             {
                                 account.Name = (faker.Name.FirstName() + faker.Name.LastName());
-                                account.Qing_Sequence++;
+                                account.Q_Sequence++;
 
                                 int effectCount = db.SaveChanges();
                                 
@@ -299,8 +299,8 @@ namespace WebCoreService.Areas.TestArea.Controllers
                                 else
                                 {
                                     logger.Trace($@" Optimistic locking..... Name : { account.Name          } , 
-                                                     Qing_Version                 : { account.Qing_Version  } ,
-                                                     Qing_Sequence                : { account.Qing_Sequence } ");
+                                                     Qing_Version                 : { account.Q_Version  } ,
+                                                     Qing_Sequence                : { account.Q_Sequence } ");
                                 }
                             }
                             else

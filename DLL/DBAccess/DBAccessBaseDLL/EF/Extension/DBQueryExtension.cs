@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace DBAccessCoreDLL.EF
+namespace DBAccessBaseDLL.EF
 {
     /// <summary>
     /// 

@@ -161,6 +161,21 @@
             登录状态
             </summary>
         </member>
+        <member name="F:BusinessCoreDLL.Extensison.EM_LoginState.Pass">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessCoreDLL.Extensison.EM_LoginState.NoExist">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessCoreDLL.Extensison.EM_LoginState.PasswordError">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:BusinessCoreDLL.Extensison.StaticBizExtend">
             <summary>
             通用全局业务扩展，例如登录，注销
@@ -199,7 +214,7 @@
             <summary>
             
             </summary>
-            <param name="_db"></param>
+            <param name="db"></param>
         </member>
     </members>
 </doc>

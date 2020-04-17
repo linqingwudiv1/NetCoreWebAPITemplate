@@ -7,7 +7,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace DBAccessCoreDLL.EF.Context.Base
+namespace DBAccessBaseDLL.EF.Context
 {
     /// <summary>
     /// 常用
@@ -34,7 +34,7 @@ namespace DBAccessCoreDLL.EF.Context.Base
         : base(options, _ConnString)
         {
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -56,7 +56,7 @@ namespace DBAccessCoreDLL.EF.Context.Base
 #else
             optionsBuilder.UseSqlite(ConnString);
 #endif
-            base.OnConfiguring(optionsBuilder);
+            //base.OnConfiguring(optionsBuilder);
         }
     }
 }

@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DLL", "DLL", "{B5477B3E-78A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseDLL", "DLL\BaseDLL\BaseDLL.csproj", "{F5F30F26-27DE-4882-A4D0-378A2EABFDFB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBAccessCoreDLL", "DLL\DBAccess\DBAccessCoreDLL\DBAccessCoreDLL.csproj", "{998E5B70-89E3-4B46-8614-AEABF747D2BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBAccessBaseDLL", "DLL\DBAccess\DBAccessBaseDLL\DBAccessBaseDLL.csproj", "{998E5B70-89E3-4B46-8614-AEABF747D2BC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetApplictionServiceDLL", "DLL\NetServiceDLL\NetApplictionServiceDLL.csproj", "{00A1BECC-9A78-46EA-BD04-6750F83039E6}"
 EndProject
@@ -54,6 +54,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SwaggerDoc", "SwaggerDoc", 
 		SwaggerDoc\DBAccessCoreDLL.xml = SwaggerDoc\DBAccessCoreDLL.xml
 		SwaggerDoc\WebCoreService.xml = SwaggerDoc\WebCoreService.xml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBAccessCoreDLL", "DLL\DBAccess\DBAccessCoreDLL\DBAccessCoreDLL.csproj", "{AE1A2BC7-6133-4D94-B0B7-8F8316EBAD11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,6 +123,10 @@ Global
 		{819DA8F2-BB8D-4E33-AB9B-469323A58A38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{819DA8F2-BB8D-4E33-AB9B-469323A58A38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{819DA8F2-BB8D-4E33-AB9B-469323A58A38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE1A2BC7-6133-4D94-B0B7-8F8316EBAD11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE1A2BC7-6133-4D94-B0B7-8F8316EBAD11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE1A2BC7-6133-4D94-B0B7-8F8316EBAD11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE1A2BC7-6133-4D94-B0B7-8F8316EBAD11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -141,6 +147,7 @@ Global
 		{225D039B-3FCB-42CB-9715-0DA56CC63902} = {472701E4-B5DE-4D3B-90F7-D65F251EF3DA}
 		{819DA8F2-BB8D-4E33-AB9B-469323A58A38} = {472701E4-B5DE-4D3B-90F7-D65F251EF3DA}
 		{A161846F-EC73-45A4-92C0-FCE8179C2D8A} = {B5477B3E-78A2-4DCF-BA11-D0047250F3EC}
+		{AE1A2BC7-6133-4D94-B0B7-8F8316EBAD11} = {A161846F-EC73-45A4-92C0-FCE8179C2D8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {13514964-E51D-4900-979E-A0E5ABCBEDB6}

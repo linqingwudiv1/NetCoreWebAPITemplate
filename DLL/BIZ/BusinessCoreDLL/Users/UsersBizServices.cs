@@ -22,7 +22,7 @@ namespace BusinessCoreDLL.Users
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="_db"></param>
+        /// <param name="db"></param>
         public UsersBizServices(CoreContextDIP db) : base() 
         {
             this._db = db;

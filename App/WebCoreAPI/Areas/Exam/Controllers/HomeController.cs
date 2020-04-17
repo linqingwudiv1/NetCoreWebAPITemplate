@@ -12,12 +12,14 @@ namespace WebCoreService.Areas.TestArea.Controllers
     [Controller]
     public class HomeController : BaseController
     {
+
         /// <summary>
         /// 
         /// </summary>
-        public HomeController( IUsersBizServices serives, CoreContext _db) 
+        public HomeController( IUsersBizServices serives) 
         {
         }
+
         /// <summary>
         /// 
         /// </summary>

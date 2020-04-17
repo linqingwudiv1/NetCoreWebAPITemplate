@@ -15,8 +15,17 @@ namespace BusinessCoreDLL.Extensison
     /// </summary>
     public enum EM_LoginState 
     {
+        /// <summary>
+        /// 
+        /// </summary>
         Pass,
+        /// <summary>
+        /// 
+        /// </summary>
         NoExist,
+        /// <summary>
+        /// 
+        /// </summary>
         PasswordError
     }
 
