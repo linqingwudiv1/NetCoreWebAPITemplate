@@ -29,14 +29,6 @@ namespace WebCoreService.Areas.TestArea.Controllers
             return View();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult JWTTest() 
-        {
-            return View();
-        }
 
     }
 }

@@ -32,6 +32,7 @@ BEGIN
 	DROP PROCEDURE [dbo].[PD_GenerateID]
 END
 GO
+
 CREATE PROCEDURE [dbo].[PD_GenerateID] 
 	@TableTag nchar(64)
 AS

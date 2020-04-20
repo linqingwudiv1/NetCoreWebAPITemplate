@@ -11,7 +11,7 @@
         </member>
         <member name="M:BusinessCoreDLL.AutofacModule.CoreModule.Load(Autofac.ContainerBuilder)">
             <summary>
-            Autofac栗子
+            Autofac 基本注入
             </summary>
             <param name="builder"></param>
         </member>

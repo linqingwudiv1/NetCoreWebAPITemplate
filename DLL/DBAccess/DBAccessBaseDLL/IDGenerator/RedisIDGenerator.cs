@@ -7,9 +7,9 @@ using System.Text;
 namespace DBAccessBaseDLL.IDGenerator
 {
     /// <summary>
-    /// 
+    /// Redis版ID生成器
     /// </summary>
-    class RedisIDGenerator : IIDGenerator
+    class RedisIDGenerator : AbsIDGenerator, IIDGenerator
     {
         /// <summary>
         ///  Redis ID生成器
@@ -49,13 +49,19 @@ namespace DBAccessBaseDLL.IDGenerator
                 Console.WriteLine("hello Debug Develop");
                 RedisAddress.Add("127.0.0.1:10110");
             }
+
             RedisIns = new RedisExChangeHelper(RedisAddress, Password: RedisPassword);
             return true;
         }
 
-        public long GetNewID<T>()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="Entity"></typeparam>
+        /// <returns></returns>
+        public long GetNewID<Entity>() where Entity : new ()
         {
-            string key = "IDIncr_" + typeof(T).FullName;
+            string key = GetKey<Entity>();
             Int64 newID = RedisIns.Incr(key);
             return newID;
         }

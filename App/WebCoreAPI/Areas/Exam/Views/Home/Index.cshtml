@@ -1,8 +1,8 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-        
-    Layout = null;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
     Random random = new Random();
 }
 
@@ -15,5 +15,4 @@
 
         <p><b>@(i+1). </b>&nbsp; random number : @random.Next(10000) </p>
     }
-
 }

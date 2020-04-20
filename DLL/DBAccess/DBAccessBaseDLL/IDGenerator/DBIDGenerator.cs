@@ -11,32 +11,35 @@ namespace DBAccessBaseDLL.IDGenerator
     /// <summary>
     /// 
     /// </summary>
-    class DBIDGenerator : IIDGenerator
+    class DBIDGenerator : AbsIDGenerator, IIDGenerator
     {
 
-        protected static string SqlCmd = @"Exec PD_GenerateID @TagName;";
+        protected string SqlCmd = @"Exec PD_GenerateID @TagName;";
 
-        protected static string conn = @"Data Source=129.204.160.155;UID=sa;PWD=1qaz@WSX;
+        protected string conn = @"Data Source=129.204.160.155;UID=sa;PWD=1qaz@WSX;
                                          Initial Catalog=TableIDCounter;
-                                         Connect Timeout=30;Min Pool Size=10;Max Pool Size=100";
+                                         Connect Timeout=30;Min Pool Size=10;Max Pool Size=100;";
 
         /// <summary>
         /// 
         /// </summary>
-        public DBIDGenerator()
+        public DBIDGenerator(string sqlcmd, string conn)
         {
+            this.SqlCmd = sqlcmd;
+            this.conn = conn;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="Entity"></typeparam>
         /// <returns></returns>
-        public long GetNewID<T>()
+        public long GetNewID<Entity>() where Entity : new()
         {
-            using (SqlConnection conn = new SqlConnection())
+            string key = this.GetKey<Entity>();
+            using (SqlConnection conn = new SqlConnection(this.conn))
             {
-                return conn.QuerySingle<long>(DBIDGenerator.SqlCmd, { @TagName = ""});
+                return conn.QuerySingle<long>(this.SqlCmd, new { TagName = key });
             }
         }
     }

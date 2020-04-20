@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "JWTTest";
+}
+
+<h1>JWTTest</h1>
+
+    <script type="text/javascript">
+        let a = { id: 1 };
+        
+        console.log('say hello : ');
+        document.onload = () => {
+            
+
+        console.log('say hello : ');
+            Req(`/Exam/Home`, `get`)
+            .then((data) => {
+                console.log('success : ', data);
+            })
+            .catch((error) => {
+                console.error('error : ', error);
+            });
+        };
+        /**
+         * ajax网络请求
+         */
+        function Req(url, method, data) {
+
+            /**
+             * @@param {成功时,调用}} resolve
+             * @@param {失败时,调用} reject
+             */
+            let inner = function (resolve, reject) {
+                let req = new XMLHttpRequest();
+
+                /* jwt 表头setse设置 */
+                //req.setRequestHeader('Authorization', `Bearer token`);
+
+                req.onload = () => {
+                    resolve(req.response);
+                };
+
+                req.onerror = () => {
+                    reject(req.error);
+                };
+
+                req.open(method, url, true);
+                req.send(data);
+            };
+
+            let promise = new Promise(inner);
+            return promise;
+        };
+
+
+    </script>
