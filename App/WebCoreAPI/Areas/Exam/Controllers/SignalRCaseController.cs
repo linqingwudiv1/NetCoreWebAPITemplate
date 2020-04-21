@@ -21,7 +21,7 @@ namespace WebCoreService.Controllers
         /// 
         /// </summary>
         private readonly IHubContext<CommonHub> _hubContext;
-
+           
         /// <summary>
         ///
         /// </summary>
