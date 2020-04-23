@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using BusinessCoreDLL.Users;
+using DBAccessBaseDLL.IDGenerator;
 using NetApplictionServiceDLL;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,12 @@ namespace BusinessCoreDLL.AutofacModule
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<UsersBizServices>().As<IUsersBizServices>().InstancePerLifetimeScope(); //.InstancePerLifetimeScope();
+            builder.RegisterInstance<DBIDGenerator>(new DBIDGenerator()).As<IIDGenerator>().SingleInstance();
 
             // 注册到BaseController的所有子类
-            builder.RegisterAssemblyTypes(typeof(BaseController).Assembly)
-                .Where(classType => classType.IsSubclassOf(typeof(BaseController)));
+            //builder.RegisterAssemblyTypes(typeof(BaseController).Assembly)
+            //    .Where(classType => classType.IsSubclassOf(typeof(BaseController)));
+
         }
     }
 }

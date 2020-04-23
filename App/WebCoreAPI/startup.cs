@@ -202,7 +202,6 @@ namespace WebCoreService
 
                 services.AddApplicationInsightsTelemetry(opt =>
                 {
-
                 });
 
                 #endregion

@@ -4,7 +4,10 @@ using System.Text;
 
 namespace DBAccessBaseDLL.IDGenerator
 {
-    interface IIDGenerator
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IIDGenerator
     {
         /// <summary>
         /// 

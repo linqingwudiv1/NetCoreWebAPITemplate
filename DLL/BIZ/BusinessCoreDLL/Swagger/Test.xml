@@ -210,7 +210,7 @@
             
             </summary>
         </member>
-        <member name="M:BusinessCoreDLL.Users.UsersBizServices.#ctor(DBAccessCoreDLL.EF.Context.CoreContextDIP)">
+        <member name="M:BusinessCoreDLL.Users.UsersBizServices.#ctor(DBAccessCoreDLL.EF.Context.CoreContextDIP,DBAccessBaseDLL.IDGenerator.IIDGenerator)">
             <summary>
             
             </summary>

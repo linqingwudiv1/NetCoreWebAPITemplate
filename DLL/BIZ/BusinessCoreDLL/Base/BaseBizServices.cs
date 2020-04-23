@@ -21,7 +21,6 @@ namespace BusinessCoreDLL.Base
         /// <returns></returns>
         public CoreContext GetCoreDB() 
         {
-            
             return new CoreContext(); 
         }
     }
