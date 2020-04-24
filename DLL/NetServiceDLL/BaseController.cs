@@ -33,6 +33,29 @@ namespace NetApplictionServiceDLL
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public override JsonResult Json(object data)
+        {
+            DTO_ReturnModel<object> ret_data = new DTO_ReturnModel<object>(data);
+            return base.Json(data);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="serializerSettings"></param>
+        /// <returns></returns>
+        public override JsonResult Json(object data, object serializerSettings)
+        {
+            DTO_ReturnModel<object> ret_data = new DTO_ReturnModel<object>(data);
+            return base.Json(ret_data, serializerSettings);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
         public override NotFoundObjectResult NotFound([ActionResultObjectValue] object value)

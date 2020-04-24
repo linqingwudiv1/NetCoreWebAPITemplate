@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -334,16 +335,36 @@ namespace WebCoreService
                 app.UseAuthentication();
                 app.UseAuthorization();
 
-                
+                #region static files
+                {
+                    FileExtensionContentTypeProvider provider = new FileExtensionContentTypeProvider();
+                    // add mime type case  
+                    provider.Mappings.Add(".fbx", "application/octet-stream");
+                    provider.Mappings.Add(".obj", "application/octet-stream");
+
+                    app.UseStaticFiles(new StaticFileOptions
+                    {
+                        ContentTypeProvider = provider
+                    });
+                }
+                #endregion
+
+
                 app.UseAuthentication();
 
-                string path = Path.Combine(Directory.GetCurrentDirectory(), ".Cache");
+                string rootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                string cachePath = Path.Combine(Directory.GetCurrentDirectory(), ".Cache");
 
+                //app.UseStaticFiles(new StaticFileOptions 
+                //{
+                //    FileProvider = new PhysicalFileProvider(rootPath),
+                //    RequestPath = "/public"
+                //});
                 app.UseStaticFiles
                 (
                     new StaticFileOptions
                     {
-                        FileProvider = new PhysicalFileProvider(path),
+                        FileProvider = new PhysicalFileProvider(cachePath),
                         RequestPath = "/Cache"
                     }
                 );
@@ -358,6 +379,8 @@ namespace WebCoreService
                     c.MapControllerRoute("WebAPI", "api/{controller=Test}/{action=HelloNetCore}/{id?}");
                     // Area
                     c.MapAreaControllerRoute(name: "Exam", areaName: "Exam", pattern: "Exam/{controller}/{action}");
+                    c.MapAreaControllerRoute(name: "AppAPI", areaName: "AppAPI", pattern: "AppAPI/{controller}/{action}");
+
                 });
 
                 app.UseEndpoints(c =>

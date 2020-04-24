@@ -215,6 +215,7 @@
             
             </summary>
             <param name="db"></param>
+            <param name="IDGenerator"></param>
         </member>
     </members>
 </doc>

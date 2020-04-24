@@ -20,13 +20,9 @@
 
   <ItemGroup>
     <Compile Remove="ADO\**" />
-    <Compile Remove="wwwroot\**" />
     <Content Remove="ADO\**" />
-    <Content Remove="wwwroot\**" />
     <EmbeddedResource Remove="ADO\**" />
-    <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="ADO\**" />
-    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -61,12 +57,16 @@
 
   <ItemGroup>
     <Folder Include=".LocalDB\" />
+    <Folder Include="Areas\AppAPI\Data\" />
+    <Folder Include="Areas\AppAPI\Models\" />
+    <Folder Include="Areas\AppAPI\Views\" />
     <Folder Include="Areas\Exam\Data\" />
     <Folder Include="Areas\Exam\Models\" />
     <Folder Include="Doc\Swagger\" />
     <Folder Include="ExportExcel\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include=".Cache\" />
+    <Folder Include="wwwroot\public\AppPack\" />
   </ItemGroup>
 
   <ItemGroup>

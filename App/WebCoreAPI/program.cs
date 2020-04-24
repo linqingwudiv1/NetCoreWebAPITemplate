@@ -70,6 +70,7 @@ namespace WebCoreService
                                     {
                                         webBuilder.UseKestrel()
                                                   .UseContentRoot(Directory.GetCurrentDirectory())
+                                                  .UseWebRoot("wwwroot")
                                                   .UseIIS()
                                                   .UseIISIntegration()
                                                   .UseStartup<Startup>()

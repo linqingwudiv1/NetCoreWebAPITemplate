@@ -4,7 +4,9 @@ using DBAccessBaseDLL.Static;
 using DBAccessCoreDLL.EF.Context;
 using DBAccessCoreDLL.EF.Entity;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +38,8 @@ namespace WebCoreService.Areas.TestArea.Controllers
     [ApiController]
     public class TestController : BaseController
     {
+        private IWebHostEnvironment env;
+
         /// <summary>
         /// 
         /// </summary>
@@ -46,21 +50,24 @@ namespace WebCoreService.Areas.TestArea.Controllers
         /// </summary>
         private Opt_API_LTEUrl Opt_API { get; set; }
 
+        
+
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="Opt"></param>
         /// <param name="_Opt_API"></param>
-        public TestController( IOptions<Option_ConnctionString> Opt, IOptions<Opt_API_LTEUrl> _Opt_API)
+        /// <param name="_env"></param>
+        public TestController( IOptions<Option_ConnctionString> Opt, IOptions<Opt_API_LTEUrl> _Opt_API, IWebHostEnvironment _env)
         {
             if (Opt == null || _Opt_API == null) 
             {
                 LogManager.GetLogger("TestController").Error("Opt == null || _Opt_API == null");
-
                 return;
             }
 
+            env = _env;
             Opt_Conn = Opt.Value;
             Opt_API = _Opt_API.Value;
         }
@@ -73,6 +80,28 @@ namespace WebCoreService.Areas.TestArea.Controllers
         public IActionResult HelloNetCore(string id = "")
         {
             return Ok("Hello! Net Core 2.0: " + id);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult GetNetCorePathsMethodCase() 
+        {
+            string url = HttpContext.Request.GetDisplayUrl();
+
+            string BaseDirectory = System.AppContext.BaseDirectory;
+
+            string siteRootPath = env.ContentRootPath;
+
+            string wwwrootPath = env.WebRootPath;
+
+            var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+
+            var currentDirectory = Directory.GetCurrentDirectory();
+
+            return Json(new { url , BaseDirectory, siteRootPath, wwwrootPath, basePath, currentDirectory });
         }
 
         /// <summary>

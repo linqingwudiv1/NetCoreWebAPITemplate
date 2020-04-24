@@ -19,11 +19,12 @@ namespace BusinessCoreDLL.Users
         }
 
         CoreContextDIP _db;
-        
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="db"></param>
+        /// <param name="IDGenerator"></param>
         public UsersBizServices(CoreContextDIP db, IIDGenerator IDGenerator) : base() 
         {
             this._db = db;
