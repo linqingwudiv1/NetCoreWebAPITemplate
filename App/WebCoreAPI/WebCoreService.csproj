@@ -66,7 +66,6 @@
     <Folder Include="ExportExcel\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include=".Cache\" />
-    <Folder Include="wwwroot\public\AppPack\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -118,6 +117,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>$(SolutionDir)\SwaggerDoc\$(AssemblyName).xml</DocumentationFile>
     <DefineConstants></DefineConstants>
+    <NoWarn>1701;1702;CA1031;CA1034;CA1822;CA1305;CA1707;CA1801;</NoWarn>
   </PropertyGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>

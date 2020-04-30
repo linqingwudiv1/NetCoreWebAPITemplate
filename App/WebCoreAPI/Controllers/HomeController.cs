@@ -1,4 +1,4 @@
-﻿using BusinessCoreDLL.Users;
+﻿using BusinessCoreDLL.Accounts;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
 
@@ -13,7 +13,7 @@ namespace WebCoreService.Controllers
         /// <summary>
         /// 
         /// </summary>
-        public HomeController(IUsersBizServices usersServices)
+        public HomeController(IAccountsBizServices usersServices)
         {
         }
 

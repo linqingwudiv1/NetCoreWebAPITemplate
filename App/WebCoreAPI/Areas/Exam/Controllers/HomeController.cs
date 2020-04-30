@@ -1,4 +1,4 @@
-﻿using BusinessCoreDLL.Users;
+﻿using BusinessCoreDLL.Accounts;
 using DBAccessCoreDLL.EF.Context;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
@@ -16,7 +16,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
         /// <summary>
         /// 
         /// </summary>
-        public HomeController( IUsersBizServices serives) 
+        public HomeController( IAccountsBizServices serives) 
         {
         }
 

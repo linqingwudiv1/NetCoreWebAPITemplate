@@ -4,6 +4,9 @@ using System.Text;
 
 namespace BaseDLL.Singleton
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface ISingletonInstance
     {
     }

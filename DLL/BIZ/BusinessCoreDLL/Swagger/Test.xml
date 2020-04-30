@@ -4,6 +4,33 @@
         <name>BusinessCoreDLL</name>
     </assembly>
     <members>
+        <member name="T:BusinessCoreDLL.Accounts.AccountBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.Accounts.AccountBizServices.db">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.#ctor(DBAccessCoreDLL.EF.Context.CoreContextDIP,DBAccessBaseDLL.IDGenerator.IIDGenerator)">
+            <summary>
+            
+            </summary>
+            <param name="db"></param>
+            <param name="IDGenerator"></param>
+        </member>
+        <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.Register">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessCoreDLL.Accounts.IAccountsBizServices">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:BusinessCoreDLL.AutofacModule.CoreModule">
             <summary>
             
@@ -194,28 +221,6 @@
             注销操作
             </summary>
             <param name="controller"></param>
-        </member>
-        <member name="T:BusinessCoreDLL.Users.IUsersBizServices">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:BusinessCoreDLL.Users.UsersBizServices">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:BusinessCoreDLL.Users.UsersBizServices.db">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:BusinessCoreDLL.Users.UsersBizServices.#ctor(DBAccessCoreDLL.EF.Context.CoreContextDIP,DBAccessBaseDLL.IDGenerator.IIDGenerator)">
-            <summary>
-            
-            </summary>
-            <param name="db"></param>
-            <param name="IDGenerator"></param>
         </member>
     </members>
 </doc>

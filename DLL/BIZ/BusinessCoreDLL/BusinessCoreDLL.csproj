@@ -21,6 +21,7 @@
     <Folder Include="Roles\" />
     <Folder Include="Routes\" />
     <Folder Include="Articles\" />
+    <Folder Include="Swagger\" />
   </ItemGroup>
 
 </Project>

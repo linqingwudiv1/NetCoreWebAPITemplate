@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BusinessCoreDLL.Users
+namespace BusinessCoreDLL.Accounts
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface IUsersBizServices
+    public interface IAccountsBizServices
     {
         //void Login();
         //

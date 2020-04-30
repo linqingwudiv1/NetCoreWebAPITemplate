@@ -38,7 +38,7 @@ namespace NetApplictionServiceDLL
         public override JsonResult Json(object data)
         {
             DTO_ReturnModel<object> ret_data = new DTO_ReturnModel<object>(data);
-            return base.Json(data);
+            return base.Json(ret_data);
         }
 
         /// <summary>

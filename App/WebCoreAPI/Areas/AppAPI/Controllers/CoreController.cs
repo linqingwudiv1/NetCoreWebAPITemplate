@@ -21,6 +21,14 @@ namespace WebCoreService.Areas.AppAPI.Controllers
     {
         private readonly IWebHostEnvironment env;
 
+
+        class DTO_AppVersion
+        {
+            public string Version { get; set; }
+            public string Msg { get; set; }
+            public bool bForceUpdate { get; set; }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -37,7 +45,7 @@ namespace WebCoreService.Areas.AppAPI.Controllers
         public ActionResult AppVersion()
         {
             string path = Path.GetFullPath(Path.Combine(env.WebRootPath, "public/appVersion.json"));
-            dynamic jsonobj = JsonHelper.loadJsonFromFile<dynamic>(path);
+            dynamic jsonobj = JsonHelper.loadJsonFromFile<DTO_AppVersion>(path);
 
             jsonobj = jsonobj != null ? jsonobj : new
             {
@@ -61,26 +69,31 @@ namespace WebCoreService.Areas.AppAPI.Controllers
             string directory = Path.GetFullPath(Path.Combine(env.WebRootPath, $"public/AppPack/{Version}"));
 
             string[] paths = Array.Empty<string>();
+
             if (Directory.Exists(directory))
             {
-                paths = Directory.GetFiles(directory);
+                paths = Directory.GetFiles(directory, "*", SearchOption.AllDirectories);
             }
-
 
             IList<dynamic> ret_list = new List<dynamic>();
 
             foreach (string path in paths)
             {
                 string filename = Path.GetFileName(path);
+
+                string relativePath = path.Split(directory)[1].Replace(@"\", "/").Remove(0, 1);
+
                 bool ret = rx.IsMatch(filename);
+
                 ret_list.Add(new
                 {
                     title = filename,
-                    uri = $"public/{Version}/{filename}",
-                    contentSize = 0,
-                    transferSize = 0,
-                    segment = 0,
-                    segment_transferSize = 0,
+                    uri = $"public/AppPack/{Version}/{relativePath}",
+                    relativePath = relativePath,
+                    contentSize  = 0 ,
+                    transferSize = 0 ,
+                    segment = 0 ,
+                    segment_transferSize = 0 ,
                     fileType = ( rx.IsMatch(filename) ? 1 : 0) ,
                     state = 0 ,
                     requests = new List<dynamic>()

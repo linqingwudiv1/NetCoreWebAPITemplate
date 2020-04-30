@@ -2,12 +2,12 @@
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.EF.Context;
 
-namespace BusinessCoreDLL.Users
+namespace BusinessCoreDLL.Accounts
 {
     /// <summary>
     /// 
     /// </summary>
-    class UsersBizServices : BaseBizServices, IUsersBizServices
+    class AccountBizServices : BaseBizServices, IAccountsBizServices
     {
         /// <summary>
         /// 
@@ -25,9 +25,18 @@ namespace BusinessCoreDLL.Users
         /// </summary>
         /// <param name="db"></param>
         /// <param name="IDGenerator"></param>
-        public UsersBizServices(CoreContextDIP db, IIDGenerator IDGenerator) : base() 
+        public AccountBizServices(CoreContextDIP db, IIDGenerator IDGenerator) : base() 
         {
             this._db = db;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Register() 
+        {
+            //db.Accounts.Add()
+            //db.Accounts
         }
 
     }

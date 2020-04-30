@@ -20,6 +20,9 @@
     /// </summary>
     public class SingletonHelper<T> where T : ISingletonInstance, new()
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private static T _instance;
 
         /// <summary>

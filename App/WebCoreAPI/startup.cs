@@ -341,9 +341,9 @@ namespace WebCoreService
                     // add mime type case  
                     provider.Mappings.Add(".fbx", "application/octet-stream");
                     provider.Mappings.Add(".obj", "application/octet-stream");
-
                     app.UseStaticFiles(new StaticFileOptions
                     {
+                        
                         ContentTypeProvider = provider
                     });
                 }

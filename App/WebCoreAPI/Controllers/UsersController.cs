@@ -1,7 +1,7 @@
 ﻿using BaseDLL.DTO.Store;
 using BusinessCoreDLL.DTOModel.API.Users;
 using BusinessCoreDLL.Extensison;
-using BusinessCoreDLL.Users;
+using BusinessCoreDLL.Accounts;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -29,7 +29,7 @@ namespace WebCoreService.Controllers
         /// <summary>
         /// Vue项目测试接口
         /// </summary>
-        public UsersController( IUsersBizServices usersServices)
+        public UsersController( IAccountsBizServices usersServices)
         {
 
         }

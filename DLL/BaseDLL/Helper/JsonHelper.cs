@@ -21,8 +21,9 @@ namespace BaseDLL.Helper
                 T obj = JsonConvert.DeserializeObject<T>(json);
                 return obj;
             }
-            catch (Exception) 
+            catch (Exception ex) 
             {
+                Console.Error.WriteLine(ex.Message);
                 return default(T);
             }
         }

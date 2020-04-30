@@ -1,7 +1,6 @@
 {
-  {
-    "Version": "0.0.1",
-    "Msg": "中文测试test",
-    "bForceUpdate": false
-  }
+  "Version": "1.0.0",
+  "Msg": "中文测试test",
+  "bForceUpdate": false
 }
+

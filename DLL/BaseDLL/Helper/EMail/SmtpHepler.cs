@@ -1,12 +1,12 @@
 ﻿using System.Net;
 using System.Net.Mail;
 
-namespace BaseDLL.Email
+namespace BaseDLL.Helper.Smtp
 {
     /// <summary>
-    /// Email Helper
+    /// Smtp Helper
     /// </summary>
-    public static class EmailHepler
+    public static class SmtpHepler
     {
         /// <summary>
         /// 
@@ -31,7 +31,7 @@ namespace BaseDLL.Email
             mailMsg.Body = content;
             mailMsg.IsBodyHtml = true;
 
-            // smtp.163.com，smtp.qq.com,发件人使用的邮箱的SMTP服务器。
+            //发件人使用的邮箱的SMTP服务器。
             SmtpClient client = new SmtpClient("smtp.qq.com");
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;

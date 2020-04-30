@@ -14,6 +14,10 @@ namespace WebCoreService.Areas.Exam.Controllers
     [Controller]
     public class JWTCaseController : Controller
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             return View();
