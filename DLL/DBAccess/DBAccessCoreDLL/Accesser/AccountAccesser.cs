@@ -1,4 +1,6 @@
-﻿using DBAccessCoreDLL.EF.Entity;
+﻿using DBAccessBaseDLL.Accesser;
+using DBAccessCoreDLL.EF.Context;
+using DBAccessCoreDLL.EF.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,35 +8,37 @@ using System.Text;
 namespace DBAccessCoreDLL.DAO
 {
     /// <summary>
-    /// 存可能的各种地方取数据...
+    /// 实体数据......来自缓存或数据库
     /// </summary>
-    public class AccountAccesser
+    public class AccountAccesser : IAccesser<Account>
     {
+        public readonly CoreContextDIP db;
         /// <summary>
         /// 
         /// </summary>
-        public AccountAccesser() 
+        public AccountAccesser(CoreContextDIP _db) 
         {
+            db = _db;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public Account Get()
+        public int Add(Account newEntiy)
         {
-            return null;
+            throw new NotImplementedException();
         }
 
-        public bool Account Add() 
+        public int Delete<Key>(Key key)
         {
-            return null;
+            throw new NotImplementedException();
         }
 
-        //public Update
-
-        public bool Delete(Account account) 
+        public Account Get<Key>(Key key)
         {
+            throw new NotImplementedException();
+        }
+
+        public int Update(Account deleteEntiy)
+        {
+            throw new NotImplementedException();
         }
     }
 }

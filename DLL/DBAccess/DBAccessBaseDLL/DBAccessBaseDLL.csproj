@@ -45,8 +45,4 @@
     <ProjectReference Include="..\..\BaseDLL\BaseDLL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Accesser\" />
-  </ItemGroup>
-
 </Project>
