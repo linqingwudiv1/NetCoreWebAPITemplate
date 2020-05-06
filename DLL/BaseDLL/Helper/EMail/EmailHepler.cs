@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Mail;
 
 namespace BaseDLL.Helper.Smtp
@@ -6,8 +7,28 @@ namespace BaseDLL.Helper.Smtp
     /// <summary>
     /// Smtp Helper
     /// </summary>
-    public static class SmtpHepler
+    public static class EmailHepler
     {
+
+        /// <summary>
+        /// 是否是有效的邮箱
+        /// </summary>
+        /// <param name="emailaddress"></param>
+        /// <returns></returns>
+        static public bool IsValid(string emailaddress)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(emailaddress);
+
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

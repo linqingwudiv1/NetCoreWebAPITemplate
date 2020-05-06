@@ -1,6 +1,7 @@
 ﻿using DBAccessBaseDLL.EF.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace DBAccessCoreDLL.EF.Entity
 {
@@ -12,7 +13,7 @@ namespace DBAccessCoreDLL.EF.Entity
         /// <summary>
         /// 
         /// </summary>
-        public int id { get; set; }
+        public UInt64 id { get; set; }
 
         /// <summary>
         /// 

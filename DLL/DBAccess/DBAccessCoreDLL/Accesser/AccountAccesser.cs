@@ -4,15 +4,21 @@ using DBAccessCoreDLL.EF.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
-namespace DBAccessCoreDLL.DAO
+namespace DBAccessCoreDLL.Accesser
 {
+
     /// <summary>
     /// 实体数据......来自缓存或数据库
     /// </summary>
-    public class AccountAccesser : IAccesser<Account>
+    public class AccountAccesser : IAccountAccesser
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public readonly CoreContextDIP db;
+
         /// <summary>
         /// 
         /// </summary>
@@ -21,24 +27,134 @@ namespace DBAccessCoreDLL.DAO
             db = _db;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newEntiy"></param>
+        /// <returns></returns>
         public int Add(Account newEntiy)
         {
-            throw new NotImplementedException();
+            db.Accounts.Add(newEntiy);
+            return db.SaveChanges();
         }
 
-        public int Delete<Key>(Key key)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newEntiys"></param>
+        /// <returns></returns>
+        public int Add(IList<Account> newEntiys)
         {
-            throw new NotImplementedException();
+            db.Accounts.AddRange(newEntiys);
+            return db.SaveChanges();
         }
 
-        public Account Get<Key>(Key key)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public int Delete(ulong key)
         {
-            throw new NotImplementedException();
+            Account temp_account = Get(key);
+            db.Accounts.Remove(temp_account);
+            return db.SaveChanges();
         }
 
-        public int Update(Account deleteEntiy)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public int Delete(IList<ulong> keys)
         {
-            throw new NotImplementedException();
+            IList<Account> temp_accounts = Get(keys);
+            db.Accounts.RemoveRange(temp_accounts);
+            return db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public Account Get(ulong key)
+        {
+            return db.Accounts.Find(key);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public IList<Account> Get(IList<ulong> keys)
+        {
+            return db.Accounts.Where(x => keys.Contains(x.Id)).ToArray();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="username"></param>
+        /// <param name="passport"></param>
+        /// <param name="email"></param>
+        /// <param name="phone"></param>
+        /// <returns></returns>
+        public Account Get(ulong? key = null, string username = "", string passport = "", string email = "", string phone = "")
+        {
+            Account ret_account = null;
+            if (key != null) 
+            {
+                ulong temp_key = (ulong)key;
+                return ret_account = Get(temp_key);
+            }
+
+            if ( String.IsNullOrWhiteSpace(username) ) 
+            {
+                return db.Accounts.Where(x => x.Username == username).DefaultIfEmpty(null).FirstOrDefault();
+            }
+
+            if ( String.IsNullOrWhiteSpace(passport) ) 
+            {
+                return db.Accounts.Where(x => x.Passport == passport).DefaultIfEmpty(null).FirstOrDefault();
+            }
+
+            if ( String.IsNullOrWhiteSpace(email) )
+            {
+                return db.Accounts.Where(x => x.Email == email).DefaultIfEmpty(null).FirstOrDefault();
+            }
+
+            if (String.IsNullOrWhiteSpace(phone) ) 
+            {
+                return db.Accounts.Where(x => x.Phone == phone).DefaultIfEmpty(null).FirstOrDefault();
+            }
+
+            return ret_account;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modifyEntiy"></param>
+        /// <returns></returns>
+        public int Update(Account modifyEntiy)
+        {
+            db.Accounts.Update(modifyEntiy);
+            return db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modifyEntiys"></param>
+        /// <returns></returns>
+        public int Update(IList<Account> modifyEntiys)
+        {
+            db.Accounts.UpdateRange(modifyEntiys);
+            return db.SaveChanges();
         }
     }
 }

@@ -16,12 +16,12 @@ namespace DBAccessCoreDLL.EF.Entity
         /// 
         /// </summary>
         [Key]
-        public Int64 Id { get; set; }
+        public UInt64 Id { get; set; }
 
         /// <summary>
         /// 关联Account ID
         /// </summary>
-        public Int64 AccountId { get; set; }
+        public Nullable<UInt64> AccountId { get; set; }
 
         /// <summary>
         /// 机器名

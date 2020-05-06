@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Folder Include="Extends\" />
-    <Folder Include="Helper\SMS\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -3,7 +3,7 @@
 namespace DBAccessCoreDLL.EF.Context
 {
     /// <summary>
-    /// 线程池DI
+    /// 用于DI线程池版本.
     /// </summary>
     public class CoreContextDIP : CoreContext
     {

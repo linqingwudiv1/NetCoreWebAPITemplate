@@ -15,13 +15,13 @@ namespace DBAccessCoreDLL.EF.Entity
         /// 
         /// </summary>
         [Key]
-        public Int64 Id { get; set; }
+        public UInt64 Id { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [Required]
-        public Int64 RoutePageId { get; set; }
+        public UInt64 RoutePageId { get; set; }
 
         /// <summary>
         /// 
@@ -32,7 +32,7 @@ namespace DBAccessCoreDLL.EF.Entity
         /// 
         /// </summary>
         [Required]
-        public Int64 RoleId { get; set; }
+        public UInt64 RoleId { get; set; }
 
         /// <summary>
         /// 

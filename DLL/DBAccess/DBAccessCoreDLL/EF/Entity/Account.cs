@@ -23,12 +23,17 @@ namespace DBAccessCoreDLL.EF.Entity
         /// 
         /// </summary>
         [Key]
-        public Int64 Id { get; set; }
+        public UInt64 Id { get; set; }
 
         /// <summary>
-        /// 
+        /// 昵称
         /// </summary>
         public string Username { get; set; }
+
+        /// <summary>
+        /// 通行证
+        /// </summary>
+        public string Passport { get; set; }
 
         /// <summary>
         /// 

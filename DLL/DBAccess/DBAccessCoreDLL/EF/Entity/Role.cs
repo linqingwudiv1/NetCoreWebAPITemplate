@@ -16,7 +16,7 @@ namespace DBAccessCoreDLL.EF.Entity
         /// 
         /// </summary>
         [Key]
-        public Int64 Id { get; set; }
+        public UInt64 Id { get; set; }
 
         /// <summary>
         /// 
@@ -51,7 +51,7 @@ namespace DBAccessCoreDLL.EF.Entity
         /// <summary>
         /// 父级ID
         /// </summary>
-        public Nullable<Int64> ParentId { get; set; }
+        public Nullable<UInt64> ParentId { get; set; }
         
         /// <summary>
         /// 
