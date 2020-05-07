@@ -1,9 +1,7 @@
-﻿using DBAccessBaseDLL.Accesser;
-using DBAccessCoreDLL.EF.Context;
+﻿using DBAccessCoreDLL.EF.Context;
 using DBAccessCoreDLL.EF.Entity;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace DBAccessCoreDLL.Accesser
@@ -94,7 +92,7 @@ namespace DBAccessCoreDLL.Accesser
         }
 
         /// <summary>
-        /// 
+        /// 多ID方式用户查询
         /// </summary>
         /// <param name="key"></param>
         /// <param name="username"></param>
@@ -102,36 +100,47 @@ namespace DBAccessCoreDLL.Accesser
         /// <param name="email"></param>
         /// <param name="phone"></param>
         /// <returns></returns>
-        public Account Get(ulong? key = null, string username = "", string passport = "", string email = "", string phone = "")
+        public Tuple<Account, EFindAccountWay> Get(ulong? key = null, string username = "", string passport = "", string email = "", string phone = "")
         {
+            
             Account ret_account = null;
+            EFindAccountWay ret_enum = EFindAccountWay.NotFound;
             if (key != null) 
             {
                 ulong temp_key = (ulong)key;
-                return ret_account = Get(temp_key);
+                ret_account = Get(temp_key);
+                ret_enum = EFindAccountWay.Id;
             }
 
-            if ( String.IsNullOrWhiteSpace(username) ) 
+            else if ( String.IsNullOrWhiteSpace(username) ) 
             {
-                return db.Accounts.Where(x => x.Username == username).DefaultIfEmpty(null).FirstOrDefault();
+                ret_account = db.Accounts.Where(x => x.Username == username).DefaultIfEmpty(null).FirstOrDefault();
+                ret_enum = EFindAccountWay.UserName;
             }
 
-            if ( String.IsNullOrWhiteSpace(passport) ) 
+            else if ( String.IsNullOrWhiteSpace(passport) ) 
             {
-                return db.Accounts.Where(x => x.Passport == passport).DefaultIfEmpty(null).FirstOrDefault();
+                ret_account = db.Accounts.Where(x => x.Passport == passport).DefaultIfEmpty(null).FirstOrDefault();
+                ret_enum = EFindAccountWay.Passport;
             }
 
-            if ( String.IsNullOrWhiteSpace(email) )
+            else if ( String.IsNullOrWhiteSpace(email) )
             {
-                return db.Accounts.Where(x => x.Email == email).DefaultIfEmpty(null).FirstOrDefault();
+                ret_account = db.Accounts.Where(x => x.Email == email).DefaultIfEmpty(null).FirstOrDefault();
+                ret_enum = EFindAccountWay.EMail;
             }
 
-            if (String.IsNullOrWhiteSpace(phone) ) 
+            else if (String.IsNullOrWhiteSpace(phone) ) 
             {
-                return db.Accounts.Where(x => x.Phone == phone).DefaultIfEmpty(null).FirstOrDefault();
+                ret_account = db.Accounts.Where(x => x.Phone == phone).DefaultIfEmpty(null).FirstOrDefault();
+                ret_enum = EFindAccountWay.Phone;
+            }
+            if (ret_account == null) 
+            {
+                ret_enum = EFindAccountWay.NotFound;
             }
 
-            return ret_account;
+            return new Tuple<Account, EFindAccountWay>(ret_account, ret_enum);
         }
 
 

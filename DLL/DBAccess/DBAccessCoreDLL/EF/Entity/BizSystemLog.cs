@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace DBAccessCoreDLL.EF.Entity
 {
@@ -65,7 +63,7 @@ namespace DBAccessCoreDLL.EF.Entity
         /// <param name="builder"></param>
         public void Configure(EntityTypeBuilder<BizSystemLog> builder)
         {
-            var tableBuilder = builder.ToTable("BizSystemLog");
+            EntityTypeBuilder<BizSystemLog> tableBuilder = builder.ToTable("BizSystemLog");
             tableBuilder.Property(x => x.Id).HasIdentityOptions(1, 1);
             tableBuilder.Property(x => x.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP");
         }

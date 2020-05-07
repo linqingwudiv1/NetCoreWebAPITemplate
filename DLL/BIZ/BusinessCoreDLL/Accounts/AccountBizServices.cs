@@ -1,10 +1,13 @@
-﻿using BaseDLL.Helper.Smtp;
+﻿using BaseDLL.Helper;
+using BaseDLL.Helper.SMS;
+using BaseDLL.Helper.Smtp;
 using BusinessCoreDLL.Base;
 using BusinessCoreDLL.DTOModel.API.Users;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
 using DBAccessCoreDLL.EF.Context;
 using DBAccessCoreDLL.EF.Entity;
+using System;
 
 namespace BusinessCoreDLL.Accounts
 {
@@ -13,28 +16,21 @@ namespace BusinessCoreDLL.Accounts
     /// </summary>
     class AccountBizServices : BaseBizServices, IAccountsBizServices
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        protected CoreContextDIP db { get; set; }
 
         /// <summary>
-        /// 
+        /// DAO层
         /// </summary>
-        protected  CoreContextDIP _db;
-
         protected IAccountAccesser accesser { get;  set; }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="db"></param>
         /// <param name="IDGenerator"></param>
         /// <param name="AccountAccesser"></param>
-        public AccountBizServices(CoreContextDIP db, IIDGenerator IDGenerator, IAccountAccesser AccountAccesser) 
+        public AccountBizServices(IIDGenerator IDGenerator, IAccountAccesser AccountAccesser) 
             : base() 
         {
-            this._db = db;
+            this.accesser = AccountAccesser;
         }
 
         /// <summary>
@@ -43,17 +39,49 @@ namespace BusinessCoreDLL.Accounts
         public string Register(DTOAPI_Register model) 
         {
 
-            Account existAccount = accesser.Get(passport:model.Passport ,username: model.Username,email: model.EMail, phone: model.Phone);
-            
-            if ( existAccount != null ) 
+            RegisterAccountVerify(model);
+
+            Tuple<Account, EFindAccountWay> FindAccountResult = accesser.Get( passport: model.Passport, 
+                                                                              username: model.Username, 
+                                                                                 email: model.EMail, 
+                                                                                 phone: model.Phone     );
+
+            switch (FindAccountResult.Item2)
             {
-                //
-                return "用户已存在";
+                case EFindAccountWay.Id:
+                    {
+                        //用户ID已存在
+                        break;
+                    }
+                case EFindAccountWay.UserName:
+                    {
+                        //用户昵称已存在
+                        break;
+                    }
+                case EFindAccountWay.Passport:
+                    {
+                        //用户名已存在
+                        break;
+                    }
+                case EFindAccountWay.EMail:
+                    {
+                        //EMail已存在
+                        break;
+                    }
+                case EFindAccountWay.Phone:
+                    {
+                        //手机已存在
+                        break;
+                    }
+
+                case EFindAccountWay.NotFound: 
+                    {
+                        //Register
+                        break;
+                    }
             }
 
-
             return "";
-            //db.Accounts.Add();
         }
 
         #region private
@@ -64,8 +92,38 @@ namespace BusinessCoreDLL.Accounts
         /// <param name="model"></param>
         private bool RegisterAccountVerify(DTOAPI_Register model)
         {
-            bool bVaildEmail =  EmailHepler.IsValid(model.EMail);
-            //bool bVaildPhone = 
+
+            bool bIsVaildEMail = true;
+            bool bIsVaildPassword = true;
+            bool bIsVaildPhone = true;
+            bool bIsVaildPassport = true;
+            bool bIsVaildUserName = true;
+
+            if (!string.IsNullOrWhiteSpace(model.EMail) && !EmailHepler.IsValid(model.EMail))
+            {
+                // "无效的邮箱";
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Password) && !PasswordHelper.IsValid(model.Password))
+            {
+                //"无效的密码格式";
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Phone) && !PhoneHelper.IsValid(model.Phone))
+            {
+                //"无效的手机号码";
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Username) && !PhoneHelper.IsValid(model.Username))
+            {
+                //"无效的用户昵称";
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Passport) && !PhoneHelper.IsValid(model.Passport))
+            {
+                //"无效的用户名";
+            }
+
 
             return false;
         }

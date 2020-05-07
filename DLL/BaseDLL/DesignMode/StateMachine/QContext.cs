@@ -5,6 +5,9 @@ using System.Text;
 
 namespace BaseDLL.DesignMode.StateMachine
 {
+    /// <summary>
+    /// 状态机上下文
+    /// </summary>
     public class QContext : IQContext
     {
         /// <summary>

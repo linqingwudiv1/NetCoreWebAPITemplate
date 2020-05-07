@@ -12,7 +12,7 @@ namespace BaseDLL.DTO.Store
         /// <summary>
         /// 
         /// </summary>
-        public Int64 id { get; set; }
+        public UInt64 Id { get; set; }
 
         /// <summary>
         /// 
@@ -53,7 +53,6 @@ namespace BaseDLL.DTO.Store
         /// 
         /// </summary>
         public string sex { get; set; }
-
 
         /// <summary>
         /// 

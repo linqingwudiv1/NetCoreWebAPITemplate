@@ -14,6 +14,5 @@ namespace BaseDLL.DesignMode.StateMachine.Interfaces
         /// </summary>
         /// <param name="context"></param>
         void Handle(IQContext context);
-
     }
 }

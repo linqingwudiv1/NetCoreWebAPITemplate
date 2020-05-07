@@ -3,17 +3,46 @@ using System.Security.Cryptography;
 
 namespace BaseDLL.Helper
 {
-    public class PasswordHash
+    /// <summary>
+    /// Hash 加密
+    /// </summary>
+    public class PasswordHelper
     {
+        /// <summary>
+        /// 
+        /// </summary>
         protected const int SALT_BYTE_SIZE = 24;
+        /// <summary>
+        /// 
+        /// </summary>
         protected const int HASH_BYTE_SIZE = 24;
+        /// <summary>
+        /// 
+        /// </summary>
         protected const int PBKDF2_ITERATIONS = 1000;
-
+        /// <summary>
+        /// 
+        /// </summary>
         protected const int ITERATION_INDEX = 0;
+        /// <summary>
+        /// 
+        /// </summary>
         protected const int SALT_INDEX = 1;
+        /// <summary>
+        /// 
+        /// </summary>
         protected const int PBKDF2_INDEX = 2;
-             
-         
+
+
+        /// <summary>
+        /// 判断密码格式是否符合条件
+        /// </summary>
+        /// <param name="pwd"></param>
+        public static bool IsValid(string pwd) 
+        {
+            return true;
+        }
+
         /// <summary>
         /// 创建加密
         /// </summary>

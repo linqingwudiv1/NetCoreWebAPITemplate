@@ -9,6 +9,19 @@ namespace DBAccessCoreDLL.Accesser
     /// <summary>
     /// 
     /// </summary>
+    public enum EFindAccountWay 
+    {
+        NotFound ,
+        Id,
+        UserName,
+        Passport,
+        EMail,
+        Phone
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IAccountAccesser : IAccesser<Account, UInt64>
     {
         /// <summary>
@@ -18,6 +31,6 @@ namespace DBAccessCoreDLL.Accesser
         /// <param name="email"></param>
         /// <param name="phone"></param>
         /// <returns></returns>
-        Account Get(ulong? key = null,string username = "", string passport = "", string email = "", string phone = "");
+        Tuple< Account, EFindAccountWay> Get(ulong? key = null,string username = "", string passport = "", string email = "", string phone = "");
     }
 }
