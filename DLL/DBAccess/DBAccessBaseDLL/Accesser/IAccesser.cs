@@ -5,8 +5,10 @@ using System.Text;
 namespace DBAccessBaseDLL.Accesser
 {
     /// <summary>
-    /// 数据访问器
+    /// 
     /// </summary>
+    /// <typeparam name="Entity">数据实体类型</typeparam>
+    /// <typeparam name="Key">主键类型</typeparam>
     public interface IAccesser<Entity, Key>
     {
         /// <summary>
@@ -21,7 +23,7 @@ namespace DBAccessBaseDLL.Accesser
         /// <param name="keys"></param>
         /// <returns></returns>
         IList<Entity> Get(IList<Key> keys);
-        
+
         /// <summary>
         /// 
         /// </summary>

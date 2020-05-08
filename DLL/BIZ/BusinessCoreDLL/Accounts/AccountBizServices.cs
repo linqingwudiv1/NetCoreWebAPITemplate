@@ -41,10 +41,10 @@ namespace BusinessCoreDLL.Accounts
 
             RegisterAccountVerify(model);
 
-            Tuple<Account, EFindAccountWay> FindAccountResult = accesser.Get( passport: model.Passport, 
-                                                                              username: model.Username, 
-                                                                                 email: model.EMail, 
-                                                                                 phone: model.Phone     );
+            Tuple<Account, EFindAccountWay> FindAccountResult = accesser.Get( passport: model.Passport  , 
+                                                                              username: model.Username  , 
+                                                                                 email: model.EMail     , 
+                                                                                 phone: model.Phone         );
 
             switch (FindAccountResult.Item2)
             {
@@ -73,10 +73,9 @@ namespace BusinessCoreDLL.Accounts
                         //手机已存在
                         break;
                     }
-
                 case EFindAccountWay.NotFound: 
                     {
-                        //Register
+                        //Register Logic
                         break;
                     }
             }
@@ -92,7 +91,6 @@ namespace BusinessCoreDLL.Accounts
         /// <param name="model"></param>
         private bool RegisterAccountVerify(DTOAPI_Register model)
         {
-
             bool bIsVaildEMail = true;
             bool bIsVaildPassword = true;
             bool bIsVaildPhone = true;

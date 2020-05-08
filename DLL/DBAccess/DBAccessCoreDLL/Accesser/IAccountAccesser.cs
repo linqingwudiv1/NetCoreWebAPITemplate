@@ -7,7 +7,7 @@ using DBAccessCoreDLL.EF.Entity;
 namespace DBAccessCoreDLL.Accesser
 {
     /// <summary>
-    /// 
+    /// 查询Account的方式
     /// </summary>
     public enum EFindAccountWay 
     {
