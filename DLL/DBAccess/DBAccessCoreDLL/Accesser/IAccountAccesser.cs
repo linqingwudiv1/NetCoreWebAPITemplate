@@ -32,5 +32,6 @@ namespace DBAccessCoreDLL.Accesser
         /// <param name="phone"></param>
         /// <returns></returns>
         Tuple< Account, EFindAccountWay> Get(ulong? key = null,string username = "", string passport = "", string email = "", string phone = "");
+
     }
 }
