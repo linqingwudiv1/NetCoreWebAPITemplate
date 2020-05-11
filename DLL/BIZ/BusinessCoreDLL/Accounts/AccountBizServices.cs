@@ -144,7 +144,6 @@ namespace BusinessCoreDLL.Accounts
                 case EFindAccountWay.NotFound:
                     {
                         //Register Logic
-                        
                         break;
                     }
             }

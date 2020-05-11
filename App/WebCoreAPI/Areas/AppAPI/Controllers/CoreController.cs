@@ -19,9 +19,14 @@ namespace WebCoreService.Areas.AppAPI.Controllers
     [ApiController]
     public class CoreController : BaseController
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IWebHostEnvironment env;
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         class DTO_AppVersion
         {
             public string Version { get; set; }
@@ -65,7 +70,7 @@ namespace WebCoreService.Areas.AppAPI.Controllers
         public ActionResult GetNeedDownloadList(string Version)
         {
             Regex rx = new Regex(@".zip$");
-            
+
             string directory = Path.GetFullPath(Path.Combine(env.WebRootPath, $"public/AppPack/{Version}"));
 
             string[] paths = Array.Empty<string>();
