@@ -64,7 +64,7 @@ namespace WebCoreService.Controllers
 
             Role role = new Role();
 
-            role.Id = Math.Abs(Guid.NewGuid().GetHashCode());
+            role.Id = 1; //Math.Abs(Guid.NewGuid().GetHashCode());
             role.Name = data.Name;
             role.Descrption = data.Descrption;
 

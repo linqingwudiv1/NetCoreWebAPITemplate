@@ -53,6 +53,11 @@ namespace WebCoreService
             //net4log = LogManager.CreateRepository("NETCoreRepository");
             //XmlConfigurator.Configure(net4log, new FileInfo(@"\.Config\net4log.config"));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="env"></param>
         private void InitNLog(IWebHostEnvironment env)
         {
             Logger logger = LogManager.GetLogger("Starup");
@@ -270,7 +275,7 @@ namespace WebCoreService
                 #region SingalR
 
                 services.AddSignalR();
-                services.AddSingleton<IUserIdProvider, QingUserIdProvider>();
+                services.AddSingleton<IUserIdProvider, QUserIdProvider>();
 
                 #endregion
 

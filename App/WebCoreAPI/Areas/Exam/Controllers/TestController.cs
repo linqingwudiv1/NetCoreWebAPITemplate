@@ -27,6 +27,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace WebCoreService.Areas.TestArea.Controllers
 {
     /// <summary>
@@ -227,7 +228,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
         }
 
         /// <summary>
-        /// Note：
+        /// Note:
         /// </summary>
         /// <returns></returns>
         [HttpGet]

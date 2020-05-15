@@ -30,7 +30,6 @@ namespace WebApp.SingalR
         /// <param name="user"></param>
         /// <returns></returns>
         public async Task SendMessage(string user)
-
         {
             await Clients.User(user).SendAsync(Event_ReceiveMessage, user, "hello world!").ConfigureAwait(false);
         }
@@ -56,5 +55,6 @@ namespace WebApp.SingalR
         {
             return base.OnDisconnectedAsync(exception);
         }
+
     }
 }
