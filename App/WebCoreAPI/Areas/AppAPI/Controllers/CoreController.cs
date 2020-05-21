@@ -29,8 +29,17 @@ namespace WebCoreService.Areas.AppAPI.Controllers
         /// </summary>
         class DTO_AppVersion
         {
+            /// <summary>
+            /// 
+            /// </summary>
             public string Version { get; set; }
+            /// <summary>
+            /// 
+            /// </summary>
             public string Msg { get; set; }
+            /// <summary>
+            /// 
+            /// </summary>
             public bool bForceUpdate { get; set; }
         }
 
@@ -87,8 +96,6 @@ namespace WebCoreService.Areas.AppAPI.Controllers
                 string filename = Path.GetFileName(path);
 
                 string relativePath = path.Split(directory)[1].Replace(@"\", "/").Remove(0, 1);
-
-                bool ret = rx.IsMatch(filename);
 
                 ret_list.Add(new
                 {

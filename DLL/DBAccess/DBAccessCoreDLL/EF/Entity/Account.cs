@@ -17,13 +17,14 @@ namespace DBAccessCoreDLL.EF.Entity
         /// </summary>
         public Account() 
         {
+            this.Sex = -1;
         }
 
         /// <summary>
         /// 
         /// </summary>
         [Key]
-        public UInt64 Id { get; set; }
+        public Int64 Id { get; set; }
 
         /// <summary>
         /// 昵称

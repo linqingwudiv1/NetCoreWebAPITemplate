@@ -14,7 +14,7 @@ namespace DBAccessCoreDLL.EF.Entity
         /// Primary Key
         /// </summary>
         [Key]
-        public UInt64 Id { get; set; }
+        public Int64 Id { get; set; }
 
         /// <summary>
         /// 机器名

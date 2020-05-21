@@ -22,7 +22,7 @@ namespace DBAccessCoreDLL.Accesser
     /// <summary>
     /// 
     /// </summary>
-    public interface IAccountAccesser : IAccesser<Account, UInt64>
+    public interface IAccountAccesser : IAccesser<Account, Int64>
     {
         /// <summary>
         /// 
@@ -31,7 +31,7 @@ namespace DBAccessCoreDLL.Accesser
         /// <param name="email"></param>
         /// <param name="phone"></param>
         /// <returns></returns>
-        Tuple< Account, EFindAccountWay> Get(ulong? key = null,string username = "", string passport = "", string email = "", string phone = "");
+        Tuple< Account, EFindAccountWay> Get(long? key = null,string username = "", string passport = "", string email = "", string phone = "");
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using DBAccessCoreDLL.EF.Context;
+﻿using DBAccessBaseDLL.IDGenerator;
+using DBAccessCoreDLL.EF.Context;
 using DBAccessCoreDLL.EF.Entity;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,11 @@ namespace DBAccessCoreDLL.Accesser
         /// </summary>
         public readonly CoreContextDIP db;
 
+
         /// <summary>
         /// 
         /// </summary>
-        public AccountAccesser(CoreContextDIP _db) 
+        public AccountAccesser(CoreContextDIP _db)
         {
             db = _db;
         }
@@ -52,7 +54,7 @@ namespace DBAccessCoreDLL.Accesser
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public int Delete(ulong key)
+        public int Delete(long key)
         {
             Account temp_account = Get(key);
             db.Accounts.Remove(temp_account);
@@ -64,7 +66,7 @@ namespace DBAccessCoreDLL.Accesser
         /// </summary>
         /// <param name="keys"></param>
         /// <returns></returns>
-        public int Delete(IList<ulong> keys)
+        public int Delete(IList<long> keys)
         {
             IList<Account> temp_accounts = Get(keys);
             db.Accounts.RemoveRange(temp_accounts);
@@ -76,7 +78,7 @@ namespace DBAccessCoreDLL.Accesser
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public Account Get(ulong key)
+        public Account Get(long key)
         {
             return db.Accounts.Find(key);
         }
@@ -86,7 +88,7 @@ namespace DBAccessCoreDLL.Accesser
         /// </summary>
         /// <param name="keys"></param>
         /// <returns></returns>
-        public IList<Account> Get(IList<ulong> keys)
+        public IList<Account> Get(IList<long> keys)
         {
             return db.Accounts.Where(x => keys.Contains(x.Id)).ToArray();
         }
@@ -100,14 +102,14 @@ namespace DBAccessCoreDLL.Accesser
         /// <param name="email"></param>
         /// <param name="phone"></param>
         /// <returns></returns>
-        public Tuple<Account, EFindAccountWay> Get(ulong? key = null, string username = "", string passport = "", string email = "", string phone = "")
+        public Tuple<Account, EFindAccountWay> Get(long? key = null, string username = "", string passport = "", string email = "", string phone = "")
         {
             
             Account ret_account = null;
             EFindAccountWay ret_enum = EFindAccountWay.NotFound;
             if (key != null) 
             {
-                ulong temp_key = (ulong)key;
+                long temp_key = (long)key;
                 ret_account = Get(temp_key);
                 ret_enum = EFindAccountWay.Id;
             }

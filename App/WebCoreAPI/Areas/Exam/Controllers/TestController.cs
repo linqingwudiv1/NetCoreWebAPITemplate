@@ -51,9 +51,6 @@ namespace WebCoreService.Areas.TestArea.Controllers
         /// </summary>
         private Opt_API_LTEUrl Opt_API { get; set; }
 
-        
-
-
         /// <summary>
         /// 
         /// </summary>
@@ -144,7 +141,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                     in
                         db.Accounts.IgnoreQueryFilters().AsEnumerable()
                     select
-                        x.Id).DefaultIfEmpty(0).Max();
+                        x.Id).DefaultIfEmpty(0L).Max();
 
                 long max_id_accountRole = (
                     from
@@ -152,11 +149,11 @@ namespace WebCoreService.Areas.TestArea.Controllers
                     in
                         db.AccountRoles.IgnoreQueryFilters().AsEnumerable()
                     select
-                        x.Id).DefaultIfEmpty(0).Max();
+                        x.Id).DefaultIfEmpty(0L).Max();
 
                 // long max_id_accountRole = db.AccountRoles
 
-                testAccount.RuleFor( entity => entity.Id,            faker => max_id_account + faker.IndexFaker + 1 );
+                testAccount.RuleFor( entity => entity.Id,            faker => max_id_account + (long)(faker.IndexFaker) + 1L);
                 testAccount.RuleFor( entity => entity.Name,          faker => faker.Random.String2(8, 16, charSet ) );
                 testAccount.RuleFor( entity => entity.Introduction,  faker => faker.Rant.Review());
                 testAccount.RuleFor( entity => entity.Avatar,        faker => faker.Image.PlaceholderUrl( 256, 256 ));
@@ -177,8 +174,8 @@ namespace WebCoreService.Areas.TestArea.Controllers
                         {
                             return new AccountRole
                             {
-                                Id = max_id_accountRole + faker.IndexFaker +    1 ,
-                                AccountId = max_id_account + faker.IndexFaker + 1 ,
+                                Id = max_id_accountRole + (long)(faker.IndexFaker) +  1L,
+                                AccountId = max_id_account + (long)(faker.IndexFaker) + 1L,
                                 account = null  ,
                                 RoleId = 1
                             };
@@ -195,12 +192,12 @@ namespace WebCoreService.Areas.TestArea.Controllers
 
                 Faker<RoutePage> testRoutePage = new Faker<RoutePage>(locale: "zh_CN");
 
-                testRoutePage.RuleFor( e => e.Id, faker => (faker.IndexFaker + 1) );
+                testRoutePage.RuleFor( e => e.Id, faker => ((long)(faker.IndexFaker) + 1L) );
                 testRoutePage.RuleFor( e => e.Component, faker => "admin" );
                 testRoutePage.RuleFor( e => e.Meta, faker => faker.Make<RoutePageMeta>( 1, (i) => new RoutePageMeta())[0] );
                 testRoutePage.RuleFor( e => e.Name, faker => faker.Name.FirstName() + faker.Name.LastName() );
                 testRoutePage.RuleFor( e => e.Path, faker => faker.Rant.Review() );
-                testRoutePage.RuleFor( e => e.ParentId, faker => 1 );
+                testRoutePage.RuleFor( e => e.ParentId, faker => 1L );
                 testRoutePage.RuleFor( entity => entity.Q_IsDelete, faker => faker.Random.Bool() );
 
                 #endregion
@@ -330,8 +327,8 @@ namespace WebCoreService.Areas.TestArea.Controllers
                                 else
                                 {
                                     logger.Trace($@" Optimistic locking..... Name : { account.Name          } , 
-                                                     Qing_Version                 : { account.Q_Version  } ,
-                                                     Qing_Sequence                : { account.Q_Sequence } ");
+                                                     Q_Version                 : { account.Q_Version  } ,
+                                                     Q_Sequence                : { account.Q_Sequence } ");
                                 }
                             }
                             else

@@ -13,7 +13,7 @@ namespace DBAccessCoreDLL.EF.Entity
         /// <summary>
         /// 
         /// </summary>
-        public UInt64 id { get; set; }
+        public Int64 id { get; set; }
 
         /// <summary>
         /// 

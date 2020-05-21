@@ -15,12 +15,12 @@ namespace DBAccessCoreDLL.EF.Entity
         /// <summary>
         /// 
         /// </summary>
-        public UInt64 Id { get; set; }
+        public Int64 Id { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Nullable<UInt64> ParentId { get; set; }
+        public Nullable<Int64> ParentId { get; set; }
 
         /// <summary>
         /// 

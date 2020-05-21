@@ -25,12 +25,18 @@ namespace BusinessCoreDLL.Accounts
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="IDGenerator"></param>
+        protected IIDGenerator IDGenerator { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_IDGenerator"></param>
         /// <param name="AccountAccesser"></param>
-        public AccountBizServices(IIDGenerator IDGenerator, IAccountAccesser AccountAccesser)
+        public AccountBizServices(IIDGenerator _IDGenerator, IAccountAccesser AccountAccesser)
             : base()
         {
             this.accesser = AccountAccesser;
+            this,IDGenerator = _IDGenerator;
         }
 
 
@@ -87,23 +93,106 @@ namespace BusinessCoreDLL.Accounts
         }
 
         /// <summary>
-        /// 
+        /// 会根据
         /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public RegisterAccountInfo Register(DTOAPI_Register model) 
         {
 
             RegisterAccountInfo RegisterInfo = RegisterAccountVerify(model);
 
+            //注册未成功.....
             if (RegisterInfo.State != ERegisterAccountState.Success) 
             {
                 return RegisterInfo;
             }
 
-            Tuple<Account, EFindAccountWay> FindAccountResult = accesser.Get( passport: model.Passport  , 
-                                                                              username: model.Username  , 
-                                                                                 email: model.EMail     , 
-                                                                                 phone: model.Phone         );
 
+            //next
+            bool isExistAccount = this.IsRegisterAccountExisted( model,ref RegisterInfo);
+
+            if (isExistAccount) 
+            {
+                return RegisterInfo;
+            }
+
+            long NewID = IDGenerator.GetNewID<Account>();
+            string NewUsername = @$"User_{NewID.ToString()}" ;
+
+            Account account = new Account 
+            {
+                Id       = NewID            ,
+                Passport = model.Passport   ,
+                Username = NewUsername      ,
+                Email    = model.EMail      ,
+                Phone    = model.Phone      ,
+                Sex      = -1               ,
+                // md5 secret key
+                Password = MD5Helper.GetMd5Hash( model.Password )
+            };
+            
+            accesser.Add(account);
+            return RegisterInfo;
+        }
+
+        #region private
+
+        /// <summary>
+        /// 用户验证
+        /// </summary>
+        /// <param name="model"></param>
+        private RegisterAccountInfo RegisterAccountVerify(DTOAPI_Register model)
+        {
+            RegisterAccountInfo ret_model = new RegisterAccountInfo { account = null, State = ERegisterAccountState.Success, Message = "" };
+
+            if (!string.IsNullOrWhiteSpace(model.EMail) && !EmailHepler.IsValid(model.EMail))
+            {
+                ret_model.State = ERegisterAccountState.FormatNotMatch;
+                ret_model.Message = "无效的邮箱";
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Password) && !PasswordHelper.IsValid(model.Password))
+            {
+                ret_model.State = ERegisterAccountState.FormatNotMatch;
+                ret_model.Message = "无效的密码格式";
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Phone) && !PhoneHelper.IsValid(model.Phone))
+            {
+                ret_model.State = ERegisterAccountState.FormatNotMatch;
+                ret_model.Message = "无效的手机号码";
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Username) && !PhoneHelper.IsValid(model.Username))
+            {
+                ret_model.State = ERegisterAccountState.FormatNotMatch;
+                ret_model.Message = "无效的用户昵称";
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Passport) && !PhoneHelper.IsValid(model.Passport))
+            {
+                ret_model.State = ERegisterAccountState.FormatNotMatch;
+                ret_model.Message = "无效的用户名";
+            }
+
+            return ret_model;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="RegisterInfo"></param>
+        private bool IsRegisterAccountExisted(DTOAPI_Register model,ref RegisterAccountInfo RegisterInfo) 
+        {
+            //next
+            Tuple<Account, EFindAccountWay> FindAccountResult = accesser.Get(passport: model.Passport,
+                                                                              username: model.Username,
+                                                                                 email: model.EMail,
+                                                                                 phone: model.Phone);
+
+            //Verify Account whether exist..
             switch (FindAccountResult.Item2)
             {
                 case EFindAccountWay.Id:
@@ -142,61 +231,16 @@ namespace BusinessCoreDLL.Accounts
                         break;
                     }
                 case EFindAccountWay.NotFound:
+                default:
                     {
-                        //Register Logic
+                        RegisterInfo.State = ERegisterAccountState.Success;
+                        RegisterInfo.Message = "Success";
                         break;
                     }
             }
 
-
-            return RegisterInfo;
+            return (FindAccountResult.Item2 == null);
         }
-
-        #region private
-
-
-        /// <summary>
-        /// 用户验证
-        /// </summary>
-        /// <param name="model"></param>
-        private RegisterAccountInfo RegisterAccountVerify(DTOAPI_Register model)
-        {
-            RegisterAccountInfo ret_model = new RegisterAccountInfo { account = null, State = ERegisterAccountState.Success, Message};
-
-            if (!string.IsNullOrWhiteSpace(model.EMail) && !EmailHepler.IsValid(model.EMail))
-            {
-                ret_model.State = ERegisterAccountState.FormatNotMatch;
-                ret_model.Message = "无效的邮箱";
-            }
-
-            if (!string.IsNullOrWhiteSpace(model.Password) && !PasswordHelper.IsValid(model.Password))
-            {
-                ret_model.State = ERegisterAccountState.FormatNotMatch;
-                ret_model.Message = "无效的密码格式";
-            }
-
-            if (!string.IsNullOrWhiteSpace(model.Phone) && !PhoneHelper.IsValid(model.Phone))
-            {
-                ret_model.State = ERegisterAccountState.FormatNotMatch;
-                ret_model.Message = "无效的手机号码";
-            }
-
-            if (!string.IsNullOrWhiteSpace(model.Username) && !PhoneHelper.IsValid(model.Username))
-            {
-                ret_model.State = ERegisterAccountState.FormatNotMatch;
-                ret_model.Message = "无效的用户昵称";
-            }
-
-            if (!string.IsNullOrWhiteSpace(model.Passport) && !PhoneHelper.IsValid(model.Passport))
-            {
-                ret_model.State = ERegisterAccountState.FormatNotMatch;
-                ret_model.Message = "无效的用户名";
-            }
-
-            return ret_model;
-        }
-
-
         #endregion
 
     }

@@ -1,6 +1,7 @@
 ﻿using BusinessCoreDLL.Accounts;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
+using System.Reflection;
 
 namespace WebCoreService.Controllers
 {
@@ -23,7 +24,7 @@ namespace WebCoreService.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
-            var assembly = typeof(Controller).Assembly;
+            Assembly assembly = typeof(Controller).Assembly;
             return View();
         }
 

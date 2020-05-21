@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace DBAccessBaseDLL.EF.Entity
 {
     /// <summary>
-    /// 基础实体类/
+    /// 基础实体类
     /// </summary>
     abstract public class BaseEntity
     {
