@@ -7,7 +7,7 @@ namespace BusinessCoreDLL.DTOModel.API.Users
     /// <summary>
     /// 注册逻辑传输对象
     /// </summary>
-    public class DTOAPI_Register
+    public class DTOAPIReq_Register
     {
         /// <summary>
         /// 

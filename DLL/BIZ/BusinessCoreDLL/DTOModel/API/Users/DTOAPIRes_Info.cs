@@ -5,7 +5,7 @@ using System.Text;
 namespace BusinessCoreDLL.DTOModel.API.Users
 {
     /// <summary>
-    /// User/Login
+    /// Info
     /// </summary>
     public class DTOAPIRes_Info
     {

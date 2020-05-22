@@ -14,78 +14,99 @@
             DAO层
             </summary>
         </member>
+        <member name="P:BusinessCoreDLL.Accounts.AccountBizServices.IDGenerator">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IAccountAccesser)">
             <summary>
             
             </summary>
-            <param name="IDGenerator"></param>
+            <param name="_IDGenerator"></param>
             <param name="AccountAccesser"></param>
         </member>
-        <member name="T:BusinessCoreDLL.Accounts.AccountBizServices.ERegisterAccountState">
+        <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.Register(BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register)">
             <summary>
-            
+            Register
             </summary>
+            <param name="model"></param>
+            <returns></returns>
         </member>
-        <member name="F:BusinessCoreDLL.Accounts.AccountBizServices.ERegisterAccountState.Error">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:BusinessCoreDLL.Accounts.AccountBizServices.ERegisterAccountState.Success">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:BusinessCoreDLL.Accounts.AccountBizServices.ERegisterAccountState.ExistAccount">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:BusinessCoreDLL.Accounts.AccountBizServices.ERegisterAccountState.FormatNotMatch">
-            <summary>
-            注册资料不匹配规则
-            </summary> 
-        </member>
-        <member name="T:BusinessCoreDLL.Accounts.AccountBizServices.RegisterAccountInfo">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.RegisterAccountInfo.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:BusinessCoreDLL.Accounts.AccountBizServices.RegisterAccountInfo.account">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:BusinessCoreDLL.Accounts.AccountBizServices.RegisterAccountInfo.State">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:BusinessCoreDLL.Accounts.AccountBizServices.RegisterAccountInfo.Message">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.Register(BusinessCoreDLL.DTOModel.API.Users.DTOAPI_Register)">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.RegisterAccountVerify(BusinessCoreDLL.DTOModel.API.Users.DTOAPI_Register)">
+        <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.RegisterAccountVerify(BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register)">
             <summary>
             用户验证
             </summary>
             <param name="model"></param>
         </member>
+        <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.IsRegisterAccountExisted(BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register,BusinessCoreDLL.Accounts.RegisterAccountInfo@)">
+            <summary>
+            
+            </summary>
+            <param name="model"></param>
+            <param name="RegisterInfo"></param>
+        </member>
+        <member name="T:BusinessCoreDLL.Accounts.ERegisterAccountState">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessCoreDLL.Accounts.ERegisterAccountState.Error">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessCoreDLL.Accounts.ERegisterAccountState.Success">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessCoreDLL.Accounts.ERegisterAccountState.ExistAccount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessCoreDLL.Accounts.ERegisterAccountState.FormatNotMatch">
+            <summary>
+            注册资料不匹配规则
+            </summary> 
+        </member>
+        <member name="T:BusinessCoreDLL.Accounts.RegisterAccountInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessCoreDLL.Accounts.RegisterAccountInfo.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.Accounts.RegisterAccountInfo.account">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.Accounts.RegisterAccountInfo.State">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.Accounts.RegisterAccountInfo.Message">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:BusinessCoreDLL.Accounts.IAccountsBizServices">
             <summary>
             
             </summary>
+        </member>
+        <member name="M:BusinessCoreDLL.Accounts.IAccountsBizServices.Register(BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register)">
+            <summary>
+            
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
         </member>
         <member name="T:BusinessCoreDLL.AutofacModule.CoreModule">
             <summary>
@@ -161,7 +182,7 @@
         </member>
         <member name="T:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Info">
             <summary>
-            User/Login
+            Info
             </summary>
         </member>
         <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Info.username">
@@ -174,9 +195,54 @@
             登录密码
             </summary>
         </member>
+        <member name="T:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Login">
+            <summary>
+            Request Login
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Login.passport">
+            <summary>
+            用户名/Email/UID/Phone/passport
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Login.password">
+            <summary>
+            登录密码
+            </summary>
+        </member>
+        <member name="T:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register">
+            <summary>
+            注册逻辑传输对象
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register.EMail">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register.Phone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register.Passport">
+            <summary>
+            帐号
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register.Password">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register.Username">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info">
             <summary>
-            User/Login
+            Info
             </summary>
         </member>
         <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.id">
@@ -224,51 +290,6 @@
             
             </summary>
         </member>
-        <member name="T:BusinessCoreDLL.DTOModel.API.Users.DTOAPI_Login">
-            <summary>
-            User/Login
-            </summary>
-        </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPI_Login.username">
-            <summary>
-            用户名
-            </summary>
-        </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPI_Login.password">
-            <summary>
-            登录密码
-            </summary>
-        </member>
-        <member name="T:BusinessCoreDLL.DTOModel.API.Users.DTOAPI_Register">
-            <summary>
-            注册逻辑传输对象
-            </summary>
-        </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPI_Register.EMail">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPI_Register.Phone">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPI_Register.Passport">
-            <summary>
-            帐号
-            </summary>
-        </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPI_Register.Password">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPI_Register.Username">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="T:BusinessCoreDLL.Extensison.EM_LoginState">
             <summary>
             登录状态
@@ -294,7 +315,7 @@
             通用全局业务扩展，例如登录，注销
             </summary>
         </member>
-        <member name="M:BusinessCoreDLL.Extensison.StaticBizExtend.LoginLogic(Microsoft.AspNetCore.Mvc.Controller,BusinessCoreDLL.DTOModel.API.Users.DTOAPI_Login)">
+        <member name="M:BusinessCoreDLL.Extensison.StaticBizExtend.LoginLogic(Microsoft.AspNetCore.Mvc.Controller,BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Login)">
             <summary>
             登录操作
             </summary>

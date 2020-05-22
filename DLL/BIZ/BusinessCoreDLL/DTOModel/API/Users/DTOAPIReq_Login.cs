@@ -5,14 +5,14 @@ using System.Text;
 namespace BusinessCoreDLL.DTOModel.API.Users
 {
     /// <summary>
-    /// User/Login
+    /// Request Login
     /// </summary>
-    public class DTOAPI_Login
+    public class DTOAPIReq_Login
     {
         /// <summary>
-        /// 用户名
+        /// 用户名/Email/UID/Phone/passport
         /// </summary>
-        public string username { get; set; }
+        public string passport { get; set; }
 
         /// <summary>
         /// 登录密码

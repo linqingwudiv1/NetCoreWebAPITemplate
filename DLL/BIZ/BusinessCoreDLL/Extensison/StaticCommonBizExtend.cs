@@ -40,7 +40,7 @@ namespace BusinessCoreDLL.Extensison
         /// <param name="controller"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        static public EM_LoginState LoginLogic(this Controller controller, DTOAPI_Login data)
+        static public EM_LoginState LoginLogic(this Controller controller, DTOAPIReq_Login data)
         {
             CoreContext db = new CoreContext();
 
@@ -49,7 +49,7 @@ namespace BusinessCoreDLL.Extensison
                             in 
                                 db.Accounts.Include( obj => obj.AccountRoles )
                             where 
-                                x.Username == data.username 
+                                x.Username == data.passport 
                             select x ).FirstOrDefault();
 
             if (account == null) 
@@ -63,14 +63,14 @@ namespace BusinessCoreDLL.Extensison
 
                 DTO_StoreAccount storeAccount = new DTO_StoreAccount
                 {
-                    Id = account.Id                     ,
-                    username = account.Username         ,
-                    password = account.Password         ,
-                    avatar = account.Avatar             ,
-                    email = account.Email               ,
-                    name = account.Name                 ,
-                    introduction = account.Introduction ,
-                    phone = account.Phone               ,
+                    Id = account.Id,
+                    username = account.Username,
+                    password = account.Password,
+                    avatar = account.Avatar,
+                    email = account.Email,
+                    name = account.Name,
+                    introduction = account.Introduction,
+                    phone = account.Phone,
                     roles = roles
                 };
 

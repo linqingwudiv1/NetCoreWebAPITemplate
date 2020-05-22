@@ -104,22 +104,22 @@ namespace DBAccessCoreDLL.Accesser
         /// <returns></returns>
         public Tuple<Account, EFindAccountWay> Get(long? key = null, string username = "", string passport = "", string email = "", string phone = "")
         {
-            
             Account ret_account = null;
             EFindAccountWay ret_enum = EFindAccountWay.NotFound;
+            
             if (key != null) 
             {
+                //try query of id
                 long temp_key = (long)key;
                 ret_account = Get(temp_key);
                 ret_enum = EFindAccountWay.Id;
             }
-
             else if ( String.IsNullOrWhiteSpace(username) ) 
             {
+                //try query of username
                 ret_account = db.Accounts.Where(x => x.Username == username).DefaultIfEmpty(null).FirstOrDefault();
                 ret_enum = EFindAccountWay.UserName;
             }
-
             else if ( String.IsNullOrWhiteSpace(passport) ) 
             {
                 ret_account = db.Accounts.Where(x => x.Passport == passport).DefaultIfEmpty(null).FirstOrDefault();
@@ -132,7 +132,7 @@ namespace DBAccessCoreDLL.Accesser
                 ret_enum = EFindAccountWay.EMail;
             }
 
-            else if (String.IsNullOrWhiteSpace(phone) ) 
+            else if ( String.IsNullOrWhiteSpace(phone) ) 
             {
                 ret_account = db.Accounts.Where(x => x.Phone == phone).DefaultIfEmpty(null).FirstOrDefault();
                 ret_enum = EFindAccountWay.Phone;

@@ -5,7 +5,12 @@
 
 <h1>JWTTest</h1>
 
+
+<button onclick="onclick_reqJWTToken">请求测试Token</button>
+
     <script type="text/javascript">
+
+        let JWT_Token = "";
         /**
          * @@param {成功时,调用}} resolve
          * @@param {失败时,调用} reject
@@ -14,7 +19,7 @@
             let req = new XMLHttpRequest();
 
             /* jwt 表头setse设置 */
-            //req.setRequestHeader('Authorization', `Bearer token`);
+            req.setRequestHeader('Authorization', `Bearer token ${JWT_Token}`);
             
             req.onload = () => {
                 resolve(req.response);
@@ -47,4 +52,25 @@
         };
 
 
+        function onclick_reqJWTToken()
+        {
+            let inner = function (resolve, reject) {
+                let req = new XMLHttpRequest();
+
+                /* jwt 表头setse设置 */
+                req.setRequestHeader('Authorization', `Bearer token ${JWT_Token}`);
+
+                req.onload = () => {
+                    resolve(req.response);
+                };
+
+                req.onerror = () => {
+                    reject(req.error);
+                };
+
+                req.open(method, url, true);
+                req.send(data);
+            };
+
+        }
     </script>

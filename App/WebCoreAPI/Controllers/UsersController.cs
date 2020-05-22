@@ -19,19 +19,24 @@ using System.Threading.Tasks;
 namespace WebCoreService.Controllers
 {
     /// <summary>
-    /// Vue项目展示接口
+    /// Vue 项目展示接口
     /// </summary>
-    [Route("api/[controller]/[action]")]
+    [Route("Api/[controller]/[action]")]
     [EnableCors("WebAPIPolicy")]
     [ApiController]
     public class UsersController : BaseController
     {
         /// <summary>
-        /// Vue项目测试接口
+        /// 用户接口
         /// </summary>
-        public UsersController( IAccountsBizServices usersServices)
-        {
+        private readonly IAccountsBizServices accountServices;
 
+        /// <summary>
+        /// 用户接口
+        /// </summary>
+        public UsersController( IAccountsBizServices _accountServices)
+        {
+            accountServices = _accountServices;
         }
 
         /// <summary>
@@ -40,7 +45,7 @@ namespace WebCoreService.Controllers
         /// <param name="userInfo">登录信息</param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Login([FromBody] DTOAPI_Login userInfo)
+        public IActionResult Login([FromBody] DTOAPIReq_Login userInfo)
         {
             return Ok(userInfo);
         }
@@ -51,25 +56,28 @@ namespace WebCoreService.Controllers
         /// <param name="userInfo"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult JWTLogin([FromBody]DTOAPI_Login userInfo)
+        public IActionResult JWTLogin([FromBody]DTOAPIReq_Login userInfo)
         {
             if (userInfo == null)
             {
                 return NotFound();
             }
 
-            if (!string.IsNullOrEmpty(userInfo.username) && !string.IsNullOrEmpty(userInfo.password))
+            if (!string.IsNullOrEmpty(userInfo.passport) && !string.IsNullOrEmpty(userInfo.password))
             {
                 Claim[] claims = new[]
                 {
                     // 时间戳
-                    new Claim( JwtRegisteredClaimNames.Nbf,  $"{ new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}") ,
+                    new Claim( JwtRegisteredClaimNames.Nbf,  $"{ new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds() }") ,
+                    
                     // 过期日期
-                    new Claim( JwtRegisteredClaimNames.Exp,  $"{ new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeSeconds()}"),
-                    // 
-                    new Claim( ClaimTypes.Name, userInfo.username ) ,
+                    new Claim( JwtRegisteredClaimNames.Exp,  $"{ new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeSeconds() }"),
+                    
+                    // 用户标识
+                    new Claim( ClaimTypes.Name, userInfo.passport ) , 
+
                     // Custom Data
-                    new Claim("customType", "hi!linqing")
+                    new Claim("customType", "hi! LinQing")
                 };
 
                 // Key
@@ -78,6 +86,7 @@ namespace WebCoreService.Controllers
                 // 加密方式
                 SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
+                
                 // Token
                 JwtSecurityToken token = new JwtSecurityToken(
                     issuer   : GJWT.Domain ,
@@ -95,6 +104,16 @@ namespace WebCoreService.Controllers
             {
                 return BadRequest(new { message = "username or password is incorrect." });
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="RegisterInfo"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> Register([FromBody] DTOAPIReq_Register RegisterInfo) 
+        {
+            return Ok();
         }
 
         /// <summary>

@@ -110,9 +110,11 @@ namespace WebCoreService.Areas.AppAPI.Controllers
                     state = 0 ,
                     requests = new List<dynamic>()
                 });
+
             }
 
             return Json(ret_list);
         }
+
     }
 }

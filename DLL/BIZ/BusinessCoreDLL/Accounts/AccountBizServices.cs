@@ -36,70 +36,16 @@ namespace BusinessCoreDLL.Accounts
             : base()
         {
             this.accesser = AccountAccesser;
-            this,IDGenerator = _IDGenerator;
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public enum ERegisterAccountState
-        {
-            /// <summary>
-            /// 
-            /// </summary>
-            Error         ,
-            /// <summary>
-            /// 
-            /// </summary>
-            Success       ,
-            /// <summary>
-            /// 
-            /// </summary>
-            ExistAccount  ,
-            /// <summary>
-            /// 注册资料不匹配规则
-            /// </summary> 
-            FormatNotMatch 
+            this.IDGenerator = _IDGenerator;
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        public class RegisterAccountInfo 
-        {
-            /// <summary>
-            /// 
-            /// </summary>
-            public RegisterAccountInfo() 
-            {
-                this.State = ERegisterAccountState.Success;
-            }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public Account account { get; set; }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public ERegisterAccountState State { get; set; }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public string Message { get; set; }
-        }
-
-        /// <summary>
-        /// 会根据
+        /// Register
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public RegisterAccountInfo Register(DTOAPI_Register model) 
+        public RegisterAccountInfo Register(DTOAPIReq_Register model) 
         {
-
             RegisterAccountInfo RegisterInfo = RegisterAccountVerify(model);
 
             //注册未成功.....
@@ -107,7 +53,6 @@ namespace BusinessCoreDLL.Accounts
             {
                 return RegisterInfo;
             }
-
 
             //next
             bool isExistAccount = this.IsRegisterAccountExisted( model,ref RegisterInfo);
@@ -118,7 +63,7 @@ namespace BusinessCoreDLL.Accounts
             }
 
             long NewID = IDGenerator.GetNewID<Account>();
-            string NewUsername = @$"User_{NewID.ToString()}" ;
+            string NewUsername = model.Username ?? @$"User_{NewID.ToString()}" ;
 
             Account account = new Account 
             {
@@ -136,13 +81,23 @@ namespace BusinessCoreDLL.Accounts
             return RegisterInfo;
         }
 
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Login(DTOAPIReq_Login LoginInfo)
+        {
+            //bool PhoneHelper.IsValid(LoginInfo.passport);
+            //accesser.Get();
+        }
+
         #region private
 
         /// <summary>
         /// 用户验证
         /// </summary>
         /// <param name="model"></param>
-        private RegisterAccountInfo RegisterAccountVerify(DTOAPI_Register model)
+        private RegisterAccountInfo RegisterAccountVerify(DTOAPIReq_Register model)
         {
             RegisterAccountInfo ret_model = new RegisterAccountInfo { account = null, State = ERegisterAccountState.Success, Message = "" };
 
@@ -184,7 +139,7 @@ namespace BusinessCoreDLL.Accounts
         /// </summary>
         /// <param name="model"></param>
         /// <param name="RegisterInfo"></param>
-        private bool IsRegisterAccountExisted(DTOAPI_Register model,ref RegisterAccountInfo RegisterInfo) 
+        private bool IsRegisterAccountExisted(DTOAPIReq_Register model,ref RegisterAccountInfo RegisterInfo) 
         {
             //next
             Tuple<Account, EFindAccountWay> FindAccountResult = accesser.Get(passport: model.Passport,
@@ -199,35 +154,35 @@ namespace BusinessCoreDLL.Accounts
                     {
                         //ID is exist
                         RegisterInfo.State = ERegisterAccountState.ExistAccount;
-                        RegisterInfo.Message = "ID is registered";
+                        RegisterInfo.Message = "ID已存在";
                         break;
                     }
                 case EFindAccountWay.UserName:
                     {
                         //username is exist.
                         RegisterInfo.State = ERegisterAccountState.ExistAccount;
-                        RegisterInfo.Message = "username is registered";
+                        RegisterInfo.Message = "用户名已被注册";
                         break;
                     }
                 case EFindAccountWay.Passport:
                     {
                         //passport is exist
                         RegisterInfo.State = ERegisterAccountState.ExistAccount;
-                        RegisterInfo.Message = "passport is registered";
+                        RegisterInfo.Message = "通行证已被注册";
                         break;
                     }
                 case EFindAccountWay.EMail:
                     {
                         //email is exist
                         RegisterInfo.State = ERegisterAccountState.ExistAccount;
-                        RegisterInfo.Message = "email is registered";
+                        RegisterInfo.Message = "邮箱已被注册";
                         break;
                     }
                 case EFindAccountWay.Phone:
                     {
                         //phone is exist
                         RegisterInfo.State = ERegisterAccountState.ExistAccount;
-                        RegisterInfo.Message = "Phone is registered";
+                        RegisterInfo.Message = "手机号已被注册";
                         break;
                     }
                 case EFindAccountWay.NotFound:
