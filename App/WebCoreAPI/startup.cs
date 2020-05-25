@@ -25,6 +25,9 @@ using System.IO;
 using System.Text;
 using WebApp.SingalR;
 
+/// <summary>
+/// 
+/// </summary>
 namespace WebCoreService
 {
     /// <summary>
