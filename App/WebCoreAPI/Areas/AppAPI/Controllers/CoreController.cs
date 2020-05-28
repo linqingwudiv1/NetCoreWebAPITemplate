@@ -99,18 +99,17 @@ namespace WebCoreService.Areas.AppAPI.Controllers
 
                 ret_list.Add(new
                 {
-                    title = filename,
-                    uri = $"public/AppPack/{Version}/{relativePath}",
-                    relativePath = relativePath,
-                    contentSize  = 0 ,
-                    transferSize = 0 ,
-                    segment = 0 ,
-                    segment_transferSize = 0 ,
-                    fileType = ( rx.IsMatch(filename) ? 1 : 0) ,
+                    title = filename                                 ,
+                    uri = $"public/AppPack/{Version}/{relativePath}" ,
+                    relativePath = relativePath                      ,
+                    contentSize  = 0                                 ,
+                    transferSize = 0                                 ,
+                    segment = 0                                      ,
+                    segment_transferSize = 0                         ,
+                    fileType = ( rx.IsMatch(filename) ? 1 : 0)       ,
                     state = 0 ,
                     requests = new List<dynamic>()
                 });
-
             }
 
             return Json(ret_list);
