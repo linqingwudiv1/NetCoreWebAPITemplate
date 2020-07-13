@@ -33,6 +33,11 @@
             <param name="model"></param>
             <returns></returns>
         </member>
+        <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.Login(BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Login)">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.RegisterAccountVerify(BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register)">
             <summary>
             用户验证

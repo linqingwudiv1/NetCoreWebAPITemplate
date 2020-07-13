@@ -105,7 +105,6 @@ namespace WebCoreService.Controllers
                 return BadRequest(new { message = "username or password is incorrect." });
             }
         }
-
         /// <summary>
         /// 
         /// </summary>
