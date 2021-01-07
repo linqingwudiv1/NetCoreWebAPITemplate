@@ -15,7 +15,7 @@
      * @@param {成功时,调用}} resolve
      * @@param {失败时,调用} reject
      */
-    let inner = function (resolve, reject) {
+    const inner = function (resolve, reject) {
         let req = new XMLHttpRequest();
 
         /* jwt 表头setse设置 */
@@ -33,7 +33,7 @@
         req.send(data);
     };
 
-    console.log('say hello : ');
+    
     document.onload = () => {
 
         console.log('say hello : ');
@@ -53,23 +53,24 @@
 
 
     function onclick_reqJWTToken() {
-        let inner = function (resolve, reject) {
-            let req = new XMLHttpRequest();
+        console.log("ni zai shuo sm ");
+        //let inner = function (resolve, reject) {
+        //    let req = new XMLHttpRequest();
 
-            /* jwt 表头setse设置 */
-            req.setRequestHeader('Authorization', `Bearer token ${JWT_Token}`);
+        //    /* jwt 表头setse设置 */
+        //    req.setRequestHeader('Authorization', `Bearer token ${JWT_Token}`);
 
-            req.onload = () => {
-                resolve(req.response);
-            };
+        //    req.onload = () => {
+        //        resolve(req.response);
+        //    };
 
-            req.onerror = () => {
-                reject(req.error);
-            };
+        //    req.onerror = () => {
+        //        reject(req.error);
+        //    };
 
-            req.open(method, url, true);
-            req.send(data);
-        };
+        //    req.open(method, url, true);
+        //    req.send(data);
+        //};
 
     }
 </script>

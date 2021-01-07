@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.PlatformAbstractions;
+//using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NetApplictionServiceDLL;
@@ -288,7 +289,7 @@ namespace WebCoreService
 
                 #endregion
 
-#if DEBUG // Release环境不建议暴露 Swagger 接口
+#if DEBUG  // Release环境不建议暴露 Swagger 接口
                 #region Swagger Doc 文档接入.
 
                 // Register the Swagger generator, defining one or more Swagger documents
@@ -303,7 +304,7 @@ namespace WebCoreService
                         }
                     );
 
-                    String basePath = Path.GetFullPath( Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"SwaggerDoc\"));
+                    String basePath = Path.GetFullPath( Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "SwaggerDoc"));
 
                     string[] files = Directory.GetFiles(basePath, "*.xml");
 
