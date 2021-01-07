@@ -10,8 +10,9 @@ using System.Text.RegularExpressions;
 
 namespace WebCoreService.Areas.AppAPI.Controllers
 {
+
     /// <summary>
-    /// 
+    /// Electron-Startup项目对应APi
     /// </summary>
     [Area("AppAPI")]
     [Route("AppAPI/api/[controller]/[action]")]
