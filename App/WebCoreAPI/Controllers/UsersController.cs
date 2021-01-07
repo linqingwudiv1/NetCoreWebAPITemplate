@@ -105,12 +105,15 @@ namespace WebCoreService.Controllers
                 return BadRequest(new { message = "username or password is incorrect." });
             }
         }
+
+
+        [HttpPost]
         /// <summary>
         /// 
         /// </summary>
         /// <param name="RegisterInfo"></param>
         /// <returns></returns>
-        public async Task<IActionResult> Register([FromBody] DTOAPIReq_Register RegisterInfo) 
+        public IActionResult Register([FromBody] DTOAPIReq_Register RegisterInfo)
         {
             return Ok();
         }

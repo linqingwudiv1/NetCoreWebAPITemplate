@@ -177,15 +177,20 @@ namespace WebCoreService
                 #endregion
 
                 #region Cors Support 跨域支持
+                string[] origins = ConfigurationManager.AppSettings.Get("CorsSite")?.Split(",");
 
-                string[] origins = new string[]
+                if ( origins == null || 
+                     origins.Length <= 0 )
                 {
+                    origins = new string[]
+                                    {
                     "http://localhost:8080",
                     "http://localhost:8081",
                     "http://localhost:8082",
                     "http://www.wakelu.com",
                     "http://192.168.1.131:8080"
-                };
+                                    };
+                }
 
                 services.AddCors(opt => opt.AddPolicy("WebAPIPolicy", builder =>
                 {
@@ -194,6 +199,7 @@ namespace WebCoreService
                            .AllowCredentials()
                            .AllowAnyHeader();
                 }));
+
                 #endregion
 
                 #region Add framework services. 配置项注入
@@ -297,7 +303,7 @@ namespace WebCoreService
                         }
                     );
 
-                    String basePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"SwaggerDoc\");
+                    String basePath = Path.GetFullPath( Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"SwaggerDoc\"));
 
                     string[] files = Directory.GetFiles(basePath, "*.xml");
 

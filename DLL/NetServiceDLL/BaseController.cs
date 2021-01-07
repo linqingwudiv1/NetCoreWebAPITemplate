@@ -20,7 +20,7 @@ namespace NetApplictionServiceDLL
         }
 
         /// <summary>
-        /// 
+        /// 二次封装 Ok函数
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -42,7 +42,7 @@ namespace NetApplictionServiceDLL
         }
 
         /// <summary>
-        /// 
+        /// 二次封装 Ok函数
         /// </summary>
         /// <param name="data"></param>
         /// <param name="serializerSettings"></param>
@@ -54,7 +54,7 @@ namespace NetApplictionServiceDLL
         }
 
         /// <summary>
-        /// 
+        /// 二次封装 Ok函数
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

@@ -167,15 +167,20 @@ namespace AdminService
                 #endregion
 
                 #region Cors Support 跨域支持
+                string[] origins = ConfigurationManager.AppSettings.Get("CorsSite") ?.Split(",");
 
-                string[] origins = new string[]
-{
+                if (origins == null || origins.Length <= 0 ) 
+                {
+                    origins = new string[]
+                                    {
                     "http://localhost:8080",
                     "http://localhost:8081",
                     "http://localhost:8082",
                     "http://www.wakelu.com",
                     "http://192.168.1.131:8080"
-};
+                                    };
+                }
+
                 services.AddCors(opt => opt.AddPolicy("WebAPIPolicy", builder =>
                 {
                     builder.WithOrigins(origins)

@@ -49,7 +49,6 @@ namespace WebCoreService.Controllers
             using (CoreContext db = new CoreContext(sqliteDBConn))
             {
                 RoutePage routePage = db.RoutePages.Find(Id);
-
                 return Ok(routePage);
             }
         }
