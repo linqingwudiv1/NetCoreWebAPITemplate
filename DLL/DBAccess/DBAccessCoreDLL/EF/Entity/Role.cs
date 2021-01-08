@@ -21,7 +21,7 @@ namespace DBAccessCoreDLL.EF.Entity
         /// <summary>
         /// 
         /// </summary>
-        public String Name { get; set; }
+        public String RoleName { get; set; }
 
         /// <summary>
         /// 
@@ -94,10 +94,11 @@ namespace DBAccessCoreDLL.EF.Entity
 #if DEBUG
             #region Default Database
 
+
             Role[] default_roles = {
-                                     new Role { Id = 1, ParentId = null, Descrption = "系统管理员", DisplayName = "系统管理员", Name = "admin"  } ,
-                                     new Role { Id = 2, ParentId =    1, Descrption = "系统运维员", DisplayName = "系统运维员", Name = "editor" } ,
-                                     new Role { Id = 3, ParentId =    1, Descrption = "访客",       DisplayName = "访客",       Name = "guest"  } 
+                                     new Role { Id = 1, ParentId = null, Descrption = "系统管理员", DisplayName = "系统管理员", RoleName = "admin"  } ,
+                                     new Role { Id = 2, ParentId =    1, Descrption = "系统运维员", DisplayName = "系统运维员", RoleName = "editor" } ,
+                                     new Role { Id = 3, ParentId =    1, Descrption = "访客",       DisplayName = "访客",       RoleName = "guest"  } 
                                    };
 
             tableBuilder.HasData(default_roles);

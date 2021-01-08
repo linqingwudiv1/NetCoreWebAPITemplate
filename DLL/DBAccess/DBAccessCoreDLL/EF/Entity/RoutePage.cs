@@ -38,7 +38,7 @@ namespace DBAccessCoreDLL.EF.Entity
         /// 
         /// </summary>
         [Required]
-        public string Name { get; set; }
+        public string RouteName { get; set; }
 
         /// <summary>
         /// 

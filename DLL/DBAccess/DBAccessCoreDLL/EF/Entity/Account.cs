@@ -42,7 +42,7 @@ namespace DBAccessCoreDLL.EF.Entity
         public string Password { get; set; }
 
         /// <summary>
-        /// 
+        /// 现实名称
         /// </summary>
         public string Name { get; set; }
 

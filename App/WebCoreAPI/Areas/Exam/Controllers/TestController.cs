@@ -130,7 +130,6 @@ namespace WebCoreService.Areas.TestArea.Controllers
                 }
 
                 #region Faker 数据模拟
-
                 //const string charSet = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-=`[]{};':"",./<>?";
                 const string charSet = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
                 var testAccount = new Faker<Account>(locale: "zh_CN");//.StrictMode(true);
@@ -195,7 +194,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                 testRoutePage.RuleFor( e => e.Id, faker => ((long)(faker.IndexFaker) + 1L) );
                 testRoutePage.RuleFor( e => e.Component, faker => "admin" );
                 testRoutePage.RuleFor( e => e.Meta, faker => faker.Make<RoutePageMeta>( 1, (i) => new RoutePageMeta())[0] );
-                testRoutePage.RuleFor( e => e.Name, faker => faker.Name.FirstName() + faker.Name.LastName() );
+                testRoutePage.RuleFor( e => e.RouteName, faker => faker.Name.FirstName() + faker.Name.LastName() );
                 testRoutePage.RuleFor( e => e.Path, faker => faker.Rant.Review() );
                 testRoutePage.RuleFor( e => e.ParentId, faker => 1L );
                 testRoutePage.RuleFor( entity => entity.Q_IsDelete, faker => faker.Random.Bool() );
@@ -264,7 +263,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                                      x.Q_Sequence ,
                                      x.Q_Version ,
                                      x.Q_UpdateTime ,
-                                     Roles = x.AccountRoles.Select( xx => xx.role.Name)
+                                     Roles = x.AccountRoles.Select( xx => xx.role.RoleName)
                                  });
 
                 var list = query.Take(100).ToList();

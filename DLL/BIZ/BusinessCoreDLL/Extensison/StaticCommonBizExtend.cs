@@ -59,7 +59,7 @@ namespace BusinessCoreDLL.Extensison
 
             if (account.Password == data.password)
             {
-                IList<string> roles = ( from x in account.AccountRoles select x.role.Name).ToList();
+                IList<string> roles = ( from x in account.AccountRoles select x.role.RoleName).ToList();
 
                 DTO_StoreAccount storeAccount = new DTO_StoreAccount
                 {

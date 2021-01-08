@@ -65,7 +65,7 @@ namespace WebCoreService.Controllers
             Role role = new Role();
 
             role.Id = 1; //Math.Abs(Guid.NewGuid().GetHashCode());
-            role.Name = data.Name;
+            role.RoleName = data.Name;
             role.Descrption = data.Descrption;
 
             int effectRowNum = 0; 
@@ -110,7 +110,7 @@ namespace WebCoreService.Controllers
                         return NotFound("role is invailed");
                     }
 
-                    role.Name = data.Name;
+                    role.RoleName = data.Name;
                     role.Descrption = data.Descrption;
 
                     effectRowNum = db.SaveChanges();
