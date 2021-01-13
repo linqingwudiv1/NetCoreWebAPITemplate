@@ -55,7 +55,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SwaggerDoc", "SwaggerDoc", 
 		SwaggerDoc\WebCoreService.xml = SwaggerDoc\WebCoreService.xml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBAccessCoreDLL", "DLL\DBAccess\DBAccessCoreDLL\DBAccessCoreDLL.csproj", "{AE1A2BC7-6133-4D94-B0B7-8F8316EBAD11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBAccessCoreDLL", "DLL\DBAccess\DBAccessCoreDLL\DBAccessCoreDLL.csproj", "{AE1A2BC7-6133-4D94-B0B7-8F8316EBAD11}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessAdminDLL", "DLL\BIZ\BusinessAdminDLL\BusinessAdminDLL.csproj", "{CF2D0436-ADAB-43C8-86AC-6383CC288355}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,6 +129,10 @@ Global
 		{AE1A2BC7-6133-4D94-B0B7-8F8316EBAD11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE1A2BC7-6133-4D94-B0B7-8F8316EBAD11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE1A2BC7-6133-4D94-B0B7-8F8316EBAD11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF2D0436-ADAB-43C8-86AC-6383CC288355}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF2D0436-ADAB-43C8-86AC-6383CC288355}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF2D0436-ADAB-43C8-86AC-6383CC288355}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF2D0436-ADAB-43C8-86AC-6383CC288355}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -148,6 +154,7 @@ Global
 		{819DA8F2-BB8D-4E33-AB9B-469323A58A38} = {472701E4-B5DE-4D3B-90F7-D65F251EF3DA}
 		{A161846F-EC73-45A4-92C0-FCE8179C2D8A} = {B5477B3E-78A2-4DCF-BA11-D0047250F3EC}
 		{AE1A2BC7-6133-4D94-B0B7-8F8316EBAD11} = {A161846F-EC73-45A4-92C0-FCE8179C2D8A}
+		{CF2D0436-ADAB-43C8-86AC-6383CC288355} = {C6BED1C8-EFD8-4EC7-800B-797FF923B1DD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {13514964-E51D-4900-979E-A0E5ABCBEDB6}

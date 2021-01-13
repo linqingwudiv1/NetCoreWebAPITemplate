@@ -1,351 +1,351 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>BusinessCoreDLL</name>
+        <name>BusinessAdminDLL</name>
     </assembly>
     <members>
-        <member name="T:BusinessCoreDLL.Accounts.AccountBizServices">
+        <member name="T:BusinessAdminDLL.Accounts.AccountBizServices">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.Accounts.AccountBizServices.accesser">
+        <member name="P:BusinessAdminDLL.Accounts.AccountBizServices.accesser">
             <summary>
             DAO层
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.Accounts.AccountBizServices.IDGenerator">
+        <member name="P:BusinessAdminDLL.Accounts.AccountBizServices.IDGenerator">
             <summary>
             
             </summary>
         </member>
-        <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IAccountAccesser)">
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IAccountAccesser)">
             <summary>
             
             </summary>
             <param name="_IDGenerator"></param>
             <param name="AccountAccesser"></param>
         </member>
-        <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.Register(BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register)">
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.Register(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register)">
             <summary>
             Register
             </summary>
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.Login(BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Login)">
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.Login(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
             <summary>
             
             </summary>
         </member>
-        <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.RegisterAccountVerify(BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register)">
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.RegisterAccountVerify(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register)">
             <summary>
             用户验证
             </summary>
             <param name="model"></param>
         </member>
-        <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.IsRegisterAccountExisted(BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register,BusinessCoreDLL.Accounts.RegisterAccountInfo@)">
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.IsRegisterAccountExisted(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register,BusinessAdminDLL.Accounts.RegisterAccountInfo@)">
             <summary>
             
             </summary>
             <param name="model"></param>
             <param name="RegisterInfo"></param>
         </member>
-        <member name="T:BusinessCoreDLL.Accounts.ERegisterAccountState">
+        <member name="T:BusinessAdminDLL.Accounts.ERegisterAccountState">
             <summary>
             
             </summary>
         </member>
-        <member name="F:BusinessCoreDLL.Accounts.ERegisterAccountState.Error">
+        <member name="F:BusinessAdminDLL.Accounts.ERegisterAccountState.Error">
             <summary>
             
             </summary>
         </member>
-        <member name="F:BusinessCoreDLL.Accounts.ERegisterAccountState.Success">
+        <member name="F:BusinessAdminDLL.Accounts.ERegisterAccountState.Success">
             <summary>
             
             </summary>
         </member>
-        <member name="F:BusinessCoreDLL.Accounts.ERegisterAccountState.ExistAccount">
+        <member name="F:BusinessAdminDLL.Accounts.ERegisterAccountState.ExistAccount">
             <summary>
             
             </summary>
         </member>
-        <member name="F:BusinessCoreDLL.Accounts.ERegisterAccountState.FormatNotMatch">
+        <member name="F:BusinessAdminDLL.Accounts.ERegisterAccountState.FormatNotMatch">
             <summary>
             注册资料不匹配规则
             </summary> 
         </member>
-        <member name="T:BusinessCoreDLL.Accounts.RegisterAccountInfo">
+        <member name="T:BusinessAdminDLL.Accounts.RegisterAccountInfo">
             <summary>
             
             </summary>
         </member>
-        <member name="M:BusinessCoreDLL.Accounts.RegisterAccountInfo.#ctor">
+        <member name="M:BusinessAdminDLL.Accounts.RegisterAccountInfo.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.Accounts.RegisterAccountInfo.account">
+        <member name="P:BusinessAdminDLL.Accounts.RegisterAccountInfo.account">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.Accounts.RegisterAccountInfo.State">
+        <member name="P:BusinessAdminDLL.Accounts.RegisterAccountInfo.State">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.Accounts.RegisterAccountInfo.Message">
+        <member name="P:BusinessAdminDLL.Accounts.RegisterAccountInfo.Message">
             <summary>
             
             </summary>
         </member>
-        <member name="T:BusinessCoreDLL.Accounts.IAccountsBizServices">
+        <member name="T:BusinessAdminDLL.Accounts.IAccountsBizServices">
             <summary>
             
             </summary>
         </member>
-        <member name="M:BusinessCoreDLL.Accounts.IAccountsBizServices.Register(BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register)">
+        <member name="M:BusinessAdminDLL.Accounts.IAccountsBizServices.Register(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register)">
             <summary>
             
             </summary>
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="T:BusinessCoreDLL.AutofacModule.CoreModule">
+        <member name="T:BusinessAdminDLL.AutofacModule.CoreModule">
             <summary>
             
             </summary>
         </member>
-        <member name="M:BusinessCoreDLL.AutofacModule.CoreModule.Load(Autofac.ContainerBuilder)">
+        <member name="M:BusinessAdminDLL.AutofacModule.CoreModule.Load(Autofac.ContainerBuilder)">
             <summary>
             Autofac 注入服务
             </summary>
             <param name="builder"></param>
         </member>
-        <member name="T:BusinessCoreDLL.Base.BaseBizServices">
+        <member name="T:BusinessAdminDLL.Base.BaseBizServices">
             <summary>
             Biz Core 基础
             </summary>
         </member>
-        <member name="M:BusinessCoreDLL.Base.BaseBizServices.#ctor">
+        <member name="M:BusinessAdminDLL.Base.BaseBizServices.#ctor">
             <summary>
             
             </summary>
         </member>
-        <member name="M:BusinessCoreDLL.Base.BaseBizServices.GetCoreDB">
+        <member name="M:BusinessAdminDLL.Base.BaseBizServices.GetCoreDB">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="T:BusinessCoreDLL.Base.IBaseBizServices">
+        <member name="T:BusinessAdminDLL.Base.IBaseBizServices">
             <summary>
             
             </summary>
         </member>
-        <member name="T:BusinessCoreDLL.DTOModel.API.Roles.DTOAPI_Role">
+        <member name="T:BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Roles.DTOAPI_Role.key">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role.key">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Roles.DTOAPI_Role.name">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role.name">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Roles.DTOAPI_Role.description">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role.description">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Roles.DTOAPI_Role.children">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role.children">
             <summary>
             
             </summary>
         </member>
-        <member name="T:BusinessCoreDLL.DTOModel.API.Routes.DTOAPIReq_UpdateRolerRoutes">
+        <member name="T:BusinessAdminDLL.DTOModel.API.Routes.DTOAPIReq_UpdateRolerRoutes">
             <summary>
             
             </summary>
         </member>
-        <member name="T:BusinessCoreDLL.DTOModel.API.Routes.DTOAPIRes_GetRoutePages">
+        <member name="T:BusinessAdminDLL.DTOModel.API.Routes.DTOAPIRes_GetRoutePages">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Routes.DTOAPIRes_GetRoutePages.constantRoutes">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPIRes_GetRoutePages.constantRoutes">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Routes.DTOAPIRes_GetRoutePages.asyncRoutes">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPIRes_GetRoutePages.asyncRoutes">
             <summary>
             
             </summary>
         </member>
-        <member name="T:BusinessCoreDLL.DTOModel.API.Routes.DTOAPI_RoutePages">
+        <member name="T:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Routes.DTOAPI_RoutePages.children">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages.children">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Routes.DTOAPI_RoutePages.title">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages.title">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Routes.DTOAPI_RoutePages.path">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages.path">
             <summary>
             
             </summary>
         </member>
-        <member name="T:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Info">
+        <member name="T:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Info">
             <summary>
             Info
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Info.username">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Info.username">
             <summary>
             用户名
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Info.password">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Info.password">
             <summary>
             登录密码
             </summary>
         </member>
-        <member name="T:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Login">
+        <member name="T:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login">
             <summary>
             Request Login
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Login.passport">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login.passport">
             <summary>
             用户名/Email/UID/Phone/passport
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Login.password">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login.password">
             <summary>
             登录密码
             </summary>
         </member>
-        <member name="T:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register">
+        <member name="T:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register">
             <summary>
             注册逻辑传输对象
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register.EMail">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register.EMail">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register.Phone">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register.Phone">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register.Passport">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register.Passport">
             <summary>
             帐号
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register.Password">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register.Password">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Register.Username">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register.Username">
             <summary>
             
             </summary>
         </member>
-        <member name="T:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info">
+        <member name="T:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info">
             <summary>
             Info
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.id">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.id">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.name">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.name">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.username">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.username">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.password">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.password">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.phone">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.phone">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.email">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.email">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.avatar">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.avatar">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.introduction">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.introduction">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_Info.roles">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.roles">
             <summary>
             
             </summary>
         </member>
-        <member name="T:BusinessCoreDLL.Extensison.EM_LoginState">
+        <member name="T:BusinessAdminDLL.Extensison.EM_LoginState">
             <summary>
             登录状态
             </summary>
         </member>
-        <member name="F:BusinessCoreDLL.Extensison.EM_LoginState.Pass">
+        <member name="F:BusinessAdminDLL.Extensison.EM_LoginState.Pass">
             <summary>
             
             </summary>
         </member>
-        <member name="F:BusinessCoreDLL.Extensison.EM_LoginState.NoExist">
+        <member name="F:BusinessAdminDLL.Extensison.EM_LoginState.NoExist">
             <summary>
             
             </summary>
         </member>
-        <member name="F:BusinessCoreDLL.Extensison.EM_LoginState.PasswordError">
+        <member name="F:BusinessAdminDLL.Extensison.EM_LoginState.PasswordError">
             <summary>
             
             </summary>
         </member>
-        <member name="T:BusinessCoreDLL.Extensison.StaticBizExtend">
+        <member name="T:BusinessAdminDLL.Extensison.StaticBizExtend">
             <summary>
             通用全局业务扩展，例如登录，注销
             </summary>
         </member>
-        <member name="M:BusinessCoreDLL.Extensison.StaticBizExtend.LoginLogic(Microsoft.AspNetCore.Mvc.Controller,BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Login)">
+        <member name="M:BusinessAdminDLL.Extensison.StaticBizExtend.LoginLogic(Microsoft.AspNetCore.Mvc.Controller,BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
             <summary>
             登录操作
             </summary>
@@ -353,107 +353,103 @@
             <param name="data"></param>
             <returns></returns>
         </member>
-        <member name="M:BusinessCoreDLL.Extensison.StaticBizExtend.LogoutLogic(Microsoft.AspNetCore.Mvc.Controller)">
+        <member name="M:BusinessAdminDLL.Extensison.StaticBizExtend.LogoutLogic(Microsoft.AspNetCore.Mvc.Controller)">
             <summary>
             注销操作
             </summary>
             <param name="controller"></param>
         </member>
-        <member name="T:BusinessCoreDLL.Roles.IRolesBizServices">
+        <member name="T:BusinessAdminDLL.Roles.IRolesBizServices">
             <summary>
             
             </summary>
         </member>
-        <member name="M:BusinessCoreDLL.Roles.IRolesBizServices.GetRoles">
+        <member name="M:BusinessAdminDLL.Roles.IRolesBizServices.GetRoles">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:BusinessCoreDLL.Roles.IRolesBizServices.GetRole(System.Int64)">
+        <member name="M:BusinessAdminDLL.Roles.IRolesBizServices.GetRole(System.Int64)">
             <summary>
             
             </summary>
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:BusinessCoreDLL.Roles.IRolesBizServices.AddRole(BusinessCoreDLL.DTOModel.API.Roles.DTOAPI_Role)">
+        <member name="M:BusinessAdminDLL.Roles.IRolesBizServices.AddRole(BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role)">
+            
+        </member>
+        <member name="M:BusinessAdminDLL.Roles.IRolesBizServices.UpdateRole(BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role)">
             <summary>
             
             </summary>
             <param name="data"></param>
             <returns></returns>
         </member>
-        <member name="M:BusinessCoreDLL.Roles.IRolesBizServices.UpdateRole(BusinessCoreDLL.DTOModel.API.Roles.DTOAPI_Role)">
-            <summary>
-            
-            </summary>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="M:BusinessCoreDLL.Roles.IRolesBizServices.DeleteRole(System.Int64)">
+        <member name="M:BusinessAdminDLL.Roles.IRolesBizServices.DeleteRole(System.Int64)">
             <summary>
             
             </summary>
             <param name="Id"></param>
             <returns></returns>
         </member>
-        <member name="T:BusinessCoreDLL.Roles.RolesBizServices">
+        <member name="T:BusinessAdminDLL.Roles.RolesBizServices">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.Roles.RolesBizServices.accesser">
+        <member name="P:BusinessAdminDLL.Roles.RolesBizServices.accesser">
             <summary>
             DAO层
             </summary>
         </member>
-        <member name="P:BusinessCoreDLL.Roles.RolesBizServices.IDGenerator">
+        <member name="P:BusinessAdminDLL.Roles.RolesBizServices.IDGenerator">
             <summary>
             
             </summary>
         </member>
-        <member name="M:BusinessCoreDLL.Roles.RolesBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IRoleAccesser)">
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IRoleAccesser)">
             <summary>
             
             </summary>
             <param name="_IDGenerator"></param>
             <param name="RoleAccesser"></param>
         </member>
-        <member name="M:BusinessCoreDLL.Roles.RolesBizServices.printNode(BusinessCoreDLL.DTOModel.API.Roles.DTOAPI_Role)">
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.printNode(BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role)">
             <summary>
             
             </summary>
             <param name="data"></param>
         </member>
-        <member name="M:BusinessCoreDLL.Roles.RolesBizServices.GetRoles">
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.GetRoles">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:BusinessCoreDLL.Roles.RolesBizServices.GetRole(System.Int64)">
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.GetRole(System.Int64)">
             <summary>
             
             </summary>
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:BusinessCoreDLL.Roles.RolesBizServices.AddRole(BusinessCoreDLL.DTOModel.API.Roles.DTOAPI_Role)">
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.AddRole(BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role)">
             <summary>
             
             </summary>
             <param name="data"></param>
             <returns></returns>
         </member>
-        <member name="M:BusinessCoreDLL.Roles.RolesBizServices.UpdateRole(BusinessCoreDLL.DTOModel.API.Roles.DTOAPI_Role)">
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.UpdateRole(BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role)">
             <summary>
             
             </summary>
             <param name="data"></param>
             <returns></returns>
         </member>
-        <member name="M:BusinessCoreDLL.Roles.RolesBizServices.DeleteRole(System.Int64)">
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.DeleteRole(System.Int64)">
             <summary>
             
             </summary>

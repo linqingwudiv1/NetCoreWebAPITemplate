@@ -193,7 +193,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
 
                 testRoutePage.RuleFor( e => e.Id, faker => ((long)(faker.IndexFaker) + 1L) );
                 testRoutePage.RuleFor( e => e.Component, faker => "admin" );
-                testRoutePage.RuleFor( e => e.Meta, faker => faker.Make<RoutePageMeta>( 1, (i) => new RoutePageMeta())[0] );
+               // testRoutePage.RuleFor( e => e.Meta, faker => faker.Make<RoutePageMeta>( 1, (i) => new RoutePageMeta())[0] );
                 testRoutePage.RuleFor( e => e.RouteName, faker => faker.Name.FirstName() + faker.Name.LastName() );
                 testRoutePage.RuleFor( e => e.Path, faker => faker.Rant.Review() );
                 testRoutePage.RuleFor( e => e.ParentId, faker => 1L );

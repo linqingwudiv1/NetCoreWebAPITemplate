@@ -1,4 +1,4 @@
-﻿using BusinessCoreDLL.DTOModel.API.Routes;
+﻿using BusinessAdminDLL.DTOModel.API.Routes;
 using DBAccessCoreDLL.EF.Context;
 using DBAccessCoreDLL.EF.Entity;
 using Microsoft.AspNetCore.Cors;
@@ -10,7 +10,7 @@ using System.Configuration;
 using System.Linq;
 
 
-namespace WebCoreService.Controllers
+namespace AdminService.Controllers
 {
 
     /// <summary>
@@ -28,7 +28,8 @@ namespace WebCoreService.Controllers
         public IActionResult GetRoutePages()
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
-            using (CoreContext db = new CoreContext(sqliteDBConn))
+
+            using ( CoreContext db = new CoreContext(sqliteDBConn) )
             {
                 IList<RoutePage> routePages = (from x in db.RoutePages select x).ToList();
 
@@ -46,7 +47,7 @@ namespace WebCoreService.Controllers
         {
             string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
 
-            using (CoreContext db = new CoreContext(sqliteDBConn))
+            using ( CoreContext db = new CoreContext(sqliteDBConn) )
             {
                 RoutePage routePage = db.RoutePages.Find(Id);
                 return Ok(routePage);
@@ -64,11 +65,10 @@ namespace WebCoreService.Controllers
             using (CoreContext db = new CoreContext())
             {
                 RoutePage newRoutePage = new RoutePage();
-                
-                //newRoutePage.Meta = new RoutePageMeta();
 
-                return Ok(effectNum);
+                newRoutePage.Meta = new RoutePageMeta();
             }
+            return Ok(effectNum);
         }
 
         /// <summary>

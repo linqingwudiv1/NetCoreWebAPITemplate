@@ -1,6 +1,6 @@
 ﻿using DBAccessCoreDLL.EF.Context;
 
-namespace BusinessCoreDLL.Base
+namespace BusinessAdminDLL.Base
 {
     /// <summary>
     /// Biz Core 基础

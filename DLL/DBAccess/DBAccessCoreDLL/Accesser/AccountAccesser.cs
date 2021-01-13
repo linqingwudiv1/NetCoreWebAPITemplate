@@ -1,4 +1,5 @@
-﻿using DBAccessBaseDLL.IDGenerator;
+﻿using DBAccessBaseDLL.Accesser;
+using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.EF.Context;
 using DBAccessCoreDLL.EF.Entity;
 using System;
@@ -16,16 +17,14 @@ namespace DBAccessCoreDLL.Accesser
         /// <summary>
         /// 
         /// </summary>
-        public readonly CoreContextDIP db;
-
-
-        /// <summary>
-        /// 
-        /// </summary>
         public AccountAccesser(CoreContextDIP _db)
         {
             db = _db;
         }
+
+        CoreContextDIP IAccountAccesser.db { get => db; set => db = value; }
+        private CoreContextDIP db;
+
 
         /// <summary>
         /// 
@@ -166,6 +165,51 @@ namespace DBAccessCoreDLL.Accesser
         {
             db.Accounts.UpdateRange(modifyEntiys);
             return db.SaveChanges();
+        }
+
+        int IAccesser<Account, long>.Add(Account newEntiy)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IAccesser<Account, long>.Add(IList<Account> newEntiys)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IAccesser<Account, long>.Delete(long key)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IAccesser<Account, long>.Delete(IList<long> keys)
+        {
+            throw new NotImplementedException();
+        }
+
+        Tuple<Account, EFindAccountWay> IAccountAccesser.Get(long? key, string username, string passport, string email, string phone)
+        {
+            throw new NotImplementedException();
+        }
+
+        Account IAccesser<Account, long>.Get(long key)
+        {
+            throw new NotImplementedException();
+        }
+
+        IList<Account> IAccesser<Account, long>.Get(IList<long> keys)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IAccesser<Account, long>.Update(Account modifyEntiy)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IAccesser<Account, long>.Update(IList<Account> modifyEntiys)
+        {
+            throw new NotImplementedException();
         }
     }
 }

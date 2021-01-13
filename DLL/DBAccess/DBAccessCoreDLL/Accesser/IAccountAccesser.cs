@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.EF.Context;
 
 namespace DBAccessCoreDLL.Accesser
 {
@@ -24,6 +25,11 @@ namespace DBAccessCoreDLL.Accesser
     /// </summary>
     public interface IAccountAccesser : IAccesser<Account, Int64>
     {
+        /// <summary>
+        /// DB Layer
+        /// </summary>
+        CoreContextDIP db { get; protected set; }
+
         /// <summary>
         /// 
         /// </summary>

@@ -278,7 +278,7 @@ namespace AdminService
 
                 #endregion
 
-#if DEBUG // Release环境不建议暴露 Swagger 接口
+#if DEBUG // Release 环境不建议暴露 Swagger 接口
                 #region Swagger Doc 文档接入.
 
                 // Register the Swagger generator, defining one or more Swagger documents
@@ -288,8 +288,8 @@ namespace AdminService
                         new OpenApiInfo
                         {
                             Version = "v1",
-                            Title = " WebCoreService Doc",
-                            Description = "WebCoreService Doc"
+                            Title = $" Web Admin Service Doc",
+                            Description = $"Web Admin Service Doc",
                         }
                     );
 

@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace DBAccessCoreDLL.EF.Entity
 {
     /// <summary>
-    /// 路由得Role列表
+    /// Role对应的Route
     /// </summary>
     public class RoutePageRole : BaseEntity
     {

@@ -1,15 +1,15 @@
 ﻿using BaseDLL.Helper;
 using BaseDLL.Helper.SMS;
 using BaseDLL.Helper.Smtp;
-using BusinessCoreDLL.Base;
-using BusinessCoreDLL.DTOModel.API.Users;
+using BusinessAdminDLL.Base;
+using BusinessAdminDLL.DTOModel.API.Users;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
 using DBAccessCoreDLL.EF.Context;
 using DBAccessCoreDLL.EF.Entity;
 using System;
 
-namespace BusinessCoreDLL.Accounts
+namespace BusinessAdminDLL.Accounts
 {
     /// <summary>
     /// 
@@ -87,8 +87,8 @@ namespace BusinessCoreDLL.Accounts
         /// </summary>
         public void Login(DTOAPIReq_Login LoginInfo)
         {
-            //bool PhoneHelper.IsValid(LoginInfo.passport);
-            //accesser.Get();
+            // bool PhoneHelper.IsValid(LoginInfo.passport);
+            // accesser.Get();
         }
 
         #region private

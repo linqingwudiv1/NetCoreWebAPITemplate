@@ -11,12 +11,13 @@ namespace SearchEngineDLL
     {
         /// <summary>
         /// 
-        /// </summary>
+        /// </summary> 
         /// <param name="IndexPath"></param>
         /// <param name="SourcePath"></param>
         /// <param name="pattern"></param>
         static void LoadUpdate(string IndexPath, string SourcePath, string [] SourceDirePattern) 
         {
         }
+
     }
 }

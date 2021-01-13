@@ -22,8 +22,8 @@ namespace DBAccessBaseDLL.IDGenerator
         /// 
         /// </summary>
         protected string conn = @"Data Source=129.204.160.155;UID=sa;PWD=1qaz@WSX;
-                                         Initial Catalog=TableIDCounter;
-                                         Connect Timeout=30;Min Pool Size=10;Max Pool Size=100;";
+                                  Initial Catalog=TableIDCounter;
+                                  Connect Timeout=30;Min Pool Size=10;Max Pool Size=100;";
 
         /// <summary>
         /// 

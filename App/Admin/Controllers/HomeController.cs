@@ -11,7 +11,7 @@ namespace AdminService.Controllers
     /// <summary>
     /// 
     /// </summary>
-    public class TestController : BaseController
+    public class HomeController : BaseController
     {
         /// <summary>
         /// 

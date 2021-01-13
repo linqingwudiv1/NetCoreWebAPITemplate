@@ -1,5 +1,5 @@
-﻿using BusinessCoreDLL.DTOModel.API.Roles;
-using BusinessCoreDLL.Roles;
+﻿using BusinessAdminDLL.DTOModel.API.Roles;
+using BusinessAdminDLL.Roles;
 using DBAccessCoreDLL.EF.Context;
 using DBAccessCoreDLL.EF.Entity;
 using Microsoft.AspNetCore.Cors;
@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WebCoreService.Controllers
+namespace AdminService.Controllers
 {
 
     /// <summary>

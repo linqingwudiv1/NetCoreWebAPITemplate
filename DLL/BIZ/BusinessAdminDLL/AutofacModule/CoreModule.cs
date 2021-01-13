@@ -1,6 +1,6 @@
 ﻿using Autofac;
-using BusinessCoreDLL.Accounts;
-using BusinessCoreDLL.Roles;
+using BusinessAdminDLL.Accounts;
+using BusinessAdminDLL.Roles;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
 using NetApplictionServiceDLL;
@@ -8,13 +8,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BusinessCoreDLL.AutofacModule
+namespace BusinessAdminDLL.AutofacModule
 {
     /// <summary>
     /// 
     /// </summary>
     public class CoreModule : Module
     {
+
         /// <summary>
         /// Autofac 注入服务
         /// </summary>
@@ -24,8 +25,10 @@ namespace BusinessCoreDLL.AutofacModule
             builder.RegisterInstance<DBIDGenerator>(new DBIDGenerator()).As<IIDGenerator>().SingleInstance();
 
             #region Biz
-            builder.RegisterType<AccountBizServices>().As<IAccountsBizServices>().InstancePerLifetimeScope();
-            builder.RegisterType<RolesBizServices>().As<IRolesBizServices>().InstancePerLifetimeScope();
+
+            builder.RegisterType<AccountBizServices>()  .As<IAccountsBizServices>().InstancePerLifetimeScope();
+            builder.RegisterType<RolesBizServices>()    .As<IRolesBizServices>().InstancePerLifetimeScope();
+
             #endregion
 
             #region DB 访问器
