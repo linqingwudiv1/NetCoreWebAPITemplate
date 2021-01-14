@@ -1,9 +1,12 @@
 ﻿using BusinessAdminDLL.DTOModel.API.Routes;
+using BusinessAdminDLL.RoutePage;
 using DBAccessCoreDLL.EF.Context;
 using DBAccessCoreDLL.EF.Entity;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -21,20 +24,23 @@ namespace AdminService.Controllers
     [ApiController]
     public class RoutesController : BaseController
     {
+        readonly IRoutePageBizServices services;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public RoutesController(IRoutePageBizServices _services) 
+        {
+            services = _services;
+        }
         /// <summary>
         /// 
         /// </summary>
         [HttpGet]
         public IActionResult GetRoutePages()
         {
-            string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
-
-            using ( CoreContext db = new CoreContext(sqliteDBConn) )
-            {
-                IList<RoutePage> routePages = (from x in db.RoutePages select x).ToList();
-
-                return Ok(routePages);
-            }
+            var data = services.GetRoutePages();
+            return JsonToCamelCase(data);
         }
 
         /// <summary>
@@ -45,28 +51,24 @@ namespace AdminService.Controllers
         [HttpGet("{Id}")]
         public IActionResult GetRoutePage(Int64 Id)
         {
-            string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
-
-            using ( CoreContext db = new CoreContext(sqliteDBConn) )
-            {
-                RoutePage routePage = db.RoutePages.Find(Id);
-                return Ok(routePage);
-            }
+            var data = this.services.GetRoutePage(Id);
+            return JsonToCamelCase(data);
         }
 
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="routepage"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult AddRoutePage(DTOAPI_RoutePages routepage ) 
+        public IActionResult AddRoutePage([FromBody]DTOAPI_RoutePages routepage)
         {
             int effectNum = 0;
             using (CoreContext db = new CoreContext())
             {
                 RoutePage newRoutePage = new RoutePage();
 
-                newRoutePage.Meta = new RoutePageMeta();
+                // newRoutePage.Meta = new RoutePageMeta();
             }
             return Ok(effectNum);
         }
@@ -76,10 +78,10 @@ namespace AdminService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut]
-        public IActionResult UpdateRoutePage(/* DTOAPIReq_UpdateRoles routepage */) 
+        public IActionResult UpdateRoutePage(/* DTOAPIReq_UpdateRoles routepage */)
         {
             int effectNum = 0;
-            
+
             return Ok(effectNum);
         }
     }

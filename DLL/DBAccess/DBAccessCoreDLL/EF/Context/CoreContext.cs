@@ -1,6 +1,7 @@
 ﻿using DBAccessBaseDLL.EF.Context;
 using DBAccessCoreDLL.EF.Entity;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace DBAccessCoreDLL.EF.Context
 {
@@ -23,7 +24,7 @@ namespace DBAccessCoreDLL.EF.Context
         /// 
         /// </summary>
         virtual public DbSet<RoutePage> RoutePages { get; protected set; }
-     
+
         /// <summary>
         /// 可访问页面权限列表
         /// </summary>
@@ -50,8 +51,11 @@ namespace DBAccessCoreDLL.EF.Context
         /// </summary>
         /// <param name="_ConnString">多表组合</param>
         public CoreContext(string _ConnString = "")
-            : base( _ConnString)
+            : base(_ConnString)
         {
+#if DEBUG
+            this.Database.EnsureCreated();
+#endif
         }
 
         /// <summary>
@@ -61,6 +65,9 @@ namespace DBAccessCoreDLL.EF.Context
         public CoreContext(DbContextOptions<CoreContext> options)
         : base(options)
         {
+#if DEBUG
+            this.Database.EnsureCreated();
+#endif
         }
 
 
@@ -69,10 +76,28 @@ namespace DBAccessCoreDLL.EF.Context
         /// </summary>
         /// <param name="options"></param>
         /// <param name="_ConnString"></param>
-        public CoreContext(DbContextOptions<CoreContext> options, string _ConnString = "") 
+        public CoreContext(DbContextOptions<CoreContext> options, string _ConnString = "")
             : base(options, _ConnString)
         {
+#if DEBUG
+            this.Database.EnsureCreated();
+#endif
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured &&
+                 !String.IsNullOrEmpty(this.ConnString))
+            {
+                optionsBuilder.UseSqlite(this.ConnString);
+            }
+            base.OnConfiguring(optionsBuilder);
+        }
+
         /// <summary>
         /// 
         /// </summary>

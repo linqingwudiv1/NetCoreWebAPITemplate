@@ -1,12 +1,15 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using BusinessAdminDLL.AutofacModule;
 using DBAccessBaseDLL.Static;
+using DBAccessCoreDLL.EF.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -21,8 +24,6 @@ using System.Configuration;
 using System.IO;
 using System.Text;
 using WebApp.SingalR;
-
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace AdminService
 {
@@ -137,7 +138,7 @@ namespace AdminService
         /// <param name="builder"></param>
         public void ConfigureContainer(ContainerBuilder builder) 
         {
-            //builder.RegisterModule(new CoreModule());
+            builder.RegisterModule(new AdminAutofacModule());
         }
 
         /// This method gets called by the runtime. Use this method to add services to the container.
@@ -195,10 +196,10 @@ namespace AdminService
                 #region EF DI注入
                 string connstr = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
                 
-                //services.AddDbContextPool<ExamContextDIP>((opt) =>
-                //{
-                //    opt.UseSqlite(connstr);
-                //}, 100);
+                services.AddDbContextPool<CoreContextDIP>((opt) =>
+                {
+                    opt.UseSqlite(connstr);
+                }, 100);
                 
                 #endregion
 
@@ -293,7 +294,7 @@ namespace AdminService
                         }
                     );
 
-                    String basePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"SwaggerDoc\");
+                    String basePath = Path.GetFullPath( Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"SwaggerDoc\"));
 
                     string[] files = Directory.GetFiles(basePath,"*.xml");
 

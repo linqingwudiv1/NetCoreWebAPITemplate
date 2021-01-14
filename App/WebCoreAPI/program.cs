@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using NLog;
 using NLog.Web;
 using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace WebCoreService
@@ -44,9 +45,10 @@ namespace WebCoreService
                 
                 host.Run();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
+                Debug.WriteLine(ex.Message);
             }
         }
 
@@ -66,7 +68,7 @@ namespace WebCoreService
 
             IHostBuilder host = Host.CreateDefaultBuilder(args)
                                     .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                                    .ConfigureWebHost(webBuilder =>
+                                    .ConfigureWebHostDefaults(webBuilder =>
                                     {
                                         webBuilder.UseKestrel()
                                                   .UseContentRoot(Directory.GetCurrentDirectory())

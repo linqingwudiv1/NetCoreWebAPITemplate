@@ -145,6 +145,12 @@
             
             </summary>
         </member>
+        <member name="M:BusinessCoreDLL.Base.IBaseBizServices.GetCoreDB">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:BusinessCoreDLL.DTOModel.API.Roles.DTOAPI_Role">
             <summary>
             

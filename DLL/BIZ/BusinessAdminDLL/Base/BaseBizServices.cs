@@ -1,4 +1,5 @@
 ﻿using DBAccessCoreDLL.EF.Context;
+using System.Configuration;
 
 namespace BusinessAdminDLL.Base
 {
@@ -21,6 +22,7 @@ namespace BusinessAdminDLL.Base
         /// <returns></returns>
         public CoreContext GetCoreDB() 
         {
+            //string connstr = ConfigurationManager.ConnectionStrings[""].ConnectionString;
             return new CoreContext(); 
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using BusinessAdminDLL.Accounts;
 using BusinessAdminDLL.Roles;
+using BusinessAdminDLL.RoutePage;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
 using NetApplictionServiceDLL;
@@ -13,7 +14,7 @@ namespace BusinessAdminDLL.AutofacModule
     /// <summary>
     /// 
     /// </summary>
-    public class CoreModule : Module
+    public class AdminAutofacModule : Module
     {
 
         /// <summary>
@@ -28,11 +29,12 @@ namespace BusinessAdminDLL.AutofacModule
 
             builder.RegisterType<AccountBizServices>()  .As<IAccountsBizServices>().InstancePerLifetimeScope();
             builder.RegisterType<RolesBizServices>()    .As<IRolesBizServices>().InstancePerLifetimeScope();
+            builder.RegisterType<RoutePageBizServices>().As<IRoutePageBizServices>().InstancePerLifetimeScope();
 
             #endregion
 
             #region DB 访问器
-            
+
             builder.RegisterType<AccountAccesser>().As<IAccountAccesser>().InstancePerLifetimeScope();
             builder.RegisterType<RoleAccesser>().As<IRoleAccesser>().InstancePerLifetimeScope();
 

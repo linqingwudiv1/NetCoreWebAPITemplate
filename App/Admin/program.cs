@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using NLog;
 using NLog.Web;
 using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace AdminService
@@ -70,11 +71,12 @@ namespace AdminService
 
             Program.HostAddress = JsonHelper.loadJsonFromFile<HostAddressInfo>(path);
 
-            Console.WriteLine("Kestrel地址:" + Program.HostAddress.HostAddress);
+            Console.WriteLine("==============Kestrel Server Address :" + Program.HostAddress.HostAddress + " ==============");
+            Console.WriteLine("============== Configuration ==============");
 
             IHostBuilder host = Host.CreateDefaultBuilder(args)
                                     .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                                    .ConfigureWebHost(webBuilder =>
+                                    .ConfigureWebHostDefaults(webBuilder =>
                                     {
                                         webBuilder.UseKestrel()
                                                   .UseContentRoot(Directory.GetCurrentDirectory())
@@ -83,7 +85,7 @@ namespace AdminService
                                                   .UseStartup<Startup>()
                                                   .UseUrls(Program.HostAddress.HostAddress);
                                     });
-
+            Console.WriteLine("============== Startup Finished  :" + Program.HostAddress.HostAddress + " ==============");
             return host;
         }
     }

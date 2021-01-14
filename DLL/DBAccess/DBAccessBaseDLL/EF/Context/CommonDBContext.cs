@@ -41,22 +41,24 @@ namespace DBAccessBaseDLL.EF.Context
         /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-#if Q_SqlServerDB
-            optionsBuilder.UseSqlServer(ConnString);
-#elif Q_OracleDB
-            optionsBuilder.UseOracle(ConnString);
-#elif Q_PostgreSQLDB
-            optionsBuilder.UseNpgsql (ConnString);
-#elif Q_MySqlDB
-            optionsBuilder.UseMySQL(ConnString);
-#elif Q_SqliteDB
-            optionsBuilder.UseSqlite(ConnString);
-#elif Q_MemoryDB
-            // optionsBuilder.UseMemoryCache();
-#else
-            optionsBuilder.UseSqlite(ConnString);
-#endif
-            //base.OnConfiguring(optionsBuilder);
+            /*
+                #if Q_SqlServerDB
+                            optionsBuilder.UseSqlServer(ConnString);
+                #elif Q_OracleDB
+                            optionsBuilder.UseOracle(ConnString);
+                #elif Q_PostgreSQLDB
+                            optionsBuilder.UseNpgsql (ConnString);
+                #elif Q_MySqlDB
+                            optionsBuilder.UseMySQL(ConnString);
+                #elif Q_SqliteDB
+                            optionsBuilder.UseSqlite(ConnString);
+                #elif Q_MemoryDB
+                            // optionsBuilder.UseMemoryCache();
+                #else
+                            optionsBuilder.UseSqlite(ConnString);
+                #endif
+            */
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System.Configuration;
 
 namespace DBAccessCoreDLL.EF.Context
 {
@@ -14,9 +16,21 @@ namespace DBAccessCoreDLL.EF.Context
         /// <param name="options">多表组合</param>
         public CoreContextDIP(DbContextOptions<CoreContextDIP> options)
         {
-            //base. (options as CoreContextDIP(DbContextOptions<CoreContext>);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            this.ConnString = ConfigurationManager.ConnectionStrings["SqliteTestDB"].ConnectionString;
+            optionsBuilder.UseSqlite(this.ConnString);
+
+
+            base.OnConfiguring(optionsBuilder);
+        }
         /// <summary>
         /// 
         /// </summary>

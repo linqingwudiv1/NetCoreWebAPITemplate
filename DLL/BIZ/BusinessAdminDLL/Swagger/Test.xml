@@ -113,12 +113,12 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="T:BusinessAdminDLL.AutofacModule.CoreModule">
+        <member name="T:BusinessAdminDLL.AutofacModule.AdminAutofacModule">
             <summary>
             
             </summary>
         </member>
-        <member name="M:BusinessAdminDLL.AutofacModule.CoreModule.Load(Autofac.ContainerBuilder)">
+        <member name="M:BusinessAdminDLL.AutofacModule.AdminAutofacModule.Load(Autofac.ContainerBuilder)">
             <summary>
             Autofac 注入服务
             </summary>
@@ -165,7 +165,7 @@
             
             </summary>
         </member>
-        <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role.children">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role.routes">
             <summary>
             
             </summary>
@@ -200,12 +200,52 @@
             
             </summary>
         </member>
-        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages.title">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages.id">
+            <summary>
+            RoutePages ID
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages.parentId">
             <summary>
             
             </summary>
         </member>
         <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages.path">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages.redirect">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages.component">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages.meta">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePagesMeta">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePagesMeta.icon">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePagesMeta.title">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePagesMeta.hidden">
             <summary>
             
             </summary>
@@ -416,7 +456,7 @@
             <param name="_IDGenerator"></param>
             <param name="RoleAccesser"></param>
         </member>
-        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.printNode(BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role)">
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.ConvertNodeToRoute(BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages)">
             <summary>
             
             </summary>
@@ -450,6 +490,60 @@
             <returns></returns>
         </member>
         <member name="M:BusinessAdminDLL.Roles.RolesBizServices.DeleteRole(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BusinessAdminDLL.RoutePage.IRoutePageBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.RoutePage.IRoutePageBizServices.GetRoutePages">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.RoutePage.IRoutePageBizServices.GetRoutePage(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BusinessAdminDLL.RoutePage.RoutePageBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.RoutePage.RoutePageBizServices.IDGenerator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.EF.Context.CoreContextDIP)">
+            <summary>
+            
+            </summary>
+            <param name="_IDGenerator"></param>
+            <param name="_db"></param>
+        </member>
+        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.GetRoutePages">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.AddRoutePages">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.GetRoutePage(System.Int64)">
             <summary>
             
             </summary>

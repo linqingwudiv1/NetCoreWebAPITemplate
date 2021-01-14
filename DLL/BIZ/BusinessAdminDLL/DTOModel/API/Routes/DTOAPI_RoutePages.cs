@@ -17,7 +17,12 @@ namespace BusinessAdminDLL.DTOModel.API.Routes
         /// <summary>
         /// RoutePages ID
         /// </summary>
-        public Int64 Id { get; set; }
+        public Int64 id { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Int64? parentId { get; set; }
 
         /// <summary>
         /// 

@@ -2,6 +2,7 @@
 using DBAccessBaseDLL.EF.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.Extensions.PlatformAbstractions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -108,8 +109,7 @@ namespace DBAccessCoreDLL.EF.Entity
 #if DEBUG
             #region Default Database
 
-
-            string path = Path.Combine(Directory.GetCurrentDirectory(), @"/.Config/HostAddress.json");
+            string path = Path.GetFullPath( PlatformServices.Default.Application.ApplicationBasePath +  @"\.Config\routeDefaultData.json");
             var tree = JsonHelper.loadJsonFromFile<dynamic>(path);
             
             IList<RoutePage> defData = BuildTestData(tree.routes, null);
@@ -121,7 +121,7 @@ namespace DBAccessCoreDLL.EF.Entity
             tableBuilder.SetupBaseEntity<RoutePage>();
         }
 
-#if DEBUG
+#if DEBUG //写入测试数据
 
         static Int64 DefID = 10000;
         static Int64 MetaID = 1;

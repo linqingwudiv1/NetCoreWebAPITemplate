@@ -11,11 +11,11 @@ namespace BusinessAdminDLL.DTOModel.API.Routes
         /// <summary>
         /// 
         /// </summary>
-        public IList<RoutePage> constantRoutes { get; set; }
+        public IList<dynamic> constantRoutes { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public IList<RoutePage> asyncRoutes { get; set; }
+        public IList<dynamic> asyncRoutes { get; set; }
     }
 }

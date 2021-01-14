@@ -3,12 +3,12 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iis": {
-      "applicationUrl": "http://localhost/WebAPITempalte",
-      "sslPort": 13131
+      "applicationUrl": "http://localhost:63664/WebAPITempalte",
+      "sslPort": 13130
     },
     "iisExpress": {
       "applicationUrl": "http://localhost:63664/",
-      "sslPort": 44310
+      "sslPort": 44312
     }
   },
   "profiles": {
@@ -21,8 +21,13 @@
       },
       "nativeDebugging": false
     },
-    "newProfile1": {
-      "commandName": "IIS"
+    "Kestrel Server": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:16680/"
     }
   }
 }

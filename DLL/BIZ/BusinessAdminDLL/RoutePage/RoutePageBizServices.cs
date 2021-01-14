@@ -5,64 +5,40 @@ using BusinessAdminDLL.DTOModel.API.Roles;
 using BusinessAdminDLL.DTOModel.API.Routes;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
+using DBAccessCoreDLL.EF.Context;
 using DBAccessCoreDLL.EF.Entity;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using RoutePage_Alias = DBAccessCoreDLL.EF.Entity.RoutePage;
 namespace BusinessAdminDLL.RoutePage
 {
-
-
-
-
     /// <summary>
     /// 
     /// </summary>
     public class RoutePageBizServices : BaseBizServices, IRoutePageBizServices
     {
 
-        /// <summary>
-        /// DAO层
-        /// </summary>
-        protected IRoleAccesser accesser { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         protected IIDGenerator IDGenerator { get; set; }
 
+        readonly CoreContextDIP db;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="_IDGenerator"></param>
-        /// <param name="RoleAccesser"></param>
-        public RoutePageBizServices(IIDGenerator _IDGenerator, IRoleAccesser RoleAccesser)
+        /// <param name="_db"></param>
+        public RoutePageBizServices(IIDGenerator _IDGenerator, CoreContextDIP _db)
             : base()
         {
-            this.accesser = RoleAccesser;
+            this.db = _db;
             this.IDGenerator = _IDGenerator;
         }
-
-        #region private
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="data"></param>
-        private void ConvertNodeToRoute(DTOAPI_RoutePages data)
-        {
-            // this.printTitle(node.title)
-            // foreach (Node child in data.child  .children)
-            // {
-            //     printNode(child); //<-- recursive
-            // }
-        }
-
-
-        #endregion
-
-
 
         /// <summary>
         /// 
@@ -70,11 +46,10 @@ namespace BusinessAdminDLL.RoutePage
         /// <returns></returns>
         public TreeItem<RoutePage_Alias>[] GetRoutePages()
         {
-            var List = (from x in this.accesser.db.RoutePages select x).ToList();
+            var List = (from x in this.db.RoutePages select x);
 
-            var root = List.GenerateTree(c => c.Id,  c => c.ParentId).ToList();
-
-            return root.ToArray();
+            var tree = List.GenerateTree(c => c.Id, c => c.ParentId,root_id: null).ToArray();
+            return tree;
         }
 
         /// <summary>
@@ -84,8 +59,24 @@ namespace BusinessAdminDLL.RoutePage
         public int AddRoutePages() 
         {
             int effectCount = 0;
-
             return effectCount;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public TreeItem<RoutePage_Alias> GetRoutePage(long Id)
+        {
+            var List = (from x in this.db.RoutePages select x);
+
+            TreeItem<RoutePage_Alias> tree = new TreeItem<RoutePage_Alias>();
+            tree.node = List.Where(x => x.Id == Id).FirstOrDefault();
+            tree.children = List.GenerateTree(c => c.Id, c => c.ParentId, Id, 1).ToArray();
+            
+            tree.deep = 0;
+            return tree;//this.db.RoutePages.Find(Id);
         }
     }
 }

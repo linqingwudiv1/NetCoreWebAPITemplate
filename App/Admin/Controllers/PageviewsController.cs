@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
@@ -12,6 +13,7 @@ namespace AdminService.Controllers
     /// 
     /// </summary>
     [Route("api/[controller]")]
+    [EnableCors("WebAPIPolicy")]
     [ApiController]
     public class PageviewsController : BaseController
     {
@@ -37,7 +39,7 @@ namespace AdminService.Controllers
                       new { key = "Android", pageviews = 1024 }
             };
 
-            return Ok(arr);                                    
+            return Json(arr);                                    
         }
     }
 }
