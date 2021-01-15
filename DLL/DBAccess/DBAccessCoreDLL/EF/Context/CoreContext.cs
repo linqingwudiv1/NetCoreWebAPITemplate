@@ -40,11 +40,6 @@ namespace DBAccessCoreDLL.EF.Context
         /// </summary>
         virtual public DbSet<Role> Roles { get; protected set; }
 
-        /// <summary>
-        /// 视图：Account
-        /// </summary>
-        virtual public DbSet<View_AccountFemale> view_AccountFemales { get; }
-
 
         /// <summary>
         /// 
@@ -98,6 +93,7 @@ namespace DBAccessCoreDLL.EF.Context
             base.OnConfiguring(optionsBuilder);
         }
 
+
         /// <summary>
         /// 
         /// </summary>
@@ -109,11 +105,11 @@ namespace DBAccessCoreDLL.EF.Context
             modelBuilder.ApplyConfiguration<RoutePage>(new RoutePageEFConfig());
             modelBuilder.ApplyConfiguration<RoutePageRole>(new RoutePageRoleEFConfig());
             modelBuilder.ApplyConfiguration<Role>(new RoleEFConfig());
-            modelBuilder.ApplyConfiguration<BizSystemLog>(new SystemLogEFConfig());
+
+            //modelBuilder.ApplyConfiguration<BizSystemLog>(new SystemLogEFConfig());
 
             //Database/必须存在View_AccountFemale视图
             //modelBuilder.ApplyConfiguration<View_AccountFemale>(new View_AccountFemaleEFConfig());
-
             base.OnModelCreating(modelBuilder);
         }
     }

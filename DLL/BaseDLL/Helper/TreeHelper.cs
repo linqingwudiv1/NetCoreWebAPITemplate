@@ -109,5 +109,27 @@ namespace BaseDLL.Helper
                 children.Foreach(children_selector, predicate);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="K"></typeparam>
+        /// <param name="parentHierarchyPath"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string GenerateHierarchyPath<K>(string parentHierarchyPath, K key)
+        {
+            string keyid = (key == null ? "" : key.ToString().Trim());
+            if (string.IsNullOrEmpty(parentHierarchyPath))
+            {
+                return keyid;
+            }
+            else
+            {
+                return $"{parentHierarchyPath}.{keyid}";
+            }
+        }
+
+
     }
 }

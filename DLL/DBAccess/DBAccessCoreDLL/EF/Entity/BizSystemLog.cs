@@ -64,8 +64,8 @@ namespace DBAccessCoreDLL.EF.Entity
         public void Configure(EntityTypeBuilder<BizSystemLog> builder)
         {
             EntityTypeBuilder<BizSystemLog> tableBuilder = builder.ToTable("BizSystemLog");
-            tableBuilder.Property(x => x.Id).HasIdentityOptions(1, 1);
-            tableBuilder.Property(x => x.CreateTime).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            tableBuilder.Property(x => x.Id) .HasIdentityOptions(1, 1);
+            tableBuilder.Property(x => x.CreateTime).IsRequired(true). HasDefaultValueSql("CURRENT_TIMESTAMP");
         }
 
     }

@@ -194,11 +194,12 @@ namespace AdminService
                 #region Add framework services. 配置项注入
 
                 #region EF DI注入
-                string connstr = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
+                string connstr = ConfigurationManager.ConnectionStrings["PostgreSQLCoreDB"].ConnectionString;
                 
                 services.AddDbContextPool<CoreContextDIP>((opt) =>
                 {
-                    opt.UseSqlite(connstr);
+                    opt.UseNpgsql(connstr);
+                    //opt.UseSqlite(connstr);
                 }, 100);
                 
                 #endregion

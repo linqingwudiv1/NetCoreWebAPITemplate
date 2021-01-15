@@ -33,6 +33,7 @@ namespace DBAccessBaseDLL.IDGenerator
             //
             //this.SqlCmd = sqlcmd;
             //this.conn = conn;
+            this.conn = ConfigurationManager.ConnectionStrings["IDGeneratorDB"].ConnectionString;
         }
 
         /// <summary>

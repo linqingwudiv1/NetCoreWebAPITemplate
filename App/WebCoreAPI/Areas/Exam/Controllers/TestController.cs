@@ -120,7 +120,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
         [HttpPost]
         public IActionResult EFCore_InsertTest(int generateCount = 1000)
         {
-            string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
+            string sqliteDBConn = ConfigurationManager.ConnectionStrings["SqliteCoreDB"].ConnectionString;
 
             using (CoreContext db = new CoreContext(sqliteDBConn))
             {
@@ -230,7 +230,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
         [HttpGet]
         public IActionResult EFCore_QueryTest()
         {
-            string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
+            string sqliteDBConn = ConfigurationManager.ConnectionStrings["SqliteCoreDB"].ConnectionString;
 
             using (CoreContext db = new CoreContext(sqliteDBConn))
             {
@@ -295,7 +295,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
         {
             Logger logger = LogManager.GetLogger("SQLite3Store"); // LogManager.GetLogger("UpdateTest"); 
             
-            string sqliteDBConn = ConfigurationManager.ConnectionStrings["sqliteTestDB"].ConnectionString;
+            string sqliteDBConn = ConfigurationManager.ConnectionStrings["SqliteCoreDB"].ConnectionString;
             Faker faker = new Faker(locale: "zh_CN");
 
             for (int i = 0; i < DebugThreadCount; i++)

@@ -26,6 +26,12 @@ namespace DBAccessCoreDLL.EF.Entity
         public Nullable<Int64> ParentId { get; set; }
 
         /// <summary>
+        /// 乘次路径,例如First.Second.Three.Four
+        /// </summary>
+        [Required]
+        public string HierarchyPath { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         [Required]
@@ -104,14 +110,14 @@ namespace DBAccessCoreDLL.EF.Entity
                 c.ToTable("RoutePageMeta");
             });
             */
+            
             tableBuilder.Property(x => x.ParentId).HasDefaultValue(null);
-
 #if DEBUG
             #region Default Database
 
-            string path = Path.GetFullPath( PlatformServices.Default.Application.ApplicationBasePath +  @"\.Config\routeDefaultData.json");
+            string path = Path.GetFullPath(PlatformServices.Default.Application.ApplicationBasePath + @"\.Config\routeDefaultData.json");
             var tree = JsonHelper.loadJsonFromFile<dynamic>(path);
-            
+
             IList<RoutePage> defData = BuildTestData(tree.routes, null);
 
             tableBuilder.HasData(defData);
@@ -125,38 +131,40 @@ namespace DBAccessCoreDLL.EF.Entity
 
         static Int64 DefID = 10000;
         static Int64 MetaID = 1;
-        private IList<RoutePage> BuildTestData(dynamic data, Nullable<Int64> id)
+        private IList<RoutePage> BuildTestData(dynamic data, RoutePage parentNode)
         {
             
             List<RoutePage> test_data = new List<RoutePage>();
             foreach (dynamic item in data) 
             {
+                long? parentID = parentNode == null ? default(long?) : parentNode.Id;
+                long NewID = RoutePageEFConfig.DefID++;
+                string HierarchyPath = parentNode == null ? "" : parentNode.HierarchyPath ;
+                
                 var routePage = new RoutePage()
                 {
-                    Id = RoutePageEFConfig.DefID++,
-                    ParentId = id,
-                    Component = item.name ?? "",
-                    RouteName = item.name ?? "",
-                    Path = item.path ?? "",
-
-                    Title       = item.meta != null ? item.meta.title            ?? ""    : ""    ,
-                    Icon        = item.meta != null ? item.meta.icon             ?? ""    : ""    ,
-                    ActiveMenu  = item.meta != null ? item.meta.activeMenu       ?? ""    : ""    ,
-                    Affix       = item.meta != null ? item.meta.affix            ?? false : false ,
-                    AlwaysShow  = item.meta != null ? item.meta.alwaysShow       ?? false : false ,
-                    NoCache     = item.meta != null ? item.meta.noCache          ?? false : false ,
-                    Hidden      = item.meta != null ? item.meta.hidden           ?? false : false 
+                    Id            = NewID,
+                    ParentId      = parentID,
+                    Component     = item.name          ?? ""      ,
+                    RouteName     = item.name          ?? ""      ,
+                    Path          = item.path          ?? ""      ,
+                    HierarchyPath = TreeHelper.GenerateHierarchyPath<long?>(HierarchyPath, NewID),
+                    Title         = item.meta != null  ? item.meta.title            ?? ""    : ""    ,
+                    Icon          = item.meta != null  ? item.meta.icon             ?? ""    : ""    ,
+                    ActiveMenu    = item.meta != null  ? item.meta.activeMenu       ?? ""    : ""    ,
+                    Affix         = item.meta != null  ? item.meta.affix            ?? false : false ,
+                    AlwaysShow    = item.meta != null  ? item.meta.alwaysShow       ?? false : false ,
+                    NoCache       = item.meta != null  ? item.meta.noCache          ?? false : false ,
+                    Hidden        = item.meta != null  ? item.meta.hidden           ?? false : false 
                 };
 
                 test_data.Add(routePage);
 
                 if (item.children != null && item.children.Count > 0) 
                 {
-                    var range = BuildTestData(item.children, routePage.Id);
+                    var range = BuildTestData(item.children, routePage);
                     test_data.AddRange(range);
                 }
-
-                //routePage.
             }
 
             return test_data;

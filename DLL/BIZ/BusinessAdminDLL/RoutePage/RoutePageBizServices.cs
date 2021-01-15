@@ -19,8 +19,6 @@ namespace BusinessAdminDLL.RoutePage
     /// </summary>
     public class RoutePageBizServices : BaseBizServices, IRoutePageBizServices
     {
-
-
         /// <summary>
         /// 
         /// </summary>
@@ -46,7 +44,7 @@ namespace BusinessAdminDLL.RoutePage
         /// <returns></returns>
         public TreeItem<RoutePage_Alias>[] GetRoutePages()
         {
-            var List = (from x in this.db.RoutePages select x);
+            var List = (from x in this.db.RoutePages select x).ToList();
 
             var tree = List.GenerateTree(c => c.Id, c => c.ParentId,root_id: null).ToArray();
             return tree;
@@ -69,7 +67,7 @@ namespace BusinessAdminDLL.RoutePage
         /// <returns></returns>
         public TreeItem<RoutePage_Alias> GetRoutePage(long Id)
         {
-            var List = (from x in this.db.RoutePages select x);
+            var List = (from x in this.db.RoutePages select x ).ToList();
 
             TreeItem<RoutePage_Alias> tree = new TreeItem<RoutePage_Alias>();
             tree.node = List.Where(x => x.Id == Id).FirstOrDefault();

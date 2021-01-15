@@ -11,7 +11,6 @@ using System.Linq;
 
 namespace AdminService.Controllers
 {
-
     /// <summary>
     /// Vue项目展示接口
     /// </summary>
@@ -24,8 +23,7 @@ namespace AdminService.Controllers
         /// 
         /// </summary>
         readonly IRolesBizServices services;
-        
-        
+
         /// <summary>
         /// 
         /// </summary>

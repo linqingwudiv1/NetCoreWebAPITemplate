@@ -25,9 +25,9 @@ namespace DBAccessCoreDLL.EF.Context
         /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            this.ConnString = ConfigurationManager.ConnectionStrings["SqliteTestDB"].ConnectionString;
-            optionsBuilder.UseSqlite(this.ConnString);
-
+            this.ConnString = ConfigurationManager.ConnectionStrings["PostgreSQLCoreDB"].ConnectionString;
+            //optionsBuilder.UseSqlite(this.ConnString);
+            optionsBuilder.UseNpgsql(ConnString);
 
             base.OnConfiguring(optionsBuilder);
         }
