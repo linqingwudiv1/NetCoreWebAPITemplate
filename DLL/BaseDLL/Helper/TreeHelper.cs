@@ -23,7 +23,12 @@ namespace BaseDLL.Helper
         /// <summary>
         /// 
         /// </summary>
-        public int deep {get;set;}
+        public int deep { get; set; }
+
+        /// <summary>
+        /// 层级路径
+        /// </summary>
+        public string hierarchyPath { get; set; }
     }
 
     /// <summary>
@@ -41,7 +46,7 @@ namespace BaseDLL.Helper
         /// <param name="id_selector">ID 属性</param>
         /// <param name="parent_id_selector">Parent ID 属性</param>
         /// <param name="root_id"></param>
-        /// /// <param name="root_deep"></param>
+        /// <param name="root_deep"></param>
         /// <returns></returns>
         public static IEnumerable<TreeItem<T>> GenerateTree<T, K>(this IEnumerable<T> collection,
                                                        Func<T, K> id_selector,
@@ -59,7 +64,6 @@ namespace BaseDLL.Helper
                 };
             }
         }
-
 
         /// <summary>
         /// 生成无序Tree,指定的数据结构填充
@@ -107,6 +111,23 @@ namespace BaseDLL.Helper
                 predicate(node);
                 IEnumerable<T> children = children_selector(node);
                 children.Foreach(children_selector, predicate);
+            }
+        }
+
+        /// <summary>
+        /// 遍历 Tree
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <param name="predicate"> param 1: parent node, parent2: current</param>
+        /// <returns></returns>
+        public static void Foreach<T>(this T root,
+                                       Func<T, IEnumerable<T>> children_selector,
+                                       Action<T, T> predicate) where T : new()
+        {
+            predicate(default(T), root);
+            foreach (T node in children_selector(root) )
+            {
+                node.Foreach(children_selector, predicate);
             }
         }
 

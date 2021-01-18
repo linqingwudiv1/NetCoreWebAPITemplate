@@ -36,7 +36,7 @@ CREATE PROCEDURE [dbo].[PD_GenerateID]
 AS
 BEGIN
 	SET NOCOUNT ON;
-
+	--记录ID最大值即可
 	INSERT INTO [TableIDCounter]
 	(Tag) Values(@TableTag);
 

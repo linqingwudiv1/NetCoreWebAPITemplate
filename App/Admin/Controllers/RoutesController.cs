@@ -64,12 +64,7 @@ namespace AdminService.Controllers
         public IActionResult AddRoutePage([FromBody]DTOAPI_RoutePages routepage)
         {
             int effectNum = 0;
-            using (CoreContext db = new CoreContext())
-            {
-                RoutePage newRoutePage = new RoutePage();
-
-                // newRoutePage.Meta = new RoutePageMeta();
-            }
+            this.AddRoutePage(routepage);
             return Ok(effectNum);
         }
 

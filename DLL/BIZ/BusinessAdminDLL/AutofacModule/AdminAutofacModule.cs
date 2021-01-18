@@ -37,6 +37,7 @@ namespace BusinessAdminDLL.AutofacModule
 
             builder.RegisterType<AccountAccesser>().As<IAccountAccesser>().InstancePerLifetimeScope();
             builder.RegisterType<RoleAccesser>().As<IRoleAccesser>().InstancePerLifetimeScope();
+            builder.RegisterType<RoutePageAccesser>().As<IRoutePageAccesser>().InstancePerLifetimeScope();
 
             #endregion
 

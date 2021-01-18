@@ -22,7 +22,18 @@ namespace BusinessAdminDLL.DTOModel.API.Routes
         /// <summary>
         /// 
         /// </summary>
+        public string name { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Int64? parentId { get; set; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string hierarchyPath { get; set; }
 
         /// <summary>
         /// 
@@ -39,6 +50,7 @@ namespace BusinessAdminDLL.DTOModel.API.Routes
         /// </summary>
 
         public string component { get; set; }
+
 
         /// <summary>
         /// 

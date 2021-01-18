@@ -16,7 +16,7 @@ namespace BusinessCoreDLL.Roles
         /// <summary>
         /// DAO层
         /// </summary>
-        protected IRoleAccesser accesser { get; set; }
+        protected IRoutePageAccesser accesser { get; set; }
 
         /// <summary>
         /// 
@@ -28,7 +28,7 @@ namespace BusinessCoreDLL.Roles
         /// </summary>
         /// <param name="_IDGenerator"></param>
         /// <param name="RoleAccesser"></param>
-        public RolesBizServices(IIDGenerator _IDGenerator, IRoleAccesser RoleAccesser)
+        public RolesBizServices(IIDGenerator _IDGenerator, IRoutePageAccesser RoleAccesser)
             : base()
         {
             this.accesser    = RoleAccesser;

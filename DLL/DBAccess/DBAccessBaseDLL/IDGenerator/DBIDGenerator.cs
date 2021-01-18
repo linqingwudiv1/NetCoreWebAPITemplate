@@ -13,6 +13,7 @@ namespace DBAccessBaseDLL.IDGenerator
     /// </summary>
     public class DBIDGenerator : AbsIDGenerator, IIDGenerator
     {
+
         /// <summary>
         /// 
         /// </summary>
@@ -21,8 +22,8 @@ namespace DBAccessBaseDLL.IDGenerator
         /// <summary>
         /// 
         /// </summary>
-        protected string conn = @"Data Source=129.204.160.155;UID=sa;PWD=1qaz@WSX;
-                                  Initial Catalog=TableIDCounter;
+        protected string conn = @"Data Source=172.168.1.172;UID=sa;PWD=1qaz@WSX;
+                                  Initial Catalog=TableIDCounterDB;
                                   Connect Timeout=30;Min Pool Size=10;Max Pool Size=100;";
 
         /// <summary>
@@ -44,6 +45,7 @@ namespace DBAccessBaseDLL.IDGenerator
         public long GetNewID<Entity>() where Entity : new()
         {
             string key = this.GetKey<Entity>();
+
             using (SqlConnection conn = new SqlConnection(this.conn))
             {
                 return conn.QuerySingle<long>(this.SqlCmd, new { TagName = key });
