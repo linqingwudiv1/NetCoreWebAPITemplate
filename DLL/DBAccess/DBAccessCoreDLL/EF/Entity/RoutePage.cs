@@ -121,7 +121,6 @@ namespace DBAccessCoreDLL.EF.Entity
             IList<RoutePage> defData = BuildTestData(tree.routes, null);
 
             tableBuilder.HasData(defData);
-
             #endregion
 #endif
             tableBuilder.SetupBaseEntity<RoutePage>();
@@ -157,7 +156,6 @@ namespace DBAccessCoreDLL.EF.Entity
                     NoCache       = item.meta != null  ? item.meta.noCache          ?? false : false ,
                     Hidden        = item.meta != null  ? item.meta.hidden           ?? false : false 
                 };
-
                 test_data.Add(routePage);
 
                 if (item.children != null && item.children.Count > 0) 

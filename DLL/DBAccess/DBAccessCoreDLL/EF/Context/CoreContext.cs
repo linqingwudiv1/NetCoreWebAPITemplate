@@ -26,14 +26,14 @@ namespace DBAccessCoreDLL.EF.Context
         virtual public DbSet<RoutePage> RoutePages { get; protected set; }
 
         /// <summary>
-        /// 可访问页面权限列表
+        /// 不同权限下可访问的页面权限列表
         /// </summary>
         virtual public DbSet<RoutePageRole> RoutePageRoles { get; protected set; }
 
         /// <summary>
         /// 
         /// </summary>
-        virtual public DbSet<BizSystemLog> SystemLogs { get; protected set; }
+        //virtual public DbSet<BizSystemLog> SystemLogs { get; protected set; }
 
         /// <summary>
         /// 
@@ -93,18 +93,17 @@ namespace DBAccessCoreDLL.EF.Context
             base.OnConfiguring(optionsBuilder);
         }
 
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration<Account>(new AccountEFConfig());
-            modelBuilder.ApplyConfiguration<AccountRole>(new AccountRoleEFConfig());
-            modelBuilder.ApplyConfiguration<RoutePage>(new RoutePageEFConfig());
-            modelBuilder.ApplyConfiguration<RoutePageRole>(new RoutePageRoleEFConfig());
+            modelBuilder.ApplyConfiguration<Account>      ( new AccountEFConfig());
+            modelBuilder.ApplyConfiguration<AccountRole>  ( new AccountRoleEFConfig());
+            modelBuilder.ApplyConfiguration<RoutePage>    ( new RoutePageEFConfig());
             modelBuilder.ApplyConfiguration<Role>(new RoleEFConfig());
+            modelBuilder.ApplyConfiguration<RoutePageRole>( new RoutePageRoleEFConfig());
 
             //modelBuilder.ApplyConfiguration<BizSystemLog>(new SystemLogEFConfig());
 

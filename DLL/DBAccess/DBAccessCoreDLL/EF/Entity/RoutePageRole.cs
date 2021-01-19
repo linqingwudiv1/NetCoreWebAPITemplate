@@ -63,9 +63,7 @@ namespace DBAccessCoreDLL.EF.Entity
                         .WithMany(c => c.RouteRoles)
                         .HasForeignKey(c => c.RoleId);
 
-
             #endregion
-
             builder.SetupBaseEntity();
         }
     }

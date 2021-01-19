@@ -24,7 +24,7 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         protected IIDGenerator IDGenerator { get; set; }
 
-        readonly IRoutePageAccesser services;
+        readonly IRoutePageAccesser accesser;
 
         /// <summary>
         /// 
@@ -37,12 +37,12 @@ namespace BusinessAdminDLL.RoutePage
         /// <param name="_IDGenerator"></param>
         /// <param name="_db"></param>
         /// <param name="_services"></param>
-        public RoutePageBizServices(IIDGenerator _IDGenerator, CoreContextDIP _db, IRoutePageAccesser _services)
+        public RoutePageBizServices(IIDGenerator _IDGenerator, CoreContextDIP _db, IRoutePageAccesser _accesser)
             : base()
         {
             this.db = _db;
             this.IDGenerator = _IDGenerator;
-            this.services = _services;
+            this.accesser = _accesser;
         }
 
         /// <summary>
@@ -91,8 +91,6 @@ namespace BusinessAdminDLL.RoutePage
         /// <returns></returns>
         public dynamic AddRoutePage(DTOAPI_RoutePages item)
         {
-            //var parent_RoutePage = this.db.RoutePages.Find(routepage.parentId);
-
             IList<RoutePage_Alias> list = new List<RoutePage_Alias>();
             item.Foreach(x => x.children, (parent,x) =>
               {
@@ -115,7 +113,7 @@ namespace BusinessAdminDLL.RoutePage
                       Title = x.meta.title
                   });
               });
-            return this.services.Add(list);
+            return this.accesser.Add(list);
             //return this.db.SaveChanges();
         }
 
@@ -136,7 +134,8 @@ namespace BusinessAdminDLL.RoutePage
         /// <returns></returns>
         public dynamic DeleteRoutePage(long id)
         {
-            throw new NotImplementedException();
+            return this.accesser.Delete(id);
         }
+
     }
 }

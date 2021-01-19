@@ -65,6 +65,7 @@ namespace AdminService.Controllers
         {
             int effectNum = 0;
             this.AddRoutePage(routepage);
+
             return Ok(effectNum);
         }
 
@@ -77,6 +78,19 @@ namespace AdminService.Controllers
         {
             int effectNum = 0;
 
+            return Ok(effectNum);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        public IActionResult DeleteRoutePage(long id)
+        {
+            int effectNum = 0;
+            effectNum = this.services.DeleteRoutePage(id);
             return Ok(effectNum);
         }
     }

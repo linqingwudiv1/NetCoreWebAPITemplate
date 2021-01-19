@@ -237,7 +237,6 @@ namespace AdminService
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GJWT.SecurityKey)) // 拿到SecurityKey
                         });
 
-
                 #endregion
 
                 //防止Json序列化-改变对象列的大小写
@@ -323,7 +322,6 @@ namespace AdminService
                                IWebHostEnvironment env, 
                                ILoggerFactory loggerFactory */ )
         {
-
             Logger log = LogManager.GetLogger("Startup");
             try
             {
@@ -355,7 +353,6 @@ namespace AdminService
                 );
 
                 #endregion
-
                 app.UseEndpoints(c =>
                 {
                     //MVC

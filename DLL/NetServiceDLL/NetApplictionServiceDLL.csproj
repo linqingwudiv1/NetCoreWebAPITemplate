@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BaseDLL\BaseDLL.csproj" />
+    <ProjectReference Include="..\OAuth2DLL\OAuth2DLL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
