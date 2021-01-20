@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using System.Configuration;
 
-namespace DBAccessCoreDLL.EF.Context
+namespace DBAccessCoreDLL.EFORM.Context
 {
     /// <summary>
     /// 用于DI线程池版本.

@@ -1,8 +1,8 @@
-﻿using DBAccessBaseDLL.Accesser;
-using DBAccessCoreDLL.EF.Context;
-using DBAccessCoreDLL.EF.Entity;
-using System;
+﻿using DBAccessCoreDLL.EFORM.Context;
+using DBAccessCoreDLL.EFORM.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace DBAccessCoreDLL.Accesser
@@ -22,8 +22,6 @@ namespace DBAccessCoreDLL.Accesser
         {
             db = _db;
         }
-
-        
 
         /// <summary>
         /// 
@@ -78,7 +76,7 @@ namespace DBAccessCoreDLL.Accesser
         /// <returns></returns>
         public Role Get(long key)
         {
-            return db.Roles.Find(key);
+            return db .Roles.Find(key);
         }
 
         /// <summary>
@@ -113,45 +111,5 @@ namespace DBAccessCoreDLL.Accesser
             return db.SaveChanges();
         }
 
-
-        Role IAccesser<Role, long>.Get(long key)
-        {
-            throw new NotImplementedException();
-        }
-
-        IList<Role> IAccesser<Role, long>.Get(IList<long> keys)
-        {
-            throw new NotImplementedException();
-        }
-
-        int IAccesser<Role, long>.Add(Role newEntiy)
-        {
-            throw new NotImplementedException();
-        }
-
-        int IAccesser<Role, long>.Add(IList<Role> newEntiys)
-        {
-            throw new NotImplementedException();
-        }
-
-        int IAccesser<Role, long>.Delete(long key)
-        {
-            throw new NotImplementedException();
-        }
-
-        int IAccesser<Role, long>.Delete(IList<long> keys)
-        {
-            throw new NotImplementedException();
-        }
-
-        int IAccesser<Role, long>.Update(Role modifyEntiy)
-        {
-            throw new NotImplementedException();
-        }
-
-        int IAccesser<Role, long>.Update(IList<Role> modifyEntiys)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

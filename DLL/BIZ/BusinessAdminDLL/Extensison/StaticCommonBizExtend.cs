@@ -1,7 +1,7 @@
 ﻿using BaseDLL.DTO.Store;
 using BusinessAdminDLL.DTOModel.API.Users;
-using DBAccessCoreDLL.EF.Context;
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.EFORM.Context;
+using DBAccessCoreDLL.EFORM.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NetApplictionServiceDLL;

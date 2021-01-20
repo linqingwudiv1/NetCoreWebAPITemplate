@@ -1,7 +1,7 @@
 ﻿using BusinessAdminDLL.DTOModel.API.Roles;
 using BusinessAdminDLL.Roles;
-using DBAccessCoreDLL.EF.Context;
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.EFORM.Context;
+using DBAccessCoreDLL.EFORM.Entity;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
@@ -52,7 +52,7 @@ namespace AdminService.Controllers
         [HttpGet("{id}")]
         public IActionResult GetRole(Int64 id)
         {
-            Role role = services.GetRole(id);
+            var role = services.GetRole(id);
             return Ok(role);
         }
 

@@ -3,7 +3,7 @@ using BusinessCoreDLL.Base;
 using BusinessCoreDLL.DTOModel.API.Roles;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.EFORM.Entity;
 using System.Linq;
 
 namespace BusinessCoreDLL.Roles
@@ -16,7 +16,7 @@ namespace BusinessCoreDLL.Roles
         /// <summary>
         /// DAO层
         /// </summary>
-        protected IRoutePageAccesser accesser { get; set; }
+        protected IRoleAccesser accesser { get; set; }
 
         /// <summary>
         /// 
@@ -28,7 +28,7 @@ namespace BusinessCoreDLL.Roles
         /// </summary>
         /// <param name="_IDGenerator"></param>
         /// <param name="RoleAccesser"></param>
-        public RolesBizServices(IIDGenerator _IDGenerator, IRoutePageAccesser RoleAccesser)
+        public RolesBizServices(IIDGenerator _IDGenerator, IRoleAccesser RoleAccesser)
             : base()
         {
             this.accesser    = RoleAccesser;
@@ -57,7 +57,7 @@ namespace BusinessCoreDLL.Roles
         /// 
         /// </summary>
         /// <returns></returns>
-        public Role[] GetRoles()
+        public dynamic GetRoles()
         {
             return this.accesser.db.Roles.ToArray();
             //return;//this.accesser;
@@ -68,7 +68,7 @@ namespace BusinessCoreDLL.Roles
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public Role GetRole(long key)
+        public dynamic GetRole(long key)
         {
             return this.accesser.Get(key);
             // throw new System.NotImplementedException();

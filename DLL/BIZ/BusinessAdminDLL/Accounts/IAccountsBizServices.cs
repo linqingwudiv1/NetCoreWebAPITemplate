@@ -1,5 +1,5 @@
 ﻿using BusinessAdminDLL.DTOModel.API.Users;
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.EFORM.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;

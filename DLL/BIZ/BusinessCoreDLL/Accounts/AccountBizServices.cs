@@ -5,8 +5,8 @@ using BusinessCoreDLL.Base;
 using BusinessCoreDLL.DTOModel.API.Users;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
-using DBAccessCoreDLL.EF.Context;
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.EFORM.Context;
+using DBAccessCoreDLL.EFORM.Entity;
 using System;
 
 namespace BusinessCoreDLL.Accounts

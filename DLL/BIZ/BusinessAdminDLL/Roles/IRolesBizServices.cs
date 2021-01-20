@@ -1,6 +1,6 @@
 ﻿using BusinessAdminDLL.DTOModel.API.Roles;
-using DBAccessCoreDLL.EF.Context;
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.EFORM.Context;
+using DBAccessCoreDLL.EFORM.Entity;
 
 namespace BusinessAdminDLL.Roles
 {
@@ -13,14 +13,14 @@ namespace BusinessAdminDLL.Roles
         /// 
         /// </summary>
         /// <returns></returns>
-        Role[] GetRoles();
+        dynamic GetRoles();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        Role GetRole(long key);
+        dynamic GetRole(long key);
         ///
         dynamic AddRole(DTOAPI_Role data);
 

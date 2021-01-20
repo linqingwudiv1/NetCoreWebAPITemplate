@@ -1,4 +1,4 @@
-﻿using DBAccessCoreDLL.EF.Context;
+﻿using DBAccessCoreDLL.EFORM.Context;
 using System.Configuration;
 
 namespace BusinessAdminDLL.Base

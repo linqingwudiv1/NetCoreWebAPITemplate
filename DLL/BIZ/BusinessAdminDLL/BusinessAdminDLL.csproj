@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="AutoMapper\Role\" />
     <Folder Include="Routes\" />
     <Folder Include="Articles\" />
     <Folder Include="Swagger\" />

@@ -5,13 +5,13 @@ using BusinessAdminDLL.DTOModel.API.Roles;
 using BusinessAdminDLL.DTOModel.API.Routes;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
-using DBAccessCoreDLL.EF.Context;
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.EFORM.Context;
+using DBAccessCoreDLL.EFORM.Entity;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using RoutePage_Alias = DBAccessCoreDLL.EF.Entity.RoutePage;
+using RoutePage_Alias = DBAccessCoreDLL.EFORM.Entity.RoutePages;
 namespace BusinessAdminDLL.RoutePage
 {
     /// <summary>
@@ -36,7 +36,7 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="_IDGenerator"></param>
         /// <param name="_db"></param>
-        /// <param name="_services"></param>
+        /// <param name="_accesser"></param>
         public RoutePageBizServices(IIDGenerator _IDGenerator, CoreContextDIP _db, IRoutePageAccesser _accesser)
             : base()
         {
@@ -93,26 +93,26 @@ namespace BusinessAdminDLL.RoutePage
         {
             IList<RoutePage_Alias> list = new List<RoutePage_Alias>();
             item.Foreach(x => x.children, (parent,x) =>
-              {
-                  long NewID = this.IDGenerator.GetNewID<RoutePage_Alias>();
+            {
+                long NewID = this.IDGenerator.GetNewID<RoutePage_Alias>();
 
-                  list.Add(new RoutePage_Alias
-                  {
-                      Id = NewID,
-                      ParentId = x.parentId,
-                      RouteName = x.name ?? "",
-                      HierarchyPath = TreeHelper.GenerateHierarchyPath(parent != null ? parent.hierarchyPath : "", NewID),
-                      Path = x.path ?? "",
-                      Component = x.component,
-                      NoCache = x.meta.noCache,
-                      Affix = x.meta.affix,
-                      ActiveMenu = x.meta.activeMenu,
-                      AlwaysShow = x.meta.alwaysShow,
-                      Hidden = x.meta.hidden,
-                      Icon = x.meta.icon ,
-                      Title = x.meta.title
-                  });
-              });
+                list.Add(new RoutePage_Alias
+                {
+                    Id              = NewID             ,
+                    ParentId        = x.parentId        ,
+                    RouteName       = x.name ?? ""      ,
+                    HierarchyPath   = TreeHelper.GenerateHierarchyPath(parent != null ? parent.hierarchyPath : "", NewID),
+                    Path            = x.path ?? ""      ,
+                    Component       = x.component       ,
+                    NoCache         = x.meta.noCache    ,
+                    Affix           = x.meta.affix      ,
+                    ActiveMenu      = x.meta.activeMenu ,
+                    AlwaysShow      = x.meta.alwaysShow ,
+                    Hidden          = x.meta.hidden     ,
+                    Icon            = x.meta.icon       ,
+                    Title           = x.meta.title
+                });
+            });
             return this.accesser.Add(list);
             //return this.db.SaveChanges();
         }

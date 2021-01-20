@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DBAccessCoreDLL.EF.Entity
+namespace DBAccessCoreDLL.EFORM.Entity
 {
     /// <summary>
     /// 用户类

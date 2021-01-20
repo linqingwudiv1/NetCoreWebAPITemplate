@@ -28,6 +28,6 @@ namespace BusinessAdminDLL.DTOModel.API.Roles
         /// <summary>
         /// 
         /// </summary>
-        public DTOAPI_RoutePages routes { get; set; }
+        public IList<DTOAPI_RoutePages> routes { get; set; }
     }
 }

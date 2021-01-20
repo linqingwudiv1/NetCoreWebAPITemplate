@@ -1,4 +1,4 @@
-﻿using DBAccessCoreDLL.EF.Entity;
+﻿using DBAccessCoreDLL.EFORM.Entity;
 using System.Collections.Generic;
 
 namespace BusinessAdminDLL.DTOModel.API.Routes

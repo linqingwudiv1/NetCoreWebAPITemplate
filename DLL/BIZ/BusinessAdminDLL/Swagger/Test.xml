@@ -124,23 +124,12 @@
             </summary>
             <param name="builder"></param>
         </member>
-        <member name="T:BusinessAdminDLL.Base.BaseBizServices">
-            <summary>
-            Biz Core 基础
-            </summary>
-        </member>
-        <member name="M:BusinessAdminDLL.Base.BaseBizServices.#ctor">
+        <member name="T:BusinessAdminDLL.DTOModel.AutoMapper.BizAdminProfile">
             <summary>
             
             </summary>
         </member>
-        <member name="M:BusinessAdminDLL.Base.BaseBizServices.GetCoreDB">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:BusinessAdminDLL.Base.IBaseBizServices">
+        <member name="M:BusinessAdminDLL.DTOModel.AutoMapper.BizAdminProfile.#ctor">
             <summary>
             
             </summary>
@@ -395,6 +384,27 @@
             
             </summary>
         </member>
+        <member name="T:BusinessAdminDLL.Base.BaseBizServices">
+            <summary>
+            Biz Core 基础
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.Base.BaseBizServices.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.Base.BaseBizServices.GetCoreDB">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:BusinessAdminDLL.Base.IBaseBizServices">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:BusinessAdminDLL.Extensison.EM_LoginState">
             <summary>
             登录状态
@@ -489,13 +499,14 @@
             
             </summary>
             <param name="_IDGenerator"></param>
-            <param name="RoleAccesser"></param>
+            <param name="_roleAccesser"></param>
         </member>
-        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.ConvertNodeToRoute(BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages)">
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.GenPageRouteTree(DBAccessCoreDLL.EFORM.Entity.Role)">
             <summary>
             
             </summary>
-            <param name="data"></param>
+            <param name="role"></param>
+            <returns></returns>
         </member>
         <member name="M:BusinessAdminDLL.Roles.RolesBizServices.GetRoles">
             <summary>
@@ -583,13 +594,13 @@
             
             </summary>
         </member>
-        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.EF.Context.CoreContextDIP,DBAccessCoreDLL.Accesser.IRoutePageAccesser)">
+        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.EFORM.Context.CoreContextDIP,DBAccessCoreDLL.Accesser.IRoutePageAccesser)">
             <summary>
             
             </summary>
             <param name="_IDGenerator"></param>
             <param name="_db"></param>
-            <param name="_services"></param>
+            <param name="_accesser"></param>
         </member>
         <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.GetRoutePages">
             <summary>

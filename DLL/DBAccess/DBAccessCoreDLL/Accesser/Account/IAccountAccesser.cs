@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using DBAccessCoreDLL.EF.Entity;
-using DBAccessCoreDLL.EF.Context;
+using DBAccessCoreDLL.EFORM.Entity;
+using DBAccessCoreDLL.EFORM.Context;
 
 namespace DBAccessCoreDLL.Accesser
 {

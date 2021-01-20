@@ -1,7 +1,7 @@
 ﻿using BusinessAdminDLL.DTOModel.API.Routes;
 using BusinessAdminDLL.RoutePage;
-using DBAccessCoreDLL.EF.Context;
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.EFORM.Context;
+using DBAccessCoreDLL.EFORM.Entity;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;

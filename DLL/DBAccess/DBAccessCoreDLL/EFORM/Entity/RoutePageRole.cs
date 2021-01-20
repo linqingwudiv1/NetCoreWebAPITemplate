@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DBAccessCoreDLL.EF.Entity
+namespace DBAccessCoreDLL.EFORM.Entity
 {
     /// <summary>
     /// Role对应的Route
@@ -26,7 +26,7 @@ namespace DBAccessCoreDLL.EF.Entity
         /// <summary>
         /// 
         /// </summary>
-        public virtual RoutePage routePage { get; set; }
+        public virtual RoutePages routePage { get; set; }
 
         /// <summary>
         /// 
@@ -55,7 +55,7 @@ namespace DBAccessCoreDLL.EF.Entity
 
             EntityTypeBuilder<RoutePageRole> tableBuilder = builder.ToTable("RoutePageRole");
 
-            tableBuilder.HasOne<RoutePage>(p => p.routePage)
+            tableBuilder.HasOne<RoutePages>(p => p.routePage)
                         .WithMany(c => c.RoutePageRoles)
                         .HasForeignKey(c => c.RoutePageId);
 

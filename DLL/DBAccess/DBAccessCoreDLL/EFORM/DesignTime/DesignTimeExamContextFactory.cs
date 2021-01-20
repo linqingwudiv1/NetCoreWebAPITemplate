@@ -1,8 +1,8 @@
-﻿using DBAccessCoreDLL.EF.Context;
+﻿using DBAccessCoreDLL.EFORM.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace DBAccessCoreDLL.EF.DesignTime
+namespace DBAccessCoreDLL.EFORM.DesignTime
 {
     /// <summary>
     /// 数据库迁移 代理映射

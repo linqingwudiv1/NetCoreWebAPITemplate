@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 
-namespace DBAccessCoreDLL.EF.Entity
+namespace DBAccessCoreDLL.EFORM.Entity
 {
     /// <summary>
     /// EF 栗子 女性用户,View Case.

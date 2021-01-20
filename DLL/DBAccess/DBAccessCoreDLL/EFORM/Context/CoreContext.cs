@@ -1,9 +1,9 @@
 ﻿using DBAccessBaseDLL.EF.Context;
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.EFORM.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace DBAccessCoreDLL.EF.Context
+namespace DBAccessCoreDLL.EFORM.Context
 {
     /// <summary>
     /// Test数据库,对数据的操作应该写在这里...
@@ -23,7 +23,7 @@ namespace DBAccessCoreDLL.EF.Context
         /// <summary>
         /// 
         /// </summary>
-        virtual public DbSet<RoutePage> RoutePages { get; protected set; }
+        virtual public DbSet<RoutePages> RoutePages { get; protected set; }
 
         /// <summary>
         /// 不同权限下可访问的页面权限列表
@@ -101,7 +101,7 @@ namespace DBAccessCoreDLL.EF.Context
         {
             modelBuilder.ApplyConfiguration<Account>      ( new AccountEFConfig());
             modelBuilder.ApplyConfiguration<AccountRole>  ( new AccountRoleEFConfig());
-            modelBuilder.ApplyConfiguration<RoutePage>    ( new RoutePageEFConfig());
+            modelBuilder.ApplyConfiguration<RoutePages>    ( new RoutePageEFConfig());
             modelBuilder.ApplyConfiguration<Role>(new RoleEFConfig());
             modelBuilder.ApplyConfiguration<RoutePageRole>( new RoutePageRoleEFConfig());
 

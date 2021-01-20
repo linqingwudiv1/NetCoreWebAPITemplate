@@ -1,10 +1,14 @@
-﻿using Bogus.DataSets;
+﻿using BaseDLL.Helper;
+using Bogus.DataSets;
 using BusinessAdminDLL.Base;
 using BusinessAdminDLL.DTOModel.API.Roles;
 using BusinessAdminDLL.DTOModel.API.Routes;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.EFORM.Entity;
+using Microsoft.EntityFrameworkCore;
+using ServiceStack;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BusinessAdminDLL.Roles
@@ -29,11 +33,11 @@ namespace BusinessAdminDLL.Roles
         /// 
         /// </summary>
         /// <param name="_IDGenerator"></param>
-        /// <param name="RoleAccesser"></param>
-        public RolesBizServices(IIDGenerator _IDGenerator, IRoleAccesser RoleAccesser)
+        /// <param name="_roleAccesser"></param>
+        public RolesBizServices(IIDGenerator _IDGenerator, IRoleAccesser _roleAccesser)
             : base()
         {
-            this.accesser    = RoleAccesser;
+            this.accesser    = _roleAccesser;
             this.IDGenerator = _IDGenerator;
         }
 
@@ -42,16 +46,42 @@ namespace BusinessAdminDLL.Roles
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="data"></param>
-        private void ConvertNodeToRoute(DTOAPI_RoutePages data)
+        /// <param name="role"></param>
+        /// <returns></returns>
+        static private IList<DTOAPI_RoutePages> GenPageRouteTree(Role role) 
         {
-            // this.printTitle(node.title)
-            // foreach (Node child in data.child  .children)
-            // {
-            //     printNode(child); //<-- recursive
-            // }
-        }
+            IList<DTOAPI_RoutePages> routes = new List<DTOAPI_RoutePages>();
+            if ( role.RouteRoles != null && role.RouteRoles.Count > 0 ) 
+            {
+                // role.RouteRoles
+                // routes = role.RouteRoles.Select(x => new DTOAPI_RoutePages { id = x.Id, hierarchyPath = x.routePage.HierarchyPath }).ToList();
 
+                routes = role.RouteRoles.Select(x => new DTOAPI_RoutePages 
+                { 
+                    id = x.routePage.Id                         , 
+                    parentId = x.routePage.ParentId             , 
+                    hierarchyPath = x.routePage.HierarchyPath   ,
+                    component = x.routePage.Component           ,
+                    name = x.routePage.RouteName                ,
+                    path = x.routePage.Path                     ,
+                    meta = new DTOAPI_RoutePagesMeta 
+                    {
+                        title = x.routePage.Title,
+                        activeMenu = x.routePage.ActiveMenu,
+                        affix = x.routePage.Affix,
+                        alwaysShow = x.routePage.AlwaysShow,
+                        hidden = x.routePage.Hidden,
+                        icon = x.routePage.Icon,
+                        noCache = x.routePage.NoCache
+                    }
+                }).GenerateTree(x => x.id, x => x.parentId,(n, children) => 
+                {
+                    n.children = children.ToArray();
+                }, null).ToList();
+            }
+
+            return routes;
+        }
 
         #endregion
 
@@ -59,9 +89,22 @@ namespace BusinessAdminDLL.Roles
         /// 
         /// </summary>
         /// <returns></returns>
-        public Role[] GetRoles()
+        public dynamic GetRoles()
         {
-            Role[] roles = this.accesser.db.Roles.ToArray();
+            dynamic roles = (    from 
+                                    x 
+                                 in 
+                                    this.accesser.db.Roles.Include( role => role.RouteRoles).ThenInclude( routepage => routepage.routePage)
+                                 select
+                                     new DTOAPI_Role
+                                     {
+                                         key = x.Id,
+                                         description = x.Descrption,
+                                         name = x.RoleName,
+                                         routes = GenPageRouteTree(x)
+                                     }
+                           ).ToArray();
+
             return roles;
         }
 
@@ -70,12 +113,28 @@ namespace BusinessAdminDLL.Roles
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public Role GetRole(long key)
+        public dynamic GetRole(long key)
         {
-            Role role = this.accesser.Get(key);
-            return role;
+            Role role = (from 
+                            x 
+                         in 
+                            this.accesser.db.Roles.Include(role => role.RouteRoles).ThenInclude(routepage => routepage.routePage)
+                         where 
+                            x.Id == key 
+                         select x ).FirstOrDefault();
+
+            if (role != null) 
+            {
+                return new DTOAPI_Role
+                {
+                    key = role.Id,
+                    description = role.Descrption,
+                    name = role.RoleName,
+                    routes = GenPageRouteTree(role)
+                };
+            }
             
-            // throw new System.NotImplementedException();
+            return null;
         }
         /// <summary>
         /// 
@@ -84,16 +143,13 @@ namespace BusinessAdminDLL.Roles
         /// <returns></returns>
         public dynamic AddRole(DTOAPI_Role data)
         {
-
             Role role = new Role {
-                Id = this.IDGenerator.GetNewID<Role>(),
-                Descrption = data.description,
-                RoleName = data.name,
-                DisplayName = data.name,
+                Id = this.IDGenerator.GetNewID<Role>()  ,
+                Descrption = data.description           ,
+                RoleName = data.name                    ,
+                DisplayName = data.name                 ,
                 Organization = ""
             };
-
-
             return accesser.Add(role);
             //throw new System.NotImplementedException();
         }

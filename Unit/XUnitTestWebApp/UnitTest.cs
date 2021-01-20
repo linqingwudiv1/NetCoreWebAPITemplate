@@ -1,7 +1,7 @@
 using Bogus;
 using DBAccessBaseDLL.EF.Context;
-using DBAccessCoreDLL.EF.Context;
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.EFORM.Context;
+using DBAccessCoreDLL.EFORM.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading;

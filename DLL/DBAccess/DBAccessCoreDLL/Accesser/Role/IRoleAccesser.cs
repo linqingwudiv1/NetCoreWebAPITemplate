@@ -1,6 +1,6 @@
 ﻿using DBAccessBaseDLL.Accesser;
-using DBAccessCoreDLL.EF.Context;
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.EFORM.Context;
+using DBAccessCoreDLL.EFORM.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;

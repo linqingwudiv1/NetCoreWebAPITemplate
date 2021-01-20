@@ -1,8 +1,8 @@
 ﻿using DBAccessBaseDLL.Accesser;
 using DBAccessBaseDLL.IDGenerator;
-using DBAccessCoreDLL.EF.Context;
+using DBAccessCoreDLL.EFORM.Context;
 using Microsoft.EntityFrameworkCore.SqlServer;
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.EFORM.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -31,12 +31,17 @@ namespace DBAccessCoreDLL.Accesser
             IDGenerator = _IDGenerator;
         }
 
-        public RoutePage Get(long key)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public RoutePages Get(long key)
         {
             return this.db.RoutePages.Find(key);
         }
 
-        public IList<RoutePage> Get(IList<long> keys)
+        public IList<RoutePages> Get(IList<long> keys)
         {
             return this.db.RoutePages.Where(x => keys.Contains(x.Id)).ToArray();
         }
@@ -46,7 +51,7 @@ namespace DBAccessCoreDLL.Accesser
         /// </summary>
         /// <param name="newEntiy"></param>
         /// <returns></returns>
-        public int Add(RoutePage newEntiy)
+        public int Add(RoutePages newEntiy)
         {
             this.db.RoutePages.Add(newEntiy);
             return this.db.SaveChanges();
@@ -57,7 +62,7 @@ namespace DBAccessCoreDLL.Accesser
         /// </summary>
         /// <param name="newEntiys"></param>
         /// <returns></returns>
-        public int Add(IList<RoutePage> newEntiys)
+        public int Add(IList<RoutePages> newEntiys)
         {
             this.db.RoutePages.AddRange(newEntiys);
             return this.db.SaveChanges();
@@ -66,7 +71,7 @@ namespace DBAccessCoreDLL.Accesser
         public int Delete(long key)
         {
             // routePage = this.Delete
-            RoutePage routePage = this.db.RoutePages.Find(key);
+            RoutePages routePage = this.db.RoutePages.Find(key);
 
             if (routePage != null)
             {
@@ -86,7 +91,7 @@ namespace DBAccessCoreDLL.Accesser
             throw new NotImplementedException();
         }
 
-        public int Update(RoutePage modifyEntiy)
+        public int Update(RoutePages modifyEntiy)
         {
             var target = this.db.RoutePages.Find(modifyEntiy.Id);
             // modifyEntiy.ActiveMenu;
@@ -102,7 +107,7 @@ namespace DBAccessCoreDLL.Accesser
             return db.SaveChanges();
         }
 
-        public int Update(IList<RoutePage> modifyEntiys)
+        public int Update(IList<RoutePages> modifyEntiys)
         {
             throw new NotImplementedException();
         }

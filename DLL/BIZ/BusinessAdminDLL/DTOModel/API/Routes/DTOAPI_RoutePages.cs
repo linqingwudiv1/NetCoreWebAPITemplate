@@ -1,4 +1,4 @@
-﻿using DBAccessCoreDLL.EF.Entity;
+﻿using DBAccessCoreDLL.EFORM.Entity;
 using System;
 using System.Collections.Generic;
 
@@ -29,7 +29,6 @@ namespace BusinessAdminDLL.DTOModel.API.Routes
         /// </summary>
         public Int64? parentId { get; set; }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -50,7 +49,6 @@ namespace BusinessAdminDLL.DTOModel.API.Routes
         /// </summary>
 
         public string component { get; set; }
-
 
         /// <summary>
         /// 

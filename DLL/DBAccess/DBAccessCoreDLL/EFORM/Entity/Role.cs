@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DBAccessCoreDLL.EF.Entity
+namespace DBAccessCoreDLL.EFORM.Entity
 {
     /// <summary>
     /// Account 角色 Account Role
@@ -93,8 +93,6 @@ namespace DBAccessCoreDLL.EF.Entity
 
 #if DEBUG
             #region Default Database
-
-
             Role[] default_roles = {
                                      new Role { Id = 1, ParentId = null, Descrption = "系统管理员", DisplayName = "系统管理员", RoleName = "admin"      } ,
                                      new Role { Id = 2, ParentId = null, Descrption = "开发程序员", DisplayName = "开发程序员", RoleName = "developer"  } ,
@@ -103,7 +101,6 @@ namespace DBAccessCoreDLL.EF.Entity
                                    };
 
             tableBuilder.HasData(default_roles);
-            
             #endregion
 #endif
         }

@@ -1,8 +1,8 @@
 ﻿using Bogus;
 using BusinessCoreDLL.Accounts;
 using DBAccessBaseDLL.Static;
-using DBAccessCoreDLL.EF.Context;
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.EFORM.Context;
+using DBAccessCoreDLL.EFORM.Entity;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -189,7 +189,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                     }
                 });
 
-                Faker<RoutePage> testRoutePage = new Faker<RoutePage>(locale: "zh_CN");
+                Faker<RoutePages> testRoutePage = new Faker<RoutePages>(locale: "zh_CN");
 
                 testRoutePage.RuleFor( e => e.Id, faker => ((long)(faker.IndexFaker) + 1L) );
                 testRoutePage.RuleFor( e => e.Component, faker => "admin" );

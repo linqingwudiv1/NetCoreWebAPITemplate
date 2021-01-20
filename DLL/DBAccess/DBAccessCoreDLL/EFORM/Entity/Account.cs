@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DBAccessCoreDLL.EF.Entity
+namespace DBAccessCoreDLL.EFORM.Entity
 {
     /// <summary>
     /// 用户类

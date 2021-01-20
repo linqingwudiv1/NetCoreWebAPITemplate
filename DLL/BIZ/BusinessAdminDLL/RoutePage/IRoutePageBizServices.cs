@@ -1,9 +1,9 @@
 ﻿using BaseDLL.Helper;
 using BusinessAdminDLL.DTOModel.API.Routes;
-using DBAccessCoreDLL.EF.Context;
-using DBAccessCoreDLL.EF.Entity;
+using DBAccessCoreDLL.EFORM.Context;
+using DBAccessCoreDLL.EFORM.Entity;
 using System;
-using RoutePage_Alias = DBAccessCoreDLL.EF.Entity.RoutePage;
+using RoutePage_Alias = DBAccessCoreDLL.EFORM.Entity.RoutePages;
 
 namespace BusinessAdminDLL.RoutePage
 {

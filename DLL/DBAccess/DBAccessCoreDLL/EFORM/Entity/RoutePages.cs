@@ -8,12 +8,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 
-namespace DBAccessCoreDLL.EF.Entity
+namespace DBAccessCoreDLL.EFORM.Entity
 {
     /// <summary>
     /// 
     /// </summary>
-    public class RoutePage : BaseEntity
+    public class RoutePages : BaseEntity
     {
         /// <summary>
         /// 
@@ -95,13 +95,13 @@ namespace DBAccessCoreDLL.EF.Entity
     /// <summary>
     /// 
     /// </summary>
-    public class RoutePageEFConfig : IEntityTypeConfiguration<RoutePage>
+    public class RoutePageEFConfig : IEntityTypeConfiguration<RoutePages>
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="builder"></param>
-        public void Configure(EntityTypeBuilder<RoutePage> builder)
+        public void Configure(EntityTypeBuilder<RoutePages> builder)
         {
             var tableBuilder = builder.ToTable("RoutePage");
             /*
@@ -118,29 +118,29 @@ namespace DBAccessCoreDLL.EF.Entity
             string path = Path.GetFullPath(PlatformServices.Default.Application.ApplicationBasePath + @"\.Config\routeDefaultData.json");
             var tree = JsonHelper.loadJsonFromFile<dynamic>(path);
 
-            IList<RoutePage> defData = BuildTestData(tree.routes, null);
+            IList<RoutePages> defData = BuildTestData(tree.routes, null);
 
             tableBuilder.HasData(defData);
             #endregion
 #endif
-            tableBuilder.SetupBaseEntity<RoutePage>();
+            tableBuilder.SetupBaseEntity<RoutePages>();
         }
 
 #if DEBUG //写入测试数据
 
         static Int64 DefID = 10000;
         static Int64 MetaID = 1;
-        private IList<RoutePage> BuildTestData(dynamic data, RoutePage parentNode)
+        private IList<RoutePages> BuildTestData(dynamic data, RoutePages parentNode)
         {
             
-            List<RoutePage> test_data = new List<RoutePage>();
+            List<RoutePages> test_data = new List<RoutePages>();
             foreach (dynamic item in data) 
             {
                 long? parentID = parentNode == null ? default(long?) : parentNode.Id;
                 long NewID = RoutePageEFConfig.DefID++;
                 string HierarchyPath = parentNode == null ? "" : parentNode.HierarchyPath ;
                 
-                var routePage = new RoutePage()
+                var routePage = new RoutePages()
                 {
                     Id            = NewID,
                     ParentId      = parentID,
