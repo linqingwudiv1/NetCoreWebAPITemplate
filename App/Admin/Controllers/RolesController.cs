@@ -109,12 +109,11 @@ namespace AdminService.Controllers
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        [HttpDelete("{ids}")]
-        public IActionResult DeleteRole(Int64[] ids)
+        [HttpDelete]
+        public IActionResult DeleteRole([FromBody]long[] ids)
         {
             int effectRowNum = 0;
-            // effectRowNum = services.DeleteRoles(id);
-            // this.services.DeleteRole(id);
+            effectRowNum = this.services.DeleteRoles(ids);
             return Ok(effectRowNum);
         }
 

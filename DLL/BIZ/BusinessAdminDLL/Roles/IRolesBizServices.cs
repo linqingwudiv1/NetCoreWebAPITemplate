@@ -1,6 +1,7 @@
 ﻿using BusinessAdminDLL.DTOModel.API.Roles;
 using DBAccessCoreDLL.EFORM.Context;
 using DBAccessCoreDLL.EFORM.Entity;
+using System.Collections.Generic;
 
 namespace BusinessAdminDLL.Roles
 {
@@ -37,5 +38,12 @@ namespace BusinessAdminDLL.Roles
         /// <param name="Id"></param>
         /// <returns></returns>
         dynamic DeleteRole(long Id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Ids"></param>
+        /// <returns></returns>
+        dynamic DeleteRoles(IList<long> Ids);
     }
 }

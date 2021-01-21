@@ -479,6 +479,13 @@
             <param name="Id"></param>
             <returns></returns>
         </member>
+        <member name="M:BusinessAdminDLL.Roles.IRolesBizServices.DeleteRoles(System.Collections.Generic.IList{System.Int64})">
+            <summary>
+            
+            </summary>
+            <param name="Ids"></param>
+            <returns></returns>
+        </member>
         <member name="T:BusinessAdminDLL.Roles.RolesBizServices">
             <summary>
             
@@ -540,6 +547,13 @@
             
             </summary>
             <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.DeleteRoles(System.Collections.Generic.IList{System.Int64})">
+            <summary>
+            
+            </summary>
+            <param name="Ids"></param>
             <returns></returns>
         </member>
         <member name="T:BusinessAdminDLL.RoutePage.IRoutePageBizServices">

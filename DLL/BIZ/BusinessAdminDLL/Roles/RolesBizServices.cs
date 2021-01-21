@@ -170,5 +170,15 @@ namespace BusinessAdminDLL.Roles
             return this.accesser.Delete(Id);
             //throw new System.NotImplementedException();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Ids"></param>
+        /// <returns></returns>
+        public dynamic DeleteRoles(IList<long> Ids)
+        {
+            return this.accesser.Delete(Ids);
+        }
     }
 }

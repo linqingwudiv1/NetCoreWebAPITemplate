@@ -62,7 +62,7 @@ namespace DBAccessCoreDLL.Accesser
             Role temp_role = Get(key);
             if (temp_role != null )
             {
-                this.db.Entry(temp_role).Collection( r => r.RouteRoles ).Load();
+                //this.db.Entry(temp_role).Collection( r => r.RouteRoles ).Load();
 
                 db.RoutePageRoles.RemoveRange(temp_role.RouteRoles);
                 db.Roles.Remove(temp_role);
@@ -78,16 +78,19 @@ namespace DBAccessCoreDLL.Accesser
         /// <returns></returns>
         public int Delete(IList<long> keys)
         {
-           var roles = (
-                                    from
-                                        x
-                                    in
-                                        QueryableExtensions.Include(this.db.Roles, r => r.RouteRoles)
-                                    select
-                                        x
-                        );
-            
+            var roles = (
+                            from
+                                x
+                            in
+                                this.db.Roles // QueryableExtensions.Include(this.db.Roles, r => r.RouteRoles)
+                            where
+                                keys.Contains(x.Id)
+                            select
+                                x
+                         ) ;
+
             this.db.Roles.RemoveRange(roles);
+
             return db.SaveChanges();
         }
 
@@ -132,6 +135,5 @@ namespace DBAccessCoreDLL.Accesser
             db.Roles.UpdateRange(modifyEntiys);
             return db.SaveChanges();
         }
-
     }
 }
