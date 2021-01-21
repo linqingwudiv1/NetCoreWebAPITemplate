@@ -1,14 +1,10 @@
-﻿using DBAccessBaseDLL.Accesser;
-using DBAccessBaseDLL.IDGenerator;
+﻿using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.EFORM.Context;
-using Microsoft.EntityFrameworkCore.SqlServer;
 using DBAccessCoreDLL.EFORM.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using EF_Alias = Microsoft.EntityFrameworkCore.EF;
 
 namespace DBAccessCoreDLL.Accesser
 {
@@ -75,7 +71,7 @@ namespace DBAccessCoreDLL.Accesser
 
             if (routePage != null)
             {
-                var routePages      = ( from x in this.db.RoutePages     where EF_Alias.Functions.Like( x.HierarchyPath, $"{routePage.HierarchyPath}%") select x );
+                var routePages      = ( from x in this.db.RoutePages     where EF.Functions.Like( x.HierarchyPath, $"{routePage.HierarchyPath}%") select x );
                 var routePageRoles  = ( from x in this.db.RoutePageRoles where routePages.Select(c => c.Id).Contains(x.RoutePageId) select x );
 
                 this.db.RoutePageRoles.RemoveRange(routePageRoles);

@@ -13,8 +13,11 @@ namespace DBAccessCoreDLL.Accesser
         /// 
         /// </summary>
         CoreContextDIP IRoleAccesser.db { get => db; set => db = value ; }
-        
+        /// <summary>
+        /// 
+        /// </summary>
         private CoreContextDIP db;
+
         /// <summary>
         /// 
         /// </summary>
@@ -57,15 +60,34 @@ namespace DBAccessCoreDLL.Accesser
         public int Delete(long key)
         {
             Role temp_role = Get(key);
-            db.Roles.Remove(temp_role);
+            if (temp_role != null )
+            {
+                this.db.Entry(temp_role).Collection( r => r.RouteRoles ).Load();
+
+                db.RoutePageRoles.RemoveRange(temp_role.RouteRoles);
+                db.Roles.Remove(temp_role);
+            }
+
             return db.SaveChanges();
-            //this.db.Roles.Remove();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
         public int Delete(IList<long> keys)
         {
-            IList<Role> temp_role = Get(keys);
-            db.Roles.RemoveRange(temp_role);
+           var roles = (
+                                    from
+                                        x
+                                    in
+                                        QueryableExtensions.Include(this.db.Roles, r => r.RouteRoles)
+                                    select
+                                        x
+                        );
+            
+            this.db.Roles.RemoveRange(roles);
             return db.SaveChanges();
         }
 

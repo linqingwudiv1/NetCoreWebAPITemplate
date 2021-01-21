@@ -28,7 +28,7 @@ namespace AdminService.Controllers
         /// 
         /// </summary>
         /// <param name="_services"></param>
-        public RolesController(IRolesBizServices _services) 
+        public RolesController(IRolesBizServices _services)
         {
             services = _services;
         }
@@ -61,7 +61,7 @@ namespace AdminService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult AddRole([FromBody]DTOAPI_Role data)
+        public IActionResult AddRole( [FromBody]DTOAPI_Role data )
         {
             if (data == null)
             {
@@ -79,7 +79,7 @@ namespace AdminService.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateRole(Int64 id, [FromBody]DTOAPI_Role data)
         {
-            if (data == null) 
+            if (data == null)
             {
                 return NotFound("DTOAPIReq_Role is null");
             }
@@ -96,11 +96,25 @@ namespace AdminService.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public IActionResult DeleteRole( Int64 id ) 
+        public IActionResult DeleteRole(Int64 id)
         {
             int effectRowNum = 0;
             effectRowNum = services.DeleteRole(id);
 
+            return Ok(effectRowNum);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpDelete("{ids}")]
+        public IActionResult DeleteRole(Int64[] ids)
+        {
+            int effectRowNum = 0;
+            // effectRowNum = services.DeleteRoles(id);
+            // this.services.DeleteRole(id);
             return Ok(effectRowNum);
         }
 

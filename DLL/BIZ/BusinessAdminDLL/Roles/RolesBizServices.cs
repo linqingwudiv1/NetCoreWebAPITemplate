@@ -1,5 +1,4 @@
 ﻿using BaseDLL.Helper;
-using Bogus.DataSets;
 using BusinessAdminDLL.Base;
 using BusinessAdminDLL.DTOModel.API.Roles;
 using BusinessAdminDLL.DTOModel.API.Routes;
@@ -53,8 +52,6 @@ namespace BusinessAdminDLL.Roles
             IList<DTOAPI_RoutePages> routes = new List<DTOAPI_RoutePages>();
             if ( role.RouteRoles != null && role.RouteRoles.Count > 0 ) 
             {
-                // role.RouteRoles
-                // routes = role.RouteRoles.Select(x => new DTOAPI_RoutePages { id = x.Id, hierarchyPath = x.routePage.HierarchyPath }).ToList();
 
                 routes = role.RouteRoles.Select(x => new DTOAPI_RoutePages 
                 { 
@@ -123,7 +120,7 @@ namespace BusinessAdminDLL.Roles
                             x.Id == key 
                          select x ).FirstOrDefault();
 
-            if (role != null) 
+            if (role != null)
             {
                 return new DTOAPI_Role
                 {
@@ -133,7 +130,7 @@ namespace BusinessAdminDLL.Roles
                     routes = GenPageRouteTree(role)
                 };
             }
-            
+
             return null;
         }
         /// <summary>
@@ -150,8 +147,8 @@ namespace BusinessAdminDLL.Roles
                 DisplayName = data.name                 ,
                 Organization = ""
             };
+
             return accesser.Add(role);
-            //throw new System.NotImplementedException();
         }
         /// <summary>
         /// 
@@ -163,7 +160,6 @@ namespace BusinessAdminDLL.Roles
             throw new System.NotImplementedException();
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -171,7 +167,8 @@ namespace BusinessAdminDLL.Roles
         /// <returns></returns>
         public dynamic DeleteRole(long Id)
         {
-            throw new System.NotImplementedException();
+            return this.accesser.Delete(Id);
+            //throw new System.NotImplementedException();
         }
     }
 }
