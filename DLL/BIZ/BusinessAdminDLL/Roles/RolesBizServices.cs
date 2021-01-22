@@ -1,4 +1,5 @@
-﻿using BaseDLL.Helper;
+﻿using AutoMapper;
+using BaseDLL.Helper;
 using BusinessAdminDLL.Base;
 using BusinessAdminDLL.DTOModel.API.Roles;
 using BusinessAdminDLL.DTOModel.API.Routes;
@@ -31,13 +32,20 @@ namespace BusinessAdminDLL.Roles
         /// <summary>
         /// 
         /// </summary>
+        protected IMapper mapper { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="_IDGenerator"></param>
         /// <param name="_roleAccesser"></param>
-        public RolesBizServices(IIDGenerator _IDGenerator, IRoleAccesser _roleAccesser)
+        /// <param name="_mapper"></param>
+        public RolesBizServices(IIDGenerator _IDGenerator, IRoleAccesser _roleAccesser, IMapper _mapper)
             : base()
         {
             this.accesser    = _roleAccesser;
             this.IDGenerator = _IDGenerator;
+            this.mapper      = _mapper;
         }
 
         #region private

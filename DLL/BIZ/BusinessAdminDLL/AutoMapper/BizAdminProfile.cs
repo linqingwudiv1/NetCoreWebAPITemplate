@@ -3,7 +3,6 @@ using BusinessAdminDLL.DTOModel.API.Roles;
 using BusinessAdminDLL.DTOModel.API.Routes;
 using DBAccessCoreDLL.EFORM.Entity;
 
-using RoutePage_Alias = DBAccessCoreDLL.EFORM.Entity.RoutePages;
 namespace BusinessAdminDLL.DTOModel.AutoMapper
 {
 
@@ -17,8 +16,9 @@ namespace BusinessAdminDLL.DTOModel.AutoMapper
         /// </summary>
         public BizAdminProfile() 
         {
-            CreateMap<Role, DTOAPI_Role>()                  ;
-            CreateMap<RoutePage_Alias, DTOAPI_RoutePages>() ;
+            CreateMap<Role, DTOAPI_Role>().ForMember(opt => opt.key, opt => opt.MapFrom(p => p.Id))
+                                          .ForMember(opt => opt.name, opt => opt.MapFrom(p => p.DisplayName))
+                                          .ReverseMap();
         }
     }
 

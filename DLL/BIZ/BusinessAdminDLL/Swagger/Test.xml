@@ -501,12 +501,18 @@
             
             </summary>
         </member>
-        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IRoleAccesser)">
+        <member name="P:BusinessAdminDLL.Roles.RolesBizServices.mapper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IRoleAccesser,AutoMapper.IMapper)">
             <summary>
             
             </summary>
             <param name="_IDGenerator"></param>
             <param name="_roleAccesser"></param>
+            <param name="_mapper"></param>
         </member>
         <member name="M:BusinessAdminDLL.Roles.RolesBizServices.GenPageRouteTree(DBAccessCoreDLL.EFORM.Entity.Role)">
             <summary>

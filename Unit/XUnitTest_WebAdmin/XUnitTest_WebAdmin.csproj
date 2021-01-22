@@ -7,6 +7,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include=".Config\APILTEUrl.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include=".Config\appsettings.Development.json" />
+    <Content Include=".Config\appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include=".Config\ConnectionString.Development.json" />
+    <Content Include=".Config\ConnectionString.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include=".Config\HostAddress.Development.json" />
+    <Content Include=".Config\HostAddress.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include=".Config\net4log.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include=".Config\routeDefaultData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="Moq" Version="4.16.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -22,6 +46,12 @@
 
   <ItemGroup>
     <Folder Include="Role\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include=".Config\nlog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

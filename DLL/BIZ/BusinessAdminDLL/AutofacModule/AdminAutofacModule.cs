@@ -1,5 +1,7 @@
 ﻿using Autofac;
+using AutoMapper;
 using BusinessAdminDLL.Accounts;
+using BusinessAdminDLL.DTOModel.AutoMapper;
 using BusinessAdminDLL.Roles;
 using BusinessAdminDLL.RoutePage;
 using DBAccessBaseDLL.IDGenerator;
@@ -27,8 +29,8 @@ namespace BusinessAdminDLL.AutofacModule
 
             #region Biz
 
-            builder.RegisterType<AccountBizServices>()  .As<IAccountsBizServices>().InstancePerLifetimeScope();
-            builder.RegisterType<RolesBizServices>()    .As<IRolesBizServices>().InstancePerLifetimeScope();
+            builder.RegisterType<AccountBizServices>().As<IAccountsBizServices>().InstancePerLifetimeScope();
+            builder.RegisterType<RolesBizServices>().As<IRolesBizServices>().InstancePerLifetimeScope();
             builder.RegisterType<RoutePageBizServices>().As<IRoutePageBizServices>().InstancePerLifetimeScope();
 
             #endregion
@@ -41,10 +43,26 @@ namespace BusinessAdminDLL.AutofacModule
 
             #endregion
 
-            // 注册到BaseController的所有子类
-            //builder.RegisterAssemblyTypes(typeof(BaseController).Assembly)
-            //    .Where(classType => classType.IsSubclassOf(typeof(BaseController)));
+            #region AutoMapper
 
+            //注册AutoMapper配置文件, Register   
+            builder.Register(ctx =>
+           {
+               return new MapperConfiguration(cfg =>
+               {
+                   cfg.AddProfile(typeof(BizAdminProfile));
+               });
+           }).AsSelf().SingleInstance();
+
+            builder.Register(ctx =>
+            {
+                //This resolves a new context that can be used later.
+                var context = ctx.Resolve<IComponentContext>();
+                var config = context.Resolve<MapperConfiguration>();
+                return config.CreateMapper(context.Resolve);
+            }).As<IMapper>().SingleInstance();
+
+            #endregion
         }
     }
 }

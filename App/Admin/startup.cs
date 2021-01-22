@@ -1,9 +1,9 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
 using BaseDLL;
 using BusinessAdminDLL.AutofacModule;
-using DBAccessBaseDLL.EF.Context;
-using DBAccessBaseDLL.EF.Extension;
+using BusinessAdminDLL.DTOModel.AutoMapper;
 using DBAccessBaseDLL.Static;
 using DBAccessCoreDLL.EFORM.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,7 +19,6 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Microsoft.Web.Administration;
 using NetApplictionServiceDLL;
 using Newtonsoft.Json.Serialization;
 using NLog;
@@ -27,7 +26,6 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
 using WebApp.SingalR;
 
@@ -165,6 +163,12 @@ namespace WebAdminService
                 // services.AddScoped<itestservice, mytestservice>();
                 #endregion
 
+
+                #region AutoMapper
+
+                services.AddAutoMapper(typeof(BizAdminProfile).Assembly );
+
+                #endregion
 
                 #region Autofac Configration
 

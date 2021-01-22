@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.1.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Dapper" Version="2.0.78" />
     <PackageReference Include="JWT" Version="7.3.1" />
     <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="5.0.21" />

@@ -5,6 +5,8 @@ using System.Configuration;
 using System.Text;
 using Dapper;
 using Microsoft.Data.SqlClient;
+using BaseDLL;
+using Microsoft.Extensions.Configuration;
 
 namespace DBAccessBaseDLL.IDGenerator
 {
@@ -34,7 +36,7 @@ namespace DBAccessBaseDLL.IDGenerator
             //
             //this.SqlCmd = sqlcmd;
             //this.conn = conn;
-            this.conn = ConfigurationManager.ConnectionStrings["IDGeneratorDB"].ConnectionString;
+            this.conn = GVariable.configuration.GetConnectionString("IDGeneratorDB");
         }
 
         /// <summary>
