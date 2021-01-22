@@ -15,7 +15,14 @@ namespace XUnitTest_WebAdmin
     /// </summary>
     public class IT_Admin : IClassFixture<WebApplicationFactory<WebAdminService.Startup>>
     {
+        /// <summary>
+        /// 
+        /// </summary>
         protected readonly WebApplicationFactory<WebAdminService.Startup> factory;
+        
+        /// <summary>
+        /// 
+        /// </summary>
         protected HttpClient client;
 
         /// <summary>
