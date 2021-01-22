@@ -7,7 +7,7 @@ using System;
 using System.Threading;
 using Xunit;
 
-namespace XUnitTestWebApp
+namespace XUnitTest_WebCore
 {
     /// <summary>
     /// 

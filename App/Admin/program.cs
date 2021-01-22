@@ -10,7 +10,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 
-namespace AdminService
+namespace WebAdminService
 {
     /// <summary>
     /// 主函数

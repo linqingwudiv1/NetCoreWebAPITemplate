@@ -31,7 +31,7 @@ namespace BusinessCoreDLL.AutofacModule
             #region DB 访问器
             
             builder.RegisterType<AccountAccesser>().As<IAccountAccesser>().InstancePerLifetimeScope();
-            builder.RegisterType<RoleAccesser>().As<IRoutePageAccesser>().InstancePerLifetimeScope();
+            builder.RegisterType<RoleAccesser>().As<IRoleAccesser>().InstancePerLifetimeScope();
 
             #endregion
 

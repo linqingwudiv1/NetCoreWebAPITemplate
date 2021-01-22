@@ -9,10 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdminService.Controllers
+namespace WebAdminService.Controllers
 {
     /// <summary>
-    /// Vue项目展示接口
+    /// 
     /// </summary>
     [Route("api/[controller]")]
     [EnableCors("WebAPIPolicy")]
@@ -100,6 +100,7 @@ namespace AdminService.Controllers
         {
             int effectRowNum = 0;
             effectRowNum = services.DeleteRole(id);
+
 
             return Ok(effectRowNum);
         }

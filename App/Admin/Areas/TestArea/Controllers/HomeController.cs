@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace AdminService.Areas.TestArea.Controllers
+namespace WebAdminService.Areas.TestArea.Controllers
 {
     /// <summary>
     /// 

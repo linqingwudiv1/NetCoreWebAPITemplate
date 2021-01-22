@@ -1,6 +1,9 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using BaseDLL;
 using BusinessAdminDLL.AutofacModule;
+using DBAccessBaseDLL.EF.Context;
+using DBAccessBaseDLL.EF.Extension;
 using DBAccessBaseDLL.Static;
 using DBAccessCoreDLL.EFORM.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,16 +19,19 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Microsoft.Web.Administration;
 using NetApplictionServiceDLL;
 using Newtonsoft.Json.Serialization;
 using NLog;
 using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using WebApp.SingalR;
 
-namespace AdminService
+namespace WebAdminService
 {
     /// <summary>
     /// 
@@ -113,7 +119,7 @@ namespace AdminService
             InitNLog(env);
             InitSessionOpts();
             InitOther();
-
+            
             #endregion
 
             if (env != null) 
@@ -122,12 +128,14 @@ namespace AdminService
                                     .AddInMemoryCollection()
                                     .SetBasePath(env.ContentRootPath)
                                     .AddJsonFile(@".Config\appsettings.json", optional: false, reloadOnChange: true)
-                                    .AddJsonFile($@".Config\appsettings.{env.EnvironmentName}.json", optional: true)
+                                    //.AddJsonFile($@".Config\appsettings.{env.EnvironmentName}.json", optional: true)
                                     .AddJsonFile(@".Config\ConnectionString.json", optional: false, reloadOnChange: true)
                                     .AddJsonFile(@".Config\APILTEUrl.json", optional: false, reloadOnChange: true)
                                     .AddEnvironmentVariables();
 
+                
                 Configuration = builder.Build();
+                GVariable.configuration = this.Configuration;
             }
 
         }
@@ -194,22 +202,21 @@ namespace AdminService
                 #region Add framework services. 配置项注入
 
                 #region EF DI注入
-                string connstr = ConfigurationManager.ConnectionStrings["PostgreSQLCoreDB"].ConnectionString;
-                
+
+                string connstr = Configuration.GetConnectionString("PostgreSQLCoreDB");//Configuration.GetConnectionString("PostgreSQLCoreDB");
+
                 services.AddDbContextPool<CoreContextDIP>((opt) =>
                 {
-                    opt.UseNpgsql(connstr);
-                    //opt.UseSqlite(connstr);
                 }, 100);
                 
                 #endregion
 
                 #region ApplicationInsights
 
-                services.AddApplicationInsightsTelemetry( opt => 
-                {
+                //services.AddApplicationInsightsTelemetry( opt => 
+                //{
 
-                });
+                //});
 
                 #endregion
 
@@ -325,6 +332,28 @@ namespace AdminService
             Logger log = LogManager.GetLogger("Startup");
             try
             {
+                #region 确保数据库生成，并暖机
+
+                string dbconn = GVariable.configuration.GetConnectionString("PostgreSQLCoreDB");
+
+                DbContextOptions<CoreContextDIP> opt = new DbContextOptions<CoreContextDIP>();
+                using (var db = new CoreContextDIP(opt))
+                {
+#if DEBUG
+                    db.Database.EnsureCreated();
+
+#endif
+                    db.Accounts.FirstOrDefaultAsync();
+                    db.Roles.FirstOrDefaultAsync();
+                    db.RoutePages.FirstOrDefaultAsync();
+                    db.RoutePageRoles.FirstOrDefaultAsync();
+                    db.AccountRoles.FirstOrDefaultAsync();
+
+                    //db.WarmUp();
+                }
+
+                #endregion
+
                 #region MVC 和WebAPI 相关
 
                 app.UseRouting();
@@ -393,6 +422,7 @@ namespace AdminService
             catch (Exception ex)
             {
                 log.Info($" Error : { ex.Message } ");
+                Debug.WriteLine($" Error : { ex.Message } ");
             }
         }
     }

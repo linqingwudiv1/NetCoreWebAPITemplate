@@ -48,7 +48,6 @@ namespace DBAccessBaseDLL.Accesser
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="Key"></typeparam>
         /// <param name="keys"></param>
         /// <returns></returns>
         int Delete(IList<Key> keys);

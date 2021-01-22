@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using BaseDLL;
 using BusinessCoreDLL.AutofacModule;
 using DBAccessBaseDLL.Static;
 using DBAccessCoreDLL.EFORM.Context;
@@ -137,6 +138,7 @@ namespace WebCoreService
                                     .AddEnvironmentVariables();
 
                 Configuration = builder.Build();
+                GVariable.configuration = Configuration;
             }
 
         }
@@ -206,11 +208,11 @@ namespace WebCoreService
                 #region Add framework services. 配置项注入
 
                 #region EF DI注入
-                string connstr = ConfigurationManager.ConnectionStrings["PostgreSQLCoreDB"].ConnectionString;
+                // string connstr = ("PostgreSQLCoreDB");
                 services.AddDbContextPool<CoreContextDIP>((opt) =>
                 {
-                    opt.UseNpgsql(connstr);
-                    //opt.UseSqlite(connstr);
+                    // opt.UseNpgsql(connstr);
+                    // opt.UseSqlite(connstr);
                 }, 100);
 
                 #endregion

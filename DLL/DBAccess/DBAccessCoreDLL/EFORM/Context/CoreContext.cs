@@ -2,13 +2,17 @@
 using DBAccessCoreDLL.EFORM.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Data.Entity.Core.Mapping;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Infrastructure;
 
 namespace DBAccessCoreDLL.EFORM.Context
 {
     /// <summary>
     /// Test数据库,对数据的操作应该写在这里...
     /// </summary>
-    public class CoreContext : CommonDBContext<CoreContext>
+    public class CoreContext : BaseDBContext<CoreContext>
     {
         /// <summary>
         /// 实体:DbQuery
@@ -25,7 +29,7 @@ namespace DBAccessCoreDLL.EFORM.Context
         /// </summary>
         virtual public DbSet<RoutePages> RoutePages { get; protected set; }
 
-        /// <summary>
+        /// <summary>w1A
         /// 不同权限下可访问的页面权限列表
         /// </summary>
         virtual public DbSet<RoutePageRole> RoutePageRoles { get; protected set; }
@@ -47,10 +51,7 @@ namespace DBAccessCoreDLL.EFORM.Context
         /// <param name="_ConnString">多表组合</param>
         public CoreContext(string _ConnString = "")
             : base(_ConnString)
-        {
-#if DEBUG
-            this.Database.EnsureCreated();
-#endif
+        { 
         }
 
         /// <summary>
@@ -60,9 +61,6 @@ namespace DBAccessCoreDLL.EFORM.Context
         public CoreContext(DbContextOptions<CoreContext> options)
         : base(options)
         {
-#if DEBUG
-            this.Database.EnsureCreated();
-#endif
         }
 
 
@@ -74,9 +72,6 @@ namespace DBAccessCoreDLL.EFORM.Context
         public CoreContext(DbContextOptions<CoreContext> options, string _ConnString = "")
             : base(options, _ConnString)
         {
-#if DEBUG
-            this.Database.EnsureCreated();
-#endif
         }
 
         /// <summary>
@@ -88,7 +83,7 @@ namespace DBAccessCoreDLL.EFORM.Context
             if (!optionsBuilder.IsConfigured &&
                  !String.IsNullOrEmpty(this.ConnString))
             {
-                optionsBuilder.UseSqlite(this.ConnString);
+                optionsBuilder.UseNpgsql(this.ConnString);
             }
             base.OnConfiguring(optionsBuilder);
         }

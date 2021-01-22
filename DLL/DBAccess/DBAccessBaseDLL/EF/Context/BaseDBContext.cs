@@ -23,7 +23,7 @@ namespace DBAccessBaseDLL.EF.Context
         /// 
         /// </summary>
         protected string ConnString { get; set; }
-        
+
         /// <summary>
         /// 
         /// </summary>

@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper.Configuration;
+using BaseDLL;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System.Configuration;
 
@@ -25,8 +28,8 @@ namespace DBAccessCoreDLL.EFORM.Context
         /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            this.ConnString = ConfigurationManager.ConnectionStrings["PostgreSQLCoreDB"].ConnectionString;
-            //optionsBuilder.UseSqlite(this.ConnString);
+            this.ConnString = GVariable.configuration.GetConnectionString("PostgreSQLCoreDB") ;
+            // ConfigurationManager.ConnectionStrings["PostgreSQLCoreDB"].ConnectionString ; 
             optionsBuilder.UseNpgsql(ConnString);
 
             base.OnConfiguring(optionsBuilder);

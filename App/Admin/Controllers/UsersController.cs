@@ -16,12 +16,12 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdminService.Controllers
+namespace WebAdminService.Controllers
 {
     /// <summary>
     /// Vue 项目展示接口
     /// </summary>
-    [Route("Api/[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     [EnableCors("WebAPIPolicy")]
     [ApiController]
     public class UsersController : BaseController

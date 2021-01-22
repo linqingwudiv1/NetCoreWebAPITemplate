@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
 
-namespace AdminService.Controllers
+namespace WebAdminService.Controllers
 {
     /// <summary>
     /// 

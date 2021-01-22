@@ -24,5 +24,6 @@ namespace DBAccessBaseDLL.EF.Entity
             target.Q_Sequence    = 0                 ;
         }
 
+
     }
 }

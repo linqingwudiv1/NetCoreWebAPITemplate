@@ -13,7 +13,7 @@ using System.Configuration;
 using System.Linq;
 
 
-namespace AdminService.Controllers
+namespace WebAdminService.Controllers
 {
 
     /// <summary>
