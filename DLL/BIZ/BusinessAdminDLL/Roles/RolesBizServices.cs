@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using BaseDLL.Helper;
 using BusinessAdminDLL.Base;
 using BusinessAdminDLL.DTOModel.API.Roles;
@@ -150,8 +151,8 @@ namespace BusinessAdminDLL.Roles
         {
             Role role = new Role {
                 Id = this.IDGenerator.GetNewID<Role>()  ,
-                Descrption = data.description           ,
-                RoleName = data.name                    ,
+                Descrption  = data.description          ,
+                RoleName    = data.name                 ,
                 DisplayName = data.name                 ,
                 Organization = ""
             };

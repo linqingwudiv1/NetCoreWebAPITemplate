@@ -18,13 +18,15 @@ namespace XUnitTest_WebAdmin
         protected readonly WebApplicationFactory<WebAdminService.Startup> factory;
         protected HttpClient client;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_factory"></param>
         public IT_Admin(WebApplicationFactory<WebAdminService.Startup> _factory)
         {
             factory = _factory;
             client = this.factory.CreateClient();
         }
-
-
 
         /// <summary>
         /// 集成测试_Role模块
