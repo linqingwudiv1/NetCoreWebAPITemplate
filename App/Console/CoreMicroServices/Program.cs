@@ -81,13 +81,12 @@ namespace CoreMicroServices
                                       c.Password(pwd);
                                   });
                               });
+
                               x.AddConsumer<RoleDomainEvent>(cfg => 
                               {
                               });
-
-
                           });
-
+                            
                           services.AddMassTransitHostedService();
                           #endregion
                       });

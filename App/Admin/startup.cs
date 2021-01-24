@@ -7,6 +7,7 @@ using BusinessAdminDLL.AutofacModule;
 using BusinessAdminDLL.DTOModel.AutoMapper;
 using DBAccessBaseDLL.Static;
 using DBAccessCoreDLL.EFORM.Context;
+using GreenPipes;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -267,8 +268,14 @@ namespace WebAdminService
                             c.Username(user);
                             c.Password(pwd);
                         });
+                        cfg.UseRetry(ret =>
+                        {
+                            ret.Interval(5, TimeSpan.FromSeconds(12));
+                        });
+
                         var timeout = TimeSpan.FromSeconds(10);
                         var serviceAddress = new Uri("rabbitmq://localhost/role-service");
+                        //x.AddBus();
                         //x.AddRequestClient<DeleteRoleCommand>(serviceAddress, timeout);
                     });
 
