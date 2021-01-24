@@ -8,6 +8,7 @@ using NetApplictionServiceDLL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebAdminService.Controllers
 {
@@ -61,14 +62,14 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult AddRole( [FromBody]DTOAPI_Role data )
+        public async Task<IActionResult> AddRoleAsync( [FromBody]DTOAPI_Role data )
         {
             if (data == null)
             {
                 return NotFound("没有正确添加数据");
             }
 
-            int effectRowNum = services.AddRole(data);
+            int effectRowNum = await services.AddRole(data);
             return Ok(effectRowNum);
         }
 
@@ -96,10 +97,10 @@ namespace WebAdminService.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public IActionResult DeleteRole(Int64 id)
+        public async Task<IActionResult> DeleteRole(Int64 id)
         {
             int effectRowNum = 0;
-            effectRowNum = services.DeleteRole(id);
+            effectRowNum = await services.DeleteRole(id);
 
 
             return Ok(effectRowNum);
@@ -111,10 +112,10 @@ namespace WebAdminService.Controllers
         /// <param name="ids"></param>
         /// <returns></returns>
         [HttpDelete]
-        public IActionResult DeleteRole([FromBody]long[] ids)
+        public async Task<IActionResult> DeleteRoleAsync([FromBody]long[] ids)
         {
             int effectRowNum = 0;
-            effectRowNum = this.services.DeleteRoles(ids);
+            effectRowNum = await this.services.DeleteRoles(ids);
             return Ok(effectRowNum);
         }
 

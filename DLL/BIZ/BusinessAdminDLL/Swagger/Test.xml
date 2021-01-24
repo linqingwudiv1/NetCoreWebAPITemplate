@@ -506,13 +506,24 @@
             
             </summary>
         </member>
-        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IRoleAccesser,AutoMapper.IMapper)">
+        <member name="F:BusinessAdminDLL.Roles.RolesBizServices.publishEndpoint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessAdminDLL.Roles.RolesBizServices.sendEndpoint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IRoleAccesser,AutoMapper.IMapper,MassTransit.IPublishEndpoint)">
             <summary>
             
             </summary>
             <param name="_IDGenerator"></param>
             <param name="_roleAccesser"></param>
             <param name="_mapper"></param>
+            <param name="_publishEndpoint"></param>
         </member>
         <member name="M:BusinessAdminDLL.Roles.RolesBizServices.GenPageRouteTree(DBAccessCoreDLL.EFORM.Entity.Role)">
             <summary>

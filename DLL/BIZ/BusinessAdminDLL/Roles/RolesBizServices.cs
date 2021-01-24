@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using AdminServices.Command.Role;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using BaseDLL.Helper;
 using BusinessAdminDLL.Base;
@@ -7,10 +8,12 @@ using BusinessAdminDLL.DTOModel.API.Routes;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
 using DBAccessCoreDLL.EFORM.Entity;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using ServiceStack;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BusinessAdminDLL.Roles
 {
@@ -35,18 +38,35 @@ namespace BusinessAdminDLL.Roles
         /// </summary>
         protected IMapper mapper { get; set; }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected readonly IPublishEndpoint publishEndpoint;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected readonly ISendEndpoint sendEndpoint;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="_IDGenerator"></param>
         /// <param name="_roleAccesser"></param>
         /// <param name="_mapper"></param>
-        public RolesBizServices(IIDGenerator _IDGenerator, IRoleAccesser _roleAccesser, IMapper _mapper)
+        /// <param name="_publishEndpoint"></param>
+        public RolesBizServices(IIDGenerator _IDGenerator, 
+                                IRoleAccesser _roleAccesser, 
+                                IMapper _mapper, 
+                                IPublishEndpoint _publishEndpoint)
             : base()
         {
-            this.accesser    = _roleAccesser;
-            this.IDGenerator = _IDGenerator;
-            this.mapper      = _mapper;
+            this.accesser        = _roleAccesser;
+            this.IDGenerator     = _IDGenerator;
+            this.mapper          = _mapper;
+            this.publishEndpoint = _publishEndpoint;
+            //this.sendEndpoint    = _sendEndpoint;
         }
 
         #region private
@@ -95,9 +115,9 @@ namespace BusinessAdminDLL.Roles
         /// 
         /// </summary>
         /// <returns></returns>
-        public dynamic GetRoles()
+        public Task<IList<DTOAPI_Role>> GetRoles()
         {
-            dynamic roles = (    from 
+            IList<DTOAPI_Role> roles = (    from 
                                     x 
                                  in 
                                     this.accesser.db.Roles.Include( role => role.RouteRoles).ThenInclude( routepage => routepage.routePage)
@@ -110,7 +130,7 @@ namespace BusinessAdminDLL.Roles
                                          routes = GenPageRouteTree(x)
                                      }
                            ).ToArray();
-            return roles;
+            return Task.FromResult( roles);
         }
 
         /// <summary>
@@ -118,7 +138,7 @@ namespace BusinessAdminDLL.Roles
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public dynamic GetRole(long key)
+        public Task<DTOAPI_Role> GetRole(long key)
         {
             Role role = (from 
                             x 
@@ -129,13 +149,14 @@ namespace BusinessAdminDLL.Roles
                          select x ).FirstOrDefault();
             if (role != null)
             {
-                return new DTOAPI_Role
+                dynamic Role = new DTOAPI_Role
                 {
                     key = role.Id,
                     description = role.Descrption,
                     name = role.RoleName,
                     routes = GenPageRouteTree(role)
                 };
+                return Task.FromResult( Role);
             }
 
             return null;
@@ -145,7 +166,7 @@ namespace BusinessAdminDLL.Roles
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public dynamic AddRole(DTOAPI_Role data)
+        public Task<int> AddRole(DTOAPI_Role data)
         {
             Role role = new Role {
                 Id = this.IDGenerator.GetNewID<Role>()  ,
@@ -155,14 +176,14 @@ namespace BusinessAdminDLL.Roles
                 Organization = ""
             };
 
-            return accesser.Add(role);
+            return Task.FromResult(accesser.Add(role) );
         }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public dynamic UpdateRole(DTOAPI_Role data)
+        public Task<int> UpdateRole(DTOAPI_Role data)
         {
             throw new System.NotImplementedException();
         }
@@ -172,9 +193,11 @@ namespace BusinessAdminDLL.Roles
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public dynamic DeleteRole(long Id)
+        public Task<int> DeleteRole(long Id)
         {
-            return this.accesser.Delete(Id);
+            this.publishEndpoint.Publish(new DeleteRoleCommand {key = Id }).Wait();
+            return Task.FromResult(0) ;
+            //return this.accesser.Delete(Id);
             //throw new System.NotImplementedException();
         }
 
@@ -183,9 +206,9 @@ namespace BusinessAdminDLL.Roles
         /// </summary>
         /// <param name="Ids"></param>
         /// <returns></returns>
-        public dynamic DeleteRoles(IList<long> Ids)
-        {
-            return this.accesser.Delete(Ids);
+        public Task<int> DeleteRoles(IList<long> Ids)
+        { 
+            return Task.FromResult(0) ;
         }
     }
 }

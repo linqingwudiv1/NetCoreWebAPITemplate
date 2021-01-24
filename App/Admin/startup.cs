@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using AdminServices.Command.Role;
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using BaseDLL;
@@ -266,6 +267,9 @@ namespace WebAdminService
                             c.Username(user);
                             c.Password(pwd);
                         });
+                        var timeout = TimeSpan.FromSeconds(10);
+                        var serviceAddress = new Uri("rabbitmq://localhost/role-service");
+                        //x.AddRequestClient<DeleteRoleCommand>(serviceAddress, timeout);
                     });
 
                 });

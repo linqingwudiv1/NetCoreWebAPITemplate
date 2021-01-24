@@ -2,6 +2,7 @@
 using DBAccessCoreDLL.EFORM.Context;
 using DBAccessCoreDLL.EFORM.Entity;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BusinessAdminDLL.Roles
 {
@@ -14,36 +15,36 @@ namespace BusinessAdminDLL.Roles
         /// 
         /// </summary>
         /// <returns></returns>
-        dynamic GetRoles();
+        Task<IList<DTOAPI_Role>> GetRoles();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        dynamic GetRole(long key);
+        Task<DTOAPI_Role> GetRole(long key);
         ///
-        dynamic AddRole(DTOAPI_Role data);
+        Task<int> AddRole(DTOAPI_Role data);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        dynamic UpdateRole(DTOAPI_Role data);
+        Task<int> UpdateRole(DTOAPI_Role data);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        dynamic DeleteRole(long Id);
+        Task<int> DeleteRole(long Id);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="Ids"></param>
         /// <returns></returns>
-        dynamic DeleteRoles(IList<long> Ids);
+        Task<int> DeleteRoles(IList<long> Ids);
     }
 }

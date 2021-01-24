@@ -42,19 +42,39 @@ namespace AdminServices.Event.Role
             this.IDGenerator = _IDGenerator;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public Task Consume(ConsumeContext<AddRoleCommand> context)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public Task Consume(ConsumeContext<UpdateRoleCommand> context)
         {
-            throw new NotImplementedException();
+           throw new NotImplementedException();
         }
 
-        public Task Consume(ConsumeContext<DeleteRoleCommand> context)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public async Task Consume(ConsumeContext<DeleteRoleCommand> context)
         {
-            throw new NotImplementedException();
+            int rowEffect = this.accesser.Delete(context.Message.key);
+            return;
+            //return;
+            //return context.RespondAsync(new DeleteRoleCommandResult { effectCount = rowEffect});
+            //throw new NotImplementedException();
         }
     }
 }

@@ -1,10 +1,6 @@
 ﻿{
   "ConnectionStrings": {
-    "LTEConn": "Data Source=.\\LQ;Initial Catalog=Account;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=!!Hn@nsn123",
-    "JZXN_DW_165": "Data Source=10.209.240.165;Database=JZXN_DW;User ID=sa;Password=!!Hn@nsn123;Connect Timeout=600000;",
-    "JK_DW_168": "Data Source=10.209.240.168;Database=JK_DW;User ID=sa;Password=!!Hn@nsn123;Connect Timeout=600000;",
-    "PublicService_167": "Data Source=10.209.240.167;Database=PublicService;User ID=sa;Password=!!Hn@nsn123;Connect Timeout=600000;",
     "IDGeneratorDB": "Data Source=172.168.1.172;UID=sa;PWD=1qaz@WSX;Initial Catalog=TableIDCounterDB;Connect Timeout=30;Min Pool Size=10;Max Pool Size=100;",
-    "PostgreSQLCoreDB": "Username=postgres;Password=1qaz@WSX;Host=192.168.1.172;Port=5432;Database=QCoreDB;"
+    "PostgreSQLCoreDB": "Username=postgres;Password=1qaz@WSX;Host=localhost;Port=5432;Database=QCoreDB;"
   }
 }
