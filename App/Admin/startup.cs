@@ -6,6 +6,7 @@ using BusinessAdminDLL.AutofacModule;
 using BusinessAdminDLL.DTOModel.AutoMapper;
 using DBAccessBaseDLL.Static;
 using DBAccessCoreDLL.EFORM.Context;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -126,7 +127,7 @@ namespace WebAdminService
                                     .AddInMemoryCollection()
                                     .SetBasePath(env.ContentRootPath)
                                     .AddJsonFile(@".Config\appsettings.json", optional: false, reloadOnChange: true)
-                                    //.AddJsonFile($@".Config\appsettings.{env.EnvironmentName}.json", optional: true)
+                                    .AddJsonFile($@".Config\appsettings.{env.EnvironmentName}.json", optional: true)
                                     .AddJsonFile(@".Config\ConnectionString.json", optional: false, reloadOnChange: true)
                                     .AddJsonFile(@".Config\APILTEUrl.json", optional: false, reloadOnChange: true)
                                     .AddEnvironmentVariables();
@@ -248,6 +249,28 @@ namespace WebAdminService
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GJWT.SecurityKey)) // 拿到SecurityKey
                         });
 
+                #endregion
+
+                #region MassTransit
+
+                services.AddMassTransit(x =>
+                {
+                    x.UsingRabbitMq((ctx, cfg) =>
+                    {
+                        string mqHostAddress = GVariable.configuration["MTMQ:Host"];
+
+                        cfg.Host(mqHostAddress, "/", c =>
+                        {
+                            var user = GVariable.configuration["MTMQ:UserName"];
+                            var pwd = GVariable.configuration["MTMQ:Password"];
+                            c.Username(user);
+                            c.Password(pwd);
+                        });
+                    });
+
+                });
+
+                services.AddMassTransitHostedService();
                 #endregion
 
                 //防止Json序列化-改变对象列的大小写
@@ -425,7 +448,7 @@ namespace WebAdminService
             }
             catch (Exception ex)
             {
-                log.Info($" Error : { ex.Message } ");
+                log.Error($" Error : { ex.Message } ");
                 Debug.WriteLine($" Error : { ex.Message } ");
             }
         }

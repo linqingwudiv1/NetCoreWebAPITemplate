@@ -110,7 +110,6 @@ namespace BusinessAdminDLL.Roles
                                          routes = GenPageRouteTree(x)
                                      }
                            ).ToArray();
-
             return roles;
         }
 
@@ -128,7 +127,6 @@ namespace BusinessAdminDLL.Roles
                          where 
                             x.Id == key 
                          select x ).FirstOrDefault();
-
             if (role != null)
             {
                 return new DTOAPI_Role

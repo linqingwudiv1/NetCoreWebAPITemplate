@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\CoreServices.Command\AdminServices.Command.csproj" />
     <ProjectReference Include="..\..\DBAccess\DBAccessCoreDLL\DBAccessCoreDLL.csproj" />
     <ProjectReference Include="..\..\NetServiceDLL\NetApplictionServiceDLL.csproj" />
   </ItemGroup>
