@@ -77,7 +77,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
         {
             var tableBuilder = builder.ToTable("Role").SetupBaseEntity<Role>();
 
-            tableBuilder.Property( c=> c.Organization ).HasDefaultValue("QingGroup");
+            tableBuilder.Property( c => c.Organization ).HasDefaultValue("Default");
 
             tableBuilder.HasMany<AccountRole>   (  p => p.AccountRoles  )
                         .WithOne(c => c.role)

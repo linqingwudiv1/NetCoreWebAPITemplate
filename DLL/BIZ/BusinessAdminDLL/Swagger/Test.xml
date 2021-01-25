@@ -511,12 +511,7 @@
             
             </summary>
         </member>
-        <member name="F:BusinessAdminDLL.Roles.RolesBizServices.sendEndpoint">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IRoleAccesser,AutoMapper.IMapper,MassTransit.IPublishEndpoint)">
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IRoleAccesser,AutoMapper.IMapper,MassTransit.IPublishEndpoint,MassTransit.IRequestClient{AdminServices.Command.Role.DeleteRoleCommand})">
             <summary>
             
             </summary>

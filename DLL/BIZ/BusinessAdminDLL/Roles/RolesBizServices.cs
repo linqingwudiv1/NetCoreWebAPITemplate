@@ -44,10 +44,9 @@ namespace BusinessAdminDLL.Roles
         /// </summary>
         protected readonly IPublishEndpoint publishEndpoint;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        protected readonly ISendEndpoint sendEndpoint;
+
+        protected readonly IRequestClient<DeleteRoleCommand> deleteClient;
+
 
         /// <summary>
         /// 
@@ -59,14 +58,15 @@ namespace BusinessAdminDLL.Roles
         public RolesBizServices(IIDGenerator _IDGenerator, 
                                 IRoleAccesser _roleAccesser, 
                                 IMapper _mapper, 
-                                IPublishEndpoint _publishEndpoint)
+                                IPublishEndpoint _publishEndpoint,
+                                IRequestClient<DeleteRoleCommand> _deleteClient)
             : base()
         {
             this.accesser        = _roleAccesser;
             this.IDGenerator     = _IDGenerator;
             this.mapper          = _mapper;
             this.publishEndpoint = _publishEndpoint;
-            //this.sendEndpoint    = _sendEndpoint;
+            this.deleteClient    = _deleteClient;
         }
 
         #region private
@@ -147,6 +147,7 @@ namespace BusinessAdminDLL.Roles
                          where 
                             x.Id == key 
                          select x ).FirstOrDefault();
+
             if (role != null)
             {
                 dynamic Role = new DTOAPI_Role
@@ -166,17 +167,25 @@ namespace BusinessAdminDLL.Roles
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public Task<int> AddRole(DTOAPI_Role data)
+        public async Task<int> AddRole(DTOAPI_Role data)
         {
-            Role role = new Role {
-                Id = this.IDGenerator.GetNewID<Role>()  ,
-                Descrption  = data.description          ,
-                RoleName    = data.name                 ,
-                DisplayName = data.name                 ,
-                Organization = ""
+            long NewID = this.IDGenerator.GetNewID<Role>();
+            var cmd = new AddRoleCommand 
+            {
+                key = NewID,
+                description = data.description,
+                name = data.name
             };
 
-            return Task.FromResult(accesser.Add(role) );
+            cmd.routes = new List<DTOIn_PageRouteId>();
+            
+            data.routes.Foreach(x => x.children, x => 
+            {
+                cmd.routes.Add(new DTOIn_PageRouteId{ PageRouteID = x.id });
+            });
+
+            await this.publishEndpoint.Publish(cmd);
+            return 1;
         }
         /// <summary>
         /// 
@@ -184,7 +193,7 @@ namespace BusinessAdminDLL.Roles
         /// <param name="data"></param>
         /// <returns></returns>
         public Task<int> UpdateRole(DTOAPI_Role data)
-        {
+        { 
             throw new System.NotImplementedException();
         }
 
@@ -193,10 +202,10 @@ namespace BusinessAdminDLL.Roles
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public Task<int> DeleteRole(long Id)
+        public async Task<int> DeleteRole(long Id)
         {
-            this.publishEndpoint.Publish(new DeleteRoleCommand {key = Id }).Wait();
-            return Task.FromResult(0) ;
+            await this.publishEndpoint.Publish(new DeleteRoleCommand {key = Id });
+            return 1;
             //return this.accesser.Delete(Id);
             //throw new System.NotImplementedException();
         }

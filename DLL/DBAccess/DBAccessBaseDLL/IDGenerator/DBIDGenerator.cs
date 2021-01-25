@@ -24,18 +24,13 @@ namespace DBAccessBaseDLL.IDGenerator
         /// <summary>
         /// 
         /// </summary>
-        protected string conn = @"Data Source=172.168.1.172;UID=sa;PWD=1qaz@WSX;
-                                  Initial Catalog=TableIDCounterDB;
-                                  Connect Timeout=30;Min Pool Size=10;Max Pool Size=100;";
+        protected string conn = @"Server=localhost\SQLEXPRESS;Database=TableIDCounterDB;Trusted_Connection=True;";
 
         /// <summary>
         /// 
         /// </summary>
         public DBIDGenerator()
         {
-            //
-            //this.SqlCmd = sqlcmd;
-            //this.conn = conn;
             this.conn = GVariable.configuration.GetConnectionString("IDGeneratorDB");
         }
 

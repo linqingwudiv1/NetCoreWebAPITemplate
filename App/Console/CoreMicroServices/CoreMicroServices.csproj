@@ -46,4 +46,6 @@
     <ProjectReference Include="..\..\..\DLL\MassTransitDLL\MassTransitDLL.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties _1config_4connectionstring_1json__JsonSchema="https://json.schemastore.org/backportrc" /></VisualStudio></ProjectExtensions>
+
 </Project>

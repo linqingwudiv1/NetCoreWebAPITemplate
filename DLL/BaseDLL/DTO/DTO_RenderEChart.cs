@@ -72,7 +72,7 @@ namespace BaseDLL.DTO
         /// 
         /// </summary>
         public string ChartType { get; set; }
-        
+
         /// <summary>
         /// 
         /// </summary>

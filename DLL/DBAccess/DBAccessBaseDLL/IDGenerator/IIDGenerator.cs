@@ -15,7 +15,6 @@ namespace DBAccessBaseDLL.IDGenerator
         /// <typeparam name="Entity"></typeparam>
         /// <returns></returns>
         Int64 GetNewID<Entity>() where Entity : new();
-
     }
 
     /// <summary>
@@ -30,7 +29,7 @@ namespace DBAccessBaseDLL.IDGenerator
         /// <returns></returns>
         public virtual string GetKey<Entity>() where Entity : new()
         {
-            return "IDGeneration_" + typeof(Entity).FullName; 
+            return "IDGeneration_" + typeof(Entity).Name; 
         }
     }
 }

@@ -254,37 +254,13 @@ namespace WebAdminService
                 #endregion
 
                 #region MassTransit
-
-                services.AddMassTransit(x =>
-                {
-                    x.UsingRabbitMq((ctx, cfg) =>
-                    {
-                        string mqHostAddress = GVariable.configuration["MTMQ:Host"];
-
-                        cfg.Host(mqHostAddress, "/", c =>
-                        {
-                            var user = GVariable.configuration["MTMQ:UserName"];
-                            var pwd = GVariable.configuration["MTMQ:Password"];
-                            c.Username(user);
-                            c.Password(pwd);
-                        });
-                        cfg.UseRetry(ret =>
-                        {
-                            ret.Interval(5, TimeSpan.FromSeconds(12));
-                        });
-
-                        var timeout = TimeSpan.FromSeconds(10);
-                        var serviceAddress = new Uri("rabbitmq://localhost/role-service");
-                        //x.AddBus();
-                        //x.AddRequestClient<DeleteRoleCommand>(serviceAddress, timeout);
-                    });
-
-                });
-
+                
+                services.AddMassTransit(MassTransitConfig.MTConfiguration);
                 services.AddMassTransitHostedService();
+                
                 #endregion
 
-                //防止Json序列化-改变对象列的大小写
+                // 防止Json序列化-改变对象列的大小写
 
                 services.AddControllersWithViews(opts => 
                 {

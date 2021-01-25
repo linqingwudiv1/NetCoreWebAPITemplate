@@ -3,6 +3,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using BaseDLL;
 using DBAccessCoreDLL.EFORM.Context;
+using GreenPipes;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -69,24 +70,30 @@ namespace CoreMicroServices
 
                           services.AddMassTransit(x =>
                           {
+                              x.AddConsumer<RoleDomainEvent>( c => c.UseMessageRetry( r => 
+                              {
+                                  r.Immediate(5);
+                              }) );
+                              
+                              x.SetKebabCaseEndpointNameFormatter();
+                              
                               x.UsingRabbitMq((ctx, cfg) =>
                               {
                                   string mqHostAddress = GVariable.configuration["MTMQ:Host"];
 
-                                  cfg.Host(mqHostAddress, "/", c=> 
+                                  cfg.Host(mqHostAddress, "/", c => 
                                   {
                                       var user = GVariable.configuration["MTMQ:UserName"];
                                       var pwd = GVariable.configuration["MTMQ:Password"];
                                       c.Username(user);
                                       c.Password(pwd);
                                   });
+
+                                  cfg.ConfigureEndpoints(ctx);
                               });
 
-                              x.AddConsumer<RoleDomainEvent>(cfg => 
-                              {
-                              });
                           });
-                            
+
                           services.AddMassTransitHostedService();
                           #endregion
                       });

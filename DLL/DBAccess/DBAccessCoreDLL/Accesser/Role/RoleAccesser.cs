@@ -64,7 +64,7 @@ namespace DBAccessCoreDLL.Accesser
             {
                 //this.db.Entry(temp_role).Collection( r => r.RouteRoles ).Load();
 
-                db.RoutePageRoles.RemoveRange(temp_role.RouteRoles);
+                //db.RoutePageRoles.RemoveRange(temp_role.RouteRoles);
                 db.Roles.Remove(temp_role);
             }
 

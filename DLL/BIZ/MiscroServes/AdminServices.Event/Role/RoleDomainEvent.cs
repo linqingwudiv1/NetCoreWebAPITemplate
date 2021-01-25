@@ -1,12 +1,15 @@
 ﻿using AdminServices.Command.Role;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
+using DBAccessCoreDLL.EFORM.Entity;
 using MassTransit;
+using ServiceStack;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Role_Alias = DBAccessCoreDLL.EFORM.Entity.Role;
 namespace AdminServices.Event.Role
 {
     /// <summary>
@@ -47,9 +50,27 @@ namespace AdminServices.Event.Role
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public Task Consume(ConsumeContext<AddRoleCommand> context)
+        public async Task Consume(ConsumeContext<AddRoleCommand> context)
         {
-            throw new NotImplementedException();
+            var msg = context.Message;
+
+            var routes = msg.routes.Select(x => new RoutePageRole 
+            {
+                Id = IDGenerator.GetNewID<RoutePageRole>()  ,
+                RoleId = msg.key                            ,
+                RoutePageId = x.PageRouteID
+            }).ToArray();
+
+            Role_Alias role = new Role_Alias
+            {
+                Id          = msg.key              ,
+                RoleName    = msg.name             ,
+                DisplayName = msg.name             ,
+                Descrption  = msg.description      ,
+                RouteRoles  = routes
+            };
+
+            this.accesser.Add(role);
         }
 
         /// <summary>
@@ -57,9 +78,32 @@ namespace AdminServices.Event.Role
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public Task Consume(ConsumeContext<UpdateRoleCommand> context)
+        public async Task Consume( ConsumeContext<UpdateRoleCommand> context )
         {
-           throw new NotImplementedException();
+            var msg = context.Message;
+
+            //context.NotifyConsumed;
+            var role = this.accesser.Get(msg.key);
+
+            if (role != null)
+            {
+                role.Descrption = msg.description;
+                role.DisplayName = msg.name;
+                role.RoleName = msg.name;
+                role.Descrption = msg.description;
+
+                var routes = msg.routes.Select(x => new RoutePageRole
+                {
+                    RoleId = role.Id,
+                    RoutePageId = x.PageRouteID
+                }).ToArray();
+
+                role.RouteRoles = routes;
+                
+                this.accesser.db.RoutePageRoles.RemoveRange((from x in this.accesser.db.RoutePageRoles where x.RoleId == msg.key select x).AsEnumerable());
+
+                this.accesser.Update(role);
+            }
         }
 
 
@@ -71,10 +115,6 @@ namespace AdminServices.Event.Role
         public async Task Consume(ConsumeContext<DeleteRoleCommand> context)
         {
             int rowEffect = this.accesser.Delete(context.Message.key);
-            return;
-            //return;
-            //return context.RespondAsync(new DeleteRoleCommandResult { effectCount = rowEffect});
-            //throw new NotImplementedException();
         }
     }
 }

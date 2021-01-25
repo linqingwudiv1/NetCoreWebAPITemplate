@@ -25,7 +25,7 @@ namespace BusinessAdminDLL.AutofacModule
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterInstance<DBIDGenerator>(new DBIDGenerator()).As<IIDGenerator>().SingleInstance();
+            builder.RegisterInstance<RedisIDGenerator>(new RedisIDGenerator(new List<string> { }, "abc123,") ).As<IIDGenerator>().SingleInstance();
 
             #region Biz
 

@@ -3,6 +3,8 @@ using Autofac;
 using AutoMapper;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace CoreMicroServices
 {
@@ -18,7 +20,7 @@ namespace CoreMicroServices
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterInstance<DBIDGenerator>(new DBIDGenerator()).As<IIDGenerator>().SingleInstance();
+            builder.RegisterInstance<RedisIDGenerator>(new RedisIDGenerator( new List<string>{ "127.0.0.1:10100" }, "1qaz@WSX") ).As<IIDGenerator>().SingleInstance();
 
 
             #region DB 访问器
