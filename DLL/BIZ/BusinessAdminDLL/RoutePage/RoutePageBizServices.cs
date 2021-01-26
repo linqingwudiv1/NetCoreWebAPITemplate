@@ -90,52 +90,59 @@ namespace BusinessAdminDLL.RoutePage
         {
             IList<DTOIn_PageRoute> list = new List<DTOIn_PageRoute>();
 
-
+            Int64 result = 0;
 
             item.Foreach(x => x.children, (parent,x) =>
             {
                 long NewID = this.IDGenerator.GetNewID<RoutePages>();
 
-                if (item == x) 
+                DTOIn_PageRoute obj = new DTOIn_PageRoute
                 {
-                    // 确保 根节点 HierarchyPath 的正确性
-                    if (item.parentId != null)
+                    Id = NewID,
+                    ParentId = x.parentId,
+                    RouteName = x.name ?? "",
+                    Path = x.path ?? "",
+                    Component = x.component ?? "",
+                    NoCache = x.meta.noCache,
+                    Affix = x.meta.affix,
+                    ActiveMenu = x.meta.activeMenu ?? "",
+                    AlwaysShow = x.meta.alwaysShow,
+                    Hidden = x.meta.hidden,
+                    Icon = x.meta.icon ?? "",
+                    Title = x.meta.title ?? ""
+                };
+
+                if (parent == null)
+                {
+                    if (item == x)
                     {
-                        RoutePages routepage = this.accesser.Get(item.id);
-                        if (routepage != null)
+                        result = NewID;
+                        // 确保 根节点 HierarchyPath 的正确性
+                        if (item.parentId != null)
                         {
-                            item.hierarchyPath = TreeHelper.GenerateHierarchyPath(routepage.HierarchyPath, NewID);
+                            RoutePages routepage = this.accesser.Get(item.parentId.Value);
+                            if (routepage != null)
+                            {
+                                item.hierarchyPath = TreeHelper.GenerateHierarchyPath(routepage.HierarchyPath, NewID);
+                                obj.HierarchyPath = item.hierarchyPath;
+                            }
                         }
                     }
                 }
-
-                list.Add(new DTOIn_PageRoute
+                else
                 {
-                    Id          = NewID             ,
-                    ParentId    = x.parentId        ,
-                    RouteName   = x.name ?? ""      ,
-                    HierarchyPath = TreeHelper.GenerateHierarchyPath(parent != null ? parent.hierarchyPath : "", NewID),
-                    Path        = x.path ?? ""       ,
-                    Component   = x.component ?? ""    ,
-                    NoCache     = x.meta.noCache     ,
-                    Affix       = x.meta.affix       ,
-                    ActiveMenu  = x.meta.activeMenu ?? "" ,
-                    AlwaysShow  = x.meta.alwaysShow ,
-                    Hidden      = x.meta.hidden      ,
-                    Icon        = x.meta.icon       ?? "" ,
-                    Title       = x.meta.title      ?? ""
-                });
+                    obj.HierarchyPath = TreeHelper.GenerateHierarchyPath(parent.hierarchyPath , NewID);
+                }
+
+                list.Add(obj);
 
             });
-
-            //return this.accesser.Add(list);
-
             await this.publishEndpoint.Publish(new AddPageRoutesCommand
             {
                 routes = list
             }) ;
 
-            return 1;
+            return (int)result;
         }
 
         /// <summary>
