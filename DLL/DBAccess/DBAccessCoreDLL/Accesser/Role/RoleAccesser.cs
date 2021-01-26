@@ -62,9 +62,6 @@ namespace DBAccessCoreDLL.Accesser
             Role temp_role = Get(key);
             if (temp_role != null )
             {
-                //this.db.Entry(temp_role).Collection( r => r.RouteRoles ).Load();
-
-                //db.RoutePageRoles.RemoveRange(temp_role.RouteRoles);
                 db.Roles.Remove(temp_role);
             }
 
@@ -79,10 +76,10 @@ namespace DBAccessCoreDLL.Accesser
         public int Delete(IList<long> keys)
         {
             var roles = (
-                            from
-                                x
-                            in
-                                this.db.Roles // QueryableExtensions.Include(this.db.Roles, r => r.RouteRoles)
+                            from 
+                                x 
+                            in 
+                                this.db.Roles
                             where
                                 keys.Contains(x.Id)
                             select

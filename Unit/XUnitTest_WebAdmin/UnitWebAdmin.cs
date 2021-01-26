@@ -45,7 +45,7 @@ namespace XUnitTest_WebAdmin
             mockRepo.Setup(repo => repo.GetRoles()).Returns( TestRoleData() );
             RolesController controller = new RolesController(mockRepo.Object);
             
-            var result = controller.GetRoles() as OkObjectResult;
+            var result = controller.GetRolesAsync() as OkObjectResult;
             DTO_ReturnModel<dynamic>  val = result.Value as DTO_ReturnModel<dynamic>;
 
             var data = (val.data);

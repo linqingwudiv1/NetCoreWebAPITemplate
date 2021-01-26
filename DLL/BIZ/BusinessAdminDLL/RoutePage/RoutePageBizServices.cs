@@ -71,7 +71,7 @@ namespace BusinessAdminDLL.RoutePage
         /// <returns></returns>
         public TreeItem<RoutePages> GetRoutePage(long Id)
         {
-            var List = (from x in this.accesser.db.RoutePages select x ).ToList();
+            var List = ( from x in this.accesser.db.RoutePages select x ).ToList();
 
             TreeItem<RoutePages> tree = new TreeItem<RoutePages>();
             tree.node = List.Where(x => x.Id == Id).FirstOrDefault();
@@ -90,26 +90,42 @@ namespace BusinessAdminDLL.RoutePage
         {
             IList<DTOIn_PageRoute> list = new List<DTOIn_PageRoute>();
 
+
+
             item.Foreach(x => x.children, (parent,x) =>
             {
                 long NewID = this.IDGenerator.GetNewID<RoutePages>();
 
+                if (item == x) 
+                {
+                    // 确保 根节点 HierarchyPath 的正确性
+                    if (item.parentId != null)
+                    {
+                        RoutePages routepage = this.accesser.Get(item.id);
+                        if (routepage != null)
+                        {
+                            item.hierarchyPath = TreeHelper.GenerateHierarchyPath(routepage.HierarchyPath, NewID);
+                        }
+                    }
+                }
+
                 list.Add(new DTOIn_PageRoute
                 {
-                    Id = NewID,
-                    ParentId = x.parentId,
-                    RouteName = x.name ?? "",
+                    Id          = NewID             ,
+                    ParentId    = x.parentId        ,
+                    RouteName   = x.name ?? ""      ,
                     HierarchyPath = TreeHelper.GenerateHierarchyPath(parent != null ? parent.hierarchyPath : "", NewID),
-                    Path = x.path ?? "",
-                    Component = x.component,
-                    NoCache = x.meta.noCache,
-                    Affix = x.meta.affix,
-                    ActiveMenu = x.meta.activeMenu,
-                    AlwaysShow = x.meta.alwaysShow,
-                    Hidden = x.meta.hidden,
-                    Icon = x.meta.icon,
-                    Title = x.meta.title
+                    Path        = x.path ?? ""       ,
+                    Component   = x.component ?? ""    ,
+                    NoCache     = x.meta.noCache     ,
+                    Affix       = x.meta.affix       ,
+                    ActiveMenu  = x.meta.activeMenu ?? "" ,
+                    AlwaysShow  = x.meta.alwaysShow ,
+                    Hidden      = x.meta.hidden      ,
+                    Icon        = x.meta.icon       ?? "" ,
+                    Title       = x.meta.title      ?? ""
                 });
+
             });
 
             //return this.accesser.Add(list);
@@ -129,7 +145,23 @@ namespace BusinessAdminDLL.RoutePage
         /// <returns></returns>
         public async Task<int> UpdateRoutePage(DTOAPI_RoutePages routepage)
         {
-            throw new NotImplementedException();
+            await this.publishEndpoint.Publish(new UpdatePageRouteCommand
+            {
+                Id          = routepage.id              ,
+                RouteName   = routepage.name ?? ""      ,
+                Path        = routepage.path ?? ""      ,
+                Component   = routepage.component       ,
+                NoCache     = routepage.meta.noCache    ,
+                Affix       = routepage.meta.affix      ,
+                ActiveMenu  = routepage.meta.activeMenu ,
+                AlwaysShow  = routepage.meta.alwaysShow ,
+                Hidden      = routepage.meta.hidden     ,
+                Icon        = routepage.meta.icon       ,
+                Title       = routepage.meta.title
+            });
+
+            return 1;
+            //throw new NotImplementedException();
         }
 
         /// <summary>

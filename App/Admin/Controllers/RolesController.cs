@@ -39,9 +39,9 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult GetRoles()
+        public async Task<IActionResult> GetRolesAsync()
         {
-            var roles = services.GetRoles();
+            var roles = await services.GetRoles();
             return Ok(roles);
         }
 
@@ -51,9 +51,9 @@ namespace WebAdminService.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public IActionResult GetRole(Int64 id)
+        public async Task<IActionResult> GetRoleAsync(Int64 id)
         {
-            var role = services.GetRole(id);
+            var role = await services.GetRole(id);
             return Ok(role);
         }
 

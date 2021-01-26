@@ -52,9 +52,12 @@ namespace BaseDLL.Helper.Redis
             {
                 CommandMap = CommandMap.Create(new HashSet<string>
                 {
-                    "INFO", "CONFIG",
-                    "CLUSTER","PING",
-                    "ECHO", "CLIENT"
+                    "INFO"    , 
+                    "CONFIG",
+                    "CLUSTER" ,
+                    "PING"  ,
+                    "ECHO"    , 
+                    "CLIENT"
                 }, available: false),
                 KeepAlive = 120
             };

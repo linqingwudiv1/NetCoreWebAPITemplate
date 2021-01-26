@@ -23,6 +23,7 @@ using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NetApplictionServiceDLL;
+using NetApplictionServiceDLL.Swagger;
 using Newtonsoft.Json.Serialization;
 using NLog;
 using System;
@@ -314,6 +315,7 @@ namespace WebAdminService
                             Description = $"Web Admin Service Doc",
                         }
                     );
+                    c.SchemaFilter<ExampleValueSchemaFilter>();
 
                     String basePath = Path.GetFullPath( Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"SwaggerDoc\"));
 

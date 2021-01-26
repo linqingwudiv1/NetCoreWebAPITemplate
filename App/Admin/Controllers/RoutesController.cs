@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-
+using System.Threading.Tasks;
 
 namespace WebAdminService.Controllers
 {
@@ -24,6 +24,9 @@ namespace WebAdminService.Controllers
     [ApiController]
     public class RoutesController : BaseController
     {
+        /// <summary>
+        /// 
+        /// </summary>
         readonly IRoutePageBizServices services;
 
         /// <summary>
@@ -33,11 +36,12 @@ namespace WebAdminService.Controllers
         {
             services = _services;
         }
+
         /// <summary>
         /// 
         /// </summary>
         [HttpGet]
-        public IActionResult GetRoutePages()
+        public async Task<IActionResult> GetRoutePages()
         {
             var data = services.GetRoutePages();
             return JsonToCamelCase(data);
@@ -49,7 +53,7 @@ namespace WebAdminService.Controllers
         /// <param name="Id"></param>
         /// <returns></returns>
         [HttpGet("{Id}")]
-        public IActionResult GetRoutePage(Int64 Id)
+        public async Task<IActionResult> GetRoutePage(Int64 Id)
         {
             var data = this.services.GetRoutePage(Id);
             return JsonToCamelCase(data);
@@ -61,10 +65,10 @@ namespace WebAdminService.Controllers
         /// <param name="routepage"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult AddRoutePage([FromBody]DTOAPI_RoutePages routepage)
+        public async Task<IActionResult> AddRoutePage([FromBody]DTOAPI_RoutePages routepage)
         {
             int effectNum = 0;
-            this.AddRoutePage(routepage);
+            effectNum = await this.services.AddRoutePage(routepage);
 
             return Ok(effectNum);
         }
@@ -74,10 +78,11 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut]
-        public IActionResult UpdateRoutePage(/* DTOAPIReq_UpdateRoles routepage */)
+        public async Task<IActionResult> UpdateRoutePage( [FromBody]DTOAPI_RoutePages routepage )
         {
             int effectNum = 0;
-
+            // 
+            effectNum = await this.services.UpdateRoutePage( routepage );
             return Ok(effectNum);
         }
 
@@ -87,10 +92,10 @@ namespace WebAdminService.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        public IActionResult DeleteRoutePage(long id)
+        public async Task<IActionResult> DeleteRoutePage(long id)
         {
             int effectNum = 0;
-            effectNum = this.services.DeleteRoutePage(id);
+            effectNum = await this.services.DeleteRoutePage(id);
             return Ok(effectNum);
         }
     }

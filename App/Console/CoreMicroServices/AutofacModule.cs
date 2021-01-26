@@ -20,14 +20,14 @@ namespace CoreMicroServices
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterInstance<RedisIDGenerator>(new RedisIDGenerator( new List<string>{ "127.0.0.1:10100" }, "1qaz@WSX") ).As<IIDGenerator>().SingleInstance();
+            builder.RegisterInstance<RedisIDGenerator>(new RedisIDGenerator( new List<string>{ "192.168.1.172:6379" }, "1qaz@WSX") ).As<IIDGenerator>().SingleInstance();
 
 
             #region DB 访问器
 
-            builder.RegisterType<AccountAccesser>().As<IAccountAccesser>().InstancePerLifetimeScope();
-            builder.RegisterType<RoleAccesser>().As<IRoleAccesser>().InstancePerLifetimeScope();
-            builder.RegisterType<RoutePageAccesser>().As<IRoutePageAccesser>().InstancePerLifetimeScope();
+            builder.RegisterType<AccountAccesser>()     .As<IAccountAccesser>().InstancePerLifetimeScope();
+            builder.RegisterType<RoleAccesser>()        .As<IRoleAccesser>().InstancePerLifetimeScope();
+            builder.RegisterType<RoutePageAccesser>()   .As<IRoutePageAccesser>().InstancePerLifetimeScope();
 
             #endregion
 
@@ -35,6 +35,7 @@ namespace CoreMicroServices
             #region AutoMapper
 
             //注册AutoMapper配置文件, Register   
+
             builder.Register(ctx =>
             {
                 return new MapperConfiguration(cfg =>

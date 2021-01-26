@@ -32,8 +32,4 @@
     <ProjectReference Include="..\OAuth2DLL\OAuth2DLL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Swagger\" />
-  </ItemGroup>
-
 </Project>

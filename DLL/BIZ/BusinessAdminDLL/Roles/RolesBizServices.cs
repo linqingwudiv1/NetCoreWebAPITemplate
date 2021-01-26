@@ -115,7 +115,7 @@ namespace BusinessAdminDLL.Roles
         /// 
         /// </summary>
         /// <returns></returns>
-        public Task<IList<DTOAPI_Role>> GetRoles()
+        public async Task<IList<DTOAPI_Role>> GetRoles()
         {
             IList<DTOAPI_Role> roles = (    from 
                                     x 
@@ -130,7 +130,7 @@ namespace BusinessAdminDLL.Roles
                                          routes = GenPageRouteTree(x)
                                      }
                            ).ToArray();
-            return Task.FromResult( roles);
+            return roles;
         }
 
         /// <summary>

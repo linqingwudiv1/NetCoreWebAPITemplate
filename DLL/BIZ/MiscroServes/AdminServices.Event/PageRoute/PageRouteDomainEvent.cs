@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Role_Alias = DBAccessCoreDLL.EFORM.Entity.Role;
+using RoutePages_Alias = DBAccessCoreDLL.EFORM.Entity.RoutePages;
 namespace AdminServices.Event.PageRoute
 {
     /// <summary>
@@ -53,11 +53,29 @@ namespace AdminServices.Event.PageRoute
         /// <returns></returns>
         public async Task Consume(ConsumeContext<AddPageRoutesCommand> context)
         {
-            var message = context.Message;
+            var msg = context.Message;
 
-            this.accesser.db(message);
-            //throw new NotImplementedException();
+            var pageRoutes = msg.routes.Select( x => new RoutePages_Alias
+            {
+                Id       = x.Id                 ,
+                ParentId = x.ParentId           ,
+                RouteName = x.RouteName ?? ""   ,
+                HierarchyPath = x.HierarchyPath ,
+                Path = x.Path ?? ""             ,
+                Component = x.Component         ,
+                NoCache = x.NoCache             ,
+                Affix = x.Affix                 ,
+                ActiveMenu = x.ActiveMenu       ,
+                AlwaysShow = x.AlwaysShow       ,
+                Hidden  = x.Hidden              ,
+                Icon    = x.Icon                ,
+                Title   = x.Title               
+            }).ToArray();
+
+
+            this.accesser.Add(pageRoutes);
         }
+
 
         /// <summary>
         /// 
@@ -67,8 +85,6 @@ namespace AdminServices.Event.PageRoute
         public async Task Consume(ConsumeContext<DeletePageRouteCommand> context)
         {
             this.accesser.Delete(context.Message.id);
-            return;
-            //throw new NotImplementedException();
         }
 
         /// <summary>
@@ -78,7 +94,24 @@ namespace AdminServices.Event.PageRoute
         /// <returns></returns>
         public async Task Consume(ConsumeContext<UpdatePageRouteCommand> context)
         {
-            throw new NotImplementedException();
+            var msg = context.Message;
+
+            var role = new RoutePages_Alias
+            {
+                Id          = msg.Id                ,
+                RouteName   = msg.RouteName ?? ""   ,
+                Path        = msg.Path      ?? ""   ,
+                Component   = msg.Component         ,
+                NoCache     = msg.NoCache           ,
+                Affix       = msg.Affix             ,
+                ActiveMenu  = msg.ActiveMenu        ,
+                AlwaysShow  = msg.AlwaysShow        ,
+                Hidden      = msg.Hidden            ,
+                Icon        = msg.Icon              ,
+                Title       = msg.Title
+            };
+
+            this.accesser.Update(role);
         }
 
     }

@@ -620,26 +620,20 @@
             
             </summary>
         </member>
-        <member name="F:BusinessAdminDLL.RoutePage.RoutePageBizServices.db">
+        <member name="F:BusinessAdminDLL.RoutePage.RoutePageBizServices.publishEndpoint">
             <summary>
             
             </summary>
         </member>
-        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.EFORM.Context.CoreContextDIP,DBAccessCoreDLL.Accesser.IRoutePageAccesser)">
+        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IRoutePageAccesser,MassTransit.IPublishEndpoint)">
             <summary>
             
             </summary>
             <param name="_IDGenerator"></param>
-            <param name="_db"></param>
             <param name="_accesser"></param>
+            <param name="_publishEndpoint"></param>
         </member>
         <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.GetRoutePages">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.AddRoutePages">
             <summary>
             
             </summary>
