@@ -1,4 +1,5 @@
-﻿using AdminServices.Event.Role;
+﻿using AdminServices.Event.PageRoute;
+using AdminServices.Event.Role;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using BaseDLL;
@@ -75,6 +76,11 @@ namespace CoreMicroServices
                                   r.Immediate(5);
                               }) );
                               
+                              x.AddConsumer<PageRouteDomainEvent>(c => c.UseMessageRetry(r =>
+                              {
+                                  r.Immediate(5);
+                              }));
+
                               x.SetKebabCaseEndpointNameFormatter();
                               
                               x.UsingRabbitMq((ctx, cfg) =>
@@ -91,7 +97,7 @@ namespace CoreMicroServices
 
                                   cfg.ConfigureEndpoints(ctx);
                               });
-
+                              
                           });
 
                           services.AddMassTransitHostedService();

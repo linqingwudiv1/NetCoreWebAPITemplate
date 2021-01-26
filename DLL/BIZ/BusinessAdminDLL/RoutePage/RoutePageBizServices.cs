@@ -1,13 +1,18 @@
-﻿using BaseDLL.Helper;
+﻿using AdminServices.Command.PageRouteRole;
+using AdminServices.Command.Role;
+using BaseDLL.Helper;
 using BusinessAdminDLL.Base;
 using BusinessAdminDLL.DTOModel.API.Routes;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
 using DBAccessCoreDLL.EFORM.Context;
+using DBAccessCoreDLL.EFORM.Entity;
+using MassTransit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using RoutePage_Alias = DBAccessCoreDLL.EFORM.Entity.RoutePages;
+using System.Threading.Tasks;
+//using RoutePage_Alias = DBAccessCoreDLL.EFORM.Entity.RoutePages;
 namespace BusinessAdminDLL.RoutePage
 {
     /// <summary>
@@ -28,42 +33,35 @@ namespace BusinessAdminDLL.RoutePage
         /// <summary>
         /// 
         /// </summary>
-        readonly CoreContextDIP db;
+        readonly IPublishEndpoint publishEndpoint;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="_IDGenerator"></param>
-        /// <param name="_db"></param>
         /// <param name="_accesser"></param>
-        public RoutePageBizServices(IIDGenerator _IDGenerator, CoreContextDIP _db, IRoutePageAccesser _accesser)
+        /// <param name="_publishEndpoint"></param>
+        public RoutePageBizServices(IIDGenerator _IDGenerator, 
+                                    IRoutePageAccesser _accesser,
+                                    IPublishEndpoint _publishEndpoint)
             : base()
         {
-            this.db = _db;
             this.IDGenerator = _IDGenerator;
             this.accesser = _accesser;
+            this.publishEndpoint = _publishEndpoint;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public TreeItem<RoutePage_Alias>[] GetRoutePages()
+        public TreeItem<RoutePages>[] GetRoutePages()
         {
-            var List = (from x in this.db.RoutePages select x).ToList();
+            var List = (from x in this.accesser.db.RoutePages select x).ToList();
 
             var tree = List.GenerateTree(c => c.Id, c => c.ParentId,root_id: null).ToArray();
-            return tree;
-        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int AddRoutePages() 
-        {
-            int effectCount = 0;
-            return effectCount;
+            return tree;
         }
 
         /// <summary>
@@ -71,16 +69,16 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public TreeItem<RoutePage_Alias> GetRoutePage(long Id)
+        public TreeItem<RoutePages> GetRoutePage(long Id)
         {
-            var List = (from x in this.db.RoutePages select x ).ToList();
+            var List = (from x in this.accesser.db.RoutePages select x ).ToList();
 
-            TreeItem<RoutePage_Alias> tree = new TreeItem<RoutePage_Alias>();
+            TreeItem<RoutePages> tree = new TreeItem<RoutePages>();
             tree.node = List.Where(x => x.Id == Id).FirstOrDefault();
             tree.children = List.GenerateTree(c => c.Id, c => c.ParentId, Id, 1).ToArray();
             
             tree.deep = 0;
-            return tree;//this.db.RoutePages.Find(Id);
+            return tree;
         }
 
         /// <summary>
@@ -88,32 +86,40 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public dynamic AddRoutePage(DTOAPI_RoutePages item)
+        public async Task<int> AddRoutePage(DTOAPI_RoutePages item)
         {
-            IList<RoutePage_Alias> list = new List<RoutePage_Alias>();
+            IList<DTOIn_PageRoute> list = new List<DTOIn_PageRoute>();
+
             item.Foreach(x => x.children, (parent,x) =>
             {
-                long NewID = this.IDGenerator.GetNewID<RoutePage_Alias>();
+                long NewID = this.IDGenerator.GetNewID<RoutePages>();
 
-                list.Add(new RoutePage_Alias
+                list.Add(new DTOIn_PageRoute
                 {
-                    Id              = NewID             ,
-                    ParentId        = x.parentId        ,
-                    RouteName       = x.name ?? ""      ,
-                    HierarchyPath   = TreeHelper.GenerateHierarchyPath(parent != null ? parent.hierarchyPath : "", NewID),
-                    Path            = x.path ?? ""      ,
-                    Component       = x.component       ,
-                    NoCache         = x.meta.noCache    ,
-                    Affix           = x.meta.affix      ,
-                    ActiveMenu      = x.meta.activeMenu ,
-                    AlwaysShow      = x.meta.alwaysShow ,
-                    Hidden          = x.meta.hidden     ,
-                    Icon            = x.meta.icon       ,
-                    Title           = x.meta.title
+                    Id = NewID,
+                    ParentId = x.parentId,
+                    RouteName = x.name ?? "",
+                    HierarchyPath = TreeHelper.GenerateHierarchyPath(parent != null ? parent.hierarchyPath : "", NewID),
+                    Path = x.path ?? "",
+                    Component = x.component,
+                    NoCache = x.meta.noCache,
+                    Affix = x.meta.affix,
+                    ActiveMenu = x.meta.activeMenu,
+                    AlwaysShow = x.meta.alwaysShow,
+                    Hidden = x.meta.hidden,
+                    Icon = x.meta.icon,
+                    Title = x.meta.title
                 });
             });
-            return this.accesser.Add(list);
-            //return this.db.SaveChanges();
+
+            //return this.accesser.Add(list);
+
+            await this.publishEndpoint.Publish(new AddPageRoutesCommand
+            {
+                routes = list
+            }) ;
+
+            return 1;
         }
 
         /// <summary>
@@ -121,7 +127,7 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="routepage"></param>
         /// <returns></returns>
-        public dynamic UpdateRoutePage(DTOAPI_RoutePages routepage)
+        public async Task<int> UpdateRoutePage(DTOAPI_RoutePages routepage)
         {
             throw new NotImplementedException();
         }
@@ -131,9 +137,14 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public dynamic DeleteRoutePage(long id)
+        public async Task<int> DeleteRoutePage(long id)
         {
-            return this.accesser.Delete(id);
+            await this.publishEndpoint.Publish(new DeletePageRouteCommand
+            {
+                id = id
+            }) ;
+            return 1;
+            //return this.accesser.Delete(id);
         }
 
     }

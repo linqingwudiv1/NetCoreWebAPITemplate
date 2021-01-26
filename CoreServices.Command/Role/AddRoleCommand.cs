@@ -25,7 +25,10 @@ namespace AdminServices.Command.Role
         /// </summary>
         public string description { get; set; }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public ICollection<DTOIn_PageRouteId> routes { get; set; }
     }
+
 }

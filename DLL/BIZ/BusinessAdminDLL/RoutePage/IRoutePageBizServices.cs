@@ -3,7 +3,8 @@ using BusinessAdminDLL.DTOModel.API.Routes;
 using DBAccessCoreDLL.EFORM.Context;
 using DBAccessCoreDLL.EFORM.Entity;
 using System;
-using RoutePage_Alias = DBAccessCoreDLL.EFORM.Entity.RoutePages;
+using DBAccessCoreDLL.EFORM.Entity;
+using System.Threading.Tasks;
 
 namespace BusinessAdminDLL.RoutePage
 {
@@ -16,7 +17,7 @@ namespace BusinessAdminDLL.RoutePage
         /// 
         /// </summary>
         /// <returns></returns>
-        TreeItem<RoutePage_Alias>[] GetRoutePages();
+        TreeItem<RoutePages>[] GetRoutePages();
 
 
         /// <summary>
@@ -24,19 +25,19 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        TreeItem<RoutePage_Alias> GetRoutePage(Int64 Id);
+        TreeItem<RoutePages> GetRoutePage(Int64 Id);
 
         /// <summary>
         /// 
         /// </summary>
-        dynamic AddRoutePage(DTOAPI_RoutePages routepage);
+        Task<int> AddRoutePage(DTOAPI_RoutePages routepage);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="routepage"></param>
         /// <returns></returns>
-        dynamic UpdateRoutePage(DTOAPI_RoutePages routepage);
+        Task<int> UpdateRoutePage(DTOAPI_RoutePages routepage);
 
 
         /// <summary>
@@ -44,6 +45,6 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        dynamic DeleteRoutePage(long id);
+        Task<int> DeleteRoutePage(long id);
     }
 }

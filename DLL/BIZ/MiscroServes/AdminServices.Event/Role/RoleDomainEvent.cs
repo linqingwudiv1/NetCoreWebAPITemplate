@@ -54,20 +54,20 @@ namespace AdminServices.Event.Role
         {
             var msg = context.Message;
 
-            var routes = msg.routes.Select(x => new RoutePageRole 
+            var routes = msg.routes.Select(x => new RoutePageRole
             {
-                Id = IDGenerator.GetNewID<RoutePageRole>()  ,
-                RoleId = msg.key                            ,
+                Id = IDGenerator.GetNewID<RoutePageRole>(),
+                RoleId = msg.key,
                 RoutePageId = x.PageRouteID
             }).ToArray();
 
             Role_Alias role = new Role_Alias
             {
-                Id          = msg.key              ,
-                RoleName    = msg.name             ,
-                DisplayName = msg.name             ,
-                Descrption  = msg.description      ,
-                RouteRoles  = routes
+                Id = msg.key,
+                RoleName = msg.name,
+                DisplayName = msg.name,
+                Descrption = msg.description,
+                RouteRoles = routes
             };
 
             this.accesser.Add(role);
@@ -81,7 +81,6 @@ namespace AdminServices.Event.Role
         public async Task Consume( ConsumeContext<UpdateRoleCommand> context )
         {
             var msg = context.Message;
-
             //context.NotifyConsumed;
             var role = this.accesser.Get(msg.key);
 
@@ -94,7 +93,8 @@ namespace AdminServices.Event.Role
 
                 var routes = msg.routes.Select(x => new RoutePageRole
                 {
-                    RoleId = role.Id,
+                    Id      = this.IDGenerator.GetNewID<RoutePageRole>(), 
+                    RoleId  = role.Id,
                     RoutePageId = x.PageRouteID
                 }).ToArray();
 
