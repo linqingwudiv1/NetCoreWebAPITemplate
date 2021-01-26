@@ -14,7 +14,6 @@ namespace BusinessAdminDLL.DTOModel.API.Routes
         /// <summary>
         /// 
         /// </summary>
-        [ DefaultValue(default(List<string>))]
         public IList<DTOAPI_RoutePages> children { get; set; }
 
         /// <summary>

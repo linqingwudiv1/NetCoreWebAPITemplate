@@ -130,6 +130,7 @@ namespace BusinessAdminDLL.Roles
                                          routes = GenPageRouteTree(x)
                                      }
                            ).ToArray();
+
             return roles;
         }
 
@@ -162,6 +163,8 @@ namespace BusinessAdminDLL.Roles
 
             return null;
         }
+
+
         /// <summary>
         /// 
         /// </summary>
