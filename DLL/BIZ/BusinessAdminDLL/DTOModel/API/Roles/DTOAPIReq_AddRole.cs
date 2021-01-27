@@ -1,37 +1,33 @@
-﻿using AutoMapper;
-using BusinessAdminDLL.DTOModel.API.Routes;
-using DBAccessCoreDLL.EFORM.Entity;
+﻿using ServiceStack.DataAnnotations;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace BusinessAdminDLL.DTOModel.API.Roles
 {
     /// <summary>
-    /// 
+    /// Add Or Update Role
     /// </summary>
-    public class DTOAPI_Role
+    public class DTOAPIReq_Role
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public Int64 key { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [DefaultValue("test_user")]
         public string name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [DefaultValue("test description ")]
         public string description { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public IList<DTOAPI_RoutePages> routes { get; set; }
 
+        public IList<long> pageRoutes { get; set; }
     }
-
 }

@@ -86,13 +86,71 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public async Task<int> AddRoutePage(DTOAPI_RoutePages item)
+        public async Task<dynamic> AddRoutePage(DTOAPI_RoutePages item)
+        {
+
+            Int64 result = 0;
+            Int64 NewID;
+            DTOIn_PageRoute obj = new DTOIn_PageRoute
+            {
+                ParentId = item.parentId,
+                RouteName = item.name ?? "",
+                //HierarchyPath = item.hierarchyPath,
+                Path = item.path ?? "",
+                Component = item.component ?? "",
+                NoCache = item.meta.noCache,
+                Affix = item.meta.affix,
+                ActiveMenu = item.meta.activeMenu ?? "",
+                AlwaysShow = item.meta.alwaysShow,
+                Hidden = item.meta.hidden,
+                Icon = item.meta.icon ?? "",
+                Title = item.meta.title ?? ""
+            };
+
+            if (item.parentId != null)
+            {
+                var parentPageRoutes = this.accesser.Get(item.parentId.Value);
+
+                if (parentPageRoutes == null)
+                {
+                    //父类不存在
+                    return -1;
+                }
+
+                NewID = this.IDGenerator.GetNewID<RoutePages>();
+                obj.Id = NewID;
+                obj.HierarchyPath = TreeHelper.GenerateHierarchyPath( parentPageRoutes.HierarchyPath ,NewID);
+            }
+            else 
+            {
+                NewID = this.IDGenerator.GetNewID<RoutePages>();
+                obj.Id = NewID;
+                obj.HierarchyPath = TreeHelper.GenerateHierarchyPath("", NewID);
+            }
+
+            await this.publishEndpoint.Publish(new AddPageRouteCommand
+            {
+                data = obj
+            }) ;
+
+            result = NewID;
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="routepage"></param>
+        /// <returns></returns>
+        public async Task<dynamic> AddRoutePages(DTOAPI_RoutePages item)
         {
             IList<DTOIn_PageRoute> list = new List<DTOIn_PageRoute>();
 
             Int64 result = 0;
 
-            item.Foreach(x => x.children, (parent,x) =>
+            TreeItem<long> data = new TreeItem<long>();
+
+            item.Foreach(x => x.children, (parent, x) =>
             {
                 long NewID = this.IDGenerator.GetNewID<RoutePages>();
 
@@ -108,8 +166,8 @@ namespace BusinessAdminDLL.RoutePage
                     ActiveMenu = x.meta.activeMenu ?? "",
                     AlwaysShow = x.meta.alwaysShow,
                     Hidden = x.meta.hidden,
-                    Icon = x.meta.icon ?? "",
-                    Title = x.meta.title ?? ""
+                    Icon = x.meta.icon      ?? "",
+                    Title = x.meta.title    ?? ""
                 };
 
                 if (parent == null)
@@ -124,25 +182,30 @@ namespace BusinessAdminDLL.RoutePage
                             if (routepage != null)
                             {
                                 item.hierarchyPath = TreeHelper.GenerateHierarchyPath(routepage.HierarchyPath, NewID);
+
                                 obj.HierarchyPath = item.hierarchyPath;
                             }
                         }
                     }
+
+                    if (item == x)
+                    {
+                        result = NewID;
+                    }
                 }
                 else
                 {
-                    obj.HierarchyPath = TreeHelper.GenerateHierarchyPath(parent.hierarchyPath , NewID);
+                    obj.HierarchyPath = TreeHelper.GenerateHierarchyPath(parent.hierarchyPath, NewID);
                 }
 
                 list.Add(obj);
-
             });
             await this.publishEndpoint.Publish(new AddPageRoutesCommand
             {
                 routes = list
-            }) ;
+            });
 
-            return (int)result;
+            return result;
         }
 
         /// <summary>
@@ -150,7 +213,7 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="routepage"></param>
         /// <returns></returns>
-        public async Task<int> UpdateRoutePage(DTOAPI_RoutePages routepage)
+        public async Task<dynamic> UpdateRoutePage(DTOAPI_RoutePages routepage)
         {
             await this.publishEndpoint.Publish(new UpdatePageRouteCommand
             {
@@ -176,7 +239,7 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<int> DeleteRoutePage(long id)
+        public async Task<dynamic> DeleteRoutePage(long id)
         {
             await this.publishEndpoint.Publish(new DeletePageRouteCommand
             {

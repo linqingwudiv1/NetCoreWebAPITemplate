@@ -72,7 +72,7 @@ namespace WebAdminService.Controllers
                     
                     // 过期日期
                     new Claim( JwtRegisteredClaimNames.Exp,  $"{ new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeSeconds() }"),
-                    
+
                     // 用户标识
                     new Claim( ClaimTypes.Name, userInfo.passport ) , 
 
@@ -85,7 +85,6 @@ namespace WebAdminService.Controllers
 
                 // 加密方式
                 SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
                 
                 // Token
                 JwtSecurityToken token = new JwtSecurityToken(

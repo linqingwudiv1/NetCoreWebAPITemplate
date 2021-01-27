@@ -60,17 +60,41 @@ namespace WebAdminService.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 添加PageRoute,tree
+        /// </summary>
+        /// <param name="routepages"></param>
+        /// <returns></returns>
+        [HttpPost("RoutePageByTreeNode")]
+        public async Task<IActionResult> AddRoutePages( [FromBody]DTOAPI_RoutePages routepages)
+        {
+            try 
+            {
+                dynamic data = await this.services.AddRoutePages(routepages);
+                return Json(data);
+            }
+            catch (Exception ex)
+            {
+                return JsonToCamelCase(ex.Message, 50000, 50000, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 添加PageRoute
         /// </summary>
         /// <param name="routepage"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AddRoutePage([FromBody]DTOAPI_RoutePages routepage)
+        public async Task<IActionResult> AddRoutePage([FromBody]DTOAPI_RoutePages routepage) 
         {
-            int effectNum = 0;
-            effectNum = await this.services.AddRoutePage(routepage);
-
-            return Ok(effectNum);
+            try
+            {
+                dynamic data = await this.services.AddRoutePage(routepage);
+                return JsonToCamelCase(data);
+            }
+            catch (Exception ex) 
+            {
+                return JsonToCamelCase(ex.Message, 50000, 50000, ex.Message);
+            }
         }
 
         /// <summary>
@@ -80,10 +104,16 @@ namespace WebAdminService.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateRoutePage( [FromBody]DTOAPI_RoutePages routepage )
         {
-            int effectNum = 0;
-            // 
-            effectNum = await this.services.UpdateRoutePage( routepage );
-            return Ok(effectNum);
+            try
+            {
+                dynamic data = await this.services.UpdateRoutePage(routepage);
+                return Json(data);
+            }
+            catch (Exception ex) 
+            {
+                return JsonToCamelCase(ex.Message, 50000, 50000, ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -94,9 +124,15 @@ namespace WebAdminService.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteRoutePage(long id)
         {
-            int effectNum = 0;
-            effectNum = await this.services.DeleteRoutePage(id);
-            return Ok(effectNum);
+            try
+            {
+                var data  = await this.services.DeleteRoutePage(id);
+                return Json(data);
+            }
+            catch(Exception ex)
+            {
+                return JsonToCamelCase(ex.Message, 50000, 50000, ex.Message);
+            }
         }
     }
 }

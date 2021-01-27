@@ -134,6 +134,36 @@
             
             </summary>
         </member>
+        <member name="T:BusinessAdminDLL.DTOModel.API.PageRouteRole.DTOAPI_PageRouteRole">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.PageRouteRole.DTOAPI_PageRouteRole.PageRouteId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessAdminDLL.DTOModel.API.Roles.DTOAPIReq_Role">
+            <summary>
+            Add Or Update Role
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPIReq_Role.name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPIReq_Role.description">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPIReq_Role.pageRoutes">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role">
             <summary>
             
@@ -462,10 +492,10 @@
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:BusinessAdminDLL.Roles.IRolesBizServices.AddRole(BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role)">
+        <member name="M:BusinessAdminDLL.Roles.IRolesBizServices.AddRole(BusinessAdminDLL.DTOModel.API.Roles.DTOAPIReq_Role)">
             
         </member>
-        <member name="M:BusinessAdminDLL.Roles.IRolesBizServices.UpdateRole(BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role)">
+        <member name="M:BusinessAdminDLL.Roles.IRolesBizServices.UpdateRole(BusinessAdminDLL.DTOModel.API.Roles.DTOAPIReq_Role)">
             <summary>
             
             </summary>
@@ -540,14 +570,14 @@
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.AddRole(BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role)">
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.AddRole(BusinessAdminDLL.DTOModel.API.Roles.DTOAPIReq_Role)">
             <summary>
             
             </summary>
             <param name="data"></param>
             <returns></returns>
         </member>
-        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.UpdateRole(BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role)">
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.UpdateRole(BusinessAdminDLL.DTOModel.API.Roles.DTOAPIReq_Role)">
             <summary>
             
             </summary>
@@ -587,6 +617,11 @@
             <returns></returns>
         </member>
         <member name="M:BusinessAdminDLL.RoutePage.IRoutePageBizServices.AddRoutePage(BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.RoutePage.IRoutePageBizServices.AddRoutePages(BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages)">
             <summary>
             
             </summary>
@@ -651,6 +686,13 @@
             
             </summary>
             <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.AddRoutePages(BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages)">
+            <summary>
+            
+            </summary>
+            <param name="routepage"></param>
             <returns></returns>
         </member>
         <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.UpdateRoutePage(BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages)">

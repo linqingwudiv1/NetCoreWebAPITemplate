@@ -41,8 +41,15 @@ namespace WebAdminService.Controllers
         [HttpGet]
         public async Task<IActionResult> GetRolesAsync()
         {
-            var roles = await services.GetRoles();
-            return Ok(roles);
+            try
+            {
+                var roles = await services.GetRoles();
+                return Ok(roles);
+            }
+            catch (Exception ex) 
+            {
+                return JsonToCamelCase(ex.Message, 50000,50000);
+            }
         }
 
         /// <summary>
@@ -53,8 +60,15 @@ namespace WebAdminService.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRoleAsync(Int64 id)
         {
-            var role = await services.GetRole(id);
-            return Ok(role);
+            try
+            {
+                var role = await services.GetRole(id);
+                return Ok(role);
+            }
+            catch (Exception ex)
+            {
+                return JsonToCamelCase(ex.Message, 50000, 50000);
+            }
         }
 
         /// <summary>
@@ -62,15 +76,23 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AddRoleAsync( [FromBody]DTOAPI_Role data )
+        public async Task<IActionResult> AddRoleAsync( [FromBody]DTOAPIReq_Role data )
         {
-            if (data == null)
+            try 
             {
-                return NotFound("没有正确添加数据");
+                if (data == null)
+                {
+                    return NotFound("没有正确添加数据");
+                }
+
+                int effectRowNum = await services.AddRole(data);
+                return JsonToCamelCase(effectRowNum);
+            }
+            catch (Exception ex)
+            {
+                return JsonToCamelCase(ex.Message, 50000, 50000);
             }
 
-            int effectRowNum = await services.AddRole(data);
-            return Ok(effectRowNum);
         }
 
         /// <summary>
@@ -78,17 +100,24 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public IActionResult UpdateRole(Int64 id, [FromBody]DTOAPI_Role data)
+        public IActionResult UpdateRole(Int64 id, [FromBody]DTOAPIReq_Role data)
         {
-            if (data == null)
+            try 
             {
-                return NotFound("DTOAPIReq_Role is null");
+                if (data == null)
+                {
+                    return NotFound("DTOAPIReq_Role is null");
+                }
+
+                int effectRowNum = 0;
+                services.UpdateRole(data);
+                return Ok(effectRowNum);
+            }
+            catch (Exception ex)
+            {
+                return JsonToCamelCase(ex.Message, 50000, 50000);
             }
 
-            int effectRowNum = 0;
-            services.UpdateRole(data);
-
-            return Ok(effectRowNum);
         }
 
         /// <summary>
@@ -99,11 +128,17 @@ namespace WebAdminService.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRole(Int64 id)
         {
-            int effectRowNum = 0;
-            effectRowNum = await services.DeleteRole(id);
+            try 
+            {
+                int effectRowNum = 0;
+                effectRowNum = await services.DeleteRole(id);
 
-
-            return Ok(effectRowNum);
+                return Ok(effectRowNum);
+            }
+            catch (Exception ex)
+            {
+                return JsonToCamelCase(ex.Message, 50000, 50000);
+            }
         }
 
         /// <summary>
@@ -114,9 +149,16 @@ namespace WebAdminService.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteRoleAsync([FromBody]long[] ids)
         {
-            int effectRowNum = 0;
-            effectRowNum = await this.services.DeleteRoles(ids);
-            return Ok(effectRowNum);
+            try
+            {
+                int effectRowNum = 0;
+                effectRowNum = await this.services.DeleteRoles(ids);
+                return Ok(effectRowNum);
+            }
+            catch (Exception ex) 
+            {
+                return JsonToCamelCase(ex.Message, 50000, 50000);
+            }
         }
 
     }

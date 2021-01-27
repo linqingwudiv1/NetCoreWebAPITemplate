@@ -122,12 +122,12 @@ namespace BaseDLL.Helper
         /// <returns></returns>
         public static void Foreach<T>(this T root,
                                        Func<T, IEnumerable<T>> children_selector,
-                                       Action<T, T> predicate) where T : new()
+                                       Action<T, T> predicate, T parentNode = default(T)) where T : new()
         {
-            predicate(default(T), root);
+            predicate(parentNode, root);
             foreach (T node in children_selector(root) )
             {
-                node.Foreach(children_selector, predicate);
+                node.Foreach(children_selector, predicate, root);
             }
         }
 

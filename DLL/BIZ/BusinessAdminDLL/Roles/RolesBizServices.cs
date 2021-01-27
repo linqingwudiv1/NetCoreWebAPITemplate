@@ -20,7 +20,7 @@ namespace BusinessAdminDLL.Roles
     /// <summary>
     /// 
     /// </summary>
-    public class RolesBizServices : BaseBizServices, IRolesBizServices
+    public class RolesBizServices : BaseBizServices ,IRolesBizServices
     {
         
         /// <summary>
@@ -170,23 +170,29 @@ namespace BusinessAdminDLL.Roles
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public async Task<int> AddRole(DTOAPI_Role data)
+        public async Task<dynamic> AddRole(DTOAPIReq_Role data)
         {
+
+            if (data.pageRoutes != null && data.pageRoutes.Count > 0) 
+            {
+                //ensure pageRoutes is exist
+                if (this.accesser.db.RoutePages.Where(x => data.pageRoutes.Contains(x.Id)).Count() != data.pageRoutes.Count) 
+                {
+                    return -1;
+                }
+            }
+
+
+            var routes = data.pageRoutes.Select(x => new DTOIn_PageRouteId { PageRouteID = x }).ToArray();
+
             long NewID = this.IDGenerator.GetNewID<Role>();
-            var cmd = new AddRoleCommand 
+            var cmd = new AddRoleCommand
             {
                 key = NewID,
                 description = data.description,
-                name = data.name
+                name = data.name,
+                routes = routes
             };
-
-            cmd.routes = new List<DTOIn_PageRouteId>();
-            
-            data.routes.Foreach(x => x.children, x => 
-            {
-                cmd.routes.Add(new DTOIn_PageRouteId{ PageRouteID = x.id });
-            });
-
             await this.publishEndpoint.Publish(cmd);
             return 1;
         }
@@ -195,8 +201,9 @@ namespace BusinessAdminDLL.Roles
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public Task<int> UpdateRole(DTOAPI_Role data)
+        public Task<dynamic> UpdateRole(DTOAPIReq_Role data)
         { 
+            
             throw new System.NotImplementedException();
         }
 
@@ -205,9 +212,9 @@ namespace BusinessAdminDLL.Roles
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public async Task<int> DeleteRole(long Id)
+        public async Task<dynamic> DeleteRole(long Id)
         {
-            await this.publishEndpoint.Publish(new DeleteRoleCommand {key = Id });
+            await this.publishEndpoint.Publish(new DeleteRoleCommand { key = Id });
             return 1;
             //return this.accesser.Delete(Id);
             //throw new System.NotImplementedException();
@@ -218,9 +225,10 @@ namespace BusinessAdminDLL.Roles
         /// </summary>
         /// <param name="Ids"></param>
         /// <returns></returns>
-        public Task<int> DeleteRoles(IList<long> Ids)
-        { 
-            return Task.FromResult(0) ;
+        public async Task<dynamic> DeleteRoles(IList<long> Ids)
+        {
+            throw new System.NotImplementedException();
         }
+
     }
 }

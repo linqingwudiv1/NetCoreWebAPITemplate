@@ -24,27 +24,27 @@ namespace BusinessAdminDLL.Roles
         /// <returns></returns>
         Task<DTOAPI_Role> GetRole(long key);
         ///
-        Task<int> AddRole(DTOAPI_Role data);
+        Task<dynamic> AddRole(DTOAPIReq_Role data);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        Task<int> UpdateRole(DTOAPI_Role data);
+        Task<dynamic> UpdateRole(DTOAPIReq_Role data);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<int> DeleteRole(long Id);
+        Task<dynamic> DeleteRole(long Id);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="Ids"></param>
         /// <returns></returns>
-        Task<int> DeleteRoles(IList<long> Ids);
+        Task<dynamic> DeleteRoles(IList<long> Ids);
     }
 }

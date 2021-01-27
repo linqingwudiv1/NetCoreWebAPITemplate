@@ -141,7 +141,7 @@ namespace NetApplictionServiceDLL
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        protected JsonResult JsonToCamelCase(object data)
+        protected JsonResult JsonToCamelCase(object data, int _code = 20000, int _state = 20000, string _desc = "")
         {
             var setting = new JsonSerializerSettings();
             setting.ContractResolver = new CamelCasePropertyNamesContractResolver();

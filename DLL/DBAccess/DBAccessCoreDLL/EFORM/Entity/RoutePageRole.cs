@@ -55,7 +55,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
 
             EntityTypeBuilder<RoutePageRole> tableBuilder = builder.ToTable("RoutePageRole");
 
-            tableBuilder.HasOne<RoutePages>(p => p.routePage)
+            tableBuilder.HasOne<RoutePages>(p => p.routePage )
                         .WithMany(c => c.RoutePageRoles)
                         .HasForeignKey(c => c.RoutePageId);
 

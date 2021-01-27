@@ -30,14 +30,19 @@ namespace BusinessAdminDLL.RoutePage
         /// <summary>
         /// 
         /// </summary>
-        Task<int> AddRoutePage(DTOAPI_RoutePages routepage);
+        Task<dynamic> AddRoutePage(DTOAPI_RoutePages routepage);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Task<dynamic> AddRoutePages(DTOAPI_RoutePages routepage);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="routepage"></param>
         /// <returns></returns>
-        Task<int> UpdateRoutePage(DTOAPI_RoutePages routepage);
+        Task<dynamic> UpdateRoutePage(DTOAPI_RoutePages routepage);
 
 
         /// <summary>
@@ -45,6 +50,6 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<int> DeleteRoutePage(long id);
+        Task<dynamic> DeleteRoutePage(long id);
     }
 }

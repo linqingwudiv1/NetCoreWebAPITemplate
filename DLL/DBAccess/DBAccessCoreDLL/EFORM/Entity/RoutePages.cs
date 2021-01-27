@@ -20,9 +20,6 @@ namespace DBAccessCoreDLL.EFORM.Entity
         /// </summary>
         public Int64 Id { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public Nullable<Int64> ParentId { get; set; }
 
         /// <summary>
