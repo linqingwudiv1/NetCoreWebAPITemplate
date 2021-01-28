@@ -22,7 +22,12 @@ namespace DBAccessCoreDLL.EFORM.Context
         /// <summary>
         /// 
         /// </summary>
-        virtual public DbSet<AccountRole> AccountRoles { get; protected set; }
+        virtual public DbSet<AccountIdentityAuth> AccountIdentityAuths { get; protected set;}
+
+    /// <summary>
+    /// 
+    /// </summary>
+    virtual public DbSet<AccountRole> AccountRoles { get; protected set; }
 
         /// <summary>
         /// 
@@ -85,6 +90,7 @@ namespace DBAccessCoreDLL.EFORM.Context
             {
                 optionsBuilder.UseNpgsql(this.ConnString);
             }
+            
             base.OnConfiguring(optionsBuilder);
         }
 
@@ -95,6 +101,7 @@ namespace DBAccessCoreDLL.EFORM.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration<Account>      ( new AccountEFConfig());
+            modelBuilder.ApplyConfiguration<AccountIdentityAuth>(new AccountIdentityAuthEFConfig());
             modelBuilder.ApplyConfiguration<AccountRole>  ( new AccountRoleEFConfig());
             modelBuilder.ApplyConfiguration<RoutePages>    ( new RoutePageEFConfig());
             modelBuilder.ApplyConfiguration<Role>(new RoleEFConfig());

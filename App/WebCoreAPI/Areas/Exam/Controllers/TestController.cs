@@ -153,7 +153,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                 // long max_id_accountRole = db.AccountRoles
 
                 testAccount.RuleFor( entity => entity.Id,            faker => max_id_account + (long)(faker.IndexFaker) + 1L);
-                testAccount.RuleFor( entity => entity.Name,          faker => faker.Random.String2(8, 16, charSet ) );
+                testAccount.RuleFor( entity => entity.DisplayName,          faker => faker.Random.String2(8, 16, charSet ) );
                 testAccount.RuleFor( entity => entity.Introduction,  faker => faker.Rant.Review());
                 testAccount.RuleFor( entity => entity.Avatar,        faker => faker.Image.PlaceholderUrl( 256, 256 ));
                 testAccount.RuleFor( entity => entity.Email,         faker => faker.Phone.PhoneNumber() + "@Qing.com");
@@ -249,7 +249,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                                  new
                                  {
                                      x.Id ,
-                                     x.Name ,
+                                     x.DisplayName ,
                                      x.Username ,
                                      x.Sex ,
                                      x.Email ,
@@ -313,7 +313,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
 
                             if (account != null)
                             {
-                                account.Name = (faker.Name.FirstName() + faker.Name.LastName());
+                                account.DisplayName = (faker.Name.FirstName() + faker.Name.LastName());
                                 account.Q_Sequence++;
 
                                 int effectCount = db.SaveChanges();
@@ -325,7 +325,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                                 }
                                 else
                                 {
-                                    logger.Trace($@" Optimistic locking..... Name : { account.Name          } , 
+                                    logger.Trace($@" Optimistic locking..... Name : { account.DisplayName          } , 
                                                      Q_Version                 : { account.Q_Version  } ,
                                                      Q_Sequence                : { account.Q_Sequence } ");
                                 }

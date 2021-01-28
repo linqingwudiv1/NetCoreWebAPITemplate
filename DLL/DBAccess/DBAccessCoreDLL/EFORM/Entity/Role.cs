@@ -87,12 +87,13 @@ namespace DBAccessCoreDLL.EFORM.Entity
                         .WithOne(c => c.role)
                         .HasForeignKey(c => c.RoleId);
 
-            tableBuilder.HasOne<Role>(p => p.Parent)
-                        .WithMany(c => c.Children)
-                        .HasForeignKey(c => c.ParentId);
+            tableBuilder.HasOne<Role> ( p => p.Parent   )
+                        .WithMany     ( c => c.Children )
+                        .HasForeignKey( c => c.ParentId );
 
 #if DEBUG
             #region Default Database
+
             Role[] default_roles = {
                                      new Role { Id = 1, ParentId = null, Descrption = "系统管理员", DisplayName = "系统管理员", RoleName = "admin"      } ,
                                      new Role { Id = 2, ParentId = null, Descrption = "开发程序员", DisplayName = "开发程序员", RoleName = "developer"  } ,
@@ -101,6 +102,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
                                    };
 
             tableBuilder.HasData(default_roles);
+
             #endregion
 #endif
         }

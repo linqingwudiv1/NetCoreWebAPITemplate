@@ -68,7 +68,7 @@ namespace BusinessCoreDLL.Extensison
                     password = account.Password,
                     avatar = account.Avatar,
                     email = account.Email,
-                    name = account.Name,
+                    name = account.DisplayName,
                     introduction = account.Introduction,
                     phone = account.Phone,
                     roles = roles

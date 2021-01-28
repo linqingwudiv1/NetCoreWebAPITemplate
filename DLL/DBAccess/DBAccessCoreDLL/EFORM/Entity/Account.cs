@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace DBAccessCoreDLL.EFORM.Entity
@@ -27,24 +28,26 @@ namespace DBAccessCoreDLL.EFORM.Entity
         public Int64 Id { get; set; }
 
         /// <summary>
-        /// 昵称
+        /// 用户名
         /// </summary>
-        public string Username { get; set; }
+        public string? Username { get; set; }
 
         /// <summary>
         /// 通行证
         /// </summary>
-        public string Passport { get; set; }
+        public string? Passport { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [Required(AllowEmptyStrings = false)]
         public string Password { get; set; }
 
         /// <summary>
-        /// 现实名称
+        /// 显示名称...
         /// </summary>
-        public string Name { get; set; }
+        [Required(AllowEmptyStrings = false)]
+        public string DisplayName { get; set; }
 
         /// <summary>
         /// 
@@ -59,22 +62,34 @@ namespace DBAccessCoreDLL.EFORM.Entity
         /// <summary>
         /// 
         /// </summary>
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         /// <summary>
-        /// 性别
+        /// 性别 null 未知, 0  女, 1 男
         /// </summary>
-        public int Sex { get; set; }
+        public int? Sex { get; set; }
+
+        
+        /// <summary>
+        /// 国际区号代码
+        /// </summary>
+        public string? PhoneAreaCode { get; set; }
 
         /// <summary>
-        /// 
+        /// 电话号码
         /// </summary>
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public virtual ICollection<AccountRole> AccountRoles { get; set; }
+
+
+        /// <summary>
+        /// 验证方式
+        /// </summary>
+        public virtual ICollection<AccountIdentityAuth> AccountIdentityAuths { get; set; }
     }
 
     /// <summary>
@@ -96,7 +111,61 @@ namespace DBAccessCoreDLL.EFORM.Entity
                         .WithOne( c => c.account )
                         .HasForeignKey( c => c.AccountId );
 
+            tableBuilder.HasMany<AccountIdentityAuth>(p => p.AccountIdentityAuths)
+                        .WithOne(c => c.account)
+                        .HasForeignKey(c => c.AccountId);
+
+            //tableBuilder.Ha
+            tableBuilder.Property(x => x.Sex)           .HasDefaultValue(null);
+            tableBuilder.Property(x => x.DisplayName)   .HasDefaultValue("Account");
+            tableBuilder.Property(x => x.Avatar)        .HasDefaultValue("");
+            tableBuilder.Property(x => x.Introduction)  .HasDefaultValue("");
+
+            tableBuilder.HasIndex(x => x.Username)                      .IsUnique(true);
+            tableBuilder.HasIndex(x => x.Passport)                      .IsUnique(true);
+            tableBuilder.HasIndex(x => x.Email)                         .IsUnique(true);
+            tableBuilder.HasIndex(x => new { x.Phone, x.PhoneAreaCode}) .IsUnique(true);
+
             #endregion
+
+            IList<Account> default_data = new List<Account>
+            {
+                new Account
+                {
+                    Id = 1,
+                    DisplayName = "Admin",
+                    Email = "875191946@qq.com",
+                    PhoneAreaCode = "86",
+                    Phone = "18412345678",
+                    Passport = "Passport_Admin",
+                    Username = "UserName_Admin",
+                    Password = "1qaz@WSX",
+                    Sex = null,
+                },
+                new Account
+                {
+                    Id = 2,
+                    DisplayName = "Developer",
+                    Email = "linqing@vip.qq.com",
+                    PhoneAreaCode = "86",
+                    Phone = "13712345678",
+                    Passport = "Passport_Developer",
+                    Username = "UserName_Developer",
+                    Password = "1qaz@WSX",
+                    Sex = null,
+                },
+                new Account
+                {
+                    Id = 3,
+                    DisplayName = "Guest",
+                    Passport = "Passport_Guest",
+                    Username = "UserName_Guest",
+                    Password = "1qaz@WSX",
+                    Sex = null,
+                }
+            };
+
+            builder.HasData(default_data);
 
             builder.SetupBaseEntity();
         }

@@ -87,6 +87,7 @@ namespace BusinessAdminDLL.Accounts
         /// </summary>
         public void Login(DTOAPIReq_Login LoginInfo)
         {
+            // this.accesser.Get(LoginInfo.passport);
             // bool PhoneHelper.IsValid(LoginInfo.passport);
             // accesser.Get();
         }
@@ -141,11 +142,12 @@ namespace BusinessAdminDLL.Accounts
         /// <param name="RegisterInfo"></param>
         private bool IsRegisterAccountExisted(DTOAPIReq_Register model,ref RegisterAccountInfo RegisterInfo) 
         {
-            //next
-            Tuple<Account, EFindAccountWay> FindAccountResult = accesser.Get(passport: model.Passport,
+            // next
+            Tuple<Account, EFindAccountWay> FindAccountResult = accesser.Get( passport: model.Passport,
                                                                               username: model.Username,
                                                                                  email: model.EMail,
-                                                                                 phone: model.Phone);
+                                                                                 phone: model.Phone     );
+
             // Verify Account whether exist...
             switch (FindAccountResult.Item2)
             {

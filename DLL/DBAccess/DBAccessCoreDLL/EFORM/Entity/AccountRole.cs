@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DBAccessCoreDLL.EFORM.Entity
@@ -59,6 +60,32 @@ namespace DBAccessCoreDLL.EFORM.Entity
             tableBuilder.HasOne<Role>( p => p.role).WithMany( c => c.AccountRoles ).HasForeignKey(c => c.RoleId);
 
             #endregion
+
+            IList<AccountRole> default_data = new List<AccountRole>()
+            {
+                new AccountRole{ 
+                    Id = 1,
+                    AccountId = 1,
+                    RoleId    = 1
+                },
+                new AccountRole{
+                    Id = 2,
+                    AccountId = 2,
+                    RoleId    = 2
+                },
+                new AccountRole{
+                    Id = 4,
+                    AccountId = 2,
+                    RoleId    = 3
+                },
+                new AccountRole{
+                    Id = 3,
+                    AccountId = 3,
+                    RoleId    = 4
+                }
+            };
+
+            tableBuilder.HasData(default_data);
 
             builder.SetupBaseEntity();
         }

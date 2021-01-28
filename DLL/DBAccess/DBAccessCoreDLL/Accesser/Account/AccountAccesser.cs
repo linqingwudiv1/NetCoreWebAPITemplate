@@ -187,11 +187,6 @@ namespace DBAccessCoreDLL.Accesser
             throw new NotImplementedException();
         }
 
-        Tuple<Account, EFindAccountWay> IAccountAccesser.Get(long? key, string username, string passport, string email, string phone)
-        {
-            throw new NotImplementedException();
-        }
-
         Account IAccesser<Account, long>.Get(long key)
         {
             throw new NotImplementedException();

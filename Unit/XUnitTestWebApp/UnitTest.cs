@@ -95,7 +95,7 @@ namespace XUnitTest_WebCore
 
                             if (account != null)
                             {
-                                account.Name = (faker.Name.FirstName() + faker.Name.LastName());
+                                account.DisplayName = (faker.Name.FirstName() + faker.Name.LastName());
                                 db.SaveChanges();
                             }
                             else
