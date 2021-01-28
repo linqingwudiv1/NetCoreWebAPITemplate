@@ -1,5 +1,4 @@
-﻿using AdminServices.Command.Role;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using BaseDLL;
@@ -7,7 +6,6 @@ using BusinessAdminDLL.AutofacModule;
 using BusinessAdminDLL.DTOModel.AutoMapper;
 using DBAccessBaseDLL.Static;
 using DBAccessCoreDLL.EFORM.Context;
-using GreenPipes;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;

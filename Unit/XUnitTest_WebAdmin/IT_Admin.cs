@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using BaseDLL;
+using Microsoft.AspNetCore.Mvc.Testing;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -38,13 +40,18 @@ namespace XUnitTest_WebAdmin
         /// <summary>
         /// 集成测试_Role模块
         /// </summary>
-        /// <param name="url"></param>
         /// <returns></returns>
-        [Theory]
-        [InlineData("api/Roles")]
+        [Fact]
         public async Task IT_Role(string url) 
         {
-            var res = await client.GetAsync(url);
+            // var res_post = await client.PostAsync
+            var res_post = await client.PostAsync("api/Roles");
+            Thread.Sleep(200);
+            var res_put = await client.PutAsync("api/Roles");
+            Thread.Sleep(200);
+            var res_get = await client.GetAsync("api/Roles");
+            Thread.Sleep(200);
+            var res_delete = await client.DeleteAsync("api/Roles");
         }
     }
 }

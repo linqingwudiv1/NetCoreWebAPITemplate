@@ -40,6 +40,7 @@ namespace CoreMicroServices
         public static IHostBuilder CreateHostBuilder(string[] args) 
         {
             return Host.CreateDefaultBuilder(args)
+                        
                        .UseServiceProviderFactory(new AutofacServiceProviderFactory( buolder=> 
                        {
                            buolder.RegisterModule(new AutofacModule());
@@ -54,6 +55,7 @@ namespace CoreMicroServices
                                   .AddEnvironmentVariables();
 
                            var Configuration = builder.Build();
+                           
                            GVariable.configuration = Configuration;
                        })
                       .ConfigureServices(services =>
@@ -90,14 +92,15 @@ namespace CoreMicroServices
                                   cfg.Host(mqHostAddress, "/", c => 
                                   {
                                       var user = GVariable.configuration["MTMQ:UserName"];
-                                      var pwd = GVariable.configuration["MTMQ:Password"];
+                                      var pwd  = GVariable.configuration["MTMQ:Password"];
+                                      
                                       c.Username(user);
                                       c.Password(pwd);
                                   });
 
                                   cfg.ConfigureEndpoints(ctx);
                               });
-                              
+
                           });
 
                           services.AddMassTransitHostedService();

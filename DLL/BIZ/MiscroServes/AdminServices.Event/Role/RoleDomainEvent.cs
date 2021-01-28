@@ -31,7 +31,6 @@ namespace AdminServices.Event.Role
         /// </summary>
         protected IIDGenerator IDGenerator { get; set; }
 
-
         /// <summary>
         /// 
         /// </summary>

@@ -92,7 +92,6 @@ namespace WebAdminService.Controllers
             {
                 return JsonToCamelCase(ex.Message, 50000, 50000);
             }
-
         }
 
         /// <summary>

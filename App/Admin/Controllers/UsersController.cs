@@ -44,10 +44,18 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <param name="userInfo">登录信息</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("login-t")]
         public IActionResult Login([FromBody] DTOAPIReq_Login userInfo)
         {
-            return Ok(userInfo);
+            try
+            {
+                return Json(userInfo);
+            }
+            catch (Exception ex)
+            {
+                return Ok();
+            }
+            //
         }
 
         /// <summary>
@@ -67,7 +75,7 @@ namespace WebAdminService.Controllers
             {
                 Claim[] claims = new[]
                 {
-                    // 时间戳
+                    // 时间戳 
                     new Claim( JwtRegisteredClaimNames.Nbf,  $"{ new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds() }") ,
                     
                     // 过期日期
@@ -77,7 +85,7 @@ namespace WebAdminService.Controllers
                     new Claim( ClaimTypes.Name, userInfo.passport ) , 
 
                     // Custom Data
-                    new Claim("customType", "hi! LinQing")
+                    new Claim("customType", "hi ! LinQing")
                 };
 
                 // Key
@@ -96,7 +104,7 @@ namespace WebAdminService.Controllers
 
                 return Ok(new
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(token)
+                    accessToken = new JwtSecurityTokenHandler().WriteToken(token)
                 });
             }
             else
@@ -143,7 +151,7 @@ namespace WebAdminService.Controllers
         /// 注销
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("logout")]
         [AuthFilter]
         public IActionResult Logout()
         {
