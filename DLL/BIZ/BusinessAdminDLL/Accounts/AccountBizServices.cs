@@ -1,4 +1,5 @@
-﻿using BaseDLL.Helper;
+﻿using BaseDLL.DTO;
+using BaseDLL.Helper;
 using BaseDLL.Helper.SMS;
 using BaseDLL.Helper.Smtp;
 using BusinessAdminDLL.Base;
@@ -81,16 +82,48 @@ namespace BusinessAdminDLL.Accounts
             return RegisterInfo;
         }
 
-        
+
+        private void Login(DTO_ReturnModel<dynamic> ret_model, Account account, DTOAPIReq_Login data) 
+        {
+        }
+
         /// <summary>
         /// 
         /// </summary>
-        public void Login(DTOAPIReq_Login LoginInfo)
+        public async dynamic Login(DTOAPIReq_Login LoginInfo)
         {
-            // this.accesser.Get(LoginInfo.passport);
-            // bool PhoneHelper.IsValid(LoginInfo.passport);
-            // accesser.Get();
+            //Can  
+
+            DTO_ReturnModel<dynamic> ret_model = new DTO_ReturnModel<dynamic>(new
+            {
+                accessToken = ""
+            });
+
+            Int64? id = null;
+            string email = null;
+            string passport = null;
+            string username = null;
+            Account account = null;
+
+
+            try
+            {
+                id = Int64.Parse(LoginInfo.passport);
+                account = accesser.Get(key: id).Item1;
+
+                if (account != null) 
+                {
+                    //login
+                }
+            }
+            catch (Exception ex) 
+            {
+                id = null;
+            }
+
+            this.accesser.Get();
         }
+
 
         #region private
 
