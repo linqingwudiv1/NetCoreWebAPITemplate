@@ -104,7 +104,9 @@ namespace CoreMicroServices
                           });
 
                           services.AddMassTransitHostedService();
+                          services.AddWorkflow();
                           #endregion
+
                       });
                     
                        //.ConfigureAppConfiguration;

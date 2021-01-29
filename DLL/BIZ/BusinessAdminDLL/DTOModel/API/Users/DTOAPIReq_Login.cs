@@ -18,5 +18,10 @@ namespace BusinessAdminDLL.DTOModel.API.Users
         /// 登录密码
         /// </summary>
         public string password { get; set; }
+
+        /// <summary>
+        /// 类型 id, phone, email, passport, username
+        /// </summary>
+        public string type { get; set; }
     }
 }

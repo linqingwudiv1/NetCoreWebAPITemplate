@@ -8,6 +8,7 @@
     <ProjectReference Include="..\..\..\..\CoreServices.Command\AdminServices.Command.csproj" />
     <ProjectReference Include="..\..\..\DBAccess\DBAccessBaseDLL\DBAccessBaseDLL.csproj" />
     <ProjectReference Include="..\..\..\DBAccess\DBAccessCoreDLL\DBAccessCoreDLL.csproj" />
+    <ProjectReference Include="..\..\..\WFDLL\WFDLL.csproj" />
   </ItemGroup>
 
 </Project>

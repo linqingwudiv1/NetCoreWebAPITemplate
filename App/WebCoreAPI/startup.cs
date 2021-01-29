@@ -168,6 +168,11 @@ namespace WebCoreService
                 // services.AddScoped<itestservice, mytestservice>();
                 #endregion
 
+                #region Workflow-Core
+
+                services.AddWorkflow();
+
+                #endregion
 
                 #region Autofac Configration
 

@@ -16,8 +16,22 @@ namespace WFDLL
     {
         public override ExecutionResult Run(IStepExecutionContext context)
         {
-            Console.WriteLine("Hello world")
+            Console.WriteLine("Hello world");
             return ExecutionResult.Next();
+        }
+    }
+
+    public class GoodBye : StepBody
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public override ExecutionResult Run(IStepExecutionContext context)
+        {
+            return ExecutionResult.Next();
+            // throw new NotImplementedException();
         }
     }
 
@@ -30,7 +44,7 @@ namespace WFDLL
         {
             builder
                 .StartWith<HelloWorld>()
-                .Then<GoodbyeWorld>();
+                .Then<GoodBye>();
         }
     }
 }

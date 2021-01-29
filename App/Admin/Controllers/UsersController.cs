@@ -21,7 +21,7 @@ namespace WebAdminService.Controllers
     /// <summary>
     /// Vue 项目展示接口
     /// </summary>
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [EnableCors("WebAPIPolicy")]
     [ApiController]
     public class UsersController : BaseController
@@ -29,14 +29,14 @@ namespace WebAdminService.Controllers
         /// <summary>
         /// 用户接口
         /// </summary>
-        private readonly IAccountsBizServices accountServices;
+        private readonly IAccountsBizServices services;
 
         /// <summary>
         /// 用户接口
         /// </summary>
-        public UsersController( IAccountsBizServices _accountServices)
+        public UsersController( IAccountsBizServices _Services)
         {
-            accountServices = _accountServices;
+            services = _Services;
         }
 
         /// <summary>
@@ -44,16 +44,16 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <param name="userInfo">登录信息</param>
         /// <returns></returns>
-        [HttpPost("login-t")]
-        public IActionResult Login([FromBody] DTOAPIReq_Login userInfo)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] DTOAPIReq_Login userInfo)
         {
             try
             {
-                return Json(userInfo);
+                return JsonToCamelCase(this.services.Login(userInfo)) ;
             }
             catch (Exception ex)
             {
-                return Ok();
+                return JsonToCamelCase(ex.Message, 50000, 50000);
             }
             //
         }
@@ -63,7 +63,7 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <param name="userInfo"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("[action]")]
         public IActionResult JWTLogin([FromBody]DTOAPIReq_Login userInfo)
         {
             if (userInfo == null)
@@ -119,7 +119,7 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <param name="RegisterInfo"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("[action]")]
         public IActionResult Register([FromBody] DTOAPIReq_Register RegisterInfo)
         {
             return Ok();
@@ -129,7 +129,7 @@ namespace WebAdminService.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("[action]")]
         [Authorize]
         public async Task<IActionResult> JWTTestAsync() 
         {
@@ -164,7 +164,7 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <param name="Info"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("[action]")]
         [AuthFilter]
         public IActionResult Info([FromBody] DTOAPIReq_Info Info)
         {

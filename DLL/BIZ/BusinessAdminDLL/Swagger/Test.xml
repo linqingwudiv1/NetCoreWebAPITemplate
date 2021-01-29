@@ -33,10 +33,48 @@
             <param name="model"></param>
             <returns></returns>
         </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.GenLoginData(DBAccessCoreDLL.EFORM.Entity.Account,BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
+            <summary>
+            
+            </summary>
+            <param name="account"></param>
+            <param name="loginInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.GenJWTToken(DBAccessCoreDLL.EFORM.Entity.Account)">
+            <summary>
+            生成新JWT Token
+            </summary>
+            <param name="account"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.TryLoginByPhone(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
+            <summary>
+            
+            </summary>
+            <param name="loginInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.TryLoginByEmail(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
+            <summary>
+            
+            </summary>
+            <param name="loginInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.LoginByUserName(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
+            <summary>
+            
+            </summary>
+            <param name="loginInfo"></param>
+            <returns></returns>
+        </member>
         <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.Login(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
             <summary>
             
             </summary>
+            <param name="LoginInfo"></param>
+            <returns></returns>
         </member>
         <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.RegisterAccountVerify(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register)">
             <summary>
@@ -106,12 +144,68 @@
             
             </summary>
         </member>
+        <member name="M:BusinessAdminDLL.Accounts.IAccountsBizServices.Login(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
+            <summary>
+            
+            </summary>
+            <param name="loginInfo"></param>
+            <returns></returns>
+        </member>
         <member name="M:BusinessAdminDLL.Accounts.IAccountsBizServices.Register(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register)">
             <summary>
             
             </summary>
             <param name="model"></param>
             <returns></returns>
+        </member>
+        <member name="T:BusinessAdminDLL.Accounts.WF.create">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.Accounts.WF.create.Input">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessAdminDLL.Accounts.WF.FindAccountByIDStepBody">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.WF.FindAccountByIDStepBody.#ctor(DBAccessCoreDLL.Accesser.IAccountAccesser)">
+            <summary>
+            
+            </summary>
+            <param name="_accesser"></param>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.WF.FindAccountByIDStepBody.Run(WorkflowCore.Interface.IStepExecutionContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BusinessAdminDLL.Accounts.WF.WF_Login">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.Accounts.WF.WF_Login.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.Accounts.WF.WF_Login.Version">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.WF.WF_Login.Build(WorkflowCore.Interface.IWorkflowBuilder{BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login})">
+            <summary>
+            
+            </summary>
+            <param name="builder"></param>
         </member>
         <member name="T:BusinessAdminDLL.AutofacModule.AdminAutofacModule">
             <summary>
@@ -334,6 +428,11 @@
             登录密码
             </summary>
         </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login.type">
+            <summary>
+            类型 id, phone, email, passport, username
+            </summary>
+        </member>
         <member name="T:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register">
             <summary>
             注册逻辑传输对象
@@ -410,6 +509,26 @@
             </summary>
         </member>
         <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.roles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Login">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Login.accessToken">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Login.state">
+            <summary>
+            -1:未知错误 0:用户被禁用 1:登录成功, 2:密码错误, 3:用户不存在 
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Login.msg">
             <summary>
             
             </summary>

@@ -166,6 +166,12 @@ namespace WebAdminService
                 #endregion
 
 
+                #region Workflow-Core
+                
+                services.AddWorkflow();
+
+                #endregion
+
                 #region AutoMapper
 
                 services.AddAutoMapper(typeof(BizAdminProfile).Assembly );

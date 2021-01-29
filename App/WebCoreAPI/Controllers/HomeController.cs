@@ -25,8 +25,8 @@ namespace WebCoreService.Controllers
         public IActionResult Index()
         {
             Assembly assembly = typeof(Controller).Assembly;
+
             return View();
         }
-
     }
 }

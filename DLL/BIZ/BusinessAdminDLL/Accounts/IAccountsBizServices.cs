@@ -3,6 +3,7 @@ using DBAccessCoreDLL.EFORM.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BusinessAdminDLL.Accounts
 {
@@ -65,7 +66,12 @@ namespace BusinessAdminDLL.Accounts
     /// </summary>
     public interface IAccountsBizServices
     {
-        //void Login();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="loginInfo"></param>
+        /// <returns></returns>
+        Task<dynamic> Login(DTOAPIReq_Login loginInfo);
         //
         //void Logout();
 
