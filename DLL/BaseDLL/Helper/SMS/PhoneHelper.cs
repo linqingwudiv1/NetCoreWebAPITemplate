@@ -8,7 +8,7 @@ namespace BaseDLL.Helper.SMS
     public class PhoneHelper
     {
         //static string cn_phone = "";
-        static string cn_phone = @"^1[3-9]\d{9}$";
+        static string cn_phone = @"^(86-1[3-9]\d{9})|(1[3-9]\d{9})$";
         static Regex rx_phone = new Regex(cn_phone);
 
         /// <summary>

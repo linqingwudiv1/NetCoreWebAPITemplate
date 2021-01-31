@@ -16,10 +16,11 @@ namespace DBAccessCoreDLL.EFORM.DesignTime
         /// <returns></returns>
         public CoreContext CreateDbContext(string[] args)
         {
-            string connectionString = "Data Source=.LocalDB/sqliteTestDB.db";
+            string connectionString = "Username=postgres;Password=1qaz@WSX;Host=127.0.0.1;Port=5432;Database=QCoreDB;";
             DbContextOptionsBuilder<CoreContext> builder = new DbContextOptionsBuilder<CoreContext>();
 
-            builder.UseSqlite(connectionString);
+            //builder.UseSqlite(connectionString);
+            builder.UseNpgsql(connectionString);
             return new CoreContext(builder.Options, connectionString);
         }
     }

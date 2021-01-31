@@ -195,8 +195,8 @@ namespace WebCoreService
                     "http://localhost:8080",
                     "http://localhost:8081",
                     "http://localhost:8082",
-                    "http://www.wakelu.com",
-                    "http://192.168.1.131:8080"
+                    "http://192.168.1.131:8080",
+                    "https://localhost:44311"
                                     };
                 }
 
@@ -353,10 +353,11 @@ namespace WebCoreService
                 app.UseHsts();
                 app.UseHttpsRedirection();
                 app.UseCookiePolicy();
-                app.UseCors("WebAPIPolicy");
+                app.UseCors(GWebVariable.CQRSPolicy);
                 app.UseSession(this.GSessionOpts);
                 app.UseAuthentication();
                 app.UseAuthorization();
+                app.UseMvc();
 
                 #region static files
                 {

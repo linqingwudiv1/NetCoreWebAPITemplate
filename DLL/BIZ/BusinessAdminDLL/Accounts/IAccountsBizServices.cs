@@ -81,5 +81,13 @@ namespace BusinessAdminDLL.Accounts
         /// <param name="model"></param>
         /// <returns></returns>
         RegisterAccountInfo Register(DTOAPIReq_Register model);
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accountID"></param>
+        /// <returns></returns>
+        public Task<dynamic> GetInfo(long accountID);
     }
 }

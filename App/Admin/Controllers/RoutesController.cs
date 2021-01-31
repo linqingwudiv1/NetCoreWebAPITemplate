@@ -17,7 +17,7 @@ namespace WebAdminService.Controllers
 {
 
     /// <summary>
-    /// Vue项目展示接口
+    /// SPA Admin Route
     /// </summary>
     [Route("api/[controller]")]
     [EnableCors("WebAPIPolicy")]
@@ -43,8 +43,15 @@ namespace WebAdminService.Controllers
         [HttpGet]
         public async Task<IActionResult> GetRoutePages()
         {
-            var data = services.GetRoutePages();
-            return JsonToCamelCase(data);
+            try
+            {
+                var data = services.GetRoutePages();
+                return JsonToCamelCase(data);
+            }
+            catch (Exception ex) 
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         /// <summary>

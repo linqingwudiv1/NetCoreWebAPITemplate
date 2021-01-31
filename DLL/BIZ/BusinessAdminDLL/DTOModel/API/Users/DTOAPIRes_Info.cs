@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessAdminDLL.DTOModel.API.Roles;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -24,10 +25,6 @@ namespace BusinessAdminDLL.DTOModel.API.Users
         /// </summary>
         public string username { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public string password { get; set; }
 
         /// <summary>
         /// 
@@ -52,6 +49,6 @@ namespace BusinessAdminDLL.DTOModel.API.Users
         /// <summary>
         /// 
         /// </summary>
-        public IList<string> roles { get; set; }
+        public IList<DTOAPI_Role> roles { get; set; }
     }
 }

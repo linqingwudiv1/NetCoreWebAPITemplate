@@ -68,6 +68,11 @@ namespace DBAccessCoreDLL.EFORM.Entity
         /// 性别 null 未知, 0  女, 1 男
         /// </summary>
         public int? Sex { get; set; }
+       
+        /// <summary>
+        /// 
+        /// </summary>
+        public string country { get; set; }
 
         
         /// <summary>

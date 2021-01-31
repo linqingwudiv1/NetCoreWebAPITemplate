@@ -14,8 +14,13 @@ DBAccessDLL->右键(right-click)->属性(Property)->生成()->常规()->条件�
 
 数据迁移(Migration) 命令参考:
 
-https://docs.microsoft.com/zh-cn/ef/core/miscellaneous/cli/powershell
+	
 
+采用其他项目的配置进行初始化
+
+dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ migrations add Initial -c CoreContext
+									 
+dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ migrations update -c CoreContext
 
 # 目录说明:
 

@@ -10,6 +10,11 @@ namespace NetApplictionServiceDLL
     public static class GWebVariable
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public static readonly string CQRSPolicy = "WebAPIPolicy";
+
+        /// <summary>
         /// 用户 Session key
         /// </summary>
         public static readonly string StoreAccount = "StoreAccount";
@@ -33,6 +38,7 @@ namespace NetApplictionServiceDLL
         /// 
         /// </summary>
         public static readonly string TokenKeyCookie = "Qing_AccountTokenCookie";
+        
 
     }
 }

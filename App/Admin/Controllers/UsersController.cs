@@ -49,7 +49,7 @@ namespace WebAdminService.Controllers
         {
             try
             {
-                return JsonToCamelCase(this.services.Login(userInfo)) ;
+                return JsonToCamelCase(await this.services.Login(userInfo)) ;
             }
             catch (Exception ex)
             {
@@ -164,13 +164,21 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <param name="Info"></param>
         /// <returns></returns>
-        [HttpPost("[action]")]
-        [AuthFilter]
-        public IActionResult Info([FromBody] DTOAPIReq_Info Info)
+        [HttpGet("[action]")]
+        [Authorize]
+        public async Task<IActionResult> Info()
         {
-            DTO_StoreAccount store_account = this.GetStoreAccount();
-
-            return Ok(store_account);
+            long userid = Int64.Parse( this.User.Claims.Where(x=> x.Type == ClaimTypes.NameIdentifier).Select( x=> x.Value).FirstOrDefault());
+            //t.ToList()[0].Claims.get
+            try
+            {
+                return JsonToCamelCase(await this.services.GetInfo(1));
+                
+            }
+            catch (Exception ex) 
+            {
+                return JsonToCamelCase(ex.Message ,50000,50000);
+            }
         }
     }
 }

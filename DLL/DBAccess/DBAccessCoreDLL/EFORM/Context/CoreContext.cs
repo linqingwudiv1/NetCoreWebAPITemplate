@@ -19,7 +19,7 @@ namespace DBAccessCoreDLL.EFORM.Context
         /// </summary>
         virtual public DbSet<Account> Accounts { get; protected set; }
 
-        /// <summary>
+        /// <summary> 
         /// 
         /// </summary>
         virtual public DbSet<AccountIdentityAuth> AccountIdentityAuths { get; protected set;}
@@ -88,7 +88,9 @@ namespace DBAccessCoreDLL.EFORM.Context
             if (!optionsBuilder.IsConfigured &&
                  !String.IsNullOrEmpty(this.ConnString))
             {
-                optionsBuilder.UseNpgsql(this.ConnString);
+                optionsBuilder.UseNpgsql(this.ConnString, b =>
+                {
+                });
             }
             
             base.OnConfiguring(optionsBuilder);

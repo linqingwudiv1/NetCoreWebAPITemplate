@@ -1,14 +1,13 @@
-﻿using BaseDLL.DTO;
-using BaseDLL.Helper;
+﻿using BaseDLL.Helper;
 using BaseDLL.Helper.SMS;
 using BaseDLL.Helper.Smtp;
 using BusinessAdminDLL.Base;
+using BusinessAdminDLL.DTOModel.API.Roles;
 using BusinessAdminDLL.DTOModel.API.Users;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
-using DBAccessCoreDLL.EFORM.Context;
 using DBAccessCoreDLL.EFORM.Entity;
-using MassTransit.Internals.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NetApplictionServiceDLL;
 using ServiceStack;
@@ -99,15 +98,15 @@ namespace BusinessAdminDLL.Accounts
         /// <param name="account"></param>
         /// <param name="loginInfo"></param>
         /// <returns></returns>
-        private DTOAPIRes_Login GenLoginData(Account account, DTOAPIReq_Login loginInfo) 
+        private DTOAPIRes_Login GenLoginData(Account account, DTOAPIReq_Login loginInfo, string nickName = "用户") 
         {
-            if ( account.Password == loginInfo.password )
+            if ( account!=null && account.Password == loginInfo.password )
             {
                 return new DTOAPIRes_Login
                 {
                     accessToken = GenJWTToken(account),
                     state = 1,
-                    msg = "用户登录成功"
+                    msg = $"{nickName}登录成功"
                 };
             }
             else 
@@ -116,7 +115,7 @@ namespace BusinessAdminDLL.Accounts
                 {
                     accessToken = "",
                     state = 2,
-                    msg = "密码错误"
+                    msg = $"{nickName}密码错误"
                 };
             }
 
@@ -129,7 +128,7 @@ namespace BusinessAdminDLL.Accounts
         /// <returns></returns>
         private string GenJWTToken(Account account)
         {
-            DateTime ExpiresTime = DateTime.Now.AddMinutes(30);
+            DateTime ExpiresTime = DateTime.Now.AddMinutes(GJWT.Expires);
             Claim[] claims = new[]
             {
                     // 时间戳 
@@ -165,189 +164,68 @@ namespace BusinessAdminDLL.Accounts
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private dynamic TryLoginByID(DTOAPIReq_Login loginInfo)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="loginInfo"></param>
+        /// <returns></returns>
+        private DTOAPIRes_Login LoginUnionWay(DTOAPIReq_Login loginInfo)
         {
-            // loginInfo.
+
+            var entity = this.accesser.db.Accounts;
+            IQueryable<Account> query_union = this.accesser.db.Accounts.Where(x => 1 == 0) ;
+
             try
             {
                 Int64 key = Int64.Parse(loginInfo.passport);
-                var account = this.accesser.Get(key: key);
-                
-                if (account.Item1 != null &&
-                    account.Item1.Password == loginInfo.password )
-                {
-                    return GenLoginData(account.Item1, loginInfo);
-                }
-                else
-                {
-                    //不匹配时尝试手机号登录
-                    return TryLoginByPhone(loginInfo);
-                }
+                entity.Where(x => x.Id == key);
+                query_union = query_union.Union(entity.Where(x => x.Id == key) );
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                return TryLoginByPhone(loginInfo);
             }
 
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="loginInfo"></param>
-        /// <returns></returns>
-        private dynamic TryLoginByPhone(DTOAPIReq_Login loginInfo)
-        {
-            if (PhoneHelper.IsValid(loginInfo.passport))
+            if ( PhoneHelper.IsValid(loginInfo.passport) )
             {
                 var data = PhoneHelper.Split(loginInfo.passport);
-                
+
                 var areacode = data.Item1;
                 var phone = data.Item2;
-
-                var account = ( from 
-                                    x 
-                                in 
-                                    this.accesser.db.Accounts 
-                                where 
-                                    x.PhoneAreaCode == areacode && 
-                                    x.Phone == phone 
-                                select x).SingleOrDefault(null);
-
-                if (account != null && 
-                    account.Password == loginInfo.password)
-                {
-                    return GenLoginData(account, loginInfo);
-                }
-                else 
-                {
-                    // 查找不到手机号时,尝试通行证登录
-                    return TryLoginByPassport(loginInfo);
-                }
+                query_union = query_union.Union( entity.Where(x => x.PhoneAreaCode == areacode && x.Phone == phone) );
             }
-            else 
-            {
-                return TryLoginByEmail(loginInfo);
-            }
-        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="loginInfo"></param>
-        /// <returns></returns>
-        private dynamic TryLoginByEmail(DTOAPIReq_Login loginInfo)
-        {
             if (EmailHepler.IsValid(loginInfo.passport))
             {
                 string email = loginInfo.passport;
-                var account = (from
-                                   x
-                               in
-                                   this.accesser.db.Accounts
-                               where
-                                   x.Email == email
-                               select x).SingleOrDefault();
-
-                if (account != null && 
-                    account.Password == loginInfo.password)
-                {
-                    return GenLoginData(account, loginInfo);
-                }
-                else 
-                {
-                    // 查找不到手机号时,尝试通行证登录
-                    return TryLoginByPassport(loginInfo);
-                }
+                query_union = query_union.Union( entity.Where(x => x.Email == email) );
             }
-            else 
+
+            query_union = query_union.Union(entity.Where(x => x.Username == loginInfo.passport ) );
+            query_union = query_union.Union(entity.Where(x => x.Passport == loginInfo.passport ) );
+#if DEBUG
+#endif
+            
+            var arr = query_union.ToArray();
+            if (arr != null && arr.Length  > 0)
             {
-                return TryLoginByPassport(loginInfo);
-            }
-        }
+                var account = arr.Where(x => x.Password == loginInfo.password).SingleOrDefault();
+                
+                return GenLoginData(account, loginInfo);
 
-        private dynamic TryLoginByPassport(DTOAPIReq_Login loginInfo) 
-        {
-            var account = (from
-                               x
-                           in
-                               this.accesser.db.Accounts
-                           where
-                               x.Username == loginInfo.passport
-                           select x).SingleOrDefault();
-
-
-            if ( account != null )
-            {
-                if ( account.Password == loginInfo.password )
-                {
-
-                    return new DTOAPIRes_Login 
-                    {
-                        accessToken = GenJWTToken(account)  ,
-                        state = 1                           ,
-                        msg = "登录成功"
-                    };
-                }
-                else
-                {
-                    return LoginByUserName(loginInfo);
-                }
-            }
-            else
-            {
-                return LoginByUserName(loginInfo);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="loginInfo"></param>
-        /// <returns></returns>
-        private dynamic LoginByUserName(DTOAPIReq_Login loginInfo) 
-        {
-
-            Account account = (from
-                                   x
-                               in
-                                   this.accesser.db.Accounts
-                               where
-                                   x.Username == loginInfo.passport
-                               select x).SingleOrDefault();
-
-            if (account != null)
-            {
-                if (account.Password == loginInfo.password)
-                {
-                    return new DTOAPIRes_Login
-                    {
-                        accessToken = GenJWTToken(account),
-                        state = 1,
-                        msg = "登录成功"
-                    };
-                }
-                else 
-                {
-                    return new DTOAPIRes_Login
-                    {
-                        accessToken = "",
-                        state = 2,
-                        msg = "密码错误"
-                    };
-                }
             }
             else 
             {
                 return new DTOAPIRes_Login
                 {
-                    accessToken = ""    ,
-                    state = 3           ,
+                    accessToken = "",
+                    state = 3,
                     msg = "UID/通行证/用户名/邮箱/手机号不存在"
                 };
             }
-        }
 
+            //return account;
+        }
 
         /// <summary>
         /// 
@@ -356,7 +234,8 @@ namespace BusinessAdminDLL.Accounts
         /// <returns></returns>
         public async Task<dynamic> Login(DTOAPIReq_Login LoginInfo)
         {
-            return TryLoginByID(LoginInfo);
+            return LoginUnionWay(LoginInfo);
+            //return TryLoginByID(LoginInfo);
         }
 
         #region private
@@ -463,6 +342,41 @@ namespace BusinessAdminDLL.Accounts
 
             return (FindAccountResult.Item2 == null);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="AccountID"></param>
+        /// <returns></returns>
+        public async Task<dynamic> GetInfo(long AccountID)
+        {
+            var account = (from x 
+                      in 
+                          this.accesser.db.Accounts.Where(x=> x.Id == AccountID)
+                                                   .Include(c=> c.AccountRoles)
+                                                   .ThenInclude(c => c.role)  
+                      select x).SingleOrDefault();
+
+            return new DTOAPIRes_Info
+            {
+                id = account.Id,
+                avatar = account.Avatar,
+                email = account.Email ?? "",
+                introduction = "",
+                name = account.DisplayName ?? "",
+                phone =string.IsNullOrEmpty( account.PhoneAreaCode)  ? account.PhoneAreaCode  + "-" + account.Phone : "",
+                username = account.Username ?? "",
+                roles = account.AccountRoles.Select(x =>
+                {
+                    return new DTOAPI_Role
+                    {
+                        key =  x.role.Id,
+                        name =  x.role.DisplayName
+                    };
+                }).ToList()
+            };
+        }
+
         #endregion
 
     }

@@ -33,7 +33,7 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.GenLoginData(DBAccessCoreDLL.EFORM.Entity.Account,BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.GenLoginData(DBAccessCoreDLL.EFORM.Entity.Account,BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login,System.String)">
             <summary>
             
             </summary>
@@ -48,21 +48,7 @@
             <param name="account"></param>
             <returns></returns>
         </member>
-        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.TryLoginByPhone(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
-            <summary>
-            
-            </summary>
-            <param name="loginInfo"></param>
-            <returns></returns>
-        </member>
-        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.TryLoginByEmail(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
-            <summary>
-            
-            </summary>
-            <param name="loginInfo"></param>
-            <returns></returns>
-        </member>
-        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.LoginByUserName(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.LoginUnionWay(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
             <summary>
             
             </summary>
@@ -88,6 +74,13 @@
             </summary>
             <param name="model"></param>
             <param name="RegisterInfo"></param>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.GetInfo(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="AccountID"></param>
+            <returns></returns>
         </member>
         <member name="T:BusinessAdminDLL.Accounts.ERegisterAccountState">
             <summary>
@@ -156,6 +149,13 @@
             
             </summary>
             <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.IAccountsBizServices.GetInfo(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="accountID"></param>
             <returns></returns>
         </member>
         <member name="T:BusinessAdminDLL.Accounts.WF.create">
@@ -479,11 +479,6 @@
             </summary>
         </member>
         <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.username">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.password">
             <summary>
             
             </summary>

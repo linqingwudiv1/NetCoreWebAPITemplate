@@ -235,26 +235,34 @@ namespace WebAdminService
                 services.AddOptions()
                         .Configure<Option_ConnctionString>(Configuration.GetSection("ConnectionStrings"))
                         .Configure<Opt_API_LTEUrl>(Configuration.GetSection("APILTEUrl"));
-                
+
                 // services.AddOptions()
-                
+
                 #endregion
 
                 #region Jwt
 
-                services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                        .AddJwtBearer(opt =>
-                        opt.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            ValidateIssuer = true   ,               // 是否验证Issuer
-                            ValidateAudience = true ,               // 是否验证Audience
-                            ValidateLifetime = true ,               // 是否验证失效时间
-                            ClockSkew = TimeSpan.FromSeconds(30),   // 
-                            ValidateIssuerSigningKey = true,        // 是否验证SecurityKey
-                            ValidAudience = GJWT.Domain ,           // Audience
-                            ValidIssuer = GJWT.Domain,              // Issuer,这两项和前面签发jwt的设置一致
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GJWT.SecurityKey)) // 拿到SecurityKey
-                        });
+                services.AddAuthentication(opt =>
+               {
+                   opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                   opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; // AuthenticationScheme;
+               })
+                .AddJwtBearer(opt =>
+                {
+                    opt.SaveToken = true;
+                    // opt.RequireHttpsMetadata = false;
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,                 // 是否验证Issuer
+                        ValidateAudience = false,               // 是否验证Audience
+                        ValidateLifetime = true,                // 是否验证失效时间
+                        ClockSkew = TimeSpan.FromSeconds(30),   // 
+                        ValidateIssuerSigningKey = true,        // 是否验证SecurityKey
+                        ValidAudience = GJWT.Domain,            // Audience
+                        ValidIssuer = GJWT.Domain,              // Issuer,这两项和前面签发jwt的设置一致
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GJWT.SecurityKey)) // 拿到SecurityKey
+                    };
+                 });
 
                 #endregion
 
@@ -309,6 +317,7 @@ namespace WebAdminService
                 #region Swagger Doc 文档接入.
 
                 // Register the Swagger generator, defining one or more Swagger documents
+
                 services.AddSwaggerGen(c =>
                 {
                     c.SwaggerDoc("v1",
@@ -319,16 +328,47 @@ namespace WebAdminService
                             Description = $"Web Admin Service Doc",
                         }
                     );
+
                     c.SchemaFilter<ExampleValueSchemaFilter>();
 
                     String basePath = Path.GetFullPath( Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"SwaggerDoc\"));
-
-                    string[] files = Directory.GetFiles(basePath,"*.xml");
+                    String[] files = Directory.GetFiles(basePath,"*.xml");
 
                     foreach (var file in files) 
                     {
                         c.IncludeXmlComments(file);
                     }
+
+
+                    #region JWT 验证配置
+
+                    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                    {
+                        Name = "Authorization",
+                        Type = SecuritySchemeType.ApiKey,
+                        Scheme = "Bearer",
+                        BearerFormat = "JWT",
+                        In = ParameterLocation.Header,
+                        Description = "JWT Authorization header using the Bearer scheme. \n\r (Exam Header: Authorization:Bearer {yourJwtToken}   ) "
+                    });
+
+                    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        {
+                              new OpenApiSecurityScheme
+                                {
+                                    Reference = new OpenApiReference
+                                    {
+                                        Type = ReferenceType.SecurityScheme,
+                                        Id = "Bearer"
+                                    }
+                                },
+                                new string[] {}
+
+                        }
+                    });
+
+                    #endregion
                 });
 
                 #endregion
@@ -383,12 +423,11 @@ namespace WebAdminService
                 app.UseHsts();
                 app.UseHttpsRedirection();
                 app.UseCookiePolicy();
-                app.UseCors("WebAPIPolicy");
+                app.UseCors(GWebVariable.CQRSPolicy);
                 app.UseSession(this.GSessionOpts);
                 app.UseAuthentication();
                 app.UseAuthorization();
-
-                app.UseAuthentication();
+                app.UseMvc();
 
                 string path = Path.Combine(Directory.GetCurrentDirectory(), ".Cache");
 
