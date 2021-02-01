@@ -37,19 +37,6 @@ namespace BusinessCoreDLL.Roles
 
         #region private
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="data"></param>
-        private void printNode(DTOAPI_Role data)
-        {
-            // this.printTitle(node.title)
-            // foreach (Node child in data.child  .children)
-            // {
-            //     printNode(child); //<-- recursive
-            // }
-        }
-
 
         #endregion
 

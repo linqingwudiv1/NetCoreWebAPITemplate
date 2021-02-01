@@ -5,6 +5,7 @@ using DBAccessCoreDLL.EFORM.Entity;
 using System;
 using DBAccessCoreDLL.EFORM.Entity;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace BusinessAdminDLL.RoutePage
 {
@@ -51,5 +52,12 @@ namespace BusinessAdminDLL.RoutePage
         /// <param name="id"></param>
         /// <returns></returns>
         Task<dynamic> DeleteRoutePage(long id);
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        Task<dynamic> GetRoutePageByRoles(IList<long> ids);
     }
 }

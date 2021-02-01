@@ -83,6 +83,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\DLL\BaseDLL\BaseDLL.csproj" />
     <ProjectReference Include="..\..\DLL\BIZ\BusinessAdminDLL\BusinessAdminDLL.csproj" />
     <ProjectReference Include="..\..\MQService\MQService.csproj" />
@@ -114,7 +118,7 @@
     <DocumentationFile>$(SolutionDir)\SwaggerDoc\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties _1config_4appsettings_1json__JsonSchema="" _1config_4connectionstring_1json__JsonSchema="https://jenkins-x.io/schemas/jx-requirements.json" /></VisualStudio></ProjectExtensions>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy &quot;$(SolutionDir)/SwaggerDoc&quot; &quot;$(OutDir)/SwaggerDoc&quot; /e /y /i /r" />

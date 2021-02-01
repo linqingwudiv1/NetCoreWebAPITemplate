@@ -15,6 +15,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using BusinessAdminDLL.Roles;
+using BusinessAdminDLL.RoutePage;
 
 namespace WebAdminService.Controllers
 {
@@ -31,12 +34,18 @@ namespace WebAdminService.Controllers
         /// </summary>
         private readonly IAccountsBizServices services;
 
+        private readonly IRoutePageBizServices routeServices;
+
+
         /// <summary>
-        /// 用户接口
+        /// 
         /// </summary>
-        public UsersController( IAccountsBizServices _Services)
+        /// <param name="_Services"></param>
+        /// <param name="_routeServices"></param>
+        public UsersController( IAccountsBizServices _Services, IRoutePageBizServices _routeServices)
         {
             services = _Services;
+            routeServices = _routeServices;
         }
 
         /// <summary>
@@ -71,7 +80,7 @@ namespace WebAdminService.Controllers
                 return NotFound();
             }
 
-            if (!string.IsNullOrEmpty(userInfo.passport) && !string.IsNullOrEmpty(userInfo.password))
+            if (!string.IsNullOrEmpty(userInfo.username) && !string.IsNullOrEmpty(userInfo.password))
             {
                 Claim[] claims = new[]
                 {
@@ -82,7 +91,7 @@ namespace WebAdminService.Controllers
                     new Claim( JwtRegisteredClaimNames.Exp,  $"{ new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeSeconds() }"),
 
                     // 用户标识
-                    new Claim( ClaimTypes.Name, userInfo.passport ) , 
+                    new Claim( ClaimTypes.Name, userInfo.username ) , 
 
                     // Custom Data
                     new Claim("customType", "hi ! LinQing")
@@ -164,7 +173,7 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <param name="Info"></param>
         /// <returns></returns>
-        [HttpGet("[action]")]
+        [HttpPost("[action]")]
         [Authorize]
         public async Task<IActionResult> Info()
         {
@@ -172,12 +181,31 @@ namespace WebAdminService.Controllers
             //t.ToList()[0].Claims.get
             try
             {
-                return JsonToCamelCase(await this.services.GetInfo(1));
+                return JsonToCamelCase(await this.services.GetInfo(userid));
                 
             }
             catch (Exception ex) 
             {
                 return JsonToCamelCase(ex.Message ,50000,50000);
+            }
+        }
+
+        [HttpGet("[action]")]
+
+        public async Task<IActionResult> GetRoutes()
+        {
+            try
+            {
+                long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
+
+                IList<long> roles =await this.services.GetAdminPageRoles(userid);
+
+                var data = await routeServices.GetRoutePageByRoles(roles);
+                return JsonToCamelCase(data);
+            }
+            catch (Exception ex) 
+            {
+                return JsonToCamelCase(ex.Message, 50000, 50000);
             }
         }
     }

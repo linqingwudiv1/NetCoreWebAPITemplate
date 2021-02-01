@@ -1,4 +1,5 @@
-﻿using BaseDLL.Helper;
+﻿using BaseDLL;
+using BaseDLL.Helper;
 using BaseDLL.Helper.SMS;
 using BaseDLL.Helper.Smtp;
 using BusinessAdminDLL.Base;
@@ -12,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using NetApplictionServiceDLL;
 using ServiceStack;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -76,15 +78,15 @@ namespace BusinessAdminDLL.Accounts
 
             Account account = new Account
             {
-                Id = NewID,
-                Passport = model.Passport,
-                Username = NewUsername,
-                Email = model.EMail,
-                PhoneAreaCode = "86",
-                Phone = model.Phone,
-                Sex = -1,
+                Id              = NewID,
+                Passport        = model.Passport,
+                Username        = NewUsername,
+                Email           = model.EMail,
+                PhoneAreaCode   = "86",
+                Phone           = model.Phone,
+                Sex             = -1,
                 // md5 secret key
-                Password = model.Password   //MD5Helper.GetMd5Hash(  )
+                Password        = model.Password   //MD5Helper.GetMd5Hash(  )
             };
 
             accesser.Add(account);
@@ -104,8 +106,11 @@ namespace BusinessAdminDLL.Accounts
             {
                 return new DTOAPIRes_Login
                 {
-                    accessToken = GenJWTToken(account),
+                    accessToken  = GenJWTToken(account),
+                    refreshToken = Guid.NewGuid().ToString(),
                     state = 1,
+                    expires = GJWT.Expires,
+                    refreshExpires = GJWT.ExpiresRefresh,
                     msg = $"{nickName}登录成功"
                 };
             }
@@ -118,7 +123,6 @@ namespace BusinessAdminDLL.Accounts
                     msg = $"{nickName}密码错误"
                 };
             }
-
         }
 
         /// <summary>
@@ -178,7 +182,7 @@ namespace BusinessAdminDLL.Accounts
 
             try
             {
-                Int64 key = Int64.Parse(loginInfo.passport);
+                Int64 key = Int64.Parse(loginInfo.username);
                 entity.Where(x => x.Id == key);
                 query_union = query_union.Union(entity.Where(x => x.Id == key) );
             }
@@ -186,23 +190,23 @@ namespace BusinessAdminDLL.Accounts
             {
             }
 
-            if ( PhoneHelper.IsValid(loginInfo.passport) )
+            if ( PhoneHelper.IsValid(loginInfo.username) )
             {
-                var data = PhoneHelper.Split(loginInfo.passport);
+                var data = PhoneHelper.Split(loginInfo.username);
 
                 var areacode = data.Item1;
                 var phone = data.Item2;
                 query_union = query_union.Union( entity.Where(x => x.PhoneAreaCode == areacode && x.Phone == phone) );
             }
 
-            if (EmailHepler.IsValid(loginInfo.passport))
+            if (EmailHepler.IsValid(loginInfo.username))
             {
-                string email = loginInfo.passport;
+                string email = loginInfo.username;
                 query_union = query_union.Union( entity.Where(x => x.Email == email) );
             }
 
-            query_union = query_union.Union(entity.Where(x => x.Username == loginInfo.passport ) );
-            query_union = query_union.Union(entity.Where(x => x.Passport == loginInfo.passport ) );
+            query_union = query_union.Union(entity.Where(x => x.Username == loginInfo.username ) );
+            query_union = query_union.Union(entity.Where(x => x.Passport == loginInfo.username ) );
 #if DEBUG
 #endif
             
@@ -210,9 +214,7 @@ namespace BusinessAdminDLL.Accounts
             if (arr != null && arr.Length  > 0)
             {
                 var account = arr.Where(x => x.Password == loginInfo.password).SingleOrDefault();
-                
                 return GenLoginData(account, loginInfo);
-
             }
             else 
             {
@@ -357,24 +359,49 @@ namespace BusinessAdminDLL.Accounts
                                                    .ThenInclude(c => c.role)  
                       select x).SingleOrDefault();
 
-            return new DTOAPIRes_Info
+            return new
             {
-                id = account.Id,
-                avatar = account.Avatar,
-                email = account.Email ?? "",
-                introduction = "",
-                name = account.DisplayName ?? "",
-                phone =string.IsNullOrEmpty( account.PhoneAreaCode)  ? account.PhoneAreaCode  + "-" + account.Phone : "",
-                username = account.Username ?? "",
-                roles = account.AccountRoles.Select(x =>
+                user = new DTOAPIRes_Info
                 {
-                    return new DTOAPI_Role
+                    id = account.Id,
+                    avatar = account.Avatar,
+                    email = account.Email ?? "",
+                    introduction = "",
+                    name = account.DisplayName ?? "",
+                    phone = string.IsNullOrEmpty(account.PhoneAreaCode) ? account.PhoneAreaCode + "-" + account.Phone : "",
+                    username = account.Username ?? "",
+                    roles = account.AccountRoles.Select(x =>
                     {
-                        key =  x.role.Id,
-                        name =  x.role.DisplayName
-                    };
-                }).ToList()
+                        return new DTOAPI_Role
+                        {
+                            key = x.role.Id,
+                            name = x.role.RoleName,
+                            displayName = x.role.DisplayName
+                        };
+                    }).ToList()
+                }
             };
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public async Task<IList<long>> GetAdminPageRoles(long userid)
+        {
+            Account account = this.accesser.Get(key: userid).Item1;
+
+            accesser.db.Entry(account).Collection(x => x.AccountRoles).Load();
+            if (account != null)
+            {
+                return account.AccountRoles.Select(x => x.RoleId).ToArray();
+            }
+            else 
+            {
+                return new Int64[] { };
+            }
         }
 
         #endregion

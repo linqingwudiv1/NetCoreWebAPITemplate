@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using AutoMapper;
+using BaseDLL;
 using BusinessAdminDLL.Accounts;
 using BusinessAdminDLL.DTOModel.AutoMapper;
 using BusinessAdminDLL.Roles;
@@ -25,7 +26,11 @@ namespace BusinessAdminDLL.AutofacModule
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterInstance<RedisIDGenerator>(new RedisIDGenerator(new List<string> { "127.0.0.1:10110" }, "abc123,") ).As<IIDGenerator>().SingleInstance();
+            builder.RegisterInstance<RedisIDGenerator>(new RedisIDGenerator(new List<string> 
+            { 
+                GVariable.configuration["RedisIDGenerator:Passport"] 
+            }, 
+                GVariable.configuration["RedisIDGenerator:Password"]) ).As<IIDGenerator>().SingleInstance();
 
             #region Biz
 

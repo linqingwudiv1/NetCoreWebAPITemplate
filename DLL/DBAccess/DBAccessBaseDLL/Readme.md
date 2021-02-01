@@ -18,9 +18,18 @@ DBAccessDLL->右键(right-click)->属性(Property)->生成()->常规()->条件�
 
 采用其他项目的配置进行初始化
 
-dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ migrations add Initial -c CoreContext
+dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ migrations add Initial --context CoreContext
 									 
-dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ migrations update -c CoreContext
+dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ migrations update --context CoreContext
+
+dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ database drop --context CoreContext
+
+
+
+#drop data : 
+
+dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ database drop --context CoreContext
+
 
 # 目录说明:
 

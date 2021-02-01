@@ -93,12 +93,11 @@ namespace DBAccessCoreDLL.EFORM.Entity
 
 #if DEBUG
             #region Default Database
-
             Role[] default_roles = {
-                                     new Role { Id = 1, ParentId = null, Descrption = "系统管理员", DisplayName = "系统管理员", RoleName = "admin"      } ,
-                                     new Role { Id = 2, ParentId = null, Descrption = "开发程序员", DisplayName = "开发程序员", RoleName = "developer"  } ,
-                                     new Role { Id = 3, ParentId = null, Descrption = "编辑人员"  , DisplayName = "编辑人员"  , RoleName = "editor"     } ,
-                                     new Role { Id = 4, ParentId = null, Descrption = "访客"      , DisplayName = "访客"      , RoleName = "guest"      } ,
+                                     new Role { Id = 1, ParentId = null, Descrption = "系统管理人员"  , DisplayName = "系统管理员", RoleName = "admin"      } ,
+                                     new Role { Id = 2, ParentId = null, Descrption = "开发程序人员"  , DisplayName = "开发程序员", RoleName = "developer"  } ,
+                                     new Role { Id = 3, ParentId = null, Descrption = "编辑测试人员"  , DisplayName = "系统测试员", RoleName = "editor"     } ,
+                                     new Role { Id = 4, ParentId = null, Descrption = "访客"          , DisplayName = "访客"      , RoleName = "guest"      } ,
                                    };
 
             tableBuilder.HasData(default_roles);

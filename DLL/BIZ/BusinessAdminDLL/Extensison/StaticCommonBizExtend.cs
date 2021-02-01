@@ -49,7 +49,7 @@ namespace BusinessAdminDLL.Extensison
                                 in 
                                     db.Accounts.Include( obj => obj.AccountRoles )
                                 where 
-                                    x.Username == data.passport 
+                                    x.Username == data.username 
                                 select x ).FirstOrDefault();
 
             if (account == null) 

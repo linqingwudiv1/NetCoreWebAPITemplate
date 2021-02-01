@@ -3,11 +3,13 @@ using AdminServices.Command.Role;
 using BaseDLL.Helper;
 using BusinessAdminDLL.Base;
 using BusinessAdminDLL.DTOModel.API.Routes;
+using BusinessAdminDLL.Roles;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
 using DBAccessCoreDLL.EFORM.Context;
 using DBAccessCoreDLL.EFORM.Entity;
 using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -249,5 +251,36 @@ namespace BusinessAdminDLL.RoutePage
             //return this.accesser.Delete(id);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public async Task<dynamic> GetRoutePageByRoles(IList<long> ids)
+        {
+            var id = ids.First();
+
+            //var role = this.accesser.db.Roles.Find(id);
+
+            var role = (from 
+                x 
+            in 
+                this.accesser.db.Roles.Where(x => x.Id == id).Include(p => p.RouteRoles).ThenInclude(p => p.routePage)
+            select 
+                x).FirstOrDefault();
+
+
+            //this.accesser.db.Entry(role).Collection(x => x.RouteRoles).Load();
+
+            if (role != null)
+            {
+                return role.GenPageRouteTree();
+            }
+            else 
+            {
+                throw new NullReferenceException("role is null...");
+            }
+            
+        }
     }
 }

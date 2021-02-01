@@ -66,6 +66,26 @@ namespace WebAdminService.Controllers
             return JsonToCamelCase(data);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Ids"></param>
+        /// <returns></returns>
+        [HttpPost("GetRoutePageByRoles")]
+        public async Task<IActionResult> GetRoutePageByRoles([FromBody] IList<Int64> Ids)
+        {
+            try
+            {
+                var data = await this.services.GetRoutePageByRoles(Ids);
+                return JsonToCamelCase(data);
+            }
+            catch (Exception ex) 
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
         /// <summary>
         /// 添加PageRoute,tree
         /// </summary>

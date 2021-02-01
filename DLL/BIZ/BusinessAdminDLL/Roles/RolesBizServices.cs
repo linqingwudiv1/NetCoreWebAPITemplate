@@ -17,6 +17,51 @@ using System.Threading.Tasks;
 
 namespace BusinessAdminDLL.Roles
 {
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public static class RolesBizServicesExtension 
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        static public IList<DTOAPI_RoutePages> GenPageRouteTree( this Role role)
+        {
+            IList<DTOAPI_RoutePages> routes = new List<DTOAPI_RoutePages>();
+            if (role.RouteRoles != null && role.RouteRoles.Count > 0)
+            {
+
+                routes = role.RouteRoles.Select(x => new DTOAPI_RoutePages
+                {
+                    id = x.routePage.Id,
+                    parentId = x.routePage.ParentId,
+                    hierarchyPath = x.routePage.HierarchyPath,
+                    component = x.routePage.Component,
+                    name = x.routePage.RouteName,
+                    path = x.routePage.Path,
+                    meta = new DTOAPI_RoutePagesMeta
+                    {
+                        title = x.routePage.Title,
+                        activeMenu = x.routePage.ActiveMenu,
+                        affix = x.routePage.Affix,
+                        alwaysShow = x.routePage.AlwaysShow,
+                        hidden = x.routePage.Hidden,
+                        icon = x.routePage.Icon,
+                        noCache = x.routePage.NoCache
+                    }
+                }).GenerateTree(x => x.id, x => x.parentId, (n, children) =>
+                {
+                    n.children = children.ToArray();
+                }, null).ToList();
+            }
+
+            return routes;
+        }
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -55,6 +100,7 @@ namespace BusinessAdminDLL.Roles
         /// <param name="_roleAccesser"></param>
         /// <param name="_mapper"></param>
         /// <param name="_publishEndpoint"></param>
+        /// <param name="_deleteClient"></param>
         public RolesBizServices(IIDGenerator _IDGenerator, 
                                 IRoleAccesser _roleAccesser, 
                                 IMapper _mapper, 
@@ -69,47 +115,6 @@ namespace BusinessAdminDLL.Roles
             this.deleteClient    = _deleteClient;
         }
 
-        #region private
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="role"></param>
-        /// <returns></returns>
-        static private IList<DTOAPI_RoutePages> GenPageRouteTree(Role role) 
-        {
-            IList<DTOAPI_RoutePages> routes = new List<DTOAPI_RoutePages>();
-            if ( role.RouteRoles != null && role.RouteRoles.Count > 0 ) 
-            {
-
-                routes = role.RouteRoles.Select(x => new DTOAPI_RoutePages 
-                { 
-                    id = x.routePage.Id                         , 
-                    parentId = x.routePage.ParentId             , 
-                    hierarchyPath = x.routePage.HierarchyPath   ,
-                    component = x.routePage.Component           ,
-                    name = x.routePage.RouteName                ,
-                    path = x.routePage.Path                     ,
-                    meta = new DTOAPI_RoutePagesMeta 
-                    {
-                        title = x.routePage.Title,
-                        activeMenu = x.routePage.ActiveMenu,
-                        affix = x.routePage.Affix,
-                        alwaysShow = x.routePage.AlwaysShow,
-                        hidden = x.routePage.Hidden,
-                        icon = x.routePage.Icon,
-                        noCache = x.routePage.NoCache
-                    }
-                }).GenerateTree(x => x.id, x => x.parentId,(n, children) => 
-                {
-                    n.children = children.ToArray();
-                }, null).ToList();
-            }
-
-            return routes;
-        }
-
-        #endregion
 
         /// <summary>
         /// 
@@ -127,7 +132,7 @@ namespace BusinessAdminDLL.Roles
                                          key = x.Id,
                                          description = x.Descrption,
                                          name = x.RoleName,
-                                         routes = GenPageRouteTree(x)
+                                         routes = x.GenPageRouteTree()
                                      }
                            ).ToArray();
 
@@ -156,7 +161,7 @@ namespace BusinessAdminDLL.Roles
                     key = role.Id,
                     description = role.Descrption,
                     name = role.RoleName,
-                    routes = GenPageRouteTree(role)
+                    routes = role.GenPageRouteTree()
                 };
                 return Task.FromResult( Role);
             }

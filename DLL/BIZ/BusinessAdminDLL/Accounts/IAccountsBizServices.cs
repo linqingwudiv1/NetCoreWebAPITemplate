@@ -89,5 +89,12 @@ namespace BusinessAdminDLL.Accounts
         /// <param name="accountID"></param>
         /// <returns></returns>
         public Task<dynamic> GetInfo(long accountID);
+
+        /// <summary>
+        /// 获取用户的权限
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        Task<IList<long>> GetAdminPageRoles(long userid);
     }
 }

@@ -58,6 +58,7 @@ namespace WebAdminService.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
+        [HttpGet("GetRoleAsync/{id}")]
         public async Task<IActionResult> GetRoleAsync(Int64 id)
         {
             try
@@ -159,7 +160,6 @@ namespace WebAdminService.Controllers
                 return JsonToCamelCase(ex.Message, 50000, 50000);
             }
         }
-
     }
 }
  

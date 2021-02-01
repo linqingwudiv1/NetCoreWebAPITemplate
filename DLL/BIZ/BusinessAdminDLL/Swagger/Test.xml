@@ -82,6 +82,13 @@
             <param name="AccountID"></param>
             <returns></returns>
         </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.GetAdminPageRoles(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="userid"></param>
+            <returns></returns>
+        </member>
         <member name="T:BusinessAdminDLL.Accounts.ERegisterAccountState">
             <summary>
             
@@ -156,6 +163,13 @@
             
             </summary>
             <param name="accountID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.IAccountsBizServices.GetAdminPageRoles(System.Int64)">
+            <summary>
+            获取用户的权限
+            </summary>
+            <param name="userid"></param>
             <returns></returns>
         </member>
         <member name="T:BusinessAdminDLL.Accounts.WF.create">
@@ -269,6 +283,11 @@
             </summary>
         </member>
         <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role.name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPI_Role.displayName">
             <summary>
             
             </summary>
@@ -418,7 +437,7 @@
             Request Login
             </summary>
         </member>
-        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login.passport">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login.username">
             <summary>
             用户名/Email/UID/Phone/passport
             </summary>
@@ -516,6 +535,21 @@
         <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Login.accessToken">
             <summary>
             
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Login.refreshToken">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Login.expires">
+            <summary>
+            accessToken过期时间/分钟
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Login.refreshExpires">
+            <summary>
+            refreshToken过期时间/分钟
             </summary>
         </member>
         <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Login.state">
@@ -630,6 +664,18 @@
             <param name="Ids"></param>
             <returns></returns>
         </member>
+        <member name="T:BusinessAdminDLL.Roles.RolesBizServicesExtension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServicesExtension.GenPageRouteTree(DBAccessCoreDLL.EFORM.Entity.Role)">
+            <summary>
+            
+            </summary>
+            <param name="role"></param>
+            <returns></returns>
+        </member>
         <member name="T:BusinessAdminDLL.Roles.RolesBizServices">
             <summary>
             
@@ -663,13 +709,7 @@
             <param name="_roleAccesser"></param>
             <param name="_mapper"></param>
             <param name="_publishEndpoint"></param>
-        </member>
-        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.GenPageRouteTree(DBAccessCoreDLL.EFORM.Entity.Role)">
-            <summary>
-            
-            </summary>
-            <param name="role"></param>
-            <returns></returns>
+            <param name="_deleteClient"></param>
         </member>
         <member name="M:BusinessAdminDLL.Roles.RolesBizServices.GetRoles">
             <summary>
@@ -754,6 +794,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:BusinessAdminDLL.RoutePage.IRoutePageBizServices.GetRoutePageByRoles(System.Collections.Generic.IList{System.Int64})">
+            <summary>
+            
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
         <member name="T:BusinessAdminDLL.RoutePage.RoutePageBizServices">
             <summary>
             
@@ -821,6 +868,13 @@
             
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.GetRoutePageByRoles(System.Collections.Generic.IList{System.Int64})">
+            <summary>
+            
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
     </members>

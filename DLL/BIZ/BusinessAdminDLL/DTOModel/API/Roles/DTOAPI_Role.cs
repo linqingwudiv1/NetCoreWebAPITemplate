@@ -26,6 +26,11 @@ namespace BusinessAdminDLL.DTOModel.API.Roles
         /// <summary>
         /// 
         /// </summary>
+        public string displayName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string description { get; set; }
 

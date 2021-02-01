@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace BusinessAdminDLL.DTOModel.API.Users
@@ -12,11 +13,13 @@ namespace BusinessAdminDLL.DTOModel.API.Users
         /// <summary>
         /// 用户名/Email/UID/Phone/passport
         /// </summary>
-        public string passport { get; set; }
+        [Required]
+        public string username { get; set; }
 
         /// <summary>
         /// 登录密码
         /// </summary>
+        [Required]
         public string password { get; set; }
 
         /// <summary>
