@@ -41,7 +41,9 @@ namespace BusinessAdminDLL.Roles
                     hierarchyPath = x.routePage.HierarchyPath,
                     component = x.routePage.Component,
                     name = x.routePage.RouteName,
+                    //path  = "",
                     path = x.routePage.Path,
+                    redirect = x.routePage.Redirect,
                     meta = new DTOAPI_RoutePagesMeta
                     {
                         title = x.routePage.Title,
@@ -54,7 +56,7 @@ namespace BusinessAdminDLL.Roles
                     }
                 }).GenerateTree(x => x.id, x => x.parentId, (n, children) =>
                 {
-                    n.children = children.ToArray();
+                    n.children = (children.Count() > 0 ? children.ToArray() : null);
                 }, null).ToList();
             }
 
@@ -82,8 +84,6 @@ namespace BusinessAdminDLL.Roles
         /// 
         /// </summary>
         protected IMapper mapper { get; set; }
-
-
         /// <summary>
         /// 
         /// </summary>

@@ -77,31 +77,12 @@ namespace WebAdminService.Controllers
         {
             try
             {
-                var data = await this.services.GetRoutePageByRoles(Ids);
+                var data = await this.services.GetRoutePageTreeByRoles(Ids);
                 return JsonToCamelCase(data);
             }
             catch (Exception ex) 
             {
                 return NotFound(ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// 添加PageRoute,tree
-        /// </summary>
-        /// <param name="routepages"></param>
-        /// <returns></returns>
-        [HttpPost("RoutePageByTreeNode")]
-        public async Task<IActionResult> AddRoutePages( [FromBody]DTOAPI_RoutePages routepages)
-        {
-            try 
-            {
-                dynamic data = await this.services.AddRoutePages(routepages);
-                return Json(data);
-            }
-            catch (Exception ex)
-            {
-                return JsonToCamelCase(ex.Message, 50000, 50000, ex.Message);
             }
         }
 

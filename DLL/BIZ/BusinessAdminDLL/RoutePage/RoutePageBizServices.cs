@@ -99,6 +99,7 @@ namespace BusinessAdminDLL.RoutePage
                 RouteName = item.name ?? "",
                 //HierarchyPath = item.hierarchyPath,
                 Path = item.path ?? "",
+                Redirect = item.redirect  ?? null ,
                 Component = item.component ?? "",
                 NoCache = item.meta.noCache,
                 Affix = item.meta.affix,
@@ -162,6 +163,7 @@ namespace BusinessAdminDLL.RoutePage
                     ParentId = x.parentId,
                     RouteName = x.name ?? "",
                     Path = x.path ?? "",
+                    Redirect = x.redirect ,
                     Component = x.component ?? "",
                     NoCache = x.meta.noCache,
                     Affix = x.meta.affix,
@@ -256,22 +258,16 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public async Task<dynamic> GetRoutePageByRoles(IList<long> ids)
+        public async Task<dynamic> GetRoutePageTreeByRoles(IList<long> ids)
         {
             var id = ids.First();
-
-            //var role = this.accesser.db.Roles.Find(id);
-
             var role = (from 
                 x 
             in 
                 this.accesser.db.Roles.Where(x => x.Id == id).Include(p => p.RouteRoles).ThenInclude(p => p.routePage)
             select 
                 x).FirstOrDefault();
-
-
-            //this.accesser.db.Entry(role).Collection(x => x.RouteRoles).Load();
-
+            
             if (role != null)
             {
                 return role.GenPageRouteTree();
@@ -280,7 +276,51 @@ namespace BusinessAdminDLL.RoutePage
             {
                 throw new NullReferenceException("role is null...");
             }
-            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public async Task<dynamic> GetRoutePageByRoles(IList<long> ids) 
+        {
+            var id = ids.First();
+            var role = (from
+                x
+            in
+                this.accesser.db.Roles.Where(x => x.Id == id).Include(p => p.RouteRoles).ThenInclude(p => p.routePage)
+            select
+                x ).FirstOrDefault();
+
+
+            if (role != null)
+            {
+                return role.RouteRoles.Select(x => new DTOAPI_RoutePages 
+                {
+                    id            = x.routePage.Id,
+                    parentId      = x.routePage.ParentId,
+                    hierarchyPath = x.routePage.HierarchyPath,
+                    component     = x.routePage.Component,
+                    name          = x.routePage.RouteName,
+                    path          = x.routePage.Path,
+                    redirect      = x.routePage.Redirect,
+                    meta = new DTOAPI_RoutePagesMeta
+                    {
+                        title       = x.routePage.Title,
+                        activeMenu  = x.routePage.ActiveMenu,
+                        affix       = x.routePage.Affix,
+                        alwaysShow  = x.routePage.AlwaysShow,
+                        hidden      = x.routePage.Hidden,
+                        icon        = x.routePage.Icon,
+                        noCache     = x.routePage.NoCache
+                    }
+                }) .ToArray();
+            }
+            else
+            {
+                throw new NullReferenceException("role is null...");
+            }
         }
     }
 }

@@ -3,9 +3,10 @@ using DBAccessBaseDLL.EF.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.PlatformAbstractions;
+using ServiceStack.DataAnnotations;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using System.IO;
 
 namespace DBAccessCoreDLL.EFORM.Entity
@@ -27,6 +28,16 @@ namespace DBAccessCoreDLL.EFORM.Entity
         /// </summary>
         [Required]
         public string HierarchyPath { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Required]
+        public string Platform { get; set; }
+
+
+        [Required]
+        public string Group { get; set; }
 
         /// <summary>
         /// 
@@ -61,6 +72,11 @@ namespace DBAccessCoreDLL.EFORM.Entity
         /// 
         /// </summary>
         public string Icon { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Redirect { get; set; }
 
         /// <summary>
         /// 
@@ -101,13 +117,9 @@ namespace DBAccessCoreDLL.EFORM.Entity
         public void Configure(EntityTypeBuilder<RoutePages> builder)
         {
             var tableBuilder = builder.ToTable("RoutePage");
-            /*
-                   .OwnsOne<RoutePageMeta>(p => p.Meta, c =>
-            {
-                c.ToTable("RoutePageMeta");
-            });
-            */
             
+            builder.Property(x => x.Platform).IsRequired(true).HasDefaultValue("");
+            builder.Property(x => x.Group).IsRequired(true).HasDefaultValue("");
             tableBuilder.Property(x => x.ParentId).HasDefaultValue(null);
 #if DEBUG
             #region Default Database
@@ -139,15 +151,17 @@ namespace DBAccessCoreDLL.EFORM.Entity
                 
                 var routePage = new RoutePages()
                 {
-                    Id            = NewID,
-                    ParentId      = parentID,
-                    Component     = item.name          ?? ""      ,
-                    RouteName     = item.name          ?? ""      ,
-                    Path          = item.path          ?? ""      ,
+                    Id            = NewID                             ,
+                    ParentId      = parentID                          ,
+                    Component     = item.component     ?? ""          ,
+                    RouteName     = item.name,
+                    Path          = item.path          ?? ""          ,
+                    Redirect      = item.redirect      ?? null        ,
                     HierarchyPath = TreeHelper.GenerateHierarchyPath<long?>(HierarchyPath, NewID),
                     Title         = item.meta != null  ? item.meta.title            ?? ""    : ""    ,
                     Icon          = item.meta != null  ? item.meta.icon             ?? ""    : ""    ,
                     ActiveMenu    = item.meta != null  ? item.meta.activeMenu       ?? ""    : ""    ,
+                    
                     Affix         = item.meta != null  ? item.meta.affix            ?? false : false ,
                     AlwaysShow    = item.meta != null  ? item.meta.alwaysShow       ?? false : false ,
                     NoCache       = item.meta != null  ? item.meta.noCache          ?? false : false ,
@@ -155,11 +169,12 @@ namespace DBAccessCoreDLL.EFORM.Entity
                 };
                 test_data.Add(routePage);
 
-                if (item.children != null && item.children.Count > 0) 
+                if (item.children != null && item.children.Count > 0)
                 {
                     var range = BuildTestData(item.children, routePage);
                     test_data.AddRange(range);
                 }
+
             }
 
             return test_data;

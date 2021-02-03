@@ -1,7 +1,7 @@
-﻿using BaseDLL.DTO.Store;
+﻿using BusinessAdminDLL.Accounts;
 using BusinessAdminDLL.DTOModel.API.Users;
 using BusinessAdminDLL.Extensison;
-using BusinessAdminDLL.Accounts;
+using BusinessAdminDLL.RoutePage;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -10,14 +10,12 @@ using Microsoft.IdentityModel.Tokens;
 using NetApplictionServiceDLL;
 using NetApplictionServiceDLL.Filter;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using BusinessAdminDLL.Roles;
-using BusinessAdminDLL.RoutePage;
 
 namespace WebAdminService.Controllers
 {
@@ -190,8 +188,11 @@ namespace WebAdminService.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("[action]")]
-
         public async Task<IActionResult> GetRoutes()
         {
             try
@@ -199,11 +200,33 @@ namespace WebAdminService.Controllers
                 long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
 
                 IList<long> roles =await this.services.GetAdminPageRoles(userid);
-
-                var data = await routeServices.GetRoutePageByRoles(roles);
+                var data = await routeServices.GetRoutePageTreeByRoles(roles);
                 return JsonToCamelCase(data);
             }
             catch (Exception ex) 
+            {
+                return JsonToCamelCase(ex.Message, 50000, 50000);
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetRouteList() 
+        {
+            try
+            {
+                long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
+                
+
+                IList<long> roles = await this.services.GetAdminPageRoles(userid);
+                var data = await routeServices.GetRoutePageByRoles(roles);
+                return JsonToCamelCase(data);
+            }
+            catch (Exception ex)
             {
                 return JsonToCamelCase(ex.Message, 50000, 50000);
             }

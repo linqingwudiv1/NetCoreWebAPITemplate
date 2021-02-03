@@ -58,6 +58,14 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        Task<dynamic> GetRoutePageByRoles(IList<long> ids);
+        Task<dynamic> GetRoutePageTreeByRoles(IList<long> ids);
+        
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roles"></param>
+        /// <returns></returns>
+        Task<dynamic> GetRoutePageByRoles(IList<long> roles);
     }
 }

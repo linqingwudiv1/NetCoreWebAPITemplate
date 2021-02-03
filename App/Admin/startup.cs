@@ -480,8 +480,8 @@ namespace WebAdminService
             }
             catch (Exception ex)
             {
-                log.Error($" Error : { ex.Message } ");
-                Debug.WriteLine($" Error : { ex.Message } ");
+                log.Error($" ============================= Error : { ex.Message } ");
+                Debug.WriteLine($" ============================= Error : { ex.Message } ");
             }
         }
     }

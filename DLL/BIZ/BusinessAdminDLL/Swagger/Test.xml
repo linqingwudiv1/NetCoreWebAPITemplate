@@ -794,11 +794,18 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:BusinessAdminDLL.RoutePage.IRoutePageBizServices.GetRoutePageByRoles(System.Collections.Generic.IList{System.Int64})">
+        <member name="M:BusinessAdminDLL.RoutePage.IRoutePageBizServices.GetRoutePageTreeByRoles(System.Collections.Generic.IList{System.Int64})">
             <summary>
             
             </summary>
             <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.RoutePage.IRoutePageBizServices.GetRoutePageByRoles(System.Collections.Generic.IList{System.Int64})">
+            <summary>
+            
+            </summary>
+            <param name="roles"></param>
             <returns></returns>
         </member>
         <member name="T:BusinessAdminDLL.RoutePage.RoutePageBizServices">
@@ -868,6 +875,13 @@
             
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.GetRoutePageTreeByRoles(System.Collections.Generic.IList{System.Int64})">
+            <summary>
+            
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.GetRoutePageByRoles(System.Collections.Generic.IList{System.Int64})">

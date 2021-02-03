@@ -36,6 +36,11 @@ namespace AdminServices.Command.PageRouteRole
         /// <summary>
         /// 
         /// </summary>
+        public string Redirect { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string ActiveMenu { get; set; }
 
         /// <summary>
