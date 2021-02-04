@@ -258,7 +258,7 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public async Task<dynamic> GetRoutePageTreeByRoles(IList<long> ids)
+        public async Task<IList<DTOAPI_RoutePages>> GetRoutePageTreeByRoles(IList<long> ids)
         {
             var id = ids.First();
             var role = (from 
@@ -270,7 +270,8 @@ namespace BusinessAdminDLL.RoutePage
             
             if (role != null)
             {
-                return role.GenPageRouteTree();
+                var ret_data = role.GenPageRouteTree();
+                return ret_data;
             }
             else 
             {

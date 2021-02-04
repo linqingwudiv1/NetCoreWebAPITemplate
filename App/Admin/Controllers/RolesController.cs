@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -43,8 +44,8 @@ namespace WebAdminService.Controllers
         {
             try
             {
-                var roles = await services.GetRoles();
-                return Ok(roles);
+                var data = await services.GetRoles();
+                return JsonToCamelCase( data : data.data,  _total : data.total);
             }
             catch (Exception ex) 
             {
@@ -63,7 +64,7 @@ namespace WebAdminService.Controllers
             try
             {
                 var role = await services.GetRole(id);
-                return Ok(role);
+                return JsonToCamelCase(role);
             }
             catch (Exception ex)
             {
@@ -110,7 +111,7 @@ namespace WebAdminService.Controllers
 
                 int effectRowNum = 0;
                 services.UpdateRole(data);
-                return Ok(effectRowNum);
+                return OkEx(effectRowNum);
             }
             catch (Exception ex)
             {
@@ -132,7 +133,7 @@ namespace WebAdminService.Controllers
                 int effectRowNum = 0;
                 effectRowNum = await services.DeleteRole(id);
 
-                return Ok(effectRowNum);
+                return OkEx(effectRowNum);
             }
             catch (Exception ex)
             {
@@ -152,7 +153,7 @@ namespace WebAdminService.Controllers
             {
                 int effectRowNum = 0;
                 effectRowNum = await this.services.DeleteRoles(ids);
-                return Ok(effectRowNum);
+                return OkEx(effectRowNum);
             }
             catch (Exception ex) 
             {

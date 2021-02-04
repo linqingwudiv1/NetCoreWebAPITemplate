@@ -109,7 +109,7 @@ namespace WebAdminService.Controllers
                     expires  : DateTime.Now.AddMinutes(30) ,
                     signingCredentials : creds );
 
-                return Ok(new
+                return OkEx(new
                 {
                     accessToken = new JwtSecurityTokenHandler().WriteToken(token)
                 });
@@ -146,11 +146,11 @@ namespace WebAdminService.Controllers
             {
                 Claim customType = ( from x in result.Principal.Claims.DefaultIfEmpty() where x.Type == "customType" select x ).FirstOrDefault(null);
 
-                return Ok($"User Claim : { result.Principal.Identity.Name } , customType :{ customType.Value }");
+                return OkEx($"User Claim : { result.Principal.Identity.Name } , customType :{ customType.Value }");
             }
             else 
             {
-                return Ok($"过期");
+                return OkEx($"过期");
             }
         }
 
@@ -159,11 +159,11 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("logout")]
-        [AuthFilter]
-        public IActionResult Logout()
+        [Authorize]
+        public async Task<IActionResult> Logout()
         {
-            this.LogoutLogic();
-            return Ok();
+            //this.LogoutLogic();
+            return OkEx(null);
         }
 
         /// <summary>
@@ -199,8 +199,9 @@ namespace WebAdminService.Controllers
             {
                 long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
 
-                IList<long> roles =await this.services.GetAdminPageRoles(userid);
+                IList<long> roles = await this.services.GetAdminPageRoles(userid);
                 var data = await routeServices.GetRoutePageTreeByRoles(roles);
+                
                 return JsonToCamelCase(data);
             }
             catch (Exception ex) 

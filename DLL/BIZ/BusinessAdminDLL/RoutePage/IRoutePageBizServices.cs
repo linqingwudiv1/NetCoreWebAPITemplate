@@ -58,7 +58,7 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        Task<dynamic> GetRoutePageTreeByRoles(IList<long> ids);
+        Task<IList<DTOAPI_RoutePages>> GetRoutePageTreeByRoles(IList<long> ids);
         
         
         /// <summary>

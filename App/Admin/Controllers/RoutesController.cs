@@ -46,7 +46,7 @@ namespace WebAdminService.Controllers
             try
             {
                 var data = services.GetRoutePages();
-                return JsonToCamelCase(data);
+                return JsonToCamelCase( new { routes = data });
             }
             catch (Exception ex) 
             {
@@ -115,7 +115,7 @@ namespace WebAdminService.Controllers
             try
             {
                 dynamic data = await this.services.UpdateRoutePage(routepage);
-                return Json(data);
+                return JsonEx(data);
             }
             catch (Exception ex) 
             {
@@ -135,7 +135,7 @@ namespace WebAdminService.Controllers
             try
             {
                 var data  = await this.services.DeleteRoutePage(id);
-                return Json(data);
+                return JsonEx(data);
             }
             catch(Exception ex)
             {

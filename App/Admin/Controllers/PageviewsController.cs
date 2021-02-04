@@ -39,7 +39,7 @@ namespace WebAdminService.Controllers
                       new { key = "Android", pageviews = 1024 }
             };
 
-            return Json(arr);                                    
+            return JsonEx(arr);                                    
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AdminServices.Command.Role;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using BaseDLL.DTO;
 using BaseDLL.Helper;
 using BusinessAdminDLL.Base;
 using BusinessAdminDLL.DTOModel.API.Roles;
@@ -11,6 +12,7 @@ using DBAccessCoreDLL.EFORM.Entity;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using ServiceStack;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -56,7 +58,7 @@ namespace BusinessAdminDLL.Roles
                     }
                 }).GenerateTree(x => x.id, x => x.parentId, (n, children) =>
                 {
-                    n.children = (children.Count() > 0 ? children.ToArray() : null);
+                    n.children = (children.Count() > 0 ? children.ToList() : null);
                 }, null).ToList();
             }
 
@@ -120,7 +122,7 @@ namespace BusinessAdminDLL.Roles
         /// 
         /// </summary>
         /// <returns></returns>
-        public async Task<IList<DTOAPI_Role>> GetRoles()
+        public async Task<DTO_PageableModel<DTOAPI_Role>> GetRoles()
         {
             IList<DTOAPI_Role> roles = (    from 
                                     x 
@@ -136,7 +138,17 @@ namespace BusinessAdminDLL.Roles
                                      }
                            ).ToArray();
 
-            return roles;
+            long total = 0;
+            try
+            {
+                total = roles.LongCount();
+            }
+            catch (Exception ex) 
+            {
+
+            }
+
+            return new DTO_PageableModel<DTOAPI_Role> { data = roles , total = total };
         }
 
         /// <summary>

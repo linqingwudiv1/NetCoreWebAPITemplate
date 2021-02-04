@@ -69,7 +69,7 @@ namespace WebCoreService.Areas.AppAPI.Controllers
                 bForceUpdate = false
             };
 
-            return Json(jsonobj);
+            return JsonEx(jsonobj);
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace WebCoreService.Areas.AppAPI.Controllers
                 });
             }
 
-            return Json(ret_list);
+            return JsonEx(ret_list);
         }
 
     }

@@ -77,7 +77,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
         [HttpGet]
         public IActionResult HelloNetCore(string id = "")
         {
-            return Ok("Hello! Net Core 2.0: " + id);
+            return OkEx("Hello! Net Core 2.0: " + id);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
 
             var currentDirectory = Directory.GetCurrentDirectory();
 
-            return Json(new { url , BaseDirectory, siteRootPath, wwwrootPath, basePath, currentDirectory });
+            return JsonEx(new { url , BaseDirectory, siteRootPath, wwwrootPath, basePath, currentDirectory });
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
         [HttpGet]
         public dynamic NetCore_DBConn()
         {
-            return Ok(Opt_Conn);
+            return OkEx(Opt_Conn);
         }
 
         /// <summary>
@@ -213,7 +213,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                 int effectRowCount = db.SaveChanges();
                 sw_insert.Stop();
 
-                return Ok(new
+                return OkEx(new
                 {
                     effectRowCount,
                     GenerateTime = sw_generate.ElapsedMilliseconds + "ms",
@@ -270,7 +270,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
 
                 Sw.Stop();
 
-                return Ok(new { time = Sw.ElapsedMilliseconds.ToString() + "ms.", list /*,list_2*/ });
+                return OkEx(new { time = Sw.ElapsedMilliseconds.ToString() + "ms.", list /*,list_2*/ });
             }
         }
 
@@ -444,7 +444,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                 }
             }
 
-            return Ok(ret_str);
+            return OkEx(ret_str);
         }
 
         /// <summary>
@@ -474,7 +474,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
 
             dynamic ret_model = new { list, effectCount = ret_count };
  
-            return Ok(ret_model);
+            return OkEx(ret_model);
         }
 
         /// <summary>
@@ -505,7 +505,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
 
             dynamic ret_model = new { list, effectCount = ret_count };
 
-            return Ok(ret_model);
+            return OkEx(ret_model);
         }
 
         /// <summary>
@@ -550,7 +550,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                 }
             }
 
-            return Ok(null);
+            return OkEx(null);
         }
 
         /// <summary>
@@ -577,7 +577,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                     HostName = Dns.GetHostName()
                 };
 
-                return Ok(ret_model);
+                return OkEx(ret_model);
             }
             catch ( Exception ex )
             {

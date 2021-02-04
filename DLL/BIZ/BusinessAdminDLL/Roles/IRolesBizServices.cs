@@ -1,6 +1,8 @@
-﻿using BusinessAdminDLL.DTOModel.API.Roles;
+﻿using BaseDLL.DTO;
+using BusinessAdminDLL.DTOModel.API.Roles;
 using DBAccessCoreDLL.EFORM.Context;
 using DBAccessCoreDLL.EFORM.Entity;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,7 +17,7 @@ namespace BusinessAdminDLL.Roles
         /// 
         /// </summary>
         /// <returns></returns>
-        Task<IList<DTOAPI_Role>> GetRoles();
+        Task<DTO_PageableModel<DTOAPI_Role>> GetRoles();
 
         /// <summary>
         /// 

@@ -70,7 +70,7 @@ namespace WebCoreService.Controllers
 
                 dynamic ret_model = new { list, effectCount = ret_count };
 
-                return Ok(ret_model);
+                return OkEx(ret_model);
             }
             catch (Exception ex)
             {
