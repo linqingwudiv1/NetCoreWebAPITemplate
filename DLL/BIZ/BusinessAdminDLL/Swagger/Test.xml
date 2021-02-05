@@ -257,7 +257,17 @@
             Add Or Update Role
             </summary>
         </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPIReq_Role.key">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPIReq_Role.name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPIReq_Role.displayName">
             <summary>
             
             </summary>
@@ -267,7 +277,27 @@
             
             </summary>
         </member>
-        <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPIReq_Role.pageRoutes">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPIReq_Role.routes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessAdminDLL.DTOModel.API.Roles.DTOAPIRes_AddRole">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPIRes_AddRole.role">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessAdminDLL.DTOModel.API.Roles.DTOAPIRes_UpdateRole">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Roles.DTOAPIRes_UpdateRole.role">
             <summary>
             
             </summary>
@@ -307,17 +337,12 @@
             
             </summary>
         </member>
-        <member name="T:BusinessAdminDLL.DTOModel.API.Routes.DTOAPIRes_GetRoutePages">
+        <member name="T:BusinessAdminDLL.DTOModel.API.Routes.DTOAPIRes_RoutePages">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPIRes_GetRoutePages.constantRoutes">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPIRes_GetRoutePages.asyncRoutes">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPIRes_RoutePages.routes">
             <summary>
             
             </summary>
@@ -701,6 +726,11 @@
             
             </summary>
         </member>
+        <member name="F:BusinessAdminDLL.Roles.RolesBizServices.deleteClient">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:BusinessAdminDLL.Roles.RolesBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IRoleAccesser,AutoMapper.IMapper,MassTransit.IPublishEndpoint,MassTransit.IRequestClient{AdminServices.Command.Role.DeleteRoleCommand})">
             <summary>
             
@@ -806,6 +836,18 @@
             
             </summary>
             <param name="roles"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BusinessAdminDLL.RoutePage.RoutePageBizServicesExtension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServicesExtension.GenPageRouteTree(DBAccessCoreDLL.EFORM.Entity.Role)">
+            <summary>
+            
+            </summary>
+            <param name="role"></param>
             <returns></returns>
         </member>
         <member name="T:BusinessAdminDLL.RoutePage.RoutePageBizServices">

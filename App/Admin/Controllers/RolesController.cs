@@ -77,7 +77,7 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AddRoleAsync( [FromBody]DTOAPIReq_Role data )
+        public async Task<IActionResult> AddRoleAsync( [FromBody]DTOAPIRes_AddRole data )
         {
             try 
             {
@@ -86,7 +86,7 @@ namespace WebAdminService.Controllers
                     return NotFound("没有正确添加数据");
                 }
 
-                int effectRowNum = await services.AddRole(data);
+                int effectRowNum = await services.AddRole(data.role);
                 return JsonToCamelCase(effectRowNum);
             }
             catch (Exception ex)
@@ -95,12 +95,15 @@ namespace WebAdminService.Controllers
             }
         }
 
+
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="id"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public IActionResult UpdateRole(Int64 id, [FromBody]DTOAPIReq_Role data)
+        public async Task<IActionResult> UpdateRole(Int64 id, [FromBody]DTOAPIRes_UpdateRole data)
         {
             try 
             {
@@ -110,14 +113,13 @@ namespace WebAdminService.Controllers
                 }
 
                 int effectRowNum = 0;
-                services.UpdateRole(data);
-                return OkEx(effectRowNum);
+                await services.UpdateRole(data.role);
+                return JsonToCamelCase(effectRowNum);
             }
             catch (Exception ex)
             {
                 return JsonToCamelCase(ex.Message, 50000, 50000);
             }
-
         }
 
         /// <summary>

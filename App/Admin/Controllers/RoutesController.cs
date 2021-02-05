@@ -45,8 +45,8 @@ namespace WebAdminService.Controllers
         {
             try
             {
-                var data = services.GetRoutePages();
-                return JsonToCamelCase( new { routes = data });
+                var data = await services.GetRoutePages();
+                return JsonToCamelCase(data);
             }
             catch (Exception ex) 
             {
@@ -62,8 +62,15 @@ namespace WebAdminService.Controllers
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetRoutePage(Int64 Id)
         {
-            var data = this.services.GetRoutePage(Id);
-            return JsonToCamelCase(data);
+            try
+            {
+                var data = await this.services.GetRoutePage(Id);
+                return JsonToCamelCase(data);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
 

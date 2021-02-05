@@ -22,6 +22,11 @@ namespace AdminServices.Command.Role
         /// <summary>
         /// 
         /// </summary>
+        public string displayName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string description { get; set; }
 
         /// <summary>

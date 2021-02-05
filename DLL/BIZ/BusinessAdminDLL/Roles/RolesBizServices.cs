@@ -86,12 +86,15 @@ namespace BusinessAdminDLL.Roles
         /// 
         /// </summary>
         protected IMapper mapper { get; set; }
+        
         /// <summary>
         /// 
         /// </summary>
         protected readonly IPublishEndpoint publishEndpoint;
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         protected readonly IRequestClient<DeleteRoleCommand> deleteClient;
 
 
@@ -132,6 +135,7 @@ namespace BusinessAdminDLL.Roles
                                      new DTOAPI_Role
                                      {
                                          key = x.Id,
+                                         displayName = x.DisplayName,
                                          description = x.Descrption,
                                          name = x.RoleName,
                                          routes = x.GenPageRouteTree()
@@ -171,6 +175,7 @@ namespace BusinessAdminDLL.Roles
                 dynamic Role = new DTOAPI_Role
                 {
                     key = role.Id,
+                    displayName = role.DisplayName,
                     description = role.Descrption,
                     name = role.RoleName,
                     routes = role.GenPageRouteTree()
@@ -181,7 +186,6 @@ namespace BusinessAdminDLL.Roles
             return null;
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -190,17 +194,17 @@ namespace BusinessAdminDLL.Roles
         public async Task<dynamic> AddRole(DTOAPIReq_Role data)
         {
 
-            if (data.pageRoutes != null && data.pageRoutes.Count > 0) 
+            if (data.routes != null && data.routes.Count > 0) 
             {
                 //ensure pageRoutes is exist
-                if (this.accesser.db.RoutePages.Where(x => data.pageRoutes.Contains(x.Id)).Count() != data.pageRoutes.Count) 
+                if (this.accesser.db.RoutePages.Where(x => data.routes.Contains(x.Id)).Count() != data.routes.Count) 
                 {
                     return -1;
                 }
             }
 
 
-            var routes = data.pageRoutes.Select(x => new DTOIn_PageRouteId { PageRouteID = x }).ToArray();
+            var routes = data.routes.Select(x => new DTOIn_PageRouteId { PageRouteID = x }).ToArray();
 
             long NewID = this.IDGenerator.GetNewID<Role>();
             var cmd = new AddRoleCommand
@@ -213,15 +217,34 @@ namespace BusinessAdminDLL.Roles
             await this.publishEndpoint.Publish(cmd);
             return 1;
         }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public Task<dynamic> UpdateRole(DTOAPIReq_Role data)
-        { 
-            
-            throw new System.NotImplementedException();
+        public async Task<dynamic> UpdateRole(DTOAPIReq_Role data)
+        {
+            Role role = this.accesser.Get(data.key);
+
+            if (role != null)
+            {
+                var cmd = new UpdateRoleCommand
+                {
+                    key = data.key,
+                    name = data.name,
+                    displayName = data.displayName,
+                    description = data.description,
+                    routes = data.routes.Select(x => new DTOIn_PageRouteId { PageRouteID = x }).ToArray()
+                };
+
+                await this.publishEndpoint.Publish(cmd);
+                return 1;
+            }
+            else 
+            {
+                throw new NullReferenceException("角色不存在..请刷新页面重试");
+            }
         }
 
         /// <summary>
@@ -231,10 +254,16 @@ namespace BusinessAdminDLL.Roles
         /// <returns></returns>
         public async Task<dynamic> DeleteRole(long Id)
         {
-            await this.publishEndpoint.Publish(new DeleteRoleCommand { key = Id });
-            return 1;
-            //return this.accesser.Delete(Id);
-            //throw new System.NotImplementedException();
+            Role role = this.accesser.Get(Id);
+            if (role != null)
+            {
+                await this.publishEndpoint.Publish(new DeleteRoleCommand { key = Id });
+                return 1;
+            }
+            else 
+            {
+                throw new NullReferenceException("角色以删除..请刷新页面重试");
+            }
         }
 
         /// <summary>

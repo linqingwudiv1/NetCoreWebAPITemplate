@@ -17,6 +17,52 @@ using System.Threading.Tasks;
 //using RoutePage_Alias = DBAccessCoreDLL.EFORM.Entity.RoutePages;
 namespace BusinessAdminDLL.RoutePage
 {
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public static class RoutePageBizServicesExtension
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        static public IList<DTOAPI_RoutePages> GenPageRouteTree(this Role role)
+        {
+            IList<DTOAPI_RoutePages> routes = new List<DTOAPI_RoutePages>();
+            if (role.RouteRoles != null && role.RouteRoles.Count > 0)
+            {
+
+                routes = role.RouteRoles.Select(x => new DTOAPI_RoutePages
+                {
+                    id = x.routePage.Id,
+                    parentId = x.routePage.ParentId,
+                    hierarchyPath = x.routePage.HierarchyPath,
+                    component = x.routePage.Component,
+                    name = x.routePage.RouteName,
+                    //path  = "",
+                    path = x.routePage.Path,
+                    redirect = x.routePage.Redirect,
+                    meta = new DTOAPI_RoutePagesMeta
+                    {
+                        title = x.routePage.Title,
+                        activeMenu = x.routePage.ActiveMenu,
+                        affix = x.routePage.Affix,
+                        alwaysShow = x.routePage.AlwaysShow,
+                        hidden = x.routePage.Hidden,
+                        icon = x.routePage.Icon,
+                        noCache = x.routePage.NoCache
+                    }
+                }).GenerateTree(x => x.id, x => x.parentId, (n, children) =>
+                {
+                    n.children = (children.Count() > 0 ? children.ToList() : null);
+                }, null).ToList();
+            }
+
+            return routes;
+        }
+    }
     /// <summary>
     /// 
     /// </summary>
@@ -57,13 +103,36 @@ namespace BusinessAdminDLL.RoutePage
         /// 
         /// </summary>
         /// <returns></returns>
-        public TreeItem<RoutePages>[] GetRoutePages()
+        public async Task<DTOAPIRes_RoutePages> GetRoutePages()
         {
-            var List = (from x in this.accesser.db.RoutePages select x).ToList();
+            var List = (from x in this.accesser.db.RoutePages select new DTOAPI_RoutePages
+                {
+                    id = x.Id,
+                    parentId = x.ParentId,
+                    hierarchyPath = x.HierarchyPath,
+                    component = x.Component,
+                    name = x.RouteName,
+                    path = x.Path,
+                    redirect = x.Redirect,
+                    //children = new List<DTOAPI_RoutePages>(),
+                    meta = new DTOAPI_RoutePagesMeta
+                    {
+                        title = x.Title,
+                        activeMenu = x.ActiveMenu,
+                        affix = x.Affix,
+                        alwaysShow = x.AlwaysShow,
+                        hidden = x.Hidden,
+                        icon = x.Icon,
+                        noCache = x.NoCache
+                    }
+                }).ToList();
 
-            var tree = List.GenerateTree(c => c.Id, c => c.ParentId,root_id: null).ToArray();
+            var tree = List.GenerateTree(c => c.id,  c => c.parentId, (DTOAPI_RoutePages c, IEnumerable<DTOAPI_RoutePages> val)  => 
+            {
+                c.children = val.ToArray();
+            }, root_id: null).ToArray();
 
-            return tree;
+            return new DTOAPIRes_RoutePages { routes = tree};
         }
 
         /// <summary>
@@ -71,16 +140,58 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public TreeItem<RoutePages> GetRoutePage(long Id)
+        public async Task<DTOAPIRes_RoutePages> GetRoutePage(long Id)
         {
-            var List = ( from x in this.accesser.db.RoutePages select x ).ToList();
+            RoutePages routePage =  this.accesser.Get(Id);
+            if (routePage != null)
+            {
+                var List = (from x in this.accesser.db.RoutePages 
+                            where 
+                                x.HierarchyPath.StartsWith(routePage.HierarchyPath) 
+                            select
+                            new DTOAPI_RoutePages
+                            {
+                                id = x.Id,
+                                parentId = x.ParentId,
+                                hierarchyPath = x.HierarchyPath,
+                                component = x.Component,
+                                name = x.RouteName,
+                                path = x.Path,
+                                redirect = x.Redirect,
+                                //children = new List<DTOAPI_RoutePages>(),
+                                meta = new DTOAPI_RoutePagesMeta
+                                {
+                                    title = x.Title,
+                                    activeMenu = x.ActiveMenu,
+                                    affix = x.Affix,
+                                    alwaysShow = x.AlwaysShow,
+                                    hidden = x.Hidden,
+                                    icon = x.Icon,
+                                    noCache = x.NoCache
+                                }
+                            }).ToList();
 
-            TreeItem<RoutePages> tree = new TreeItem<RoutePages>();
-            tree.node = List.Where(x => x.Id == Id).FirstOrDefault();
-            tree.children = List.GenerateTree(c => c.Id, c => c.ParentId, Id, 1).ToArray();
-            
-            tree.deep = 0;
-            return tree;
+                var tree = List.GenerateTree(c => c.id, c => c.parentId, (DTOAPI_RoutePages c, IEnumerable<DTOAPI_RoutePages> val) =>
+                {
+                    c.children = val.ToArray();
+                }, root_id: null).ToArray();
+
+                return new DTOAPIRes_RoutePages { routes = tree };
+            }
+            else 
+            {
+                throw new NullReferenceException($"页面路由 ID{Id} 不存在");
+            }
+
+            // routePage.
+            //var List = ( from x in this.accesser.db.RoutePages select x ).ToList();
+            //
+            //TreeItem<RoutePages> tree = new TreeItem<RoutePages>();
+            //tree.node = List.Where(x => x.Id == Id).FirstOrDefault();
+            //tree.children = List.GenerateTree(c => c.Id, c => c.ParentId, Id, 1).ToArray();
+            //
+            //tree.deep = 0;
+            //return tree;
         }
 
         /// <summary>

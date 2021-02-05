@@ -176,7 +176,6 @@ namespace WebAdminService.Controllers
         public async Task<IActionResult> Info()
         {
             long userid = Int64.Parse( this.User.Claims.Where(x=> x.Type == ClaimTypes.NameIdentifier).Select( x=> x.Value).FirstOrDefault());
-            //t.ToList()[0].Claims.get
             try
             {
                 return JsonToCamelCase(await this.services.GetInfo(userid));
@@ -210,7 +209,6 @@ namespace WebAdminService.Controllers
             }
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -221,7 +219,6 @@ namespace WebAdminService.Controllers
             try
             {
                 long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
-                
 
                 IList<long> roles = await this.services.GetAdminPageRoles(userid);
                 var data = await routeServices.GetRoutePageByRoles(roles);

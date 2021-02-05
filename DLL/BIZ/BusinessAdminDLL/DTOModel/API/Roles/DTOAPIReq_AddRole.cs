@@ -11,12 +11,21 @@ namespace BusinessAdminDLL.DTOModel.API.Roles
     /// </summary>
     public class DTOAPIReq_Role
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public long key { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [DefaultValue("test_user")]
         public string name { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public string displayName { get; set; }
 
         /// <summary>
         /// 
@@ -28,6 +37,6 @@ namespace BusinessAdminDLL.DTOModel.API.Roles
         /// 
         /// </summary>
 
-        public IList<long> pageRoutes { get; set; }
+        public IList<long> routes { get; set; }
     }
 }

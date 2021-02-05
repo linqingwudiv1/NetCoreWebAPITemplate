@@ -80,13 +80,12 @@ namespace AdminServices.Event.Role
         public async Task Consume( ConsumeContext<UpdateRoleCommand> context )
         {
             var msg = context.Message;
-            //context.NotifyConsumed;
             var role = this.accesser.Get(msg.key);
 
             if (role != null)
             {
                 role.Descrption = msg.description;
-                role.DisplayName = msg.name;
+                role.DisplayName = msg.displayName;
                 role.RoleName = msg.name;
                 role.Descrption = msg.description;
 
@@ -98,13 +97,18 @@ namespace AdminServices.Event.Role
                 }).ToArray();
 
                 role.RouteRoles = routes;
-                
-                this.accesser.db.RoutePageRoles.RemoveRange((from x in this.accesser.db.RoutePageRoles where x.RoleId == msg.key select x).AsEnumerable());
 
+                var oldRoute = (from x in this.accesser.db.RoutePageRoles where x.RoleId == msg.key select x);
+                var count = oldRoute.Count();
+                if (count > 0)
+                {
+                   var deleteRoutes = oldRoute.ToArray();
+                   this.accesser.db.RoutePageRoles.RemoveRange(deleteRoutes);
+                }
+                this.accesser.db.RoutePageRoles.AddRange(routes);
                 this.accesser.Update(role);
             }
         }
-
 
         /// <summary>
         /// 

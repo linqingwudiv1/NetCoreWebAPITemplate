@@ -18,15 +18,14 @@ namespace BusinessAdminDLL.RoutePage
         /// 
         /// </summary>
         /// <returns></returns>
-        TreeItem<RoutePages>[] GetRoutePages();
-
+        Task<DTOAPIRes_RoutePages> GetRoutePages();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        TreeItem<RoutePages> GetRoutePage(Int64 Id);
+        Task<DTOAPIRes_RoutePages> GetRoutePage(Int64 Id);
 
         /// <summary>
         /// 
