@@ -26,7 +26,6 @@ namespace DBAccessCoreDLL.EFORM.Entity
         /// <summary>
         /// 乘次路径,例如First.Second.Three.Four
         /// </summary>
-        [Required]
         public string HierarchyPath { get; set; }
 
         /// <summary>
@@ -121,6 +120,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
             builder.Property(x => x.Platform).IsRequired(true).HasDefaultValue("");
             builder.Property(x => x.Group).IsRequired(true).HasDefaultValue("");
             tableBuilder.Property(x => x.ParentId).HasDefaultValue(null);
+            tableBuilder.HasIndex(x => x.HierarchyPath).IsUnique(true);
 #if DEBUG
             #region Default Database
 

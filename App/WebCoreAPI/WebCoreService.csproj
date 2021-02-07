@@ -9,6 +9,8 @@
     <UserSecretsId>591e16d0-0cb1-4715-9cac-97a33ebab942</UserSecretsId>
     <Description>核心WebAPI
 </Description>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -82,6 +84,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
     <PackageReference Include="Savorboard.NPOI.Core.Ooxml" Version="1.1.4" />
@@ -99,6 +102,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\DLL\Biz\BusinessCoreDLL\BusinessCoreDLL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Dockerfile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

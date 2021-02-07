@@ -176,6 +176,7 @@ namespace WebAdminService.Controllers
         public async Task<IActionResult> Info()
         {
             long userid = Int64.Parse( this.User.Claims.Where(x=> x.Type == ClaimTypes.NameIdentifier).Select( x=> x.Value).FirstOrDefault());
+
             try
             {
                 return JsonToCamelCase(await this.services.GetInfo(userid));
@@ -185,6 +186,7 @@ namespace WebAdminService.Controllers
             {
                 return JsonToCamelCase(ex.Message ,50000,50000);
             }
+
         }
 
         /// <summary>

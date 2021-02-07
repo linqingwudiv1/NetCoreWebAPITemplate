@@ -150,7 +150,5 @@ namespace BaseDLL.Helper
                 return $"{parentHierarchyPath}.{keyid}";
             }
         }
-
-
     }
 }

@@ -96,7 +96,7 @@ namespace AdminServices.Event.Role
                     RoutePageId = x.PageRouteID
                 }).ToArray();
 
-                role.RouteRoles = routes;
+                //role.RouteRoles = routes;
 
                 var oldRoute = (from x in this.accesser.db.RoutePageRoles where x.RoleId == msg.key select x);
                 var count = oldRoute.Count();

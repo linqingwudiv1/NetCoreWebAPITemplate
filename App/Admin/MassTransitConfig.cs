@@ -27,7 +27,7 @@ namespace WebAdminService
             {
                 string mqHostAddress = GVariable.configuration["MTMQ:Host"];
 
-                cfg.Host(mqHostAddress, "/", c =>
+                cfg.Host(mqHostAddress, virtualHost: "/", c =>
                 {
                     string user = GVariable.configuration["MTMQ:UserName"];
                     string pwd  = GVariable.configuration["MTMQ:Password"];

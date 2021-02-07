@@ -89,7 +89,7 @@ namespace CoreMicroServices
                               {
                                   string mqHostAddress = GVariable.configuration["MTMQ:Host"];
 
-                                  cfg.Host(mqHostAddress, "/", c => 
+                                  cfg.Host(mqHostAddress, virtualHost: "/", c => 
                                   {
                                       var user = GVariable.configuration["MTMQ:UserName"];
                                       var pwd  = GVariable.configuration["MTMQ:Password"];

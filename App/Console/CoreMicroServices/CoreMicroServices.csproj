@@ -3,6 +3,8 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -39,6 +41,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.11" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +49,12 @@
     <ProjectReference Include="..\..\..\DLL\MassTransitDLL\MassTransitDLL.csproj" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties _1config_4connectionstring_1json__JsonSchema="https://json.schemastore.org/backportrc" /></VisualStudio></ProjectExtensions>
+  <ItemGroup>
+    <None Update="Dockerfile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties _1config_4appsettings_1json__JsonSchema="" _1config_4connectionstring_1json__JsonSchema="https://json.schemastore.org/backportrc" /></VisualStudio></ProjectExtensions>
 
 </Project>

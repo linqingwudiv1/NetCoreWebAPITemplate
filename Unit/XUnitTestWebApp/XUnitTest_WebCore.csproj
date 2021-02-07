@@ -51,4 +51,6 @@
     <ProjectReference Include="..\..\DLL\DBAccess\DBAccessCoreDLL\DBAccessCoreDLL.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties _1config_4appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
 </Project>

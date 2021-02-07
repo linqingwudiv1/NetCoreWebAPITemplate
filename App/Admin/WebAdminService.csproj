@@ -7,6 +7,8 @@
     <OutputType>Exe</OutputType>
     <StartupObject />
     <UserSecretsId>591e16d0-0cb1-4715-9cac-97a33ebab942</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -83,6 +85,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
 
@@ -96,6 +99,12 @@
     <Content Update="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Dockerfile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
@@ -118,7 +127,7 @@
     <DocumentationFile>$(SolutionDir)\SwaggerDoc\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties _1config_4appsettings_1json__JsonSchema="" _1config_4connectionstring_1json__JsonSchema="https://jenkins-x.io/schemas/jx-requirements.json" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties _1config_4appsettings_1json__JsonSchema="https://json.schemastore.org/chrome-manifest" _1config_4connectionstring_1json__JsonSchema="https://json.schemastore.org/appsscript" /></VisualStudio></ProjectExtensions>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy &quot;$(SolutionDir)/SwaggerDoc&quot; &quot;$(OutDir)/SwaggerDoc&quot; /e /y /i /r" />
