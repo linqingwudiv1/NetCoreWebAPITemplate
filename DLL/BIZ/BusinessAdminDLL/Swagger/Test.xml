@@ -337,6 +337,16 @@
             
             </summary>
         </member>
+        <member name="T:BusinessAdminDLL.DTOModel.API.Routes.DTOAPIRes_RoutePage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPIRes_RoutePage.route">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:BusinessAdminDLL.DTOModel.API.Routes.DTOAPIRes_RoutePages">
             <summary>
             
@@ -388,6 +398,16 @@
             </summary>
         </member>
         <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages.component">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages.platform">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages.groupName">
             <summary>
             
             </summary>

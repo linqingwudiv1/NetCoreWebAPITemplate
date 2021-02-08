@@ -60,6 +60,8 @@ namespace AdminServices.Event.PageRoute
                 ParentId = x.ParentId           ,
                 RouteName = x.RouteName ?? ""   ,
                 HierarchyPath = x.HierarchyPath ,
+                GroupName         = x.GroupName  ??   "",
+                Platform      = x.Platform ?? "",
                 Path = x.Path ?? ""             ,
                 Component = x.Component         ,
                 NoCache = x.NoCache             ,
@@ -96,14 +98,19 @@ namespace AdminServices.Event.PageRoute
             var msg = context.Message;
             
             RoutePages role = this.accesser.Get(msg.Id);
-
+            if (role == null) 
+            {
+                throw new NullReferenceException("Role is null");
+            }
             role.Id = msg.Id;
             role.RouteName = msg.RouteName ?? "";
             role.Path       = msg.Path ?? "";
-            role.Component  = msg.Component;
+            role.Component  = msg.Component ?? "";
             role.NoCache    = msg.NoCache;
             role.Affix      = msg.Affix;
-            role.ActiveMenu = msg.ActiveMenu;
+            role.GroupName = msg.GroupName ?? "";
+            role.Platform = msg.Platform ?? "";
+            role.ActiveMenu = msg.ActiveMenu ?? "";
             role.AlwaysShow = msg.AlwaysShow;
             role.Hidden     = msg.Hidden;
             role.Icon       = msg.Icon;

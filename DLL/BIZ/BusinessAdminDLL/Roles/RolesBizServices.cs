@@ -215,7 +215,7 @@ namespace BusinessAdminDLL.Roles
                 routes = routes
             };
             await this.publishEndpoint.Publish(cmd);
-            return 1;
+            return NewID;
         }
 
         /// <summary>

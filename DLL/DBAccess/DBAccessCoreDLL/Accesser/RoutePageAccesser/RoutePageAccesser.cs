@@ -71,7 +71,7 @@ namespace DBAccessCoreDLL.Accesser
 
             if (routePage != null)
             {
-                var routePages      = ( from x in this.db.RoutePages     where EF.Functions.Like( x.HierarchyPath, $"{routePage.HierarchyPath}%") select x );
+                var routePages      = ( from x in this.db.RoutePages     where x.Id == routePage.Id || EF.Functions.Like( x.HierarchyPath, $"{routePage.HierarchyPath}.%") select x );
                 var routePageRoles  = ( from x in this.db.RoutePageRoles where routePages.Select(c => c.Id).Contains(x.RoutePageId) select x );
 
                 this.db.RoutePageRoles.RemoveRange(routePageRoles);

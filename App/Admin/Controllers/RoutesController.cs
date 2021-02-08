@@ -99,11 +99,11 @@ namespace WebAdminService.Controllers
         /// <param name="routepage"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AddRoutePage([FromBody]DTOAPI_RoutePages routepage) 
+        public async Task<IActionResult> AddRoutePage([FromBody]DTOAPIRes_RoutePage routepage) 
         {
             try
             {
-                dynamic data = await this.services.AddRoutePage(routepage);
+                dynamic data = await this.services.AddRoutePage(routepage.route);
                 return JsonToCamelCase(data);
             }
             catch (Exception ex) 
@@ -117,11 +117,11 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> UpdateRoutePage( [FromBody]DTOAPI_RoutePages routepage )
+        public async Task<IActionResult> UpdateRoutePage( [FromBody]DTOAPIRes_RoutePage routepage )
         {
             try
             {
-                dynamic data = await this.services.UpdateRoutePage(routepage);
+                dynamic data = await this.services.UpdateRoutePage(routepage.route);
                 return JsonEx(data);
             }
             catch (Exception ex) 
@@ -136,7 +136,7 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRoutePage(long id)
         {
             try

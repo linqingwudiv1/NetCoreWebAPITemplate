@@ -29,6 +29,16 @@ namespace AdminServices.Command.PageRouteRole
 
         public string Path { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Platform { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string GroupName { get; set; }
+
         public string Component { get; set; }
 
         public string RouteName { get; set; }

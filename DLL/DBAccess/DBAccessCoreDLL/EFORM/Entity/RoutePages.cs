@@ -36,7 +36,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
 
 
         [Required]
-        public string Group { get; set; }
+        public string GroupName { get; set; }
 
         /// <summary>
         /// 
@@ -118,7 +118,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
             var tableBuilder = builder.ToTable("RoutePage");
             
             builder.Property(x => x.Platform).IsRequired(true).HasDefaultValue("");
-            builder.Property(x => x.Group).IsRequired(true).HasDefaultValue("");
+            builder.Property(x => x.GroupName).IsRequired(true).HasDefaultValue("");
             tableBuilder.Property(x => x.ParentId).HasDefaultValue(null);
             tableBuilder.HasIndex(x => x.HierarchyPath).IsUnique(true);
 #if DEBUG

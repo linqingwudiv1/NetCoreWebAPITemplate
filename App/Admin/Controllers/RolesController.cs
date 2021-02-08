@@ -86,8 +86,8 @@ namespace WebAdminService.Controllers
                     return NotFound("没有正确添加数据");
                 }
 
-                int effectRowNum = await services.AddRole(data.role);
-                return JsonToCamelCase(effectRowNum);
+                long key = await services.AddRole(data.role);
+                return JsonToCamelCase(key);
             }
             catch (Exception ex)
             {

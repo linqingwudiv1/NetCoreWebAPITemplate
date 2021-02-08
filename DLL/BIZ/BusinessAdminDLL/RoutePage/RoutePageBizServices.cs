@@ -1,12 +1,9 @@
 ﻿using AdminServices.Command.PageRouteRole;
-using AdminServices.Command.Role;
 using BaseDLL.Helper;
 using BusinessAdminDLL.Base;
 using BusinessAdminDLL.DTOModel.API.Routes;
-using BusinessAdminDLL.Roles;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
-using DBAccessCoreDLL.EFORM.Context;
 using DBAccessCoreDLL.EFORM.Entity;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
@@ -113,6 +110,8 @@ namespace BusinessAdminDLL.RoutePage
                     component = x.Component,
                     name = x.RouteName,
                     path = x.Path,
+                    platform = x.Platform,
+                    groupName = x.GroupName,
                     redirect = x.Redirect,
                     //children = new List<DTOAPI_RoutePages>(),
                     meta = new DTOAPI_RoutePagesMeta
@@ -158,6 +157,8 @@ namespace BusinessAdminDLL.RoutePage
                                 name = x.RouteName,
                                 path = x.Path,
                                 redirect = x.Redirect,
+                                platform = x.Platform,
+                                groupName = x.GroupName,
                                 //children = new List<DTOAPI_RoutePages>(),
                                 meta = new DTOAPI_RoutePagesMeta
                                 {
@@ -276,6 +277,8 @@ namespace BusinessAdminDLL.RoutePage
                     Path = x.path ?? "",
                     Redirect = x.redirect ,
                     Component = x.component ?? "",
+                    Platform = x.platform ?? "",
+                    GroupName   = x.groupName ?? "",
                     NoCache = x.meta.noCache,
                     Affix = x.meta.affix,
                     ActiveMenu = x.meta.activeMenu ?? "",
@@ -336,6 +339,8 @@ namespace BusinessAdminDLL.RoutePage
                 RouteName   = routepage.name ?? ""      ,
                 Path        = routepage.path ?? ""      ,
                 Component   = routepage.component       ,
+                GroupName   = routepage.groupName           ,
+                Platform    = routepage.platform        ,
                 NoCache     = routepage.meta.noCache    ,
                 Affix       = routepage.meta.affix      ,
                 ActiveMenu  = routepage.meta.activeMenu ,
@@ -417,6 +422,8 @@ namespace BusinessAdminDLL.RoutePage
                     name          = x.routePage.RouteName,
                     path          = x.routePage.Path,
                     redirect      = x.routePage.Redirect,
+                    groupName     = x.routePage.GroupName,
+                    platform      = x.routePage.Platform,
                     meta = new DTOAPI_RoutePagesMeta
                     {
                         title       = x.routePage.Title,

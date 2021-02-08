@@ -68,6 +68,20 @@ namespace BusinessAdminDLL.DTOModel.API.Routes
         /// <summary>
         /// 
         /// </summary>
+        [DefaultValue("")]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string platform { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DefaultValue("")]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string groupName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public DTOAPI_RoutePagesMeta meta { get; set; }
     }
