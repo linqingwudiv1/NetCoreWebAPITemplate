@@ -1,4 +1,5 @@
 ﻿using AdminServices.Command.PageRouteRole;
+using AutoMapper;
 using BaseDLL.Helper;
 using BusinessAdminDLL.Base;
 using BusinessAdminDLL.DTOModel.API.Routes;
@@ -14,52 +15,6 @@ using System.Threading.Tasks;
 //using RoutePage_Alias = DBAccessCoreDLL.EFORM.Entity.RoutePages;
 namespace BusinessAdminDLL.RoutePage
 {
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public static class RoutePageBizServicesExtension
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="role"></param>
-        /// <returns></returns>
-        static public IList<DTOAPI_RoutePages> GenPageRouteTree(this Role role)
-        {
-            IList<DTOAPI_RoutePages> routes = new List<DTOAPI_RoutePages>();
-            if (role.RouteRoles != null && role.RouteRoles.Count > 0)
-            {
-
-                routes = role.RouteRoles.Select(x => new DTOAPI_RoutePages
-                {
-                    id = x.routePage.Id,
-                    parentId = x.routePage.ParentId,
-                    hierarchyPath = x.routePage.HierarchyPath,
-                    component = x.routePage.Component,
-                    name = x.routePage.RouteName,
-                    //path  = "",
-                    path = x.routePage.Path,
-                    redirect = x.routePage.Redirect,
-                    meta = new DTOAPI_RoutePagesMeta
-                    {
-                        title = x.routePage.Title,
-                        activeMenu = x.routePage.ActiveMenu,
-                        affix = x.routePage.Affix,
-                        alwaysShow = x.routePage.AlwaysShow,
-                        hidden = x.routePage.Hidden,
-                        icon = x.routePage.Icon,
-                        noCache = x.routePage.NoCache
-                    }
-                }).GenerateTree(x => x.id, x => x.parentId, (n, children) =>
-                {
-                    n.children = (children.Count() > 0 ? children.ToList() : null);
-                }, null).ToList();
-            }
-
-            return routes;
-        }
-    }
     /// <summary>
     /// 
     /// </summary>
@@ -80,6 +35,8 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         readonly IPublishEndpoint publishEndpoint;
 
+        readonly IMapper mapper;
+
         /// <summary>
         /// 
         /// </summary>
@@ -88,12 +45,14 @@ namespace BusinessAdminDLL.RoutePage
         /// <param name="_publishEndpoint"></param>
         public RoutePageBizServices(IIDGenerator _IDGenerator, 
                                     IRoutePageAccesser _accesser,
-                                    IPublishEndpoint _publishEndpoint)
+                                    IPublishEndpoint _publishEndpoint,
+                                    IMapper _mapper)
             : base()
         {
             this.IDGenerator = _IDGenerator;
             this.accesser = _accesser;
             this.publishEndpoint = _publishEndpoint;
+            this.mapper = _mapper;
         }
 
         /// <summary>
@@ -102,29 +61,12 @@ namespace BusinessAdminDLL.RoutePage
         /// <returns></returns>
         public async Task<DTOAPIRes_RoutePages> GetRoutePages()
         {
-            var List = (from x in this.accesser.db.RoutePages select new DTOAPI_RoutePages
-                {
-                    id = x.Id,
-                    parentId = x.ParentId,
-                    hierarchyPath = x.HierarchyPath,
-                    component = x.Component,
-                    name = x.RouteName,
-                    path = x.Path,
-                    platform = x.Platform,
-                    groupName = x.GroupName,
-                    redirect = x.Redirect,
-                    //children = new List<DTOAPI_RoutePages>(),
-                    meta = new DTOAPI_RoutePagesMeta
-                    {
-                        title = x.Title,
-                        activeMenu = x.ActiveMenu,
-                        affix = x.Affix,
-                        alwaysShow = x.AlwaysShow,
-                        hidden = x.Hidden,
-                        icon = x.Icon,
-                        noCache = x.NoCache
-                    }
-                }).ToList();
+            var List = (from 
+                            x 
+                        in 
+                            this.accesser.db.RoutePages.AsNoTracking() 
+                        select 
+                            this.mapper.Map<DTOAPI_RoutePages>(x) ).ToList();
 
             var tree = List.GenerateTree(c => c.id,  c => c.parentId, (DTOAPI_RoutePages c, IEnumerable<DTOAPI_RoutePages> val)  => 
             {
@@ -144,33 +86,15 @@ namespace BusinessAdminDLL.RoutePage
             RoutePages routePage =  this.accesser.Get(Id);
             if (routePage != null)
             {
-                var List = (from x in this.accesser.db.RoutePages 
+                var List = (from 
+                                x 
+                            in 
+                                this.accesser.db.RoutePages.AsNoTracking()
                             where 
                                 x.HierarchyPath.StartsWith(routePage.HierarchyPath) 
                             select
-                            new DTOAPI_RoutePages
-                            {
-                                id = x.Id,
-                                parentId = x.ParentId,
-                                hierarchyPath = x.HierarchyPath,
-                                component = x.Component,
-                                name = x.RouteName,
-                                path = x.Path,
-                                redirect = x.Redirect,
-                                platform = x.Platform,
-                                groupName = x.GroupName,
-                                //children = new List<DTOAPI_RoutePages>(),
-                                meta = new DTOAPI_RoutePagesMeta
-                                {
-                                    title = x.Title,
-                                    activeMenu = x.ActiveMenu,
-                                    affix = x.Affix,
-                                    alwaysShow = x.AlwaysShow,
-                                    hidden = x.Hidden,
-                                    icon = x.Icon,
-                                    noCache = x.NoCache
-                                }
-                            }).ToList();
+                                this.mapper.Map<DTOAPI_RoutePages>(x)
+                            ).ToList();
 
                 var tree = List.GenerateTree(c => c.id, c => c.parentId, (DTOAPI_RoutePages c, IEnumerable<DTOAPI_RoutePages> val) =>
                 {
@@ -183,16 +107,6 @@ namespace BusinessAdminDLL.RoutePage
             {
                 throw new NullReferenceException($"页面路由 ID{Id} 不存在");
             }
-
-            // routePage.
-            //var List = ( from x in this.accesser.db.RoutePages select x ).ToList();
-            //
-            //TreeItem<RoutePages> tree = new TreeItem<RoutePages>();
-            //tree.node = List.Where(x => x.Id == Id).FirstOrDefault();
-            //tree.children = List.GenerateTree(c => c.Id, c => c.ParentId, Id, 1).ToArray();
-            //
-            //tree.deep = 0;
-            //return tree;
         }
 
         /// <summary>
@@ -205,22 +119,7 @@ namespace BusinessAdminDLL.RoutePage
 
             Int64 result = 0;
             Int64 NewID;
-            DTOIn_PageRoute obj = new DTOIn_PageRoute
-            {
-                ParentId = item.parentId,
-                RouteName = item.name ?? "",
-                //HierarchyPath = item.hierarchyPath,
-                Path = item.path ?? "",
-                Redirect = item.redirect  ?? null ,
-                Component = item.component ?? "",
-                NoCache = item.meta.noCache,
-                Affix = item.meta.affix,
-                ActiveMenu = item.meta.activeMenu ?? "",
-                AlwaysShow = item.meta.alwaysShow,
-                Hidden = item.meta.hidden,
-                Icon = item.meta.icon ?? "",
-                Title = item.meta.title ?? ""
-            };
+            DTOIn_PageRoute obj = this.mapper.Map<DTOIn_PageRoute>(item);
 
             if (item.parentId != null)
             {
@@ -269,24 +168,7 @@ namespace BusinessAdminDLL.RoutePage
             {
                 long NewID = this.IDGenerator.GetNewID<RoutePages>();
 
-                DTOIn_PageRoute obj = new DTOIn_PageRoute
-                {
-                    Id = NewID,
-                    ParentId = x.parentId,
-                    RouteName = x.name ?? "",
-                    Path = x.path ?? "",
-                    Redirect = x.redirect ,
-                    Component = x.component ?? "",
-                    Platform = x.platform ?? "",
-                    GroupName   = x.groupName ?? "",
-                    NoCache = x.meta.noCache,
-                    Affix = x.meta.affix,
-                    ActiveMenu = x.meta.activeMenu ?? "",
-                    AlwaysShow = x.meta.alwaysShow,
-                    Hidden = x.meta.hidden,
-                    Icon = x.meta.icon      ?? "",
-                    Title = x.meta.title    ?? ""
-                };
+                DTOIn_PageRoute obj = this.mapper.Map<DTOIn_PageRoute>(x);
 
                 if (parent == null)
                 {
@@ -333,25 +215,13 @@ namespace BusinessAdminDLL.RoutePage
         /// <returns></returns>
         public async Task<dynamic> UpdateRoutePage(DTOAPI_RoutePages routepage)
         {
-            await this.publishEndpoint.Publish(new UpdatePageRouteCommand
+            var cmd = new UpdatePageRouteCommand
             {
-                Id          = routepage.id              ,
-                RouteName   = routepage.name ?? ""      ,
-                Path        = routepage.path ?? ""      ,
-                Component   = routepage.component       ,
-                GroupName   = routepage.groupName           ,
-                Platform    = routepage.platform        ,
-                NoCache     = routepage.meta.noCache    ,
-                Affix       = routepage.meta.affix      ,
-                ActiveMenu  = routepage.meta.activeMenu ,
-                AlwaysShow  = routepage.meta.alwaysShow ,
-                Hidden      = routepage.meta.hidden     ,
-                Icon        = routepage.meta.icon       ,
-                Title       = routepage.meta.title
-            });
-
+                data = this.mapper.Map<DTOIn_PageRoute>(routepage)
+            };
+            
+            await this.publishEndpoint.Publish(cmd);
             return 1;
-            //throw new NotImplementedException();
         }
 
         /// <summary>
@@ -386,7 +256,7 @@ namespace BusinessAdminDLL.RoutePage
             
             if (role != null)
             {
-                var ret_data = role.GenPageRouteTree();
+                var ret_data = GenPageRouteTree(role);
                 return ret_data;
             }
             else 
@@ -404,42 +274,48 @@ namespace BusinessAdminDLL.RoutePage
         {
             var id = ids.First();
             var role = (from
-                x
-            in
-                this.accesser.db.Roles.Where(x => x.Id == id).Include(p => p.RouteRoles).ThenInclude(p => p.routePage)
-            select
-                x ).FirstOrDefault();
+                            x
+                        in
+                            this.accesser.db.Roles.Where(x => x.Id == id)
+                                                  .Include(p => p.RouteRoles)
+                                                  .ThenInclude(p => p.routePage)
+                        select
+                            x ).FirstOrDefault();
 
 
             if (role != null)
             {
-                return role.RouteRoles.Select(x => new DTOAPI_RoutePages 
-                {
-                    id            = x.routePage.Id,
-                    parentId      = x.routePage.ParentId,
-                    hierarchyPath = x.routePage.HierarchyPath,
-                    component     = x.routePage.Component,
-                    name          = x.routePage.RouteName,
-                    path          = x.routePage.Path,
-                    redirect      = x.routePage.Redirect,
-                    groupName     = x.routePage.GroupName,
-                    platform      = x.routePage.Platform,
-                    meta = new DTOAPI_RoutePagesMeta
-                    {
-                        title       = x.routePage.Title,
-                        activeMenu  = x.routePage.ActiveMenu,
-                        affix       = x.routePage.Affix,
-                        alwaysShow  = x.routePage.AlwaysShow,
-                        hidden      = x.routePage.Hidden,
-                        icon        = x.routePage.Icon,
-                        noCache     = x.routePage.NoCache
-                    }
-                }) .ToArray();
+                return role.RouteRoles.Select(x => this.mapper.Map<DTOAPI_RoutePages>(x)) .ToArray();
             }
             else
             {
                 throw new NullReferenceException("role is null...");
             }
         }
+
+        #region private 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        private IList<DTOAPI_RoutePages> GenPageRouteTree(Role role)
+        {
+            IList<DTOAPI_RoutePages> routes = new List<DTOAPI_RoutePages>();
+            if (role.RouteRoles != null && role.RouteRoles.Count > 0)
+            {
+                routes = role.RouteRoles.Select(x =>
+                {
+                    var routePage      = this.mapper.Map<DTOAPI_RoutePages>(x);
+                    return routePage;
+                } ).GenerateTree(x => x.id, x => x.parentId, (n, children) =>
+                {
+                    n.children = (children.Count() > 0 ? children.ToList() : null);
+                }, null).ToList();
+            }
+
+            return routes;
+        }
+        #endregion
     }
 }

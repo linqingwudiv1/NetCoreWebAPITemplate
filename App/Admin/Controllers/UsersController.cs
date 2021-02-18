@@ -1,14 +1,14 @@
-﻿using BusinessAdminDLL.Accounts;
+﻿using BaseDLL.DTO;
+using BusinessAdminDLL.Accounts;
 using BusinessAdminDLL.DTOModel.API.Users;
-using BusinessAdminDLL.Extensison;
 using BusinessAdminDLL.RoutePage;
+using DBAccessCoreDLL.DTO.API.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using NetApplictionServiceDLL;
-using NetApplictionServiceDLL.Filter;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -32,6 +32,9 @@ namespace WebAdminService.Controllers
         /// </summary>
         private readonly IAccountsBizServices services;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IRoutePageBizServices routeServices;
 
 
@@ -44,25 +47,6 @@ namespace WebAdminService.Controllers
         {
             services = _Services;
             routeServices = _routeServices;
-        }
-
-        /// <summary>
-        /// 登录接口
-        /// </summary>
-        /// <param name="userInfo">登录信息</param>
-        /// <returns></returns>
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] DTOAPIReq_Login userInfo)
-        {
-            try
-            {
-                return JsonToCamelCase(await this.services.Login(userInfo)) ;
-            }
-            catch (Exception ex)
-            {
-                return JsonToCamelCase(ex.Message, 50000, 50000);
-            }
-            //
         }
 
         /// <summary>
@@ -120,18 +104,6 @@ namespace WebAdminService.Controllers
             }
         }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="RegisterInfo"></param>
-        /// <returns></returns>
-        [HttpPost("[action]")]
-        public IActionResult Register([FromBody] DTOAPIReq_Register RegisterInfo)
-        {
-            return Ok();
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -169,7 +141,6 @@ namespace WebAdminService.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="Info"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
         [Authorize]
@@ -227,6 +198,46 @@ namespace WebAdminService.Controllers
                 return JsonToCamelCase(data);
             }
             catch (Exception ex)
+            {
+                return JsonToCamelCase(ex.Message, 50000, 50000);
+            }
+        }
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetUsers([FromBody] DTO_PageableQueryModel<DTO_GetUsers> queryInfo ) 
+        {
+            try
+            {
+                var model = await this.services.GetUsers(queryInfo);
+                return JsonToCamelCase(model.data, _total: model.total, _pageNum : model.pageNum, _pageSize: model.pageSize);
+            }
+            catch (Exception ex) 
+            {
+                return JsonToCamelCase(ex.Message, 50000,50000);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        [HttpPost("[action]")]
+        public async Task<IActionResult> UpdateUsersRole([FromBody] DTOAPIReq_UpdateUsersRole info) 
+        {
+            try
+            {
+                await this.services.UpdateUsersRole( info );
+                return OkEx(null);
+            }
+            catch (Exception ex) 
             {
                 return JsonToCamelCase(ex.Message, 50000, 50000);
             }

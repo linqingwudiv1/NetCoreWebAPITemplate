@@ -1,4 +1,5 @@
-﻿using DBAccessBaseDLL.EF.Entity;
+﻿using Bogus;
+using DBAccessBaseDLL.EF.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -139,10 +140,10 @@ namespace DBAccessCoreDLL.EFORM.Entity
                 {
                     Id = 1,
                     DisplayName = "Admin",
-                    Email = "875191946@qq.com",
+                    Email = "875191946@qq.com".ToLower(),
                     PhoneAreaCode = "86",
                     Phone = "18412345678",
-                    Passport = "Passport_Admin",
+                    Passport = "Passport_Admin".ToLower(),
                     Username = "UserName_Admin",
                     Password = "1qaz@WSX",
                     Sex = null,
@@ -151,10 +152,10 @@ namespace DBAccessCoreDLL.EFORM.Entity
                 {
                     Id = 2,
                     DisplayName = "Developer",
-                    Email = "linqing@vip.qq.com",
+                    Email = "linqing@vip.qq.com".ToLower(),
                     PhoneAreaCode = "86",
                     Phone = "13712345678",
-                    Passport = "Passport_Developer",
+                    Passport = "Passport_Developer".ToLower(),
                     Username = "UserName_Developer",
                     Password = "1qaz@WSX",
                     Sex = null,
@@ -163,7 +164,8 @@ namespace DBAccessCoreDLL.EFORM.Entity
                 {
                     Id = 3,
                     DisplayName = "Guest",
-                    Passport = "Passport_Guest",
+                    Email    = "linqing@vip.qq.com".ToLower(),
+                    Passport = "Passport_Guest".ToLower(),
                     Username = "UserName_Guest",
                     Password = "1qaz@WSX",
                     Sex = null,

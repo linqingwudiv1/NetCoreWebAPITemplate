@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace BaseDLL.Helper.Smtp
 {
@@ -35,13 +36,15 @@ namespace BaseDLL.Helper.Smtp
         /// <param name="mail"></param>
         /// <param name="titile"></param>
         /// <param name="content"></param>
-        public static void SendEmail(string mail, string titile, string content)
+        public static async Task SendEmail(string mail, string titile, string content)
         {
+            string passport = GVariable.configuration["SMTP:Passport"];
+            string password = GVariable.configuration["SMTP:Password"];
+            string SMTPServer = GVariable.configuration["SMTP:SMTPServer"];
             MailMessage mailMsg = new MailMessage();
 
             // 源邮件地址 ,发件人
-            mailMsg.From = new MailAddress("aa875191946@qq.com");
-            
+            mailMsg.From = new MailAddress(passport, "Qing System");
             // 收件人
             mailMsg.To.Add(new MailAddress(mail));
             
@@ -53,14 +56,14 @@ namespace BaseDLL.Helper.Smtp
             mailMsg.IsBodyHtml = true;
 
             //发件人使用的邮箱的SMTP服务器。
-            SmtpClient client = new SmtpClient("smtp.qq.com");
+            SmtpClient client = new SmtpClient(SMTPServer);
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
 
-            // 指定发件人的邮箱的账号与密码.
-            client.Credentials = new NetworkCredential("aa875191946@qq.com", "password");
+            // 指定发件人的邮箱的账号与密码. 
+            client.Credentials = new NetworkCredential(passport, password);
             // 排队发送邮件.
-            client.Send(mailMsg);
+            await client.SendMailAsync(mailMsg);
         }
     }
 }

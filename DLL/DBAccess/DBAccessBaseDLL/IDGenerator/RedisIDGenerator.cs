@@ -11,8 +11,6 @@ namespace DBAccessBaseDLL.IDGenerator
     /// </summary>
     public class RedisIDGenerator : AbsIDGenerator, IIDGenerator
     {
-        private string v;
-
         /// <summary>
         ///  Redis ID生成器
         /// </summary>
@@ -27,6 +25,7 @@ namespace DBAccessBaseDLL.IDGenerator
         /// Redis 密码
         /// </summary>
         public string RedisPassword { get; protected set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -37,11 +36,6 @@ namespace DBAccessBaseDLL.IDGenerator
             RedisAddress = _RedisAddress;
             RedisPassword = _RedisPassword;
             this.InitRedis();
-        }
-
-        public RedisIDGenerator(string v)
-        {
-            this.v = v;
         }
 
 

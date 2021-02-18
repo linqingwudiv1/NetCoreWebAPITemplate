@@ -19,61 +19,30 @@
             
             </summary>
         </member>
-        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IAccountAccesser)">
+        <member name="P:BusinessAdminDLL.Accounts.AccountBizServices.mapper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessAdminDLL.Accounts.AccountBizServices.captchaHelper">
+            
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IAccountAccesser,AutoMapper.IMapper,MassTransit.IPublishEndpoint,BaseDLL.Helper.Captcha.ICaptchaHelper)">
             <summary>
             
             </summary>
             <param name="_IDGenerator"></param>
             <param name="AccountAccesser"></param>
+            <param name="_mapper"></param>
+            <param name="_publishEndpoint"></param>
+            <param name="_captchaHelper"></param>
         </member>
-        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.Register(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register)">
-            <summary>
-            Register
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.GenLoginData(DBAccessCoreDLL.EFORM.Entity.Account,BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login,System.String)">
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.GetUsers(BaseDLL.DTO.DTO_PageableQueryModel{DBAccessCoreDLL.DTO.API.Users.DTO_GetUsers})">
             <summary>
             
             </summary>
-            <param name="account"></param>
-            <param name="loginInfo"></param>
+            <param name="query"></param>
             <returns></returns>
-        </member>
-        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.GenJWTToken(DBAccessCoreDLL.EFORM.Entity.Account)">
-            <summary>
-            生成新JWT Token
-            </summary>
-            <param name="account"></param>
-            <returns></returns>
-        </member>
-        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.LoginUnionWay(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
-            <summary>
-            
-            </summary>
-            <param name="loginInfo"></param>
-            <returns></returns>
-        </member>
-        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.Login(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
-            <summary>
-            
-            </summary>
-            <param name="LoginInfo"></param>
-            <returns></returns>
-        </member>
-        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.RegisterAccountVerify(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register)">
-            <summary>
-            用户验证
-            </summary>
-            <param name="model"></param>
-        </member>
-        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.IsRegisterAccountExisted(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register,BusinessAdminDLL.Accounts.RegisterAccountInfo@)">
-            <summary>
-            
-            </summary>
-            <param name="model"></param>
-            <param name="RegisterInfo"></param>
         </member>
         <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.GetInfo(System.Int64)">
             <summary>
@@ -82,11 +51,285 @@
             <param name="AccountID"></param>
             <returns></returns>
         </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.UpdateUsersRole(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_UpdateUsersRole)">
+            <summary>
+            
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
         <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.GetAdminPageRoles(System.Int64)">
             <summary>
             
             </summary>
             <param name="userid"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BusinessAdminDLL.Accounts.AccountFotgotPwdBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.Accounts.AccountFotgotPwdBizServices.accesser">
+            <summary>
+            DAO层
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.Accounts.AccountFotgotPwdBizServices.IDGenerator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.Accounts.AccountFotgotPwdBizServices.mapper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessAdminDLL.Accounts.AccountFotgotPwdBizServices.publishEndpoint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessAdminDLL.Accounts.AccountFotgotPwdBizServices.captchaHelper">
+            
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountFotgotPwdBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IAccountAccesser,AutoMapper.IMapper,MassTransit.IPublishEndpoint,BaseDLL.Helper.Captcha.ICaptchaHelper)">
+            <summary>
+            
+            </summary>
+            <param name="_IDGenerator"></param>
+            <param name="AccountAccesser"></param>
+            <param name="_mapper"></param>
+            <param name="_publishEndpoint"></param>
+            <param name="_captchaHelper"></param>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountFotgotPwdBizServices.SendForgotPwdVerifyCodeByEmail(BusinessAdminDLL.DTOModel.API.Users.DTOAPI_EmailVerifyCode)">
+            <summary>
+            
+            </summary>
+            <param name="emailInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountFotgotPwdBizServices.ForgotPwdCodeByEmail(BusinessAdminDLL.DTOModel.API.Users.ForgotPwd.DTOAPI_ForgotPwdByEmailCaptcha)">
+            <summary>
+            
+            </summary>
+            <param name="pwdInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BusinessAdminDLL.Accounts.AccountLoginBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.Accounts.AccountLoginBizServices.accesser">
+            <summary>
+            DAO层
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.Accounts.AccountLoginBizServices.IDGenerator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.Accounts.AccountLoginBizServices.mapper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessAdminDLL.Accounts.AccountLoginBizServices.publishEndpoint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessAdminDLL.Accounts.AccountLoginBizServices.captchaHelper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountLoginBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IAccountAccesser,AutoMapper.IMapper,MassTransit.IPublishEndpoint,BaseDLL.Helper.Captcha.ICaptchaHelper)">
+            <summary>
+            
+            </summary>
+            <param name="_IDGenerator"></param>
+            <param name="AccountAccesser"></param>
+            <param name="_mapper"></param>
+            <param name="_publishEndpoint"></param>
+            <param name="_captchaHelper"></param>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountLoginBizServices.Login(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
+            <summary>
+            
+            </summary>
+            <param name="LoginInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountLoginBizServices.SendLoginVerifyCodeByEmail(BusinessAdminDLL.DTOModel.API.Users.DTOAPI_EmailVerifyCode)">
+            <summary>
+            
+            </summary>
+            <param name="emailInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountLoginBizServices.LoginByEmailVerifyCode(BusinessAdminDLL.DTOModel.API.Users.DTOAPI_EmailVerifyCode)">
+            <summary>
+            登录-使用Email验证码
+            </summary>
+            <param name="emailInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountLoginBizServices.GenLoginData(DBAccessCoreDLL.EFORM.Entity.Account,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="account"></param>
+            <param name="password"></param>
+            <param name="nickName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountLoginBizServices.GenJWTToken(DBAccessCoreDLL.EFORM.Entity.Account)">
+            <summary>
+            生成新JWT Token
+            </summary>
+            <param name="account"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountLoginBizServices.LoginUnionWay(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
+            <summary>
+            
+            </summary>
+            <param name="loginInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BusinessAdminDLL.Accounts.AccountRegisterBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.Accounts.AccountRegisterBizServices.accesser">
+            <summary>
+            DAO层
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.Accounts.AccountRegisterBizServices.IDGenerator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.Accounts.AccountRegisterBizServices.mapper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessAdminDLL.Accounts.AccountRegisterBizServices.publishEndpoint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessAdminDLL.Accounts.AccountRegisterBizServices.captchaHelper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountRegisterBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IAccountAccesser,AutoMapper.IMapper,MassTransit.IPublishEndpoint,BaseDLL.Helper.Captcha.ICaptchaHelper)">
+            <summary>
+            
+            </summary>
+            <param name="_IDGenerator"></param>
+            <param name="AccountAccesser"></param>
+            <param name="_mapper"></param>
+            <param name="_publishEndpoint"></param>
+            <param name="_captchaHelper"></param>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountRegisterBizServices.SendRegisterVerifyCodeByEmail(BusinessAdminDLL.DTOModel.API.Users.DTOAPI_EmailVerifyCode)">
+            <summary>
+            发送验证码
+            </summary>
+            <param name="emailInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountRegisterBizServices.RegisterByEmailVerifyCode(BusinessAdminDLL.DTOModel.API.Users.DTOAPI_RegisterByEmailVerifyCode)">
+            <summary>
+            
+            </summary>
+            <param name="registerInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountRegisterBizServices.RegisterPassport(BusinessAdminDLL.DTOModel.API.Users.DTOAPI_RegisterByPassport)">
+            <summary>
+            
+            </summary>
+            <param name="registerInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BusinessAdminDLL.Accounts.IAccountFotgotPwdBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.IAccountFotgotPwdBizServices.SendForgotPwdVerifyCodeByEmail(BusinessAdminDLL.DTOModel.API.Users.DTOAPI_EmailVerifyCode)">
+            <summary>
+            
+            </summary>
+            <param name="emailInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.IAccountFotgotPwdBizServices.ForgotPwdCodeByEmail(BusinessAdminDLL.DTOModel.API.Users.ForgotPwd.DTOAPI_ForgotPwdByEmailCaptcha)">
+            <summary>
+            
+            </summary>
+            <param name="pwdInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BusinessAdminDLL.Accounts.IAccountLoginBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.IAccountLoginBizServices.Login(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
+            <summary>
+            
+            </summary>
+            <param name="loginInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.IAccountLoginBizServices.SendLoginVerifyCodeByEmail(BusinessAdminDLL.DTOModel.API.Users.DTOAPI_EmailVerifyCode)">
+            <summary>
+            
+            </summary>
+            <param name="emailInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.IAccountLoginBizServices.LoginByEmailVerifyCode(BusinessAdminDLL.DTOModel.API.Users.DTOAPI_EmailVerifyCode)">
+            <summary>
+            
+            </summary>
+            <param name="emailInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BusinessAdminDLL.Accounts.IAccountRegisterBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.IAccountRegisterBizServices.RegisterPassport(BusinessAdminDLL.DTOModel.API.Users.DTOAPI_RegisterByPassport)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.IAccountRegisterBizServices.SendRegisterVerifyCodeByEmail(BusinessAdminDLL.DTOModel.API.Users.DTOAPI_EmailVerifyCode)">
+            <summary>
+            
+            </summary>
+            <param name="emailInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.IAccountRegisterBizServices.RegisterByEmailVerifyCode(BusinessAdminDLL.DTOModel.API.Users.DTOAPI_RegisterByEmailVerifyCode)">
+            <summary>
+            
+            </summary>
+            <param name="registerInfo"></param>
             <returns></returns>
         </member>
         <member name="T:BusinessAdminDLL.Accounts.ERegisterAccountState">
@@ -144,20 +387,6 @@
             
             </summary>
         </member>
-        <member name="M:BusinessAdminDLL.Accounts.IAccountsBizServices.Login(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Login)">
-            <summary>
-            
-            </summary>
-            <param name="loginInfo"></param>
-            <returns></returns>
-        </member>
-        <member name="M:BusinessAdminDLL.Accounts.IAccountsBizServices.Register(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_Register)">
-            <summary>
-            
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
         <member name="M:BusinessAdminDLL.Accounts.IAccountsBizServices.GetInfo(System.Int64)">
             <summary>
             
@@ -170,6 +399,20 @@
             获取用户的权限
             </summary>
             <param name="userid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.IAccountsBizServices.GetUsers(BaseDLL.DTO.DTO_PageableQueryModel{DBAccessCoreDLL.DTO.API.Users.DTO_GetUsers})">
+            <summary>
+            
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.IAccountsBizServices.UpdateUsersRole(BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_UpdateUsersRole)">
+            <summary>
+            
+            </summary>
+            <param name="info"></param>
             <returns></returns>
         </member>
         <member name="T:BusinessAdminDLL.Accounts.WF.create">
@@ -232,12 +475,33 @@
             </summary>
             <param name="builder"></param>
         </member>
-        <member name="T:BusinessAdminDLL.DTOModel.AutoMapper.BizAdminProfile">
+        <member name="T:BusinessAdminDLL.AutoMapper.BizAdminProfile">
             <summary>
             
             </summary>
         </member>
-        <member name="M:BusinessAdminDLL.DTOModel.AutoMapper.BizAdminProfile.#ctor">
+        <member name="M:BusinessAdminDLL.AutoMapper.BizAdminProfile.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessAdminDLL.Base.BaseBizServices">
+            <summary>
+            Biz Core 基础
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.Base.BaseBizServices.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.Base.BaseBizServices.GetCoreDB">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:BusinessAdminDLL.Base.IBaseBizServices">
             <summary>
             
             </summary>
@@ -527,47 +791,17 @@
             
             </summary>
         </member>
-        <member name="T:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info">
-            <summary>
-            Info
-            </summary>
-        </member>
-        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.id">
+        <member name="T:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_UpdateUsersRole">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.name">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_UpdateUsersRole.users">
             <summary>
             
             </summary>
         </member>
-        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.username">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.phone">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.email">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.avatar">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.introduction">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Info.roles">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIReq_UpdateUsersRole.roles">
             <summary>
             
             </summary>
@@ -599,7 +833,7 @@
         </member>
         <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Login.state">
             <summary>
-            -1:未知错误 0:用户被禁用 1:登录成功, 2:密码错误, 3:用户不存在 
+            -1:未知错误 0:用户被禁用 1:登录成功, 2:密码错误, 3:用户不存在 ,4验证码错误
             </summary>
         </member>
         <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_Login.msg">
@@ -607,23 +841,152 @@
             
             </summary>
         </member>
-        <member name="T:BusinessAdminDLL.Base.BaseBizServices">
+        <member name="T:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_UserInfo">
             <summary>
-            Biz Core 基础
+            Info
             </summary>
         </member>
-        <member name="M:BusinessAdminDLL.Base.BaseBizServices.#ctor">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_UserInfo.id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_UserInfo.name">
             <summary>
             
             </summary>
         </member>
-        <member name="M:BusinessAdminDLL.Base.BaseBizServices.GetCoreDB">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_UserInfo.username">
             <summary>
             
             </summary>
-            <returns></returns>
         </member>
-        <member name="T:BusinessAdminDLL.Base.IBaseBizServices">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_UserInfo.phone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_UserInfo.email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_UserInfo.avatar">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_UserInfo.introduction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_UserInfo.roles">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_ChangePwd">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_ChangePwd.oldPwd">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_ChangePwd.newPwd">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_ChangePwd.verifyCode">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="T:BusinessAdminDLL.DTOModel.API.Users.ForgotPwd.DTOAPI_ForgotPwdByEmailCaptcha">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.ForgotPwd.DTOAPI_ForgotPwdByEmailCaptcha.email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.ForgotPwd.DTOAPI_ForgotPwdByEmailCaptcha.newpwd">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.ForgotPwd.DTOAPI_ForgotPwdByEmailCaptcha.verifyCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_EmailVerifyCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_EmailVerifyCode.email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_EmailVerifyCode.code">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_PhoneVerifyCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_PhoneVerifyCode.phone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_PhoneVerifyCode.code">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_RegisterByEmailVerifyCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_RegisterByEmailVerifyCode.email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_RegisterByEmailVerifyCode.pwd">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_RegisterByEmailVerifyCode.verifyCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_RegisterByPassport">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_RegisterByPassport.passport">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_RegisterByPassport.password">
             <summary>
             
             </summary>
@@ -858,18 +1221,6 @@
             <param name="roles"></param>
             <returns></returns>
         </member>
-        <member name="T:BusinessAdminDLL.RoutePage.RoutePageBizServicesExtension">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServicesExtension.GenPageRouteTree(DBAccessCoreDLL.EFORM.Entity.Role)">
-            <summary>
-            
-            </summary>
-            <param name="role"></param>
-            <returns></returns>
-        </member>
         <member name="T:BusinessAdminDLL.RoutePage.RoutePageBizServices">
             <summary>
             
@@ -890,7 +1241,7 @@
             
             </summary>
         </member>
-        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IRoutePageAccesser,MassTransit.IPublishEndpoint)">
+        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IRoutePageAccesser,MassTransit.IPublishEndpoint,AutoMapper.IMapper)">
             <summary>
             
             </summary>
@@ -951,6 +1302,13 @@
             
             </summary>
             <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.GenPageRouteTree(DBAccessCoreDLL.EFORM.Entity.Role)">
+            <summary>
+            
+            </summary>
+            <param name="role"></param>
             <returns></returns>
         </member>
     </members>

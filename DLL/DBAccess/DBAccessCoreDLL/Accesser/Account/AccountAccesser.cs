@@ -1,10 +1,19 @@
-﻿using DBAccessBaseDLL.Accesser;
+﻿using BaseDLL.DTO;
+using BaseDLL.Helper.SMS;
+using BaseDLL.Helper.Smtp;
+using DBAccessBaseDLL.Accesser;
+using DBAccessBaseDLL.EF;
 using DBAccessBaseDLL.IDGenerator;
+using DBAccessCoreDLL.DTO.API.Users;
 using DBAccessCoreDLL.EFORM.Context;
 using DBAccessCoreDLL.EFORM.Entity;
+using DBAccessCoreDLL.Validator;
+using LinqKit;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DBAccessCoreDLL.Accesser
 {
@@ -93,6 +102,66 @@ namespace DBAccessCoreDLL.Accesser
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<DTO_PageableModel<Account>> Get(DTO_PageableQueryModel<DTO_GetUsers> model) 
+        {
+            
+            IQueryable<Account> query = (from 
+                                            x 
+                                         in 
+                                             db.Accounts.Include(x => x.AccountRoles)
+                                                        .ThenInclude(c => c.role) 
+                                         select x);
+            var predicate = PredicateBuilder.New<Account>(true);
+            if (!String.IsNullOrEmpty(model.data.searchWord)) 
+            {
+                if (model.data.bId) 
+                {
+                    try
+                    {
+                        Int64.Parse(model.data.searchWord);
+                        predicate = predicate.Or(x => x.Id.ToString().Contains(model.data.searchWord));
+                    }
+                    catch (Exception) 
+                    {
+
+                    }
+                }
+
+                if ( model.data.bPassport ) 
+                {
+                    predicate = predicate.Or(x => x.Passport != null && x.Passport.Contains(model.data.searchWord, StringComparison.CurrentCultureIgnoreCase));
+                }
+
+                if (model.data.bUserName) 
+                {
+                    predicate = predicate.Or(x => x.Username != null && x.Username.Contains(model.data.searchWord));
+                }
+
+                if (model.data.bEmail) 
+                {
+                    predicate = predicate.Or(x => x.Email != null && x.Email.Contains(model.data.searchWord, StringComparison.CurrentCultureIgnoreCase));
+                }
+
+                if ( model.data.bPhone ) 
+                {
+                    predicate = predicate.Or(x => x.Phone != null && x.Phone.Contains(model.data.searchWord));
+                }
+            }
+            var ret_data = query.Where(predicate).QueryPages(model.pageSize, model.pageNum) .ToArray();
+            return new DTO_PageableModel<Account>
+            {
+                data = ret_data,
+                pageNum = model.pageNum,
+                pageSize = model.pageSize,
+                total =  query.Where(predicate).LongCount() //model.pageSize
+            }; 
+        }
+
+        /// <summary>
         /// 多ID方式用户查询
         /// </summary>
         /// <param name="key"></param>
@@ -113,29 +182,33 @@ namespace DBAccessCoreDLL.Accesser
                 ret_account = Get(temp_key);
                 ret_enum = EFindAccountWay.Id;
             }
-            else if ( String.IsNullOrWhiteSpace(username) ) 
+            else if ( !String.IsNullOrWhiteSpace(username) && AccountValidator.bValidUserName(username) ) 
             {
                 //try query of username
-                ret_account = db.Accounts.Where(x => x.Username == username).DefaultIfEmpty(null).FirstOrDefault();
+                ret_account = db.Accounts.Where(x => x.Username == username).DefaultIfEmpty().First();
                 ret_enum = EFindAccountWay.UserName;
             }
-            else if ( String.IsNullOrWhiteSpace(passport) ) 
+            else if ( !String.IsNullOrWhiteSpace(passport) && AccountValidator.bValidPassport(passport) ) 
             {
-                ret_account = db.Accounts.Where(x => x.Passport == passport).DefaultIfEmpty(null).FirstOrDefault();
+                ret_account = db.Accounts.Where(x => x.Passport == passport.ToLower() ).DefaultIfEmpty().First();
                 ret_enum = EFindAccountWay.Passport;
             }
-
-            else if ( String.IsNullOrWhiteSpace(email) )
+            
+            else if ( !String.IsNullOrWhiteSpace(email) && EmailHepler.IsValid(email))
             {
-                ret_account = db.Accounts.Where(x => x.Email == email).DefaultIfEmpty(null).FirstOrDefault();
+                ret_account = db.Accounts.Where(x => x.Email == email.ToLower()).DefaultIfEmpty().First();
                 ret_enum = EFindAccountWay.EMail;
             }
 
-            else if ( String.IsNullOrWhiteSpace(phone) ) 
+            else if ( !String.IsNullOrWhiteSpace(phone) && PhoneHelper.IsValid(phone) ) 
             {
-                ret_account = db.Accounts.Where(x => x.Phone == phone).DefaultIfEmpty(null).FirstOrDefault();
+                var tuple = PhoneHelper.Split(phone);
+                var areaCode = tuple.Item1;
+                var p = tuple.Item2;
+                ret_account = db.Accounts.Where(x => x.PhoneAreaCode == areaCode && x.Phone == p).DefaultIfEmpty().First();
                 ret_enum = EFindAccountWay.Phone;
             }
+
             if (ret_account == null) 
             {
                 ret_enum = EFindAccountWay.NotFound;
@@ -143,7 +216,6 @@ namespace DBAccessCoreDLL.Accesser
 
             return new Tuple<Account, EFindAccountWay>(ret_account, ret_enum);
         }
-
 
         /// <summary>
         /// 
@@ -165,46 +237,6 @@ namespace DBAccessCoreDLL.Accesser
         {
             db.Accounts.UpdateRange(modifyEntiys);
             return db.SaveChanges();
-        }
-
-        int IAccesser<Account, long>.Add(Account newEntiy)
-        {
-            throw new NotImplementedException();
-        }
-
-        int IAccesser<Account, long>.Add(IList<Account> newEntiys)
-        {
-            throw new NotImplementedException();
-        }
-
-        int IAccesser<Account, long>.Delete(long key)
-        {
-            throw new NotImplementedException();
-        }
-
-        int IAccesser<Account, long>.Delete(IList<long> keys)
-        {
-            throw new NotImplementedException();
-        }
-
-        Account IAccesser<Account, long>.Get(long key)
-        {
-            throw new NotImplementedException();
-        }
-
-        IList<Account> IAccesser<Account, long>.Get(IList<long> keys)
-        {
-            throw new NotImplementedException();
-        }
-
-        int IAccesser<Account, long>.Update(Account modifyEntiy)
-        {
-            throw new NotImplementedException();
-        }
-
-        int IAccesser<Account, long>.Update(IList<Account> modifyEntiys)
-        {
-            throw new NotImplementedException();
         }
     }
 }

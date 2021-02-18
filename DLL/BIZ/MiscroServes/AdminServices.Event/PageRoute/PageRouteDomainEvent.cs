@@ -1,5 +1,6 @@
 ﻿using AdminServices.Command.PageRouteRole;
 using AdminServices.Command.Role;
+using AutoMapper;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
 using DBAccessCoreDLL.EFORM.Entity;
@@ -32,6 +33,7 @@ namespace AdminServices.Event.PageRoute
         /// </summary>
         protected IIDGenerator IDGenerator { get; set; }
 
+        readonly IMapper mapper;
 
         /// <summary>
         /// 
@@ -39,11 +41,12 @@ namespace AdminServices.Event.PageRoute
         /// <param name="_IDGenerator"></param>
         /// <param name="_roleAccesser"></param>
         /// <param name="_mapper"></param>
-        public PageRouteDomainEvent(IIDGenerator _IDGenerator, IRoutePageAccesser _routePageAccesser)
+        public PageRouteDomainEvent(IIDGenerator _IDGenerator, IRoutePageAccesser _routePageAccesser, IMapper _mapper)
             : base()
         {
             this.accesser       = _routePageAccesser;
             this.IDGenerator    = _IDGenerator;
+            this.mapper = mapper;
         }
 
         /// <summary>
@@ -95,28 +98,29 @@ namespace AdminServices.Event.PageRoute
         /// <returns></returns>
         public async Task Consume(ConsumeContext<UpdatePageRouteCommand> context)
         {
-            var msg = context.Message;
+            var msg = context.Message.data ;
             
-            RoutePages role = this.accesser.Get(msg.Id);
-            if (role == null) 
+            RoutePages route = this.accesser.Get(msg.Id);
+            
+            if (route == null) 
             {
                 throw new NullReferenceException("Role is null");
             }
-            role.Id = msg.Id;
-            role.RouteName = msg.RouteName ?? "";
-            role.Path       = msg.Path ?? "";
-            role.Component  = msg.Component ?? "";
-            role.NoCache    = msg.NoCache;
-            role.Affix      = msg.Affix;
-            role.GroupName = msg.GroupName ?? "";
-            role.Platform = msg.Platform ?? "";
-            role.ActiveMenu = msg.ActiveMenu ?? "";
-            role.AlwaysShow = msg.AlwaysShow;
-            role.Hidden     = msg.Hidden;
-            role.Icon       = msg.Icon;
-            role.Title      = msg.Title;
 
-            this.accesser.Update(role);
+            route.RouteName = msg.RouteName ?? "";
+            route.Path       = msg.Path ?? "";
+            route.Component  = msg.Component ?? "";
+            route.NoCache    = msg.NoCache;
+            route.Affix      = msg.Affix;
+            route.GroupName = msg.GroupName ?? "";
+            route.Platform = msg.Platform ?? "";
+            route.ActiveMenu = msg.ActiveMenu ?? "";
+            route.AlwaysShow = msg.AlwaysShow;
+            route.Hidden     = msg.Hidden;
+            route.Icon       = msg.Icon;
+            route.Title      = msg.Title;
+
+            int effectRow = this.accesser.Update(route);
         }
 
         /// <summary>
@@ -126,23 +130,23 @@ namespace AdminServices.Event.PageRoute
         /// <returns></returns>
         public async Task Consume(ConsumeContext<AddPageRouteCommand> context)
         {
-            AddPageRouteCommand msg = context.Message;
+            DTOIn_PageRoute data = context.Message.data;
 
             var pageRoute = new RoutePages
             {
-                Id              = msg.data.Id,
-                ParentId        = msg.data.ParentId,
-                RouteName       = msg.data.RouteName ?? "",
-                HierarchyPath   = msg.data.HierarchyPath,
-                Path            = msg.data.Path ?? "",
-                Component       = msg.data.Component,
-                NoCache         = msg.data.NoCache,
-                Affix           = msg.data.Affix,
-                ActiveMenu      = msg.data.ActiveMenu,
-                AlwaysShow      = msg.data.AlwaysShow,
-                Hidden          = msg.data.Hidden,
-                Icon            = msg.data.Icon,
-                Title           = msg.data.Title
+                Id              = data.Id,
+                ParentId        = data.ParentId,
+                RouteName       = data.RouteName ?? "",
+                HierarchyPath   = data.HierarchyPath,
+                Path            = data.Path ?? "",
+                Component       = data.Component,
+                NoCache         = data.NoCache,
+                Affix           = data.Affix,
+                ActiveMenu      = data.ActiveMenu,
+                AlwaysShow      = data.AlwaysShow,
+                Hidden          = data.Hidden,
+                Icon            = data.Icon,
+                Title           = data.Title
             };
 
             this.accesser.Add(pageRoute);

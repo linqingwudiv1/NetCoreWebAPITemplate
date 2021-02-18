@@ -1,8 +1,8 @@
-﻿using BusinessAdminDLL.DTOModel.API.Users;
+﻿using BaseDLL.DTO;
+using BusinessAdminDLL.DTOModel.API.Users;
+using DBAccessCoreDLL.DTO.API.Users;
 using DBAccessCoreDLL.EFORM.Entity;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BusinessAdminDLL.Accounts
@@ -66,22 +66,6 @@ namespace BusinessAdminDLL.Accounts
     /// </summary>
     public interface IAccountsBizServices
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="loginInfo"></param>
-        /// <returns></returns>
-        Task<dynamic> Login(DTOAPIReq_Login loginInfo);
-        //
-        //void Logout();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        RegisterAccountInfo Register(DTOAPIReq_Register model);
-
 
         /// <summary>
         /// 
@@ -96,5 +80,19 @@ namespace BusinessAdminDLL.Accounts
         /// <param name="userid"></param>
         /// <returns></returns>
         Task<IList<long>> GetAdminPageRoles(long userid);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        Task<DTO_PageableModel<DTOAPIRes_UserInfo>> GetUsers(DTO_PageableQueryModel<DTO_GetUsers> query);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        Task UpdateUsersRole(DTOAPIReq_UpdateUsersRole info);
     }
 }

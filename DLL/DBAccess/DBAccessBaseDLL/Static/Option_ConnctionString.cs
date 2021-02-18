@@ -8,7 +8,11 @@
         /// <summary>
         /// 
         /// </summary>
-        public string LTEConn { get; set; }
+        public string IDGeneratorDB { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string PostgreSQLCoreDB { get; set; }
     }
 }

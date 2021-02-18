@@ -37,7 +37,7 @@ namespace XUnitTest_WebAdmin
             return list;
         }
 
-        [Fact]
+        //[Fact]
         public void UnitTest_Role()
         {
             // Mock<IRolesBizServices> mockRepo = new Mock<IRolesBizServices>();

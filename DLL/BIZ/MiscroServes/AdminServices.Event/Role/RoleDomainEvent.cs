@@ -79,17 +79,17 @@ namespace AdminServices.Event.Role
         /// <returns></returns>
         public async Task Consume( ConsumeContext<UpdateRoleCommand> context )
         {
-            var msg = context.Message;
-            var role = this.accesser.Get(msg.key);
+            var data = context.Message;
+            var role = this.accesser.Get(data.key);
 
             if (role != null)
             {
-                role.Descrption = msg.description;
-                role.DisplayName = msg.displayName;
-                role.RoleName = msg.name;
-                role.Descrption = msg.description;
+                role.Descrption = data.description;
+                role.DisplayName = data.displayName;
+                role.RoleName = data.name;
+                role.Descrption = data.description;
 
-                var routes = msg.routes.Select(x => new RoutePageRole
+                var routes = data.routes.Select(x => new RoutePageRole
                 {
                     Id      = this.IDGenerator.GetNewID<RoutePageRole>(), 
                     RoleId  = role.Id,
@@ -98,7 +98,7 @@ namespace AdminServices.Event.Role
 
                 //role.RouteRoles = routes;
 
-                var oldRoute = (from x in this.accesser.db.RoutePageRoles where x.RoleId == msg.key select x);
+                var oldRoute = (from x in this.accesser.db.RoutePageRoles where x.RoleId == data.key select x);
                 var count = oldRoute.Count();
                 if (count > 0)
                 {

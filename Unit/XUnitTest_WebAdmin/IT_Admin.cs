@@ -42,7 +42,7 @@ namespace XUnitTest_WebAdmin
         /// </summary>
         /// <returns></returns>
         [Fact]
-        public async Task IT_Role(string url) 
+        public void IT_Role() 
         {
             return;
             // var res_post = await client.PostAsync

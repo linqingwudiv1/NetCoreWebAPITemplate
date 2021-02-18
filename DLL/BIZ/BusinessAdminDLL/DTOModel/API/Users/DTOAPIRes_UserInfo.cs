@@ -8,7 +8,7 @@ namespace BusinessAdminDLL.DTOModel.API.Users
     /// <summary>
     /// Info
     /// </summary>
-    public class DTOAPIRes_Info
+    public class DTOAPIRes_UserInfo
     {
         /// <summary>
         /// 
@@ -24,7 +24,7 @@ namespace BusinessAdminDLL.DTOModel.API.Users
         /// 
         /// </summary>
         public string username { get; set; }
-
+        
 
         /// <summary>
         /// 

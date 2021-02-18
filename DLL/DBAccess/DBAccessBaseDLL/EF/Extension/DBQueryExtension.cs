@@ -19,12 +19,11 @@ namespace DBAccessBaseDLL.EF
         /// <typeparam name="T"></typeparam>
         /// <param name="query"></param>
         /// <param name="pageSize"></param>
-        /// <param name="pageNum"></param>
+        /// <param name="pageNum">1 start</param>
         /// <returns></returns>
         static public IQueryable<T> QueryPages<T>(this IQueryable<T> query, int pageSize, int pageNum) where T : class
         {
-            query.Skip(pageSize * (pageNum - 1)).Take(pageSize);
-            return query;
+            return query.Skip(pageSize * (pageNum - 1)).Take(pageSize);
         }
 
         /// <summary>
@@ -37,8 +36,7 @@ namespace DBAccessBaseDLL.EF
         /// <returns></returns>
         static public IQueryable<T> QueryPages<T>(this DbSet<T> query, int pageSize, int pageNum) where T : class
         {
-            query.Skip(pageSize * (pageNum - 1)).Take(pageSize);
-            return query;
+            return query.Skip(pageSize * (pageNum - 1)).Take(pageSize);
         }
 
         /// <summary>

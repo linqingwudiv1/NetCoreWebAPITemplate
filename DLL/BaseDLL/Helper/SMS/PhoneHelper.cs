@@ -21,7 +21,12 @@ namespace BaseDLL.Helper.SMS
             return !String.IsNullOrWhiteSpace(phone) && rx_phone.IsMatch(phone);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <param name="default_areaCode"></param>
+        /// <returns></returns>
         public static Tuple<string, string> Split(string phone, string default_areaCode = "86") 
         {
             

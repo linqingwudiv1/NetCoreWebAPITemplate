@@ -41,7 +41,7 @@ namespace XUnitTest_WebAdmin
         /// 
         /// </summary>
         [Fact]
-        public void Test() 
+        public void RedisGeneratorPerformanceTest() 
         {
             for (int i = 0; i < 100; i++) 
             {

@@ -1,4 +1,6 @@
-﻿using AdminServices.Event.PageRoute;
+﻿using AdminServices.Event.Account;
+using AdminServices.Event.Captcha;
+using AdminServices.Event.PageRoute;
 using AdminServices.Event.Role;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -73,15 +75,31 @@ namespace CoreMicroServices
 
                           services.AddMassTransit(x =>
                           {
-                              x.AddConsumer<RoleDomainEvent>( c => c.UseMessageRetry( r => 
+                              #region Event
+
+                              x.AddConsumer<RoleDomainEvent>(c => c.UseMessageRetry(r =>
                               {
                                   r.Immediate(5);
-                              }) );
-                              
+                              }));
+
                               x.AddConsumer<PageRouteDomainEvent>(c => c.UseMessageRetry(r =>
                               {
                                   r.Immediate(5);
                               }));
+
+                              x.AddConsumer<AccountDomainEvent>(c => c.UseMessageRetry(r => 
+                              {
+                                  r.Immediate(5);
+                              }) );
+
+                              x.AddConsumer<CaptchaDomainEvent>(c => c.UseMessageRetry(r =>
+                              {
+                                  r.Immediate(5);
+                                  //r.Immediate(5); //Incremental
+                              }));
+
+                              #endregion
+
 
                               x.SetKebabCaseEndpointNameFormatter();
                               

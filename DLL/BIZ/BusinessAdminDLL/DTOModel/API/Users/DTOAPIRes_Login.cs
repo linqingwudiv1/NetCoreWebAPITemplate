@@ -30,7 +30,7 @@ namespace BusinessAdminDLL.DTOModel.API.Users
         /// </summary>
         public int refreshExpires { get; set; }
         /// <summary>
-        /// -1:未知错误 0:用户被禁用 1:登录成功, 2:密码错误, 3:用户不存在 
+        /// -1:未知错误 0:用户被禁用 1:登录成功, 2:密码错误, 3:用户不存在 ,4验证码错误
         /// </summary>
         public int state { get; set; }
 

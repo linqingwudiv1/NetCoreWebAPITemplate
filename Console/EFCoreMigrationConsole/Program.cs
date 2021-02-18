@@ -1,4 +1,5 @@
 ﻿using BaseDLL;
+using DBAccessBaseDLL.Static;
 using DBAccessCoreDLL.EFORM.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -45,7 +46,7 @@ namespace EFCoreMigrationConsole
 
                           services.AddDbContext<CoreContext>((opt) =>
                           {
-                              var ConnString = GVariable.configuration.GetConnectionString("PostgreSQLCoreDB");
+                              var ConnString = GConnStrings.PostgreSQLCoreDBConn;
                               opt.UseNpgsql(ConnString, b =>
                               {
                                  b.MigrationsAssembly("EFCoreMigrationConsole");

@@ -1,9 +1,10 @@
 ﻿using AdminServices.Event;
 using Autofac;
 using AutoMapper;
+using BaseDLL;
+using BaseDLL.Helper.Captcha;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace CoreMicroServices
@@ -20,7 +21,17 @@ namespace CoreMicroServices
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterInstance<RedisIDGenerator>(new RedisIDGenerator( new List<string>{ "192.168.1.172:6379" }, "1qaz@WSX") ).As<IIDGenerator>().SingleInstance();
+            builder.RegisterInstance<RedisIDGenerator>(new RedisIDGenerator(new List<string>
+            {
+                GVariable.configuration["RedisIDGenerator:Passport"]
+            },
+                GVariable.configuration["RedisIDGenerator:Password"])).As<IIDGenerator>().SingleInstance();
+
+            builder.RegisterInstance<RedisCaptchaHelper>(new RedisCaptchaHelper(new List<string> 
+            {
+                GVariable.configuration["RedisCaptchaContainer:Passport"]
+            },  
+                GVariable.configuration["RedisCaptchaContainer:Password"])).As<ICaptchaHelper>() .SingleInstance();
 
 
             #region DB 访问器

@@ -1,8 +1,9 @@
 ﻿using Autofac;
 using AutoMapper;
 using BaseDLL;
+using BaseDLL.Helper.Captcha;
 using BusinessAdminDLL.Accounts;
-using BusinessAdminDLL.DTOModel.AutoMapper;
+using BusinessAdminDLL.AutoMapper;
 using BusinessAdminDLL.Roles;
 using BusinessAdminDLL.RoutePage;
 using DBAccessBaseDLL.IDGenerator;
@@ -32,9 +33,20 @@ namespace BusinessAdminDLL.AutofacModule
             }, 
                 GVariable.configuration["RedisIDGenerator:Password"]) ).As<IIDGenerator>().SingleInstance();
 
+
+            builder.RegisterInstance<RedisCaptchaHelper>(new RedisCaptchaHelper(new List<string>
+            {
+                GVariable.configuration["RedisCaptchaContainer:Passport"]
+            }, 
+                GVariable.configuration["RedisCaptchaContainer:Password"])).As<ICaptchaHelper>().SingleInstance();
+
             #region Biz
 
             builder.RegisterType<AccountBizServices>().As<IAccountsBizServices>().InstancePerLifetimeScope();
+            builder.RegisterType<AccountLoginBizServices>().As<IAccountLoginBizServices>().InstancePerLifetimeScope();
+            builder.RegisterType<AccountFotgotPwdBizServices>().As<IAccountFotgotPwdBizServices>().InstancePerLifetimeScope();
+            builder.RegisterType<AccountRegisterBizServices>().As<IAccountRegisterBizServices>().InstancePerLifetimeScope();
+
             builder.RegisterType<RolesBizServices>().As<IRolesBizServices>().InstancePerLifetimeScope();
             builder.RegisterType<RoutePageBizServices>().As<IRoutePageBizServices>().InstancePerLifetimeScope();
 
@@ -53,10 +65,13 @@ namespace BusinessAdminDLL.AutofacModule
             //注册AutoMapper配置文件, Register   
             builder.Register(ctx =>
            {
-               return new MapperConfiguration(cfg =>
+               MapperConfiguration MapperConfig = new MapperConfiguration(cfg =>
                {
-                   cfg.AddProfile(typeof(BizAdminProfile));
+                   cfg.AddMaps(new[] { typeof(BizAdminProfile).Assembly });
                });
+
+               MapperConfig.CompileMappings();
+               return MapperConfig;
            }).AsSelf().SingleInstance();
 
             builder.Register(ctx =>

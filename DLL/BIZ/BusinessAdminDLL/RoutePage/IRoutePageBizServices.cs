@@ -1,11 +1,7 @@
-﻿using BaseDLL.Helper;
-using BusinessAdminDLL.DTOModel.API.Routes;
-using DBAccessCoreDLL.EFORM.Context;
-using DBAccessCoreDLL.EFORM.Entity;
+﻿using BusinessAdminDLL.DTOModel.API.Routes;
 using System;
-using DBAccessCoreDLL.EFORM.Entity;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BusinessAdminDLL.RoutePage
 {
@@ -58,7 +54,6 @@ namespace BusinessAdminDLL.RoutePage
         /// <param name="ids"></param>
         /// <returns></returns>
         Task<IList<DTOAPI_RoutePages>> GetRoutePageTreeByRoles(IList<long> ids);
-        
         
         /// <summary>
         /// 

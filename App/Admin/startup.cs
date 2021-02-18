@@ -3,7 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using BaseDLL;
 using BusinessAdminDLL.AutofacModule;
-using BusinessAdminDLL.DTOModel.AutoMapper;
+using BusinessAdminDLL.AutoMapper;
 using DBAccessBaseDLL.Static;
 using DBAccessCoreDLL.EFORM.Context;
 using MassTransit;
@@ -394,7 +394,7 @@ namespace WebAdminService
             {
                 #region 确保数据库生成，并暖机
 
-                string dbconn = GVariable.configuration.GetConnectionString("PostgreSQLCoreDB");
+                string dbconn = GConnStrings.PostgreSQLCoreDBConn; 
 
                 DbContextOptions<CoreContextDIP> opt = new DbContextOptions<CoreContextDIP>();
                 using (var db = new CoreContextDIP(opt))

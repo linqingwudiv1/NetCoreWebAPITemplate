@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Folder Include="AutoMapper\Role\" />
+    <Folder Include="DTOModel\API\Users\Login\" />
     <Folder Include="Routes\" />
     <Folder Include="Articles\" />
     <Folder Include="Swagger\" />
