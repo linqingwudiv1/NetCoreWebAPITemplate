@@ -482,6 +482,7 @@ namespace WebAdminService
             {
                 log.Error($" ============================= Error : { ex.Message } ");
                 Debug.WriteLine($" ============================= Error : { ex.Message } ");
+                Console.WriteLine($" ============================= Error : { ex.Message } ");
             }
         }
     }

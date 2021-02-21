@@ -164,7 +164,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
                 {
                     Id = 3,
                     DisplayName = "Guest",
-                    Email    = "linqing@vip.qq.com".ToLower(),
+                    Email    = "aa875191946@vip.qq.com".ToLower(),
                     Passport = "Passport_Guest".ToLower(),
                     Username = "UserName_Guest",
                     Password = "1qaz@WSX",
