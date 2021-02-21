@@ -34,10 +34,4 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="LinqKit.Microsoft.EntityFrameworkCore">
-      <HintPath>D:\Cache\Nuget\linqkit.microsoft.entityframeworkcore\5.0.21\lib\netstandard2.1\LinqKit.Microsoft.EntityFrameworkCore.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

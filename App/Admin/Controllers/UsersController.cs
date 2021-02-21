@@ -134,8 +134,15 @@ namespace WebAdminService.Controllers
         [Authorize]
         public async Task<IActionResult> Logout()
         {
-            //this.LogoutLogic();
-            return OkEx(null);
+            try
+            {
+                return OkEx(null);
+            }
+            catch (Exception ex) 
+            {
+                return OkEx(ex.Message, 50000,50000, ex.Message);
+            }
+
         }
 
         /// <summary>
