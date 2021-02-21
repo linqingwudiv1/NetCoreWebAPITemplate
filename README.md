@@ -6,7 +6,15 @@
 
 	新瓶装旧酒.一个极简的WebAPI/MVC开发环境,封装一些常用的类包.
 
+## Install
+
+	读写分离模式,必须依赖RabbitMQ,以及Redis
+
+	需要自行配置
+
 ## Description
+
+	Config 均目录位于 /.Config中
 
 	F.基本的DLL划分/单元测试(Unit)
 	
@@ -14,7 +22,7 @@
 	
 	New.Basic Auth and Role System.基本的身份认证(Session) 示例.
 
-	New.ID Generator Case 分布式ID生成示例. (wait)
+	New.ID Generator Case 分布式ID生成示例. (Redis 模式)
 	
 	New.EF/Dapper 多数据库支持(Multiple Database Support)/EF Core数据库迁移 示例 Case.(Sql Server/Oracle/MySql/PostgreSQL/Sqlite )(条件预编译控制)
 	
