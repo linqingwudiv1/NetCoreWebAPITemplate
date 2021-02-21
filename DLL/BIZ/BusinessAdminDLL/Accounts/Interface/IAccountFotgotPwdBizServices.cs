@@ -22,5 +22,6 @@ namespace BusinessAdminDLL.Accounts
         /// <param name="pwdInfo"></param>
         /// <returns></returns>
         Task ForgotPwdCodeByEmail(DTOAPI_ForgotPwdByEmailCaptcha pwdInfo);
+        Task<bool> IsValidEmailCodeByForgotPwd(DTOAPI_ForgotPwdByEmailCaptcha pwdInfo);
     }
 }

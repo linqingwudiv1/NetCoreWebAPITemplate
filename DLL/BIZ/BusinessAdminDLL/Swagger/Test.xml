@@ -117,6 +117,13 @@
             <param name="pwdInfo"></param>
             <returns></returns>
         </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountFotgotPwdBizServices.IsValidEmailCodeByForgotPwd(BusinessAdminDLL.DTOModel.API.Users.ForgotPwd.DTOAPI_ForgotPwdByEmailCaptcha)">
+            <summary>
+            
+            </summary>
+            <param name="pwdInfo"></param>
+            <returns></returns>
+        </member>
         <member name="T:BusinessAdminDLL.Accounts.AccountLoginBizServices">
             <summary>
             
@@ -262,6 +269,13 @@
             <param name="registerInfo"></param>
             <returns></returns>
         </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountRegisterBizServices.IsValidEmailCodeByRegister(BusinessAdminDLL.DTOModel.API.Users.DTOAPI_EmailVerifyCode)">
+            <summary>
+            
+            </summary>
+            <param name="emailInfo"></param>
+            <returns></returns>
+        </member>
         <member name="T:BusinessAdminDLL.Accounts.IAccountFotgotPwdBizServices">
             <summary>
             
@@ -330,6 +344,13 @@
             
             </summary>
             <param name="registerInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.IAccountRegisterBizServices.IsValidEmailCodeByRegister(BusinessAdminDLL.DTOModel.API.Users.DTOAPI_EmailVerifyCode)">
+            <summary>
+            
+            </summary>
+            <param name="emailInfo"></param>
             <returns></returns>
         </member>
         <member name="T:BusinessAdminDLL.Accounts.ERegisterAccountState">
@@ -936,7 +957,7 @@
             
             </summary>
         </member>
-        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_EmailVerifyCode.code">
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPI_EmailVerifyCode.verifyCode">
             <summary>
             
             </summary>

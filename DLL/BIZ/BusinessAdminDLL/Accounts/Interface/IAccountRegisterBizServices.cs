@@ -28,5 +28,12 @@ namespace BusinessAdminDLL.Accounts
         /// <param name="registerInfo"></param>
         /// <returns></returns>
         Task<long> RegisterByEmailVerifyCode(DTOAPI_RegisterByEmailVerifyCode registerInfo);
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="emailInfo"></param>
+        /// <returns></returns>
+        Task<bool> IsValidEmailCodeByRegister(DTOAPI_EmailVerifyCode emailInfo);
     }
 }

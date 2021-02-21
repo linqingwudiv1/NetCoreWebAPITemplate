@@ -179,5 +179,25 @@ namespace BusinessAdminDLL.Accounts
 
             return newId;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="emailInfo"></param>
+        /// <returns></returns>
+        public async Task<bool> IsValidEmailCodeByRegister(DTOAPI_EmailVerifyCode emailInfo)
+        {
+            bool bSuccess = false;
+
+            if (!EmailHepler.IsValid(emailInfo.email))
+            {
+                throw new Exception("邮箱格式不正确");
+            }
+
+
+            bSuccess = this.captchaHelper.IsValidCaptcha($"RegisterCaptcha_{emailInfo.email.ToLower()}", emailInfo.verifyCode);
+
+            return bSuccess;
+        }
     }
 }

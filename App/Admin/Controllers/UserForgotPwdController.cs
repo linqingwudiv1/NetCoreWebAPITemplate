@@ -66,9 +66,31 @@ namespace WebAdminService.Controllers
             try
             {
                 await this.services.ForgotPwdCodeByEmail(pwdInfo);
-                return OkEx("");
+                return OkEx(new 
+                {
+                    success = true
+                });
             }
             catch (Exception ex)
+            {
+                return JsonToCamelCase(ex.Message, 50000, 50000, _desc: ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pwdInfo"></param>
+        /// <returns></returns>
+        [HttpPost("[action]")]
+        public async Task<IActionResult> IsValidEmailCodeByForgotPwd([FromBody] DTOAPI_ForgotPwdByEmailCaptcha pwdInfo) 
+        {
+            try
+            {
+                bool bSuccess = await this.services.IsValidEmailCodeByForgotPwd(pwdInfo);
+                return OkEx(new {success = bSuccess });
+            }
+            catch (Exception ex) 
             {
                 return JsonToCamelCase(ex.Message, 50000, 50000, _desc: ex.Message);
             }

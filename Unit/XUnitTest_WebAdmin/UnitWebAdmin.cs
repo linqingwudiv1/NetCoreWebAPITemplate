@@ -16,41 +16,41 @@ namespace XUnitTest_WebAdmin
     /// </summary>
     public class UnitWebAdmin
     {
-        readonly ContainerBuilder builder; 
+        //readonly ContainerBuilder builder; 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public UnitWebAdmin() 
-        {
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        private IList<DTOAPI_Role> TestRoleData() 
-        {
-            IList<DTOAPI_Role> list = new List<DTOAPI_Role> 
-            {
-                new DTOAPI_Role{key = 1, description = "", name = "" , routes = new List<DTOAPI_RoutePages>() }
-            };
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //public UnitWebAdmin() 
+        //{
+        //}
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //private IList<DTOAPI_Role> TestRoleData() 
+        //{
+        //    IList<DTOAPI_Role> list = new List<DTOAPI_Role> 
+        //    {
+        //        new DTOAPI_Role{key = 1, description = "", name = "" , routes = new List<DTOAPI_RoutePages>() }
+        //    };
 
-            return list;
-        }
+        //    return list;
+        //}
 
-        //[Fact]
-        public void UnitTest_Role()
-        {
-            // Mock<IRolesBizServices> mockRepo = new Mock<IRolesBizServices>();
-            // 
-            // mockRepo.Setup(repo => repo.GetRoles()).Returns( TestRoleData() );
-            // RolesController controller = new RolesController(mockRepo.Object);
-            // 
-            // var result = controller.GetRolesAsync() as OkObjectResult;
-            // DTO_ReturnModel<dynamic>  val = result.Value as DTO_ReturnModel<dynamic>;
-            // 
-            // var data = (val.data);
-            // Assert.True(data.Count > 0);
-        }
+        ////[Fact]
+        //public void UnitTest_Role()
+        //{
+        //    Mock<IRolesBizServices> mockRepo = new Mock<IRolesBizServices>();
+            
+        //    mockRepo.Setup(repo => repo.GetRoles()).Returns( TestRoleData() );
+        //    RolesController controller = new RolesController(mockRepo.Object);
+            
+        //    var result = controller.GetRolesAsync() as OkObjectResult;
+        //    DTO_ReturnModel<dynamic>  val = result.Value as DTO_ReturnModel<dynamic>;
+            
+        //    var data = (val.data);
+        //    Assert.True(data.Count > 0);
+        //}
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using DBAccessBaseDLL.IDGenerator;
+﻿using BaseDLL;
+using DBAccessBaseDLL.IDGenerator;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace XUnitTest_WebAdmin
     /// <summary>
     /// 
     /// </summary>
-    public class UnitTest_Base : IClassFixture<WebApplicationFactory<WebAdminService.Startup>>
+    public class IT_Core : IClassFixture<WebApplicationFactory<WebAdminService.Startup>>
     {
         /// <summary>
         /// 
@@ -25,17 +26,29 @@ namespace XUnitTest_WebAdmin
         /// </summary>
         protected HttpClient client;
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        readonly IIDGenerator IDGenerator;
+        
         /// <summary>
         /// 
         /// </summary>
         /// <param name="_factory"></param>
-        public UnitTest_Base(WebApplicationFactory<WebAdminService.Startup> _factory, IIDGenerator _IDGenerator)
+        public IT_Core(WebApplicationFactory<WebAdminService.Startup> _factory)
         {
             factory = _factory;
             client = this.factory.CreateClient();
+
+            this.IDGenerator = new RedisIDGenerator(new List<string>
+            {
+                GVariable.configuration["RedisIDGenerator:Passport"]
+            },
+                GVariable.configuration["RedisIDGenerator:Password"]);
+
         }
 
-        readonly IIDGenerator IDGenerator;
 
         /// <summary>
         /// 
@@ -54,7 +67,6 @@ namespace XUnitTest_WebAdmin
                 });
 
             }
-
         }
     }
 

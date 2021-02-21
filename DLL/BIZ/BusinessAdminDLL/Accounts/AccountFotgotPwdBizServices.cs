@@ -136,5 +136,25 @@ namespace BusinessAdminDLL.Accounts
                 key = key_captcha
             });
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pwdInfo"></param>
+        /// <returns></returns>
+        public async Task<bool> IsValidEmailCodeByForgotPwd(DTOAPI_ForgotPwdByEmailCaptcha pwdInfo)
+        {
+            bool bSuccess = false;
+
+            if (!EmailHepler.IsValid(pwdInfo.email))
+            {
+                throw new Exception("邮箱格式不正确");
+            }
+
+
+            bSuccess = this.captchaHelper.IsValidCaptcha($"ForgotPwdCaptcha_{pwdInfo.email.ToLower()}", pwdInfo.verifyCode);
+
+            return bSuccess;
+        }
     }
 }

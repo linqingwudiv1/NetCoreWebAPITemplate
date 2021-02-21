@@ -54,7 +54,26 @@ namespace WebAdminService.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="RegisterInfo"></param>
+        /// <param name="emailInfo"></param>
+        /// <returns></returns>
+        [HttpPost("[action]")]
+        public async Task<IActionResult> IsValidEmailCodeByRegister([FromBody] DTOAPI_EmailVerifyCode emailInfo) 
+        {
+            try
+            {
+                bool bSuccess = await this.services.IsValidEmailCodeByRegister(emailInfo);
+                return OkEx(new { success = bSuccess });
+            }
+            catch (Exception ex) 
+            {
+                return this.JsonToCamelCase(ex.Message, 50000, 50000, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="emailInfo"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> SendRegisterVerifyCodeByEmail([FromBody] DTOAPI_EmailVerifyCode emailInfo)
@@ -62,7 +81,7 @@ namespace WebAdminService.Controllers
             try
             {
                 await this.services.SendRegisterVerifyCodeByEmail(emailInfo);
-                return OkEx("");
+                return OkEx(new { success = true});
             }
             catch (Exception ex) 
             {

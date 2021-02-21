@@ -136,7 +136,7 @@ namespace BusinessAdminDLL.Accounts
 
             string key_captcha = $"LoginCaptcha_{emailInfo.email}";
 
-            if (!this.captchaHelper.IsValidCaptcha($"LoginCaptcha_{emailInfo.email}", emailInfo.code))
+            if (!this.captchaHelper.IsValidCaptcha($"LoginCaptcha_{emailInfo.email}", emailInfo.verifyCode))
             {                                                       
                 return new DTOAPIRes_Login
                 {

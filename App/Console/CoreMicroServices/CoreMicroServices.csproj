@@ -55,6 +55,6 @@
     </None>
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties _1config_4appsettings_1json__JsonSchema="" _1config_4connectionstring_1json__JsonSchema="https://json.schemastore.org/backportrc" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties _1config_4appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

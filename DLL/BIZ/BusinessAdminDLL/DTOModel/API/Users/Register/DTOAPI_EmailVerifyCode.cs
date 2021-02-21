@@ -18,6 +18,6 @@ namespace BusinessAdminDLL.DTOModel.API.Users
         /// </summary>
         [DefaultValue(null)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string code { get; set; }
+        public string verifyCode { get; set; }
     }
 }
