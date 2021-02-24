@@ -1,8 +1,8 @@
-﻿using BusinessAdminDLL.DTOModel.API.Users;
-using BusinessCoreDLL.DTOModel.API;
+﻿using BusinessCoreDLL.DTOModel.API.Users;
+using BusinessCoreDLL.DTOModel.API.Users.ForgotPwd;
 using System.Threading.Tasks;
 
-namespace BusinessAdminDLL.Accounts
+namespace BusinessCoreDLL.Accounts
 {
     /// <summary>
     /// 

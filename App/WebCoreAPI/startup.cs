@@ -3,6 +3,7 @@ using BaseDLL;
 using BusinessCoreDLL.AutofacModule;
 using DBAccessBaseDLL.Static;
 using DBAccessCoreDLL.EFORM.Context;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +20,7 @@ using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NetApplictionServiceDLL;
+using NetApplictionServiceDLL.Swagger;
 using Newtonsoft.Json.Serialization;
 using NLog;
 using System;
@@ -65,7 +67,7 @@ namespace WebCoreService
         /// <param name="env"></param>
         private void InitNLog(IWebHostEnvironment env)
         {
-            Logger logger = LogManager.GetLogger("Starup");
+            Logger logger = LogManager.GetLogger("Startup");
         }
 
         /// <summary>
@@ -138,7 +140,7 @@ namespace WebCoreService
                                     .AddEnvironmentVariables();
 
                 Configuration = builder.Build();
-                GVariable.configuration = Configuration;
+                GVariable.configuration = this.Configuration;
             }
 
         }
@@ -257,6 +259,13 @@ namespace WebCoreService
 
                 #endregion
 
+                #region MassTransit
+
+                services.AddMassTransit(MassTransitConfig.MTConfiguration);
+                services.AddMassTransitHostedService();
+
+                #endregion
+
                 //防止Json序列化-改变对象列的大小写
 
                 services.AddControllersWithViews(opts =>
@@ -297,29 +306,61 @@ namespace WebCoreService
 
                 #endregion
 
-#if DEBUG  // Release环境不建议暴露 Swagger 接口
+#if DEBUG // Release 环境不建议暴露 Swagger 接口
                 #region Swagger Doc 文档接入.
 
                 // Register the Swagger generator, defining one or more Swagger documents
+
                 services.AddSwaggerGen(c =>
                 {
                     c.SwaggerDoc("v1",
                         new OpenApiInfo
                         {
                             Version = "v1",
-                            Title = " WebAPI Doc",
-                            Description = "WebAPI Doc"
+                            Title = $" Web Core Service Doc",
+                            Description = $"Web Core Service Doc",
                         }
                     );
 
-                    String basePath = Path.GetFullPath( Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "SwaggerDoc"));
+                    c.SchemaFilter<ExampleValueSchemaFilter>();
 
-                    string[] files = Directory.GetFiles(basePath, "*.xml");
+                    String basePath = Path.GetFullPath(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, @"SwaggerDoc\"));
+                    String[] files = Directory.GetFiles(basePath, "*.xml");
 
                     foreach (var file in files)
                     {
                         c.IncludeXmlComments(file);
                     }
+
+
+                    #region JWT 验证配置
+
+                    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                    {
+                        Name = "Authorization",
+                        Type = SecuritySchemeType.ApiKey,
+                        Scheme = "Bearer",
+                        BearerFormat = "JWT",
+                        In = ParameterLocation.Header,
+                        Description = "JWT Authorization header using the Bearer scheme. \n\r (Exam Header: Authorization:Bearer {yourJwtToken}   ) "
+                    });
+
+                    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        {
+                              new OpenApiSecurityScheme
+                                {
+                                    Reference = new OpenApiReference
+                                    {
+                                        Type = ReferenceType.SecurityScheme,
+                                        Id = "Bearer"
+                                    }
+                                },
+                                new string[] {}
+                        }
+                    });
+
+                    #endregion
                 });
 
                 #endregion

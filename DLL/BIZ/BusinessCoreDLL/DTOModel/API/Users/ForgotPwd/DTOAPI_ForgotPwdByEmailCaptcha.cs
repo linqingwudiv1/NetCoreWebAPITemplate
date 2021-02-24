@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BusinessAdminDLL.DTOModel.API.Users.ForgotPwd
+namespace BusinessCoreDLL.DTOModel.API.Users.ForgotPwd
 {
     /// <summary>
     /// 

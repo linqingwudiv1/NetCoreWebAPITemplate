@@ -4,22 +4,24 @@ using AutoMapper;
 using BaseDLL.Helper.Captcha;
 using BaseDLL.Helper.SMS;
 using BaseDLL.Helper.Smtp;
-using BusinessAdminDLL.DTOModel.API.Users;
-using BusinessCoreDLL.DTOModel.API;
+using BusinessCoreDLL.DTOModel.API.Users;
+using BusinessCoreDLL.DTOModel.API.Users.ForgotPwd;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
 using DBAccessCoreDLL.EFORM.Entity;
+using DBAccessCoreDLL.Validator;
 using MassTransit;
 using Microsoft.IdentityModel.Tokens;
 using NetApplictionServiceDLL;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessAdminDLL.Accounts
+namespace BusinessCoreDLL.Accounts
 {
     /// <summary>
     /// 

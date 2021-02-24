@@ -1,12 +1,14 @@
 ﻿using Autofac;
+using AutoMapper;
+using BaseDLL;
+using BaseDLL.Helper.Captcha;
 using BusinessCoreDLL.Accounts;
-using BusinessCoreDLL.Roles;
+using BusinessCoreDLL.AutoMapper;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
-using NetApplictionServiceDLL;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics;
 
 namespace BusinessCoreDLL.AutofacModule
 {
@@ -21,19 +23,65 @@ namespace BusinessCoreDLL.AutofacModule
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterInstance<DBIDGenerator>(new DBIDGenerator()).As<IIDGenerator>().SingleInstance();
+            try
+            {
+                builder.RegisterInstance<RedisIDGenerator>(new RedisIDGenerator(new List<string>
+            {
+                GVariable.configuration["RedisIDGenerator:Passport"]
+            },
+    GVariable.configuration["RedisIDGenerator:Password"])).As<IIDGenerator>().SingleInstance();
 
-            #region Biz
-            builder.RegisterType<AccountBizServices>().As<IAccountsBizServices>().InstancePerLifetimeScope();
-            builder.RegisterType<RolesBizServices>().As<IRolesBizServices>().InstancePerLifetimeScope();
-            #endregion
 
-            #region DB 访问器
-            
-            builder.RegisterType<AccountAccesser>().As<IAccountAccesser>().InstancePerLifetimeScope();
-            builder.RegisterType<RoleAccesser>().As<IRoleAccesser>().InstancePerLifetimeScope();
+                builder.RegisterInstance<RedisCaptchaHelper>(new RedisCaptchaHelper(new List<string>
+            {
+                GVariable.configuration["RedisCaptchaContainer:Passport"]
+            },
+                    GVariable.configuration["RedisCaptchaContainer:Password"])).As<ICaptchaHelper>().SingleInstance();
 
-            #endregion
+                #region Biz
+
+                builder.RegisterType<AccountBizServices>().As<IAccountsBizServices>().InstancePerLifetimeScope();
+                builder.RegisterType<AccountLoginBizServices>().As<IAccountLoginBizServices>().InstancePerLifetimeScope();
+                builder.RegisterType<AccountFotgotPwdBizServices>().As<IAccountFotgotPwdBizServices>().InstancePerLifetimeScope();
+                builder.RegisterType<AccountRegisterBizServices>().As<IAccountRegisterBizServices>().InstancePerLifetimeScope();
+
+                #endregion
+
+                #region DB 访问器
+
+                builder.RegisterType<AccountAccesser>().As<IAccountAccesser>().InstancePerLifetimeScope();
+
+                #endregion
+
+                #region AutoMapper
+
+                //注册AutoMapper配置文件, Register   
+                builder.Register(ctx =>
+                {
+                    MapperConfiguration MapperConfig = new MapperConfiguration(cfg =>
+                    {
+                        cfg.AddMaps(new[] { typeof(BizCoreProfile).Assembly });
+                    });
+
+                    MapperConfig.CompileMappings();
+                    return MapperConfig;
+                }).AsSelf().SingleInstance();
+
+                builder.Register(ctx =>
+                {
+                    //This resolves a new context that can be used later.
+                    var context = ctx.Resolve<IComponentContext>();
+                    var config = context.Resolve<MapperConfiguration>();
+                    return config.CreateMapper(context.Resolve);
+                }).As<IMapper>().SingleInstance();
+
+                #endregion
+            }
+            catch (Exception ex) 
+            {
+                Debug.WriteLine($"Error ================== CoreAutofacModule {ex.Message}");
+                Console.WriteLine($"Error ==================  CoreAutofacModule {ex.Message}");
+            }
 
             // 注册到BaseController的所有子类
             //builder.RegisterAssemblyTypes(typeof(BaseController).Assembly)

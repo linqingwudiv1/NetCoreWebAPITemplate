@@ -3,8 +3,8 @@ using AdminServices.Command.Captcha;
 using AutoMapper;
 using BaseDLL.Helper.Captcha;
 using BaseDLL.Helper.Smtp;
-using BusinessAdminDLL.DTOModel.API.Users;
-using BusinessAdminDLL.DTOModel.API.Users.ForgotPwd;
+using BusinessCoreDLL.DTOModel.API.Users;
+using BusinessCoreDLL.DTOModel.API.Users.ForgotPwd;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
 using DBAccessCoreDLL.EFORM.Entity;
@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessAdminDLL.Accounts
+namespace BusinessCoreDLL.Accounts
 {
     /// <summary>
     /// 

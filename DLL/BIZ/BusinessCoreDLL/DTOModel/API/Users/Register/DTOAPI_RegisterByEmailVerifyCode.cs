@@ -2,31 +2,26 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BusinessCoreDLL.DTOModel.API.Roles
+namespace BusinessCoreDLL.DTOModel.API.Users
 {
     /// <summary>
     /// 
     /// </summary>
-    public class DTOAPI_Role
+    public class DTOAPI_RegisterByEmailVerifyCode
     {
         /// <summary>
         /// 
         /// </summary>
-        public Int64 key { get; set; }
+        public string email { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string name { get; set; }
+        public string pwd { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string description { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string children { get; set; }
+        public string verifyCode { get; set; }
     }
 }

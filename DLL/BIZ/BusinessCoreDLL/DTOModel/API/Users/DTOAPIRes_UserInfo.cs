@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessCoreDLL.DTOModel.API.Users
 {
     /// <summary>
     /// Info
     /// </summary>
-    public class DTOAPIRes_Info
+    public class DTOAPIRes_UserInfo
     {
         /// <summary>
         /// 
@@ -23,11 +21,7 @@ namespace BusinessCoreDLL.DTOModel.API.Users
         /// 
         /// </summary>
         public string username { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string password { get; set; }
+        
 
         /// <summary>
         /// 
@@ -49,9 +43,5 @@ namespace BusinessCoreDLL.DTOModel.API.Users
         /// </summary>
         public string introduction { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public IList<string> roles { get; set; }
     }
 }

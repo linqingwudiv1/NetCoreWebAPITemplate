@@ -25,7 +25,8 @@ namespace AdminServices.Event.Account
         IConsumer<ChangePasswordCommand>,
         IConsumer<RegisterAccountByEmailCommand>,
         IConsumer<RegisterAccountByPhoneCommand>,
-        IConsumer<RegisterAccountByPassportCommand>
+        IConsumer<ChangeAccountIntroductionCommand>,
+        IConsumer<ChangeAccountNickNameCommand>
     {
 
         /// <summary>
@@ -162,6 +163,34 @@ namespace AdminServices.Event.Account
 
 
             this.accesser.Add(account);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public async Task Consume(ConsumeContext<ChangeAccountIntroductionCommand> context)
+        {
+            var data = context.Message;
+            var account = this.accesser.Get(key: data.id).Item1;
+            account.Introduction = data.introduction;
+            this.accesser.Update(account);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public async Task Consume(ConsumeContext<ChangeAccountNickNameCommand> context)
+        {
+            var data = context.Message;
+            var account = this.accesser.Get(key: data.id).Item1;
+            account.DisplayName = data.nickName;
+
+            this.accesser.Update(account);
         }
     }
 }

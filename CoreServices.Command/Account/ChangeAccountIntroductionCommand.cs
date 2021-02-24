@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BusinessAdminDLL.DTOModel.API.Users
+namespace AdminServices.Command.Account
 {
     /// <summary>
     /// 
     /// </summary>
-    public class DTOAPI_RegisterByPassport
+    public class ChangeAccountIntroductionCommand
     {
         /// <summary>
         /// 
         /// </summary>
-        public string passport { get; set; }
+        public long id { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string password {get;set;}
+        public string introduction { get; set; }
     }
 }

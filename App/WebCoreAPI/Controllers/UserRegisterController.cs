@@ -1,5 +1,5 @@
-﻿using BusinessAdminDLL.Accounts;
-using BusinessAdminDLL.DTOModel.API.Users;
+﻿using BusinessCoreDLL.Accounts;
+using BusinessCoreDLL.DTOModel.API.Users;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAdminService.Controllers
+namespace WebCoreService.Controllers
 {
     /// <summary>
     /// 
@@ -95,6 +95,7 @@ namespace WebAdminService.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> RegisterByEmailVerifyCode([FromBody] DTOAPI_RegisterByEmailVerifyCode registerInfo) 
         {
+
             try
             {
                 var data = await this.services.RegisterByEmailVerifyCode(registerInfo);

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace BusinessAdminDLL.DTOModel.API.Users
+namespace BusinessCoreDLL.DTOModel.API.Users
 {
     /// <summary>
     /// 

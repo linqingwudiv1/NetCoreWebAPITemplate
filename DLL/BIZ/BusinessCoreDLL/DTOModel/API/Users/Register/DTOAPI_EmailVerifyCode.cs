@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
 
-namespace BusinessAdminDLL.DTOModel.API.Users
+namespace BusinessCoreDLL.DTOModel.API.Users
 {
     /// <summary>
     /// 
     /// </summary>
-    public class DTOAPI_RegisterByEmailVerifyCode
+    public class DTOAPI_EmailVerifyCode
     {
         /// <summary>
         /// 
@@ -17,11 +16,8 @@ namespace BusinessAdminDLL.DTOModel.API.Users
         /// <summary>
         /// 
         /// </summary>
-        public string pwd { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
+        [DefaultValue(null)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string verifyCode { get; set; }
     }
 }

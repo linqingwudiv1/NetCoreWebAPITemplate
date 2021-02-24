@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BusinessAdminDLL.DTOModel.API.Users
+namespace BusinessCoreDLL.DTOModel.API.Users
 {
     /// <summary>
     /// 

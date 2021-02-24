@@ -1,13 +1,17 @@
-﻿using BaseDLL.Helper;
-using BaseDLL.Helper.SMS;
-using BaseDLL.Helper.Smtp;
+﻿using AdminServices.Command.Account;
+using AutoMapper;
+using BaseDLL.Helper.Captcha;
 using BusinessCoreDLL.Base;
 using BusinessCoreDLL.DTOModel.API.Users;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
-using DBAccessCoreDLL.EFORM.Context;
 using DBAccessCoreDLL.EFORM.Entity;
+using DBAccessCoreDLL.Validator;
+using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BusinessCoreDLL.Accounts
 {
@@ -27,175 +31,101 @@ namespace BusinessCoreDLL.Accounts
         /// </summary>
         protected IIDGenerator IDGenerator { get; set; }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected IMapper mapper { get; set; }
+
+        protected readonly IPublishEndpoint publishEndpoint;
+
+        ///
+        protected readonly ICaptchaHelper captchaHelper;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="_IDGenerator"></param>
         /// <param name="AccountAccesser"></param>
-        public AccountBizServices(IIDGenerator _IDGenerator, IAccountAccesser AccountAccesser)
+        /// <param name="_mapper"></param>
+        /// <param name="_publishEndpoint"></param>
+        /// <param name="_captchaHelper"></param>
+        public AccountBizServices(  IIDGenerator _IDGenerator, 
+                                    IAccountAccesser AccountAccesser, 
+                                    IMapper _mapper, 
+                                    IPublishEndpoint _publishEndpoint, 
+                                    ICaptchaHelper _captchaHelper )
             : base()
         {
             this.accesser = AccountAccesser;
             this.IDGenerator = _IDGenerator;
+            this.mapper = _mapper;
+            this.publishEndpoint = _publishEndpoint;
+            this.captchaHelper = _captchaHelper;
         }
 
         /// <summary>
-        /// Register
+        /// User Role 不需要Role
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="AccountID"></param>
         /// <returns></returns>
-        public RegisterAccountInfo Register(DTOAPIReq_Register model) 
+        public async Task<dynamic> GetInfo(long AccountID)
         {
-            RegisterAccountInfo RegisterInfo = RegisterAccountVerify(model);
+            var account = (from x
+                      in
+                          this.accesser.db.Accounts.Where(x => x.Id == AccountID).AsNoTracking()
+                           select x).SingleOrDefault();
 
-            //注册未成功.....
-            if (RegisterInfo.State != ERegisterAccountState.Success) 
+
+            var userInfo = mapper.Map<Account, DTOAPIRes_UserInfo>(account);
+            return new
             {
-                return RegisterInfo;
-            }
-
-            //next
-            bool isExistAccount = this.IsRegisterAccountExisted( model,ref RegisterInfo);
-
-            if (isExistAccount) 
-            {
-                return RegisterInfo;
-            }
-
-            long NewID = IDGenerator.GetNewID<Account>();
-            string NewUsername = model.Username ?? @$"User_{NewID.ToString()}" ;
-
-            Account account = new Account 
-            {
-                Id       = NewID            ,
-                Passport = model.Passport   ,
-                Username = NewUsername      ,
-                Email    = model.EMail      ,
-                Phone    = model.Phone      ,
-                Sex      = -1               ,
-                // md5 secret key
-                Password = MD5Helper.GetMd5Hash( model.Password )
+                user = userInfo
             };
-            
-            accesser.Add(account);
-            return RegisterInfo;
-        }
-
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Login(DTOAPIReq_Login LoginInfo)
-        {
-            //bool PhoneHelper.IsValid(LoginInfo.passport);
-            //accesser.Get();
-        }
-
-        #region private
-
-        /// <summary>
-        /// 用户验证
-        /// </summary>
-        /// <param name="model"></param>
-        private RegisterAccountInfo RegisterAccountVerify(DTOAPIReq_Register model)
-        {
-            RegisterAccountInfo ret_model = new RegisterAccountInfo { account = null, State = ERegisterAccountState.Success, Message = "" };
-
-            if (!string.IsNullOrWhiteSpace(model.EMail) && !EmailHepler.IsValid(model.EMail))
-            {
-                ret_model.State = ERegisterAccountState.FormatNotMatch;
-                ret_model.Message = "无效的邮箱";
-            }
-
-            if (!string.IsNullOrWhiteSpace(model.Password) && !PasswordHelper.IsValid(model.Password))
-            {
-                ret_model.State = ERegisterAccountState.FormatNotMatch;
-                ret_model.Message = "无效的密码格式";
-            }
-
-            if (!string.IsNullOrWhiteSpace(model.Phone) && !PhoneHelper.IsValid(model.Phone))
-            {
-                ret_model.State = ERegisterAccountState.FormatNotMatch;
-                ret_model.Message = "无效的手机号码";
-            }
-
-            if (!string.IsNullOrWhiteSpace(model.Username) && !PhoneHelper.IsValid(model.Username))
-            {
-                ret_model.State = ERegisterAccountState.FormatNotMatch;
-                ret_model.Message = "无效的用户昵称";
-            }
-
-            if (!string.IsNullOrWhiteSpace(model.Passport) && !PhoneHelper.IsValid(model.Passport))
-            {
-                ret_model.State = ERegisterAccountState.FormatNotMatch;
-                ret_model.Message = "无效的用户名";
-            }
-
-            return ret_model;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="model"></param>
-        /// <param name="RegisterInfo"></param>
-        private bool IsRegisterAccountExisted(DTOAPIReq_Register model,ref RegisterAccountInfo RegisterInfo) 
+        /// <param name="userid"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public async Task<dynamic> ChangeIntroduction(long userid, DTOAPI_ChangeIntroduction info)
         {
-            //next
-            Tuple<Account, EFindAccountWay> FindAccountResult = accesser.Get(passport: model.Passport,
-                                                                              username: model.Username,
-                                                                                 email: model.EMail,
-                                                                                 phone: model.Phone);
-            // Verify Account whether exist...
-            switch (FindAccountResult.Item2)
+            if (!AccountValidator.bValidIntroduction(info.introduction) ) 
             {
-                case EFindAccountWay.Id:
-                    {
-                        //ID is exist
-                        RegisterInfo.State = ERegisterAccountState.ExistAccount;
-                        RegisterInfo.Message = "ID已存在";
-                        break;
-                    }
-                case EFindAccountWay.UserName:
-                    {
-                        //username is exist.
-                        RegisterInfo.State = ERegisterAccountState.ExistAccount;
-                        RegisterInfo.Message = "用户名已被注册";
-                        break;
-                    }
-                case EFindAccountWay.Passport:
-                    {
-                        //passport is exist
-                        RegisterInfo.State = ERegisterAccountState.ExistAccount;
-                        RegisterInfo.Message = "通行证已被注册";
-                        break;
-                    }
-                case EFindAccountWay.EMail:
-                    {
-                        //email is exist
-                        RegisterInfo.State = ERegisterAccountState.ExistAccount;
-                        RegisterInfo.Message = "邮箱已被注册";
-                        break;
-                    }
-                case EFindAccountWay.Phone:
-                    {
-                        //phone is exist
-                        RegisterInfo.State = ERegisterAccountState.ExistAccount;
-                        RegisterInfo.Message = "手机号已被注册";
-                        break;
-                    }
-                case EFindAccountWay.NotFound:
-                default:
-                    {
-                        RegisterInfo.State = ERegisterAccountState.Success;
-                        RegisterInfo.Message = "Success";
-                        break;
-                    }
+                throw new Exception("简介不符合规则");
             }
 
-            return (FindAccountResult.Item2 == null);
-        }
-        #endregion
+            await this.publishEndpoint.Publish(new ChangeAccountIntroductionCommand 
+            {
+                id = userid,
+                introduction = info.introduction
+            });
 
+            return "";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public async Task<dynamic> ChangeNickName(long userid, DTOAPI_ChangeNickName info)
+        {
+            if (!AccountValidator.bValidDisplayName(info.nickName))
+            {
+                throw new Exception("昵称不符合规则");
+            }
+
+            await this.publishEndpoint.Publish(new ChangeAccountNickNameCommand
+            {
+                id = userid,
+                nickName = info.nickName
+            });
+
+            return "";
+        }
     }
 }

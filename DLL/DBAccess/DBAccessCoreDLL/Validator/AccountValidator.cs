@@ -28,6 +28,11 @@ namespace DBAccessCoreDLL.Validator
         /// <summary>
         /// 
         /// </summary>
+        private static Regex Rex_DisplayName = new Regex(@"^[a-zA-Z0-9_\u4e00-\u9fa5]{2,17}$");
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="passport"></param>
         /// <returns></returns>
         public static bool bValidPassport(string passport) 
@@ -52,5 +57,25 @@ namespace DBAccessCoreDLL.Validator
         {
             return Rex_Username.IsMatch(userName);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="NickName"></param>
+        /// <returns></returns>
+        public static bool bValidDisplayName(string displayName) 
+        {
+            return Rex_DisplayName.IsMatch(displayName);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Introduction"></param>
+        /// <returns></returns>
+        public static bool bValidIntroduction(string introduction) 
+        {
+            return introduction.Length <= 64;
+        }        
     }
 }

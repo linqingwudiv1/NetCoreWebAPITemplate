@@ -1,6 +1,6 @@
-﻿using BusinessAdminDLL.Accounts;
-using BusinessAdminDLL.DTOModel.API.Users;
-using BusinessAdminDLL.DTOModel.API.Users.ForgotPwd;
+﻿using BusinessCoreDLL.Accounts;
+using BusinessCoreDLL.DTOModel.API.Users;
+using BusinessCoreDLL.DTOModel.API.Users.ForgotPwd;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAdminService.Controllers
+namespace WebCoreService.Controllers
 {
     /// <summary>
     /// 
