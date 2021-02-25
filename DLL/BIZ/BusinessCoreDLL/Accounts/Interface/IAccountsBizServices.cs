@@ -19,5 +19,6 @@ namespace BusinessCoreDLL.Accounts
         public Task<dynamic> GetInfo(long accountID);
         Task<dynamic> ChangeIntroduction(long userid, DTOAPI_ChangeIntroduction info);
         Task<dynamic> ChangeNickName(long userid, DTOAPI_ChangeNickName info);
+        Task<dynamic> GetCOSToken();
     }
 }

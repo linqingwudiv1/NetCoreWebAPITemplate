@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using AutoMapper;
 using BaseDLL;
+using BaseDLL.Helper.Asset;
 using BaseDLL.Helper.Captcha;
 using BusinessCoreDLL.Accounts;
 using BusinessCoreDLL.AutoMapper;
@@ -23,6 +24,7 @@ namespace BusinessCoreDLL.AutofacModule
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
         {
+            #region middle services
             try
             {
                 builder.RegisterInstance<RedisIDGenerator>(new RedisIDGenerator(new List<string>
@@ -33,17 +35,28 @@ namespace BusinessCoreDLL.AutofacModule
 
 
                 builder.RegisterInstance<RedisCaptchaHelper>(new RedisCaptchaHelper(new List<string>
-            {
-                GVariable.configuration["RedisCaptchaContainer:Passport"]
-            },
+                {
+                    GVariable.configuration["RedisCaptchaContainer:Passport"]
+                },
                     GVariable.configuration["RedisCaptchaContainer:Password"])).As<ICaptchaHelper>().SingleInstance();
+
+                builder.RegisterInstance<IAssetHelper>(
+                    new COSAssetHelper
+                    (
+                        GVariable.configuration["COS:AppId"]     ,
+                        GVariable.configuration["COS:SecretId" ] ,
+                        GVariable.configuration["COS:SecretKey"] , 
+                        GVariable.configuration["COS:Region"])
+                    ).As<IAssetHelper>().SingleInstance();
+
+                #endregion
 
                 #region Biz
 
-                builder.RegisterType<AccountBizServices>().As<IAccountsBizServices>().InstancePerLifetimeScope();
-                builder.RegisterType<AccountLoginBizServices>().As<IAccountLoginBizServices>().InstancePerLifetimeScope();
-                builder.RegisterType<AccountFotgotPwdBizServices>().As<IAccountFotgotPwdBizServices>().InstancePerLifetimeScope();
-                builder.RegisterType<AccountRegisterBizServices>().As<IAccountRegisterBizServices>().InstancePerLifetimeScope();
+                builder.RegisterType<AccountBizServices>()          .As<IAccountsBizServices>()         .InstancePerLifetimeScope();
+                builder.RegisterType<AccountLoginBizServices>()     .As<IAccountLoginBizServices>()     .InstancePerLifetimeScope();
+                builder.RegisterType<AccountFotgotPwdBizServices>() .As<IAccountFotgotPwdBizServices>() .InstancePerLifetimeScope();
+                builder.RegisterType<AccountRegisterBizServices>()  .As<IAccountRegisterBizServices>()  .InstancePerLifetimeScope();
 
                 #endregion
 

@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aliyun.OSS.SDK.NetCore" Version="2.13.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Collection" Version="7.0.1" />
@@ -29,6 +30,8 @@
     <PackageReference Include="ServiceStack.Redis" Version="5.10.2" />
     <PackageReference Include="StackExchange.Redis" Version="2.2.4" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageReference Include="Tencent.QCloud.Cos.Sdk" Version="5.4.17" />
+    <PackageReference Include="Tencent.QCloud.Cos.Sts.Sdk" Version="3.0.4" />
   </ItemGroup>
 
 </Project>

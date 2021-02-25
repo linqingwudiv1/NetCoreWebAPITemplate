@@ -7,6 +7,7 @@ using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace CoreMicroServices
 {
@@ -27,8 +28,7 @@ namespace CoreMicroServices
                 builder.RegisterInstance<RedisIDGenerator>(new RedisIDGenerator(new List<string>
             {
                 GVariable.configuration["RedisIDGenerator:Passport"]
-            },
-    GVariable.configuration["RedisIDGenerator:Password"])).As<IIDGenerator>().SingleInstance();
+            },  GVariable.configuration["RedisIDGenerator:Password"])).As<IIDGenerator>().SingleInstance();
 
                 builder.RegisterInstance<RedisCaptchaHelper>(new RedisCaptchaHelper(new List<string>
             {
@@ -56,8 +56,8 @@ namespace CoreMicroServices
                     {
                         cfg.AddProfile(typeof(AdminEventProfile));
                     });
-                }).AsSelf().SingleInstance();
-
+                }).AsSelf().SingleInstance(); 
+                    
                 builder.Register(ctx =>
                 {
                     //This resolves a new context that can be used later.
@@ -70,8 +70,8 @@ namespace CoreMicroServices
             }
             catch (Exception ex) 
             {
-                System.Diagnostics.Debug.WriteLine($"Error ===================  Autofac Module {ex.Message}");
-                System.Console.WriteLine($"Error ===================  Autofac Module {ex.Message}");
+                Debug  .WriteLine($"Error ===================  Autofac Module   { ex.Message } ");
+                Console.WriteLine($"Error ===================  Autofac Module   { ex.Message } ");
             }
 
 

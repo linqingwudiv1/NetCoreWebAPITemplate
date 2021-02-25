@@ -1,5 +1,6 @@
 ﻿using AdminServices.Command.Account;
 using AutoMapper;
+using BaseDLL.Helper.Asset;
 using BaseDLL.Helper.Captcha;
 using BusinessCoreDLL.Base;
 using BusinessCoreDLL.DTOModel.API.Users;
@@ -35,6 +36,11 @@ namespace BusinessCoreDLL.Accounts
         /// <summary>
         /// 
         /// </summary>
+        protected IAssetHelper AssetHelper { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         protected IMapper mapper { get; set; }
 
         protected readonly IPublishEndpoint publishEndpoint;
@@ -54,7 +60,8 @@ namespace BusinessCoreDLL.Accounts
                                     IAccountAccesser AccountAccesser, 
                                     IMapper _mapper, 
                                     IPublishEndpoint _publishEndpoint, 
-                                    ICaptchaHelper _captchaHelper )
+                                    ICaptchaHelper _captchaHelper,
+                                    IAssetHelper _assetHelper)
             : base()
         {
             this.accesser = AccountAccesser;
@@ -62,6 +69,7 @@ namespace BusinessCoreDLL.Accounts
             this.mapper = _mapper;
             this.publishEndpoint = _publishEndpoint;
             this.captchaHelper = _captchaHelper;
+            this.AssetHelper = _assetHelper;
         }
 
         /// <summary>
@@ -126,6 +134,17 @@ namespace BusinessCoreDLL.Accounts
             });
 
             return "";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<dynamic> GetCOSToken()
+        {
+
+            return AssetHelper.GetTempToken("linqing-1251417173");
+            //throw new NotImplementedException();
         }
     }
 }
