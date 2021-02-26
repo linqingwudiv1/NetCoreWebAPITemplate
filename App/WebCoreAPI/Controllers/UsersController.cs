@@ -102,6 +102,22 @@ namespace WebCoreService.Controllers
             }
         }
 
+        [HttpPut("[action]")]
+        [Authorize]
+        public async Task<IActionResult> ChangeAvatar([FromBody] DTOAPI_ChangeAvatar info) 
+        {
+            try
+            {
+                long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
+
+                await this.services.ChangeAvatar(userid, info);
+                return JsonToCamelCase(new { success = true });
+            }
+            catch (Exception ex) 
+            {
+                return JsonToCamelCase(ex.Message, 50000, 50000);
+            }
+        }
 
         /// <summary>
         /// 获取COS 临时Token,有效期1800 second

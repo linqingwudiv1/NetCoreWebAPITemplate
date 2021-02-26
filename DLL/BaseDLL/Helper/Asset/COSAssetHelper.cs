@@ -217,16 +217,15 @@ namespace BaseDLL.Helper.Asset
                 "name/cos:CompleteMultipartUpload"
             };
 
-            allowPrefixs = allowPrefixs ?? new string[] { "*"};
-
+            allowPrefixs = allowPrefixs ?? new string[] { "*" };
 
             Dictionary<string, object> dire = new Dictionary<string, object>();
 
-            dire.Add("bucket", bucket);
-            dire.Add("region", this.region);
-            dire.Add("allowPrefix", allowPrefixs[0]);
-            dire.Add("allowPrefixs", allowPrefixs);
-            dire.Add("allowActions", allowActions );
+            dire.Add("bucket",          bucket);
+            dire.Add("region",          this.region);
+            dire.Add("allowPrefix",     allowPrefixs[0]);
+            dire.Add("allowPrefixs",    allowPrefixs);
+            dire.Add("allowActions",    allowActions );
             dire.Add("durationSeconds", keepTime);
 
             dire.Add("secretId",  this.secretId);

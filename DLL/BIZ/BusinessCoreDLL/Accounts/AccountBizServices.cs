@@ -146,5 +146,21 @@ namespace BusinessCoreDLL.Accounts
             return AssetHelper.GetTempToken("linqing-1251417173");
             //throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public async Task ChangeAvatar(long userId,DTOAPI_ChangeAvatar info)
+        {
+            this.publishEndpoint.Publish(new ChangeAvatarCommand 
+            {
+                userId = userId,
+                avatar = info.avatar
+            });
+            //throw new NotImplementedException();
+        }
     }
 }

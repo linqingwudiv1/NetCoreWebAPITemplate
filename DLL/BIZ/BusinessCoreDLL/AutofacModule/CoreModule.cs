@@ -5,6 +5,7 @@ using BaseDLL.Helper.Asset;
 using BaseDLL.Helper.Captcha;
 using BusinessCoreDLL.Accounts;
 using BusinessCoreDLL.AutoMapper;
+using BusinessCoreDLL.Blogs;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
 using System;
@@ -57,6 +58,8 @@ namespace BusinessCoreDLL.AutofacModule
                 builder.RegisterType<AccountLoginBizServices>()     .As<IAccountLoginBizServices>()     .InstancePerLifetimeScope();
                 builder.RegisterType<AccountFotgotPwdBizServices>() .As<IAccountFotgotPwdBizServices>() .InstancePerLifetimeScope();
                 builder.RegisterType<AccountRegisterBizServices>()  .As<IAccountRegisterBizServices>()  .InstancePerLifetimeScope();
+
+                builder.RegisterType<BlogsBizServices>().As<IBlogsBizServices>().InstancePerLifetimeScope();
 
                 #endregion
 

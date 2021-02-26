@@ -71,6 +71,14 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.ChangeAvatar(System.Int64,BusinessCoreDLL.DTOModel.API.Users.DTOAPI_ChangeAvatar)">
+            <summary>
+            
+            </summary>
+            <param name="userId"></param>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
         <member name="T:BusinessCoreDLL.Accounts.AccountFotgotPwdBizServices">
             <summary>
             
@@ -371,6 +379,14 @@
             <param name="accountID"></param>
             <returns></returns>
         </member>
+        <member name="M:BusinessCoreDLL.Accounts.IAccountsBizServices.ChangeAvatar(System.Int64,BusinessCoreDLL.DTOModel.API.Users.DTOAPI_ChangeAvatar)">
+            <summary>
+            
+            </summary>
+            <param name="userId"></param>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
         <member name="T:BusinessCoreDLL.Accounts.WF.create">
             <summary>
             
@@ -467,6 +483,109 @@
             
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:BusinessCoreDLL.Blogs.BlogsBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.Blogs.BlogsBizServices.accesser">
+            <summary>
+            DAO层
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.Blogs.BlogsBizServices.IDGenerator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.Blogs.BlogsBizServices.mapper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessCoreDLL.Blogs.BlogsBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IAccountAccesser,AutoMapper.IMapper,MassTransit.IPublishEndpoint)">
+            <summary>
+            
+            </summary>
+            <param name="_IDGenerator"></param>
+            <param name="AccountAccesser"></param>
+            <param name="_mapper"></param>
+            <param name="_publishEndpoint"></param>
+        </member>
+        <member name="M:BusinessCoreDLL.Blogs.BlogsBizServices.GetBlogInfo(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BusinessCoreDLL.Blogs.IBlogsBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessCoreDLL.Blogs.IBlogsBizServices.GetBlogInfo(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BusinessCoreDLL.DTOModel.API.Blogs.DTOAPIRes_BlogInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Blogs.DTOAPIRes_BlogInfo.userId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Blogs.DTOAPIRes_BlogInfo.username">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Blogs.DTOAPIRes_BlogInfo.joinTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Blogs.DTOAPIRes_BlogInfo.avatar">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Blogs.DTOAPIRes_BlogInfo.introduction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Blogs.DTOAPIRes_BlogInfo.blogTitle">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Blogs.DTOAPIRes_BlogInfo.blogDesc">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Blogs.DTOAPIRes_BlogInfo.blogCover">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Blogs.DTOAPIRes_BlogInfo.phone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Blogs.DTOAPIRes_BlogInfo.email">
+            <summary>
+            
+            </summary>
         </member>
         <member name="T:BusinessCoreDLL.DTOModel.API.Users.DTOAPIReq_Info">
             <summary>
@@ -619,6 +738,16 @@
             </summary>
         </member>
         <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPIRes_UserInfo.introduction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:BusinessCoreDLL.DTOModel.API.Users.DTOAPI_ChangeAvatar">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessCoreDLL.DTOModel.API.Users.DTOAPI_ChangeAvatar.avatar">
             <summary>
             
             </summary>

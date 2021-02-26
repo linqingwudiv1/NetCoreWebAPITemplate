@@ -20,5 +20,12 @@ namespace BusinessCoreDLL.Accounts
         Task<dynamic> ChangeIntroduction(long userid, DTOAPI_ChangeIntroduction info);
         Task<dynamic> ChangeNickName(long userid, DTOAPI_ChangeNickName info);
         Task<dynamic> GetCOSToken();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        Task ChangeAvatar(long userId, DTOAPI_ChangeAvatar info);
     }
 }

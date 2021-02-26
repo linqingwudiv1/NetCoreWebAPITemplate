@@ -26,7 +26,8 @@ namespace AdminServices.Event.Account
         IConsumer<RegisterAccountByEmailCommand>,
         IConsumer<RegisterAccountByPhoneCommand>,
         IConsumer<ChangeAccountIntroductionCommand>,
-        IConsumer<ChangeAccountNickNameCommand>
+        IConsumer<ChangeAccountNickNameCommand>,
+        IConsumer<ChangeAvatarCommand>
     {
 
         /// <summary>
@@ -189,6 +190,20 @@ namespace AdminServices.Event.Account
             var data = context.Message;
             var account = this.accesser.Get(key: data.id).Item1;
             account.DisplayName = data.nickName;
+
+            this.accesser.Update(account);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public async Task Consume(ConsumeContext<ChangeAvatarCommand> context)
+        {
+            var data = context.Message;
+            var account = this.accesser.Get(key: data.userId).Item1;
+            account.Avatar = data.avatar;
 
             this.accesser.Update(account);
         }
