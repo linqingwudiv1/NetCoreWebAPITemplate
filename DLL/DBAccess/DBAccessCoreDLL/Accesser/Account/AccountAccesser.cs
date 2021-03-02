@@ -108,7 +108,6 @@ namespace DBAccessCoreDLL.Accesser
         /// <returns></returns>
         public async Task<DTO_PageableModel<Account>> Get(DTO_PageableQueryModel<DTO_GetUsers> model) 
         {
-            
             IQueryable<Account> query = (from 
                                             x 
                                          in 

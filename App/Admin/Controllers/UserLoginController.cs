@@ -1,15 +1,15 @@
 ﻿using BusinessAdminDLL.Accounts;
+using BusinessAdminDLL.DTOModel.API;
 using BusinessAdminDLL.DTOModel.API.Users;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NetApplictionServiceDLL;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebAdminService.Controllers
 {
+
     /// <summary>
     /// 
     /// </summary>

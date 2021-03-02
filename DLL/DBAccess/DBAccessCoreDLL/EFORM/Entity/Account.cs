@@ -38,6 +38,10 @@ namespace DBAccessCoreDLL.EFORM.Entity
         /// </summary>
         public string? Passport { get; set; }
 
+        [Required]
+        [DefaultValue(1)]
+        public int AccountState { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -126,6 +130,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
             tableBuilder.Property(x => x.DisplayName)   .HasDefaultValue("Account");
             tableBuilder.Property(x => x.Avatar)        .HasDefaultValue("");
             tableBuilder.Property(x => x.Introduction)  .HasDefaultValue("");
+            tableBuilder.Property(x => x.AccountState)  .HasDefaultValue(1).IsRequired(true);
 
             tableBuilder.HasIndex(x => x.Username)                      .IsUnique(true);
             tableBuilder.HasIndex(x => x.Passport)                      .IsUnique(true);

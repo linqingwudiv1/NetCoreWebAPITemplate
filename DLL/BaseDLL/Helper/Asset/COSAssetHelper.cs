@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Security.Policy;
+using System.Threading.Tasks;
 using TencentCloud.Common;
 using TencentCloud.Common.Profile;
 using TencentCloud.Sts.V20180813;
@@ -69,6 +71,7 @@ namespace BaseDLL.Helper.Asset
             QCloudCredentialProvider cosCredentialProvider = new DefaultQCloudCredentialProvider(secretId, secretKey, durationSecond);
 
             this.cosXml = new CosXmlServer(config, cosCredentialProvider);
+
         }
 
         public bool Add(string bucket, string key, byte[] data)
@@ -132,10 +135,21 @@ namespace BaseDLL.Helper.Asset
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public string ConvertToKey(string url)
+        {
+            var uri = new Uri(url);
+            return uri.AbsolutePath;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="bucket"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public bool Delete(string bucket, string key)
+        public async bool Delete(string bucket, string key)
         {
             try
             {
@@ -182,15 +196,15 @@ namespace BaseDLL.Helper.Asset
             catch (COSXML.CosException.CosClientException clientEx)
             {
                 //请求失败
-                Console.WriteLine("CosClientException: " + clientEx);
-                Debug.WriteLine("CosClientException: " + clientEx);
+                Console.WriteLine("CosClientException:======================= " + clientEx);
+                Debug.WriteLine("CosClientException:======================= " + clientEx);
                 return new byte[] { };
             }
             catch (COSXML.CosException.CosServerException serverEx)
             {
                 //请求失败
-                Console.WriteLine("CosServerException: " + serverEx.GetInfo());
-                Debug.WriteLine("CosServerException: " + serverEx.GetInfo());
+                Console.WriteLine("CosServerException:======================= " + serverEx.GetInfo());
+                Debug.WriteLine("CosServerException:======================= " + serverEx.GetInfo());
                 return new byte[] { };
             }
         }
@@ -205,7 +219,7 @@ namespace BaseDLL.Helper.Asset
         /// <returns></returns>
         public dynamic GetTempToken(string bucket, string[] allowPrefixs = null, string[] allowActions = null, int keepTime = 1800)
         {
-            //默认运行客户端上传到云存储服务器
+            // 默认运行客户端上传到云存储服务器
             allowActions = allowActions ?? new string[] 
             {
                 "name/cos:PutObject",

@@ -3,11 +3,13 @@ using AutoMapper;
 using BaseDLL;
 using BaseDLL.Helper.Captcha;
 using BusinessAdminDLL.Accounts;
+using BusinessAdminDLL.Asset;
 using BusinessAdminDLL.AutoMapper;
 using BusinessAdminDLL.Roles;
 using BusinessAdminDLL.RoutePage;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
+using DBAccessCoreDLL.Accesser.Asset;
 using NetApplictionServiceDLL;
 using System;
 using System.Collections.Generic;
@@ -47,11 +49,11 @@ namespace BusinessAdminDLL.AutofacModule
 
                 builder.RegisterType<AccountBizServices>().As<IAccountsBizServices>().InstancePerLifetimeScope();
                 builder.RegisterType<AccountLoginBizServices>().As<IAccountLoginBizServices>().InstancePerLifetimeScope();
-                builder.RegisterType<AccountFotgotPwdBizServices>().As<IAccountFotgotPwdBizServices>().InstancePerLifetimeScope();
-                builder.RegisterType<AccountRegisterBizServices>().As<IAccountRegisterBizServices>().InstancePerLifetimeScope();
+
 
                 builder.RegisterType<RolesBizServices>().As<IRolesBizServices>().InstancePerLifetimeScope();
                 builder.RegisterType<RoutePageBizServices>().As<IRoutePageBizServices>().InstancePerLifetimeScope();
+                builder.RegisterType<AppInfoBizServices>().As<IAppInfoBizServices>().InstancePerLifetimeScope();
 
                 #endregion
 
@@ -60,7 +62,7 @@ namespace BusinessAdminDLL.AutofacModule
                 builder.RegisterType<AccountAccesser>().As<IAccountAccesser>().InstancePerLifetimeScope();
                 builder.RegisterType<RoleAccesser>().As<IRoleAccesser>().InstancePerLifetimeScope();
                 builder.RegisterType<RoutePageAccesser>().As<IRoutePageAccesser>().InstancePerLifetimeScope();
-
+                builder.RegisterType<AppInfoAccesser>().As<IAppInfoAccesser>().InstancePerLifetimeScope();
                 #endregion
 
                 #region AutoMapper

@@ -42,9 +42,15 @@ namespace BaseDLL.Helper.Asset
         /// <param name="key"></param>
         /// <param name="assetPath"></param>
         /// <returns></returns>
-         bool Update(string bucket, string key, string assetPath);
+        bool Update(string bucket, string key, string assetPath);
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bucket"></param>
+        /// <param name="key"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
         bool Update(string bucket, string key, byte[] data);
 
         /// <summary>
@@ -56,5 +62,12 @@ namespace BaseDLL.Helper.Asset
 
 
         bool Add(string bucket, string key, string assetPath );
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        string ConvertToKey(string url);
     }
 }

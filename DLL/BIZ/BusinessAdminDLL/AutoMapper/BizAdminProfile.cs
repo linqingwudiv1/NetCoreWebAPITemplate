@@ -2,10 +2,12 @@
 using AdminServices.Command.PageRouteRole;
 using AdminServices.Command.Role;
 using AutoMapper;
+using BusinessAdminDLL.DTOModel.API.Asset;
 using BusinessAdminDLL.DTOModel.API.Roles;
 using BusinessAdminDLL.DTOModel.API.Routes;
 using BusinessAdminDLL.DTOModel.API.Users;
 using DBAccessCoreDLL.EFORM.Entity;
+using DBAccessCoreDLL.Entity.Asset;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -86,6 +88,12 @@ namespace BusinessAdminDLL.AutoMapper
                                                     .ReverseMap();
             #endregion
 
+
+            #region Asset
+
+            CreateMap<AppInfo, DTOAPI_AppInfo>().ReverseMap();
+
+            #endregion
         }
     }
 

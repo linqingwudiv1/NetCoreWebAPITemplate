@@ -12,6 +12,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include=".Config\APILTEUrl.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include=".Config\appsettings.Development.json" />
+    <Content Include=".Config\appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include=".Config\ConnectionString.Development.json" />
+    <Content Include=".Config\ConnectionString.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include=".Config\HostAddress.Development.json" />
+    <Content Include=".Config\HostAddress.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include=".Config\net4log.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include=".Config\routeDefaultData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Readme.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -31,7 +52,12 @@
 
   <ItemGroup>
     <Folder Include="Exceptional\Account\" />
-    <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include=".Config\nlog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

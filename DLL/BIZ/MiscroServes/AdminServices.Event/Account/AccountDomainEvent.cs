@@ -70,7 +70,7 @@ namespace AdminServices.Event.Account
                              x);
             
             this.accesser.db.AccountRoles.RemoveRange(query);
-            
+
             foreach(var roleId in data.roles) 
             {
                 foreach (var userId in data.users) 
@@ -83,9 +83,8 @@ namespace AdminServices.Event.Account
                     });
                 }
             }
-
+            
             this.accesser.db.SaveChanges();
-
         }
 
         /// <summary>

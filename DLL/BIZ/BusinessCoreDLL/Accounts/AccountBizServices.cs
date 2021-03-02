@@ -1,5 +1,6 @@
 ﻿using AdminServices.Command.Account;
 using AutoMapper;
+using BaseDLL;
 using BaseDLL.Helper.Asset;
 using BaseDLL.Helper.Captcha;
 using BusinessCoreDLL.Base;
@@ -142,8 +143,7 @@ namespace BusinessCoreDLL.Accounts
         /// <returns></returns>
         public async Task<dynamic> GetCOSToken()
         {
-
-            return AssetHelper.GetTempToken("linqing-1251417173");
+            return AssetHelper.GetTempToken(GAssetVariable.Bucket);
             //throw new NotImplementedException();
         }
 

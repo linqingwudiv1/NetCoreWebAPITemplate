@@ -36,15 +36,22 @@ namespace BaseDLL.DTO
     }
 
     /// <summary>
-    /// 分页查询-请求
+    /// 分页查询-请求,标准请求
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class DTO_PageableQueryModel<T>
+    public class DTO_PageableQueryModel<T> : DTO_PageableQueryInfo
     {
         /// <summary>
         /// 
         /// </summary>
         public T data { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class DTO_PageableQueryInfo
+    {
 
         /// <summary>
         /// 

@@ -42,7 +42,6 @@ namespace WebCoreService
             try
             {
                 var host = CreateHostBuilder(args).Build();
-                
                 host.Run();
             }
             catch (Exception ex)

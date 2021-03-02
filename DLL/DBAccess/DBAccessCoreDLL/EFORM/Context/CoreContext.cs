@@ -1,5 +1,6 @@
 ﻿using DBAccessBaseDLL.EF.Context;
 using DBAccessCoreDLL.EFORM.Entity;
+using DBAccessCoreDLL.Entity.Asset;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,11 @@ namespace DBAccessCoreDLL.EFORM.Context
         /// 实体:DbQuery
         /// </summary>
         virtual public DbSet<Account> Accounts { get; protected set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        virtual public DbSet<AppInfo> AppInfos { get; protected set; }
 
         /// <summary> 
         /// 
@@ -107,8 +113,9 @@ namespace DBAccessCoreDLL.EFORM.Context
             modelBuilder.ApplyConfiguration<AccountRole>  ( new AccountRoleEFConfig());
             modelBuilder.ApplyConfiguration<RoutePages>    ( new RoutePageEFConfig());
             modelBuilder.ApplyConfiguration<Role>(new RoleEFConfig());
-            modelBuilder.ApplyConfiguration<RoutePageRole>( new RoutePageRoleEFConfig());
+            modelBuilder.ApplyConfiguration<RoutePageRole>( new RoutePageRoleEFConfig()); 
 
+            modelBuilder.ApplyConfiguration<AppInfo>(new AppInfoEFConfig() );
             //modelBuilder.ApplyConfiguration<BizSystemLog>(new SystemLogEFConfig());
 
             //Database/必须存在View_AccountFemale视图

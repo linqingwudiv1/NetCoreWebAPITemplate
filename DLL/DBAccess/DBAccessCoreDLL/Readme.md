@@ -18,28 +18,33 @@ DBAccessDLL->右键(right-click)->属性(Property)->生成()->常规()->条件�
 
 采用其他项目的配置进行初始化
 
-#migrations add
+#migrations list
 
+dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ migrations list --context CoreContext
+
+
+#migrations add
 
 dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ migrations add Initial --context CoreContext
 
+
 #migrations update
 									 
-dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ migrations update pageroute --context CoreContext
-
-
+dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ migrations update --context CoreContext
 
 #database drop
 
 dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ database drop --context CoreContext --connection "Username=postgres;Password=1qaz@WSX;Host=192.168.1.172;Port=5432;Database=QCoreDB;"
 
 
-
 #database update 
+
+dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ database update --context CoreContext --connection "Username=postgres;Password=1qaz@WSX;Host=192.168.1.172;Port=5432;Database=QCoreDB;"
 
 dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ database update test --context CoreContext --connection "Username=postgres;Password=1qaz@WSX;Host=192.168.1.172;Port=5432;Database=QCoreDB;"
 
-migration script
+
+#migration script
 
 
 #database script 
@@ -48,7 +53,6 @@ dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ migrations 
 #drop data : 
 
 dotnet ef --startup-project ../../../Console/EFCoreMigrationConsole/ database drop --context CoreContext
-
 
 #
 --connection "Username=postgres;Password=1qaz@WSX;Host=192.168.1.172;Port=5432;Database=QCoreDB;"

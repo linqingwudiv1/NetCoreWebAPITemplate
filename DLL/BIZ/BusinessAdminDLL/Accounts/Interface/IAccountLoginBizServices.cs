@@ -1,5 +1,5 @@
-﻿using BusinessAdminDLL.DTOModel.API.Users;
-using BusinessCoreDLL.DTOModel.API;
+﻿using BusinessAdminDLL.DTOModel.API;
+using BusinessAdminDLL.DTOModel.API.Users;
 using System.Threading.Tasks;
 
 namespace BusinessAdminDLL.Accounts

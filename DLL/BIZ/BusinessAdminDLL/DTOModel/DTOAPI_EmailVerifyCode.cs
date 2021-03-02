@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
 
-namespace BusinessCoreDLL.DTOModel.API
+namespace BusinessAdminDLL.DTOModel.API
 {
     /// <summary>
     /// 
