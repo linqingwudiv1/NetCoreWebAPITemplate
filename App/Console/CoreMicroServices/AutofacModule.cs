@@ -6,6 +6,7 @@ using BaseDLL.Helper.Asset;
 using BaseDLL.Helper.Captcha;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
+using DBAccessCoreDLL.Accesser.Asset;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -56,6 +57,7 @@ namespace CoreMicroServices
                 builder.RegisterType<AccountAccesser>().As<IAccountAccesser>().InstancePerLifetimeScope();
                 builder.RegisterType<RoleAccesser>().As<IRoleAccesser>().InstancePerLifetimeScope();
                 builder.RegisterType<RoutePageAccesser>().As<IRoutePageAccesser>().InstancePerLifetimeScope();
+                builder.RegisterType<AppInfoAccesser>().As<IAppInfoAccesser>().InstancePerLifetimeScope();
 
                 #endregion
 

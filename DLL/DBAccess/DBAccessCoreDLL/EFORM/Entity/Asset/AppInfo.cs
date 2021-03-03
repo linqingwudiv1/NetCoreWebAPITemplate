@@ -48,7 +48,18 @@ namespace DBAccessCoreDLL.Entity.Asset
         /// 
         /// </summary>
         [Required]
-        public string url { get; set; }
+        public string Url { get; set; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool bEnable { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool bBeta { get; set; }
 
     }
 
@@ -65,7 +76,10 @@ namespace DBAccessCoreDLL.Entity.Asset
         {
             var tableBuilder = builder.ToTable("AppInfo");
             tableBuilder.HasIndex( x => new { x.AppName, x.AppVersion } ).IsUnique(true);
-
+            tableBuilder.Property(x => x.bBeta).HasDefaultValue( false );
+            tableBuilder.Property(x => x.bEnable).HasDefaultValue( true  );
+            tableBuilder.Property(x => x.bLatest).HasDefaultValue( false );
+            tableBuilder.Property(x => x.bForceUpdate).HasDefaultValue(true);
             builder.SetupBaseEntity();
         }
     }

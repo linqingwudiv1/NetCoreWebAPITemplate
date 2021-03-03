@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using AutoMapper;
 using BaseDLL;
+using BaseDLL.Helper.Asset;
 using BaseDLL.Helper.Captcha;
 using BusinessAdminDLL.Accounts;
 using BusinessAdminDLL.Asset;
@@ -40,10 +41,20 @@ namespace BusinessAdminDLL.AutofacModule
 
 
                 builder.RegisterInstance<RedisCaptchaHelper>(new RedisCaptchaHelper(new List<string>
-            {
-                GVariable.configuration["RedisCaptchaContainer:Passport"]
-            },
+                {
+                    GVariable.configuration["RedisCaptchaContainer:Passport"]
+                },
                     GVariable.configuration["RedisCaptchaContainer:Password"])).As<ICaptchaHelper>().SingleInstance();
+
+                builder.RegisterInstance<IAssetHelper>(
+                new COSAssetHelper
+                (
+                    GVariable.configuration["COS:AppId"],
+                    GVariable.configuration["COS:SecretId"],
+                    GVariable.configuration["COS:SecretKey"],
+                    GVariable.configuration["COS:Region"])
+                ).As<IAssetHelper>().SingleInstance();
+
 
                 #region Biz
 

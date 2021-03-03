@@ -69,5 +69,7 @@ namespace BaseDLL.Helper.Asset
         /// <param name="url"></param>
         /// <returns></returns>
         string ConvertToKey(string url);
+
+        bool hasKey(string bucket, string key);
     }
 }

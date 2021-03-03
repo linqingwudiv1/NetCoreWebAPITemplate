@@ -18,7 +18,8 @@ namespace DBAccessCoreDLL.Accesser.Asset
         /// <summary>
         /// 
         /// </summary>
-        private CoreContextDIP db { get;  set; }
+        CoreContextDIP IAppInfoAccesser.db { get => db; set => db = value; }
+        private CoreContextDIP db;
 
         /// <summary>
         /// 
@@ -123,9 +124,21 @@ namespace DBAccessCoreDLL.Accesser.Asset
             return this.db.SaveChanges();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="appName"></param>
+        /// <returns></returns>
         public IQueryable<AppInfo> GetByAppName(string appName)
         {
-            return (from x in this.db.AppInfos where x.AppName == appName select x);
+            var query = (from x in this.db.AppInfos select x);
+
+            if (!string.IsNullOrWhiteSpace(appName)) 
+            {
+                query = query.Where(x => x.AppName == appName);
+            }
+
+            return query;
         }
     }
 }

@@ -23,5 +23,19 @@ namespace BusinessAdminDLL.Asset
         /// <param name="id"></param>
         /// <returns></returns>
         Task RemoveAppInfo(long id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="appinfo"></param>
+        /// <returns></returns>
+        Task<long> AddAppInfo(DTOAPI_AppInfo appinfo);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="appinfo"></param>
+        /// <returns></returns>
+        Task UpdateAppInfo(DTOAPI_AppInfo appinfo);
     }
 }

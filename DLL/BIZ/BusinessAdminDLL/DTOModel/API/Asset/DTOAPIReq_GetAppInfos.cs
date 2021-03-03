@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace BusinessAdminDLL.DTOModel.API.Asset
@@ -13,5 +14,6 @@ namespace BusinessAdminDLL.DTOModel.API.Asset
         /// 
         /// </summary>
         public string appName { get; set; }
+
     }
 }

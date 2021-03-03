@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text;
 
-namespace BusinessAdminDLL.DTOModel.API.Asset
+namespace AdminServices.Command.Asset
 {
     /// <summary>
     /// 
     /// </summary>
-    public class DTOAPI_AppInfo
+    public class AddAppInfoCommand
     {
         /// <summary>
         /// 
@@ -33,26 +32,21 @@ namespace BusinessAdminDLL.DTOModel.API.Asset
         /// <summary>
         /// 
         /// </summary>
-        [DefaultValue(true)]
         public bool bLatest { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [DefaultValue(true)]
         public bool bEnable { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [DefaultValue(false)]
         public bool bBeta { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [DefaultValue(true)]
         public bool bForceUpdate { get; set; }
-
     }
 }

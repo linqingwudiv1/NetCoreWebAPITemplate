@@ -19,6 +19,11 @@
             
             </summary>
         </member>
+        <member name="P:BusinessAdminDLL.Accounts.AccountBizServices.AssetHelper">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:BusinessAdminDLL.Accounts.AccountBizServices.mapper">
             <summary>
             
@@ -27,7 +32,7 @@
         <member name="F:BusinessAdminDLL.Accounts.AccountBizServices.captchaHelper">
             
         </member>
-        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IAccountAccesser,AutoMapper.IMapper,MassTransit.IPublishEndpoint,BaseDLL.Helper.Captcha.ICaptchaHelper)">
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IAccountAccesser,AutoMapper.IMapper,MassTransit.IPublishEndpoint,BaseDLL.Helper.Captcha.ICaptchaHelper,BaseDLL.Helper.Asset.IAssetHelper)">
             <summary>
             
             </summary>
@@ -36,6 +41,7 @@
             <param name="_mapper"></param>
             <param name="_publishEndpoint"></param>
             <param name="_captchaHelper"></param>
+            <param name="_AssetHelper"></param>
         </member>
         <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.GetUsers(BaseDLL.DTO.DTO_PageableQueryModel{DBAccessCoreDLL.DTO.API.Users.DTO_GetUsers})">
             <summary>
@@ -63,6 +69,12 @@
             
             </summary>
             <param name="userid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.GetCOSToken">
+            <summary>
+            
+            </summary>
             <returns></returns>
         </member>
         <member name="T:BusinessAdminDLL.Accounts.AccountLoginBizServices">
@@ -317,10 +329,17 @@
             
             </summary>
         </member>
-        <member name="M:BusinessAdminDLL.Asset.AppInfoBizServices.#ctor(MassTransit.IPublishEndpoint,DBAccessCoreDLL.Accesser.IAppInfoAccesser,AutoMapper.IMapper)">
+        <member name="M:BusinessAdminDLL.Asset.AppInfoBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,MassTransit.IPublishEndpoint,DBAccessCoreDLL.Accesser.IAppInfoAccesser,BaseDLL.Helper.Asset.IAssetHelper,AutoMapper.IMapper)">
             <summary>
             
             </summary>
+        </member>
+        <member name="M:BusinessAdminDLL.Asset.AppInfoBizServices.AddAppInfo(BusinessAdminDLL.DTOModel.API.Asset.DTOAPI_AppInfo)">
+            <summary>
+            
+            </summary>
+            <param name="appinfo"></param>
+            <returns></returns>
         </member>
         <member name="M:BusinessAdminDLL.Asset.AppInfoBizServices.getAppInfos(BaseDLL.DTO.DTO_PageableQueryModel{BusinessAdminDLL.DTOModel.API.Asset.DTOAPIReq_GetAppInfos})">
             <summary>
@@ -334,6 +353,13 @@
             
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Asset.AppInfoBizServices.UpdateAppInfo(BusinessAdminDLL.DTOModel.API.Asset.DTOAPI_AppInfo)">
+            <summary>
+            
+            </summary>
+            <param name="appinfo"></param>
             <returns></returns>
         </member>
         <member name="T:BusinessAdminDLL.Asset.IAppInfoBizServices">
@@ -352,6 +378,20 @@
             
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Asset.IAppInfoBizServices.AddAppInfo(BusinessAdminDLL.DTOModel.API.Asset.DTOAPI_AppInfo)">
+            <summary>
+            
+            </summary>
+            <param name="appinfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Asset.IAppInfoBizServices.UpdateAppInfo(BusinessAdminDLL.DTOModel.API.Asset.DTOAPI_AppInfo)">
+            <summary>
+            
+            </summary>
+            <param name="appinfo"></param>
             <returns></returns>
         </member>
         <member name="T:BusinessAdminDLL.AutofacModule.AdminAutofacModule">
@@ -426,7 +466,22 @@
             
             </summary>
         </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Asset.DTOAPI_AppInfo.url">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:BusinessAdminDLL.DTOModel.API.Asset.DTOAPI_AppInfo.bLatest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Asset.DTOAPI_AppInfo.bEnable">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Asset.DTOAPI_AppInfo.bBeta">
             <summary>
             
             </summary>

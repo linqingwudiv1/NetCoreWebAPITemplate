@@ -94,5 +94,6 @@ namespace BusinessAdminDLL.Accounts
         /// <param name="info"></param>
         /// <returns></returns>
         Task UpdateUsersRole(DTOAPIReq_UpdateUsersRole info);
+        Task<dynamic> GetCOSToken();
     }
 }

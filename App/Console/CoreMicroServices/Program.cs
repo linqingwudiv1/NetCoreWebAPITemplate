@@ -1,4 +1,5 @@
 ﻿using AdminServices.Event.Account;
+using AdminServices.Event.Asset;
 using AdminServices.Event.Captcha;
 using AdminServices.Event.PageRoute;
 using AdminServices.Event.Role;
@@ -96,6 +97,11 @@ namespace CoreMicroServices
                               {
                                   r.Immediate(5);
                                   //r.Immediate(5); //Incremental
+                              }));
+
+                              x.AddConsumer<AppInfoDomainEvent>(c => c.UseMessageRetry(r =>
+                              {
+                                  r.Immediate(5); //Incremental
                               }));
 
                               #endregion

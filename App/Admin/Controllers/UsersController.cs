@@ -249,5 +249,25 @@ namespace WebAdminService.Controllers
                 return JsonToCamelCase(ex.Message, 50000, 50000);
             }
         }
+
+        /// <summary>
+        /// 获取COS 临时Token,有效期1800 second
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("[action]")]
+        [Authorize]
+        public async Task<IActionResult> GetCOSToken()
+        {
+            try
+            {
+                dynamic data = await this.services.GetCOSToken();
+                return JsonToCamelCase(data);
+            }
+            catch (Exception ex)
+            {
+                return JsonToCamelCase(ex.Message, 50000, 50000);
+            }
+        }
+
     }
 }

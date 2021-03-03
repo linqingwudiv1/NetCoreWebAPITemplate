@@ -139,8 +139,16 @@ namespace BaseDLL.Helper.Asset
         /// <returns></returns>
         public string ConvertToKey(string url)
         {
-            var uri = new Uri(url);
-            return uri.AbsolutePath;
+            try
+            {
+
+                var uri = new Uri(url);
+                return uri.AbsolutePath;
+            }
+            catch (Exception) 
+            {
+                return "";
+            }
         }
 
         /// <summary>
@@ -149,7 +157,7 @@ namespace BaseDLL.Helper.Asset
         /// <param name="bucket"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public async bool Delete(string bucket, string key)
+        public bool Delete(string bucket, string key)
         {
             try
             {
@@ -253,6 +261,11 @@ namespace BaseDLL.Helper.Asset
             //throw new NotImplementedException();
         }
 
+        public bool hasKey(string bucket, string key)
+        {
+            throw new NotImplementedException();
+        }
+
 
 
         /// <summary>
@@ -266,10 +279,11 @@ namespace BaseDLL.Helper.Asset
             try
             {
                 PutObjectRequest request = new PutObjectRequest(bucket, key, assetPath);
-                //执行请求
+                // 执行请求
                 PutObjectResult result = cosXml.PutObject(request);
-                //对象的 eTag
+                // 对象的 eTag
                 string eTag = result.eTag;
+                //
                 return true;
             }
             catch (COSXML.CosException.CosClientException clientEx)

@@ -1,6 +1,8 @@
 ﻿using AdminServices.Command.Account;
 using AutoMapper;
+using BaseDLL;
 using BaseDLL.DTO;
+using BaseDLL.Helper.Asset;
 using BaseDLL.Helper.Captcha;
 using BusinessAdminDLL.Base;
 using BusinessAdminDLL.DTOModel.API.Roles;
@@ -35,6 +37,10 @@ namespace BusinessAdminDLL.Accounts
         /// </summary>
         protected IIDGenerator IDGenerator { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        protected IAssetHelper AssetHelper { get; set; }
 
         /// <summary>
         /// 
@@ -54,11 +60,13 @@ namespace BusinessAdminDLL.Accounts
         /// <param name="_mapper"></param>
         /// <param name="_publishEndpoint"></param>
         /// <param name="_captchaHelper"></param>
-        public AccountBizServices(  IIDGenerator _IDGenerator, 
-                                    IAccountAccesser AccountAccesser, 
-                                    IMapper _mapper, 
-                                    IPublishEndpoint _publishEndpoint, 
-                                    ICaptchaHelper _captchaHelper )
+        /// <param name="_AssetHelper"></param>
+        public AccountBizServices(  IIDGenerator        _IDGenerator, 
+                                    IAccountAccesser    AccountAccesser, 
+                                    IMapper             _mapper, 
+                                    IPublishEndpoint    _publishEndpoint, 
+                                    ICaptchaHelper      _captchaHelper,
+                                    IAssetHelper        _AssetHelper   )
             : base()
         {
             this.accesser = AccountAccesser;
@@ -66,6 +74,7 @@ namespace BusinessAdminDLL.Accounts
             this.mapper = _mapper;
             this.publishEndpoint = _publishEndpoint;
             this.captchaHelper = _captchaHelper;
+            this.AssetHelper = _AssetHelper;
         }
 
 
@@ -159,5 +168,13 @@ namespace BusinessAdminDLL.Accounts
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<dynamic> GetCOSToken()
+        {
+            return AssetHelper.GetTempToken(GAssetVariable.Bucket);
+        }
     }
 }
