@@ -23,7 +23,7 @@ namespace WebAdminService.Controllers.Asset
         /// 
         /// </summary>
         public readonly IAppInfoBizServices services;
-
+        
         /// <summary>
         /// 
         /// </summary>

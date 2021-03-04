@@ -131,7 +131,7 @@ namespace DBAccessCoreDLL.Accesser.Asset
         /// <returns></returns>
         public IQueryable<AppInfo> GetByAppName(string appName)
         {
-            var query = (from x in this.db.AppInfos select x);
+            var query = (from x in this.db.AppInfos  select x );
 
             if (!string.IsNullOrWhiteSpace(appName)) 
             {

@@ -95,7 +95,7 @@ namespace BusinessAdminDLL.Asset
             DTO_PageableModel<DTOAPI_AppInfo> dto_model = new DTO_PageableModel<DTOAPI_AppInfo>();
 
             IQueryable<AppInfo> query = accesser.GetByAppName(info.data.appName);
-            dto_model.data = query.QueryPages(info.pageSize, info.pageNum).Select( x => mapper.Map <AppInfo, DTOAPI_AppInfo>( x )   ).ToArray();
+            dto_model.data = query.OrderByDescending(x => x.Id).QueryPages(info.pageSize, info.pageNum).Select( x => mapper.Map <AppInfo, DTOAPI_AppInfo>( x )   ).ToArray();
             dto_model.total = query.LongCount();
             dto_model.pageNum = info.pageNum;
 
@@ -132,9 +132,19 @@ namespace BusinessAdminDLL.Asset
         {
             var _appInfo = this.accesser.Get(appinfo.id);
 
+
             if (_appInfo == null)
             {
                 throw new Exception("不存在");
+            }
+
+            if (_appInfo.AppVersion != appinfo.appVersion)
+            {
+                _appInfo = this.accesser.db.AppInfos.Where(x => x.AppName == appinfo.appName && x.AppVersion == appinfo.appVersion).FirstOrDefault();
+                if (_appInfo != null) 
+                {
+                    throw new Exception("版本号已存在");
+                }
             }
 
             await this.publishEndpoint.Publish( new UpdateAppInfoCommand

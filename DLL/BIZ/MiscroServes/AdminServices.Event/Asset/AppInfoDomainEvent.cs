@@ -54,6 +54,7 @@ namespace AdminServices.Event.Asset
 
             //
             string key = assetHelper.ConvertToKey(appInfo.Url);
+
             //
             assetHelper.Delete(GAssetVariable.Bucket, key);
             this.accesser.Delete(appInfo.Id);
@@ -81,8 +82,8 @@ namespace AdminServices.Event.Asset
                                 x.bLatest == true &&
                                 x.Id != msg.id 
                              select 
-                                x).ToList();
-                
+                                x   ).ToList();
+
                 foreach (var item in apps) 
                 {
                     item.bLatest = false;
