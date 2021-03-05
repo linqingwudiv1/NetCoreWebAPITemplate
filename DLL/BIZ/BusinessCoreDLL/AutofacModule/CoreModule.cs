@@ -4,10 +4,12 @@ using BaseDLL;
 using BaseDLL.Helper.Asset;
 using BaseDLL.Helper.Captcha;
 using BusinessCoreDLL.Accounts;
+using BusinessCoreDLL.Asset;
 using BusinessCoreDLL.AutoMapper;
 using BusinessCoreDLL.Blogs;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
+using DBAccessCoreDLL.Accesser.Asset;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,7 +36,6 @@ namespace BusinessCoreDLL.AutofacModule
             },
     GVariable.configuration["RedisIDGenerator:Password"])).As<IIDGenerator>().SingleInstance();
 
-
                 builder.RegisterInstance<RedisCaptchaHelper>(new RedisCaptchaHelper(new List<string>
                 {
                     GVariable.configuration["RedisCaptchaContainer:Passport"]
@@ -58,14 +59,16 @@ namespace BusinessCoreDLL.AutofacModule
                 builder.RegisterType<AccountLoginBizServices>()     .As<IAccountLoginBizServices>()     .InstancePerLifetimeScope();
                 builder.RegisterType<AccountFotgotPwdBizServices>() .As<IAccountFotgotPwdBizServices>() .InstancePerLifetimeScope();
                 builder.RegisterType<AccountRegisterBizServices>()  .As<IAccountRegisterBizServices>()  .InstancePerLifetimeScope();
-
-                builder.RegisterType<BlogsBizServices>().As<IBlogsBizServices>().InstancePerLifetimeScope();
+                
+                builder.RegisterType<AppInfoBizServices>()  .As<IAppInfoBizServices>().InstancePerLifetimeScope();
+                builder.RegisterType<BlogsBizServices>()    .As<IBlogsBizServices>().InstancePerLifetimeScope();
 
                 #endregion
 
                 #region DB 访问器
 
                 builder.RegisterType<AccountAccesser>().As<IAccountAccesser>().InstancePerLifetimeScope();
+                builder.RegisterType<AppInfoAccesser>().As<IAppInfoAccesser>().InstancePerLifetimeScope();
 
                 #endregion
 

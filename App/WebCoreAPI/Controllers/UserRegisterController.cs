@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace WebCoreService.Controllers
 {
     /// <summary>
-    /// 
+    /// 用户注册
     /// </summary>
     [Route("api/Users")]
     [EnableCors("WebAPIPolicy")]

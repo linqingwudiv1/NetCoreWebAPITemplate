@@ -7,7 +7,7 @@ namespace DBAccessCoreDLL.EFORM.DesignTime
     /// <summary>
     /// 数据库迁移 代理映射
     /// </summary>
-    public class DesignTimeExamContextFactory : IDesignTimeDbContextFactory<CoreContext>
+    public class DesignTimeCoreContextFactory : IDesignTimeDbContextFactory<CoreContext>
     {
         /// <summary>
         /// 
@@ -16,7 +16,7 @@ namespace DBAccessCoreDLL.EFORM.DesignTime
         /// <returns></returns>
         public CoreContext CreateDbContext(string[] args)
         {
-            string connectionString = "Username=postgres;Password=1qaz@WSX;Host=127.0.0.1;Port=5432;Database=QCoreDB;";
+            string connectionString = "Username=postgres;Password=1qaz@WSX;Host=192.168.1.172;Port=5432;Database=QCoreDB;";
             DbContextOptionsBuilder<CoreContext> builder = new DbContextOptionsBuilder<CoreContext>();
 
             //builder.UseSqlite(connectionString);

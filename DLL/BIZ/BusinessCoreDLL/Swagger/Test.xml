@@ -436,6 +436,38 @@
             </summary>
             <param name="builder"></param>
         </member>
+        <member name="T:BusinessCoreDLL.Asset.AppInfoBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessCoreDLL.Asset.AppInfoBizServices.accesser">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessCoreDLL.Asset.AppInfoBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,MassTransit.IPublishEndpoint,DBAccessCoreDLL.Accesser.IAppInfoAccesser,BaseDLL.Helper.Asset.IAssetHelper,AutoMapper.IMapper)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessCoreDLL.Asset.AppInfoBizServices.GetLatest(System.String)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:BusinessCoreDLL.Asset.IAppInfoBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessCoreDLL.Asset.IAppInfoBizServices.GetLatest(System.String)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:BusinessCoreDLL.AutofacModule.CoreModule">
             <summary>
             

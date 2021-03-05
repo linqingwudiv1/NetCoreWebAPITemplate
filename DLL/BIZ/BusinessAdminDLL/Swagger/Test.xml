@@ -491,6 +491,16 @@
             
             </summary>
         </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Asset.DTOAPI_AppInfo.createTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Asset.DTOAPI_AppInfo.updateTime">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:BusinessAdminDLL.DTOModel.API.PageRouteRole.DTOAPI_PageRouteRole">
             <summary>
             

@@ -39,6 +39,7 @@ namespace WebAdminService.Controllers.Asset
         /// <param name="info"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
+        [Authorize]
         public async Task<IActionResult> GetAppInfos([FromBody] DTO_PageableQueryModel<DTOAPIReq_GetAppInfos> info) 
         {
             try
@@ -58,6 +59,7 @@ namespace WebAdminService.Controllers.Asset
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> RemoveAppInfo(long id)
         {
             try
@@ -78,6 +80,7 @@ namespace WebAdminService.Controllers.Asset
         /// <param name="appinfo"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddAppInfo([FromBody] DTOAPI_AppInfo appinfo)
         {
             try
@@ -98,6 +101,7 @@ namespace WebAdminService.Controllers.Asset
         /// <param name="appinfo"></param>
         /// <returns></returns>
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> UpdateAppInfo([FromBody] DTOAPI_AppInfo appinfo) 
         {
             try

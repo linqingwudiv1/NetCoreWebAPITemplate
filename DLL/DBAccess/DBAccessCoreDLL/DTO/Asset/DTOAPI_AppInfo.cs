@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace BusinessAdminDLL.DTOModel.API.Asset
+namespace DBAccessCoreDLL.DTOModel.API.Asset
 {
     /// <summary>
     /// 
     /// </summary>
-    public class DTOAPI_AppInfo
+    public class DTO_AppInfo
     {
         /// <summary>
         /// 
@@ -58,11 +58,10 @@ namespace BusinessAdminDLL.DTOModel.API.Asset
         /// 
         /// </summary>
         public DateTime createTime { get; set; }
-
+        
         /// <summary>
         /// 
         /// </summary>
         public DateTime updateTime { get; set; }
-
     }
 }

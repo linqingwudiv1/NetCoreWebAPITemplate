@@ -6,6 +6,7 @@ using BusinessAdminDLL.DTOModel.API.Asset;
 using BusinessAdminDLL.DTOModel.API.Roles;
 using BusinessAdminDLL.DTOModel.API.Routes;
 using BusinessAdminDLL.DTOModel.API.Users;
+using DBAccessCoreDLL.DTOModel.API.Asset;
 using DBAccessCoreDLL.EFORM.Entity;
 using DBAccessCoreDLL.Entity.Asset;
 using System;
@@ -91,7 +92,12 @@ namespace BusinessAdminDLL.AutoMapper
 
             #region Asset
 
-            CreateMap<AppInfo, DTOAPI_AppInfo>().ReverseMap();
+            CreateMap<AppInfo, DTOAPI_AppInfo>()
+                .ForMember(opt => opt.createTime, opt => opt.MapFrom(p => p.Q_CreateTime) )
+                .ForMember(opt => opt.updateTime, opt => opt.MapFrom(p => p.Q_UpdateTime) )
+                .ReverseMap();
+
+            CreateMap<DTOAPI_AppInfo, DTO_AppInfo>().ReverseMap();
 
             #endregion
         }
