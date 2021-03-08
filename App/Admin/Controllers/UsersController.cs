@@ -142,7 +142,6 @@ namespace WebAdminService.Controllers
             {
                 return OkEx(ex.Message, 50000,50000, ex.Message);
             }
-
         }
 
         /// <summary>
@@ -236,7 +235,8 @@ namespace WebAdminService.Controllers
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        [HttpPost("[action]")]
+        [HttpPut("[action]")]
+        [Authorize]
         public async Task<IActionResult> UpdateUsersRole([FromBody] DTOAPIReq_UpdateUsersRole info) 
         {
             try

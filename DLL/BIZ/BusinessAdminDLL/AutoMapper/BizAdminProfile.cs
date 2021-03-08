@@ -37,7 +37,7 @@ namespace BusinessAdminDLL.AutoMapper
             #region Role
             
             CreateMap<Role, DTOAPI_Role>().ForMember(opt => opt.key, opt => opt.MapFrom(p => p.Id))
-                                          .ForMember(opt => opt.name, opt => opt.MapFrom(p => p.DisplayName))
+                                          .ForMember(opt => opt.name, opt => opt.MapFrom(p => p.RoleName))
                                           .ForMember(opt => opt.routes, opt => opt.Ignore() )
                                           .ReverseMap();
 
@@ -79,13 +79,16 @@ namespace BusinessAdminDLL.AutoMapper
                                                            .ForMember(opt => opt.NoCache, opt => opt.MapFrom(p => p.meta.noCache))
                                                            .ForMember(opt => opt.Title , opt => opt.MapFrom(p => p.meta.title ?? "")); 
 
+
             #endregion
 
             #region Account
 
-            CreateMap<Account, DTOAPIRes_UserInfo>().ForMember(opt => opt.phone, opt => opt.MapFrom(p => string.IsNullOrEmpty(p.PhoneAreaCode) ? p.PhoneAreaCode + "-" + p.Phone : ""))
+            CreateMap<Account, DTOAPIRes_UserInfo>().ForMember(opt => opt.phone, opt => opt.MapFrom(p => !string.IsNullOrEmpty(p.PhoneAreaCode) ? p.PhoneAreaCode + "-" + p.Phone : ""))
                                                     .ForMember(opt => opt.name, opt => opt.MapFrom(p => p.DisplayName))
                                                     .ForMember(opt => opt.roles, opt => opt.Ignore())
+                                                    .ForMember(opt => opt.createTime, opt => opt.MapFrom( p => p.Q_CreateTime ) )
+                                                    .ForMember(opt => opt.createTime, opt => opt.MapFrom(p => p.Q_UpdateTime ) )
                                                     .ReverseMap();
             #endregion
 

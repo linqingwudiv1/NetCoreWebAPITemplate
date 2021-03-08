@@ -846,6 +846,21 @@
             
             </summary>
         </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_UserInfo.accountState">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_UserInfo.createTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_UserInfo.updateTime">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:BusinessAdminDLL.DTOModel.API.Users.DTOAPIRes_UserInfo.roles">
             <summary>
             

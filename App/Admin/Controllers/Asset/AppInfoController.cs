@@ -23,12 +23,12 @@ namespace WebAdminService.Controllers.Asset
         /// 
         /// </summary>
         public readonly IAppInfoBizServices services;
-        
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="_services"></param>
-        public AppInfoController( IAppInfoBizServices _services) 
+        public AppInfoController(IAppInfoBizServices _services)
         {
             services = _services;
         }
@@ -40,19 +40,18 @@ namespace WebAdminService.Controllers.Asset
         /// <returns></returns>
         [HttpPost("[action]")]
         [Authorize]
-        public async Task<IActionResult> GetAppInfos([FromBody] DTO_PageableQueryModel<DTOAPIReq_GetAppInfos> info) 
+        public async Task<IActionResult> GetAppInfos([FromBody] DTO_PageableQueryModel<DTOAPIReq_GetAppInfos> info)
         {
             try
             {
                 var data = await this.services.getAppInfos(info);
                 return JsonToCamelCase(data);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return JsonToCamelCase(ex.Message, 50000, 50000, ex.Message);
             }
         }
-
         /// <summary>
         /// 
         /// </summary>

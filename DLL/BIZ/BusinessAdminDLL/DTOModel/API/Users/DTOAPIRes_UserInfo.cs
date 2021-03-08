@@ -24,7 +24,7 @@ namespace BusinessAdminDLL.DTOModel.API.Users
         /// 
         /// </summary>
         public string username { get; set; }
-        
+
 
         /// <summary>
         /// 
@@ -46,6 +46,20 @@ namespace BusinessAdminDLL.DTOModel.API.Users
         /// </summary>
         public string introduction { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public int accountState { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime createTime { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime updateTime { get; set; }
         /// <summary>
         /// 
         /// </summary>

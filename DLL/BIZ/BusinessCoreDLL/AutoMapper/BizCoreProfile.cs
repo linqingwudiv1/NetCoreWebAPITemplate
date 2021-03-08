@@ -23,7 +23,7 @@ namespace BusinessCoreDLL.AutoMapper
             //
             //
             //
-
+             
             #region
             
             #endregion
@@ -40,7 +40,7 @@ namespace BusinessCoreDLL.AutoMapper
             CreateMap<AppInfo, DTO_AppInfo>().ForMember(opt => opt.createTime, opt => opt.MapFrom(p => p.Q_CreateTime))
                                              .ForMember(opt => opt.updateTime, opt => opt.MapFrom(p => p.Q_UpdateTime))
                                              .ReverseMap();
-            
+
             #endregion
         }
     }

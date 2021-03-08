@@ -132,7 +132,7 @@ namespace DBAccessCoreDLL.Accesser
 
                 if ( model.data.bPassport ) 
                 {
-                    predicate = predicate.Or(x => x.Passport != null && x.Passport.Contains(model.data.searchWord, StringComparison.CurrentCultureIgnoreCase));
+                    predicate = predicate.Or(x => x.Passport != null && x.Passport.Contains(model.data.searchWord));
                 }
 
                 if (model.data.bUserName) 
@@ -142,7 +142,7 @@ namespace DBAccessCoreDLL.Accesser
 
                 if (model.data.bEmail) 
                 {
-                    predicate = predicate.Or(x => x.Email != null && x.Email.Contains(model.data.searchWord, StringComparison.CurrentCultureIgnoreCase));
+                    predicate = predicate.Or(x => x.Email != null && x.Email.Contains(model.data.searchWord));
                 }
 
                 if ( model.data.bPhone ) 
