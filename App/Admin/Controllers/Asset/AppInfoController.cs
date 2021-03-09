@@ -106,7 +106,6 @@ namespace WebAdminService.Controllers.Asset
             try
             {
                 await this.services.UpdateAppInfo(appinfo);
-
                 return JsonToCamelCase(new { success = true });
             }
             catch (Exception ex)

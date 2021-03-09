@@ -60,6 +60,7 @@ namespace BusinessAdminDLL.DTOModel.API.Users
         /// 
         /// </summary>
         public DateTime updateTime { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

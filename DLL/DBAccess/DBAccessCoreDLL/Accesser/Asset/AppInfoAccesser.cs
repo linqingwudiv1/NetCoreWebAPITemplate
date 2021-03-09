@@ -53,7 +53,7 @@ namespace DBAccessCoreDLL.Accesser.Asset
         /// <returns></returns>
         public IList<AppInfo> Get(IList<long> keys)
         {
-            return (from x in db.AppInfos where keys.Contains( x.Id) select x).ToList();
+            return (from x in db.AppInfos where keys.Contains( x.Id ) select x ).ToList();
         }
 
         /// <summary>
