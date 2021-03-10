@@ -100,7 +100,10 @@ namespace BusinessAdminDLL.AutoMapper
                 .ForMember(opt => opt.updateTime, opt => opt.MapFrom(p => p.Q_UpdateTime) )
                 .ReverseMap();
 
-            CreateMap<DTOAPI_AppInfo, DTO_AppInfo>().ReverseMap();
+            CreateMap<DTOAPI_AppInfo, DTO_AppInfo>()
+                // .ForMember(opt => opt.createTime, opt => opt.Ignore() )
+                //.ForMember (opt => opt.updateTime, opt => opt.Ignore() )
+                .ReverseMap();
 
             #endregion
         }

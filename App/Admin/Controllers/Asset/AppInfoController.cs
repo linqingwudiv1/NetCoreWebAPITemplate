@@ -113,5 +113,19 @@ namespace WebAdminService.Controllers.Asset
                 return JsonToCamelCase(ex.Message, 50000, 50000, ex.Message);
             }
         }
+
+        [HttpDelete("DeleteDocAsset")]
+        [Authorize]
+        public async Task<IActionResult> DeleteDocAsset(string key) 
+        {
+            try
+            {
+                return JsonToCamelCase(new { success = true });
+            }
+            catch (Exception ex) 
+            {
+                return JsonToCamelCase(ex.Message, 50000, 50000, ex.Message);
+            }
+        }
     }
 }
