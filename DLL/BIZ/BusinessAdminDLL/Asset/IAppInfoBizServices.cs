@@ -37,5 +37,12 @@ namespace BusinessAdminDLL.Asset
         /// <param name="appinfo"></param>
         /// <returns></returns>
         Task UpdateAppInfo(DTOAPI_AppInfo appinfo);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="coskey"></param>
+        /// <returns></returns>
+        Task DeleteDocAsset(string coskey);
     }
 }

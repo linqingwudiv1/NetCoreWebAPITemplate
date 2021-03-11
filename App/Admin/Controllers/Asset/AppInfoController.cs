@@ -114,12 +114,18 @@ namespace WebAdminService.Controllers.Asset
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         [HttpDelete("DeleteDocAsset")]
         [Authorize]
         public async Task<IActionResult> DeleteDocAsset(string key) 
         {
             try
             {
+                await this.services.DeleteDocAsset(coskey: key);
                 return JsonToCamelCase(new { success = true });
             }
             catch (Exception ex) 

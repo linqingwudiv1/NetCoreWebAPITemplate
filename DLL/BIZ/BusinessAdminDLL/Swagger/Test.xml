@@ -341,6 +341,13 @@
             <param name="appinfo"></param>
             <returns></returns>
         </member>
+        <member name="M:BusinessAdminDLL.Asset.AppInfoBizServices.DeleteDocAsset(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="coskey"></param>
+            <returns></returns>
+        </member>
         <member name="M:BusinessAdminDLL.Asset.AppInfoBizServices.getAppInfos(BaseDLL.DTO.DTO_PageableQueryModel{BusinessAdminDLL.DTOModel.API.Asset.DTOAPIReq_GetAppInfos})">
             <summary>
             
@@ -392,6 +399,13 @@
             
             </summary>
             <param name="appinfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BusinessAdminDLL.Asset.IAppInfoBizServices.DeleteDocAsset(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="coskey"></param>
             <returns></returns>
         </member>
         <member name="T:BusinessAdminDLL.AutofacModule.AdminAutofacModule">

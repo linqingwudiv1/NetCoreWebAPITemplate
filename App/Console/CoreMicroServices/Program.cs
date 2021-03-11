@@ -104,6 +104,11 @@ namespace CoreMicroServices
                                   r.Immediate(5); //Incremental
                               }));
 
+                              x.AddConsumer<AssetDomainEvent>(c => c.UseMessageRetry(r =>
+                              {
+                                  r.Immediate(5); //Incremental
+                              }));
+
                               #endregion
 
 

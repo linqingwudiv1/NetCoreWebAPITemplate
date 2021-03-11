@@ -88,6 +88,24 @@ namespace BusinessAdminDLL.Asset
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="coskey"></param>
+        /// <returns></returns>
+        public async Task DeleteDocAsset(string coskey)
+        {
+            if (coskey == null || !coskey.Contains("doc/")) 
+            {
+                throw new Exception("无效key");
+            }
+
+            await this.publishEndpoint.Publish(new DeleteAssetCommand 
+            {
+                coskey = coskey
+            });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
         public async Task<DTO_PageableModel<DTOAPI_AppInfo>> getAppInfos(DTO_PageableQueryModel<DTOAPIReq_GetAppInfos> info)
@@ -96,6 +114,7 @@ namespace BusinessAdminDLL.Asset
 
             IQueryable<AppInfo> query = accesser.GetByAppName(info.data.appName);
             dto_model.data = query.OrderByDescending(x => x.Id).QueryPages(info.pageSize, info.pageNum).Select( x => mapper.Map <AppInfo, DTOAPI_AppInfo>( x )   ).ToArray();
+            
             dto_model.total = query.LongCount();
             dto_model.pageNum = info.pageNum;
 
