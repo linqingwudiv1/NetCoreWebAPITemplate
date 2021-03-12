@@ -45,6 +45,5 @@ namespace AdminServices.Event.Asset
             string coskey = context.Message.coskey;
             this.assetHelper.Delete(GAssetVariable.Bucket, coskey);
         }
-
     }
 }
