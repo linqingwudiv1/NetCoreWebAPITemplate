@@ -36,7 +36,6 @@ namespace WebCoreService.Controllers
         /// 
         /// </summary>
         /// <param name="_Services"></param>
-        /// <param name="_routeServices"></param>
         public UsersController(IAccountsBizServices _Services)
         {
             services = _Services;
@@ -53,7 +52,7 @@ namespace WebCoreService.Controllers
             try
             {
                 long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
-                return JsonToCamelCase(await this.services.GetInfo(userid));
+                return JsonToCamelCase(await this.services.GetInfo(userid)).ConfigureAwait(false);
 
             }
             catch (Exception ex)
@@ -70,7 +69,7 @@ namespace WebCoreService.Controllers
             try
             {
                 long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
-                await this.services.ChangeNickName(userid, info);
+                await this.services.ChangeNickName(userid, info).ConfigureAwait(false);
                 return JsonToCamelCase(new { success = true });
 
             }
@@ -92,7 +91,7 @@ namespace WebCoreService.Controllers
             try
             {
                 long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
-                await this.services.ChangeIntroduction(userid, info);
+                await this.services.ChangeIntroduction(userid, info).ConfigureAwait(false);
                 return JsonToCamelCase(new { success = true });
 
             }
@@ -110,7 +109,7 @@ namespace WebCoreService.Controllers
             {
                 long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
 
-                await this.services.ChangeAvatar(userid, info);
+                await this.services.ChangeAvatar(userid, info).ConfigureAwait(false);
                 return JsonToCamelCase(new { success = true });
             }
             catch (Exception ex) 
@@ -129,7 +128,7 @@ namespace WebCoreService.Controllers
         {
             try
             {
-                dynamic data = await this.services.GetCOSToken();
+                dynamic data = await this.services.GetCOSToken().ConfigureAwait(false);
                 return JsonToCamelCase(data);
             }
             catch (Exception ex) 

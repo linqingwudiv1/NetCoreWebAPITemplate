@@ -36,7 +36,7 @@ namespace WebCoreService.Controllers.Asset
         {
             try
             {
-                var data = await this.services.GetLatest(appName);
+                var data = await this.services.GetLatest(appName).ConfigureAwait(false);
                 return JsonToCamelCase(data);
                 // this.services.
             }

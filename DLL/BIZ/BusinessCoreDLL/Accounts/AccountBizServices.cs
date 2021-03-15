@@ -57,7 +57,7 @@ namespace BusinessCoreDLL.Accounts
         /// <param name="_mapper"></param>
         /// <param name="_publishEndpoint"></param>
         /// <param name="_captchaHelper"></param>
-        public AccountBizServices(  IIDGenerator _IDGenerator, 
+        public AccountBizServices(  IIDGenerator _IDGenerator,
                                     IAccountAccesser AccountAccesser, 
                                     IMapper _mapper, 
                                     IPublishEndpoint _publishEndpoint, 

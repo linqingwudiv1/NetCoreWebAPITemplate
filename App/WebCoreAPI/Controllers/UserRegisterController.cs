@@ -41,7 +41,7 @@ namespace WebCoreService.Controllers
         {
             try
             {
-                var data = await this.services.RegisterPassport(registerInfo);
+                var data = await this.services.RegisterPassport(registerInfo).ConfigureAwait(false);
                 return OkEx(data);
             }
             catch (Exception ex) 
@@ -61,7 +61,7 @@ namespace WebCoreService.Controllers
         {
             try
             {
-                bool bSuccess = await this.services.IsValidEmailCodeByRegister(emailInfo);
+                bool bSuccess = await this.services.IsValidEmailCodeByRegister(emailInfo).ConfigureAwait(false);
                 return OkEx(new { success = bSuccess });
             }
             catch (Exception ex) 
@@ -80,7 +80,7 @@ namespace WebCoreService.Controllers
         {
             try
             {
-                await this.services.SendRegisterVerifyCodeByEmail(emailInfo);
+                await this.services.SendRegisterVerifyCodeByEmail(emailInfo).ConfigureAwait(false);
                 return OkEx(new { success = true});
             }
             catch (Exception ex) 
@@ -98,7 +98,7 @@ namespace WebCoreService.Controllers
 
             try
             {
-                var data = await this.services.RegisterByEmailVerifyCode(registerInfo);
+                var data = await this.services.RegisterByEmailVerifyCode(registerInfo).ConfigureAwait(false);
                 return OkEx(data);
             }
             catch (Exception ex)

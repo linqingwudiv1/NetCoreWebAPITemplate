@@ -1,5 +1,6 @@
 ﻿using DBAccessBaseDLL.EF.Context;
 using DBAccessCoreDLL.EFORM.Entity;
+using DBAccessCoreDLL.EFORM.Entity.Forum;
 using DBAccessCoreDLL.Entity.Asset;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -55,6 +56,18 @@ namespace DBAccessCoreDLL.EFORM.Context
         /// </summary>
         virtual public DbSet<Role> Roles { get; protected set; }
 
+
+        #region Forum
+
+        virtual public DbSet<ForumModule> ForumModules { get; protected set; }
+
+        virtual public DbSet<ForumTopic> ForumTopics { get; protected set; }
+
+        virtual public DbSet<ForumPost> ForumPosts { get; protected set; }
+
+        virtual public DbSet<ForumReply> ForumReplies { get; protected set; }
+
+        #endregion
 
         /// <summary>
         /// 
@@ -116,7 +129,15 @@ namespace DBAccessCoreDLL.EFORM.Context
             modelBuilder.ApplyConfiguration<RoutePageRole>( new RoutePageRoleEFConfig()); 
 
             modelBuilder.ApplyConfiguration<AppInfo>(new AppInfoEFConfig() );
-            //modelBuilder.ApplyConfiguration<BizSystemLog>(new SystemLogEFConfig());
+
+            #region Forum
+
+            modelBuilder.ApplyConfiguration<ForumModule>(new ForumModuleEFConfig());
+            modelBuilder.ApplyConfiguration<ForumTopic>(new ForumTopicEFConfig());
+            modelBuilder.ApplyConfiguration<ForumPost>(new ForumPostEFConfig());
+            modelBuilder.ApplyConfiguration<ForumReply>(new ForumReplyEFConfig());
+
+            #endregion
 
             //Database/必须存在View_AccountFemale视图
             //modelBuilder.ApplyConfiguration<View_AccountFemale>(new View_AccountFemaleEFConfig());

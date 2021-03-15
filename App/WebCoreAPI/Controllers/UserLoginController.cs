@@ -43,7 +43,7 @@ namespace WebCoreService.Controllers
         {
             try
             {
-                var dataInfo = await this.services.Login(userInfo);
+                var dataInfo = await this.services.Login(userInfo).ConfigureAwait(false);
                 return JsonToCamelCase(dataInfo);
             }
             catch (Exception ex)
@@ -62,7 +62,7 @@ namespace WebCoreService.Controllers
         {
             try
             {
-                await this.services.SendLoginVerifyCodeByEmail(emailInfo);
+                await this.services.SendLoginVerifyCodeByEmail(emailInfo).ConfigureAwait(false);
                 return OkEx(null);
             }
             catch (Exception ex)
@@ -81,7 +81,7 @@ namespace WebCoreService.Controllers
         {
             try
             {
-                var loginInfo = await this.services.LoginByEmailVerifyCode(emailInfo);
+                var loginInfo = await this.services.LoginByEmailVerifyCode(emailInfo).ConfigureAwait(false);
                 return OkEx(loginInfo);
             }
             catch (Exception ex)

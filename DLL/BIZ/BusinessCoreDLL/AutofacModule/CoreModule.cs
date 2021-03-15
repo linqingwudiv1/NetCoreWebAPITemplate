@@ -7,9 +7,11 @@ using BusinessCoreDLL.Accounts;
 using BusinessCoreDLL.Asset;
 using BusinessCoreDLL.AutoMapper;
 using BusinessCoreDLL.Blogs;
+using BusinessCoreDLL.Forum;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
 using DBAccessCoreDLL.Accesser.Asset;
+using DBAccessCoreDLL.Forum;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -45,9 +47,9 @@ namespace BusinessCoreDLL.AutofacModule
                 builder.RegisterInstance<IAssetHelper>(
                     new COSAssetHelper
                     (
-                        GVariable.configuration["COS:AppId"]     ,
-                        GVariable.configuration["COS:SecretId" ] ,
-                        GVariable.configuration["COS:SecretKey"] , 
+                        GVariable.configuration["COS:AppId"],
+                        GVariable.configuration["COS:SecretId"],
+                        GVariable.configuration["COS:SecretKey"],
                         GVariable.configuration["COS:Region"])
                     ).As<IAssetHelper>().SingleInstance();
 
@@ -55,13 +57,15 @@ namespace BusinessCoreDLL.AutofacModule
 
                 #region Biz
 
-                builder.RegisterType<AccountBizServices>()          .As<IAccountsBizServices>()         .InstancePerLifetimeScope();
-                builder.RegisterType<AccountLoginBizServices>()     .As<IAccountLoginBizServices>()     .InstancePerLifetimeScope();
-                builder.RegisterType<AccountFotgotPwdBizServices>() .As<IAccountFotgotPwdBizServices>() .InstancePerLifetimeScope();
-                builder.RegisterType<AccountRegisterBizServices>()  .As<IAccountRegisterBizServices>()  .InstancePerLifetimeScope();
-                
-                builder.RegisterType<AppInfoBizServices>()  .As<IAppInfoBizServices>().InstancePerLifetimeScope();
-                builder.RegisterType<BlogsBizServices>()    .As<IBlogsBizServices>().InstancePerLifetimeScope();
+                builder.RegisterType<AccountBizServices>().As<IAccountsBizServices>().InstancePerLifetimeScope();
+                builder.RegisterType<AccountLoginBizServices>().As<IAccountLoginBizServices>().InstancePerLifetimeScope();
+                builder.RegisterType<AccountFotgotPwdBizServices>().As<IAccountFotgotPwdBizServices>().InstancePerLifetimeScope();
+                builder.RegisterType<AccountRegisterBizServices>().As<IAccountRegisterBizServices>().InstancePerLifetimeScope();
+
+                builder.RegisterType<AppInfoBizServices>().As<IAppInfoBizServices>().InstancePerLifetimeScope();
+                builder.RegisterType<BlogsBizServices>().As<IBlogsBizServices>().InstancePerLifetimeScope();
+
+                builder.RegisterType<ForumBizServices>().As<IForumBizServices>().InstancePerLifetimeScope();
 
                 #endregion
 
@@ -69,6 +73,11 @@ namespace BusinessCoreDLL.AutofacModule
 
                 builder.RegisterType<AccountAccesser>().As<IAccountAccesser>().InstancePerLifetimeScope();
                 builder.RegisterType<AppInfoAccesser>().As<IAppInfoAccesser>().InstancePerLifetimeScope();
+
+                builder.RegisterType<ForumModuleAccesser>() .As<IForumModuleAccesser>() .InstancePerLifetimeScope();
+                builder.RegisterType<ForumTopicAccesser>()  .As<IForumTopicAccesser>()  .InstancePerLifetimeScope();
+                builder.RegisterType<ForumPostAccesser>()   .As<IForumPostAccesser>()   .InstancePerLifetimeScope();
+                builder.RegisterType<ForumReplyAccesser>()  .As<IForumReplyAccesser>()  .InstancePerLifetimeScope();
 
                 #endregion
 
@@ -96,7 +105,7 @@ namespace BusinessCoreDLL.AutofacModule
 
                 #endregion
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Debug.WriteLine($"Error ================== CoreAutofacModule {ex.Message}");
                 Console.WriteLine($"Error ==================  CoreAutofacModule {ex.Message}");

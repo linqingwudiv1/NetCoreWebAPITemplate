@@ -46,7 +46,7 @@ namespace WebCoreService.Controllers
         {
             try
             {
-                await this.services.SendForgotPwdVerifyCodeByEmail(emailInfo);
+                await this.services.SendForgotPwdVerifyCodeByEmail(emailInfo).ConfigureAwait(false);
                 return OkEx("");
             }
             catch (Exception ex)
@@ -65,7 +65,7 @@ namespace WebCoreService.Controllers
         {
             try
             {
-                await this.services.ForgotPwdCodeByEmail(pwdInfo);
+                await this.services.ForgotPwdCodeByEmail(pwdInfo).ConfigureAwait(false);
                 return OkEx(new 
                 {
                     success = true
@@ -87,7 +87,7 @@ namespace WebCoreService.Controllers
         {
             try
             {
-                bool bSuccess = await this.services.IsValidEmailCodeByForgotPwd(pwdInfo);
+                bool bSuccess = await this.services.IsValidEmailCodeByForgotPwd(pwdInfo).ConfigureAwait(false);
                 return OkEx(new {success = bSuccess });
             }
             catch (Exception ex) 

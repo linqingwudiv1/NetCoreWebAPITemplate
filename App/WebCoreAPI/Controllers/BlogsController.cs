@@ -41,7 +41,7 @@ namespace WebCoreService.Controllers
         {
             try
             {
-                var data = await this.services.GetBlogInfo(id);
+                var data = await this.services.GetBlogInfo(id).ConfigureAwait(false);
                 return JsonToCamelCase(data);
             }
             catch (Exception ex)
