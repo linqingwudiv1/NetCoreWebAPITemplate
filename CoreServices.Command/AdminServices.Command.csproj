@@ -9,7 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Forum\" />
+    <Folder Include="Forum\Reply\" />
+    <Folder Include="Forum\Topic\" />
+    <Folder Include="Forum\Post\" />
   </ItemGroup>
 
 </Project>
