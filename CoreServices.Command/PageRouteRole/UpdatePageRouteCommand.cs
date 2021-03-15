@@ -9,6 +9,9 @@ namespace AdminServices.Command.PageRouteRole
     /// </summary>
     public class UpdatePageRouteCommand
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public DTOIn_PageRoute data { get; set; }
     }
 }

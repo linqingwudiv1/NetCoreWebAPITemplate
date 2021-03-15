@@ -8,4 +8,8 @@
     <ProjectReference Include="..\DLL\MassTransitDLL\MassTransitDLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Forum\" />
+  </ItemGroup>
+
 </Project>
