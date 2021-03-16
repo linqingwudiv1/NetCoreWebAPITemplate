@@ -8,18 +8,33 @@ using System.Text;
 
 namespace DBAccessCoreDLL.EFORM.Entity.Forum
 {
-    ///
+    /// <summary>
+    /// 
+    /// </summary>
     public class ForumModule : BaseEntity
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [Key]
         public long Id { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Required]
-        public long ModuleName { get; set; }
+        public string ModuleName { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual ICollection<ForumTopic> Topics { get; set; }
     }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class ForumModuleEFConfig : IEntityTypeConfiguration<ForumModule>
     {
         /// <summary>

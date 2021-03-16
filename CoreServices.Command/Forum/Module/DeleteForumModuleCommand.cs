@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AdminServices.Command.Forum.Module
+namespace AdminServices.Command.Forum
 {
     /// <summary>
     /// 

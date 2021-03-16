@@ -969,5 +969,59 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:BusinessCoreDLL.Forum.ForumModuleBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessCoreDLL.Forum.ForumModuleBizServices.#ctor(DBAccessCoreDLL.Forum.IForumModuleAccesser)">
+            <summary>
+            
+            </summary>
+            <param name="_Accesser"></param>
+        </member>
+        <member name="T:BusinessCoreDLL.Forum.ForumPostBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessCoreDLL.Forum.ForumPostBizServices.#ctor(DBAccessCoreDLL.Forum.IForumPostAccesser)">
+            <summary>
+            
+            </summary>
+            <param name="_Accesser"></param>
+        </member>
+        <member name="T:BusinessCoreDLL.Forum.ForumReplyBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessCoreDLL.Forum.ForumReplyBizServices.Accesser">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessCoreDLL.Forum.ForumReplyBizServices.#ctor(DBAccessCoreDLL.Forum.IForumReplyAccesser)">
+            <summary>
+            
+            </summary>
+            <param name="_Accesser"></param>
+        </member>
+        <member name="T:BusinessCoreDLL.Forum.ForumTopicBizServices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessCoreDLL.Forum.ForumTopicBizServices.Accesser">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:BusinessCoreDLL.Forum.ForumTopicBizServices.#ctor(DBAccessCoreDLL.Forum.IForumTopicAccesser)">
+            <summary>
+            
+            </summary>
+            <param name="_Accesser"></param>
+        </member>
     </members>
 </doc>

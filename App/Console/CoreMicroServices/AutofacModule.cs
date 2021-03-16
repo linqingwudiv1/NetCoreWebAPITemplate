@@ -7,6 +7,7 @@ using BaseDLL.Helper.Captcha;
 using DBAccessBaseDLL.IDGenerator;
 using DBAccessCoreDLL.Accesser;
 using DBAccessCoreDLL.Accesser.Asset;
+using DBAccessCoreDLL.Forum;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -58,6 +59,11 @@ namespace CoreMicroServices
                 builder.RegisterType<RoleAccesser>().As<IRoleAccesser>().InstancePerLifetimeScope();
                 builder.RegisterType<RoutePageAccesser>().As<IRoutePageAccesser>().InstancePerLifetimeScope();
                 builder.RegisterType<AppInfoAccesser>().As<IAppInfoAccesser>().InstancePerLifetimeScope();
+
+                builder.RegisterType<ForumModuleAccesser>().As<IForumModuleAccesser>().InstancePerLifetimeScope();
+                builder.RegisterType<ForumTopicAccesser>().As<IForumTopicAccesser>().InstancePerLifetimeScope();
+                builder.RegisterType<ForumPostAccesser>().As<IForumPostAccesser>().InstancePerLifetimeScope();
+                builder.RegisterType<ForumReplyAccesser>().As<IForumReplyAccesser>().InstancePerLifetimeScope();
 
                 #endregion
 

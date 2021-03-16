@@ -7,17 +7,12 @@ namespace AdminServices.Command.Forum
     /// <summary>
     /// 
     /// </summary>
-    public class AddForumModuleCommand
+    public class AddForumPostCommand
     {
         /// <summary>
         /// 
         /// </summary>
-        public long Id { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string ModuleName { get; set; }
+        long Id { get; set; }
 
     }
 }
