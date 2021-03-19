@@ -15,7 +15,9 @@ namespace AdminServices.Command.PageRouteRole
         public ICollection <DTOIn_PageRoute> routes { get; set; }
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class DTOIn_PageRoute 
     {
         /// <summary>
@@ -23,10 +25,19 @@ namespace AdminServices.Command.PageRouteRole
         /// </summary>
         public Int64 Id { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Nullable<Int64> ParentId { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string HierarchyPath { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Path { get; set; }
 
         /// <summary>
@@ -39,8 +50,14 @@ namespace AdminServices.Command.PageRouteRole
         /// </summary>
         public string GroupName { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Component { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string RouteName { get; set; }
 
         /// <summary>

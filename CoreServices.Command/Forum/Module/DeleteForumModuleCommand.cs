@@ -14,4 +14,5 @@ namespace AdminServices.Command.Forum
         /// </summary>
         public long Id { get; set; }
     }
+
 }
