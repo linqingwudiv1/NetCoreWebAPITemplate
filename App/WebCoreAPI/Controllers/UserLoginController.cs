@@ -48,6 +48,7 @@ namespace WebCoreService.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return JsonToCamelCase(ex.Message, 50000, 50000);
             }
         }

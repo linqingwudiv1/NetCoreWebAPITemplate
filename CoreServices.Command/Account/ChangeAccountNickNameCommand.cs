@@ -18,5 +18,6 @@ namespace AdminServices.Command.Account
         /// 
         /// </summary>
         public string nickName { get; set; }
+
     }
 }

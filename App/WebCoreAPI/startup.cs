@@ -385,6 +385,28 @@ namespace WebCoreService
             Logger log = LogManager.GetLogger("Startup");
             try
             {
+                #region 确保数据库生成，并暖机
+
+                string dbconn = GConnStrings.PostgreSQLCoreDBConn;
+
+                DbContextOptions<CoreContextDIP> opt = new DbContextOptions<CoreContextDIP>();
+                using (var db = new CoreContextDIP(opt))
+                {
+#if DEBUG
+                    db.Database.EnsureCreated();
+
+#endif
+                    db.Accounts.FirstOrDefaultAsync();
+                    db.Roles.FirstOrDefaultAsync();
+                    db.RoutePages.FirstOrDefaultAsync();
+                    db.RoutePageRoles.FirstOrDefaultAsync();
+                    db.AccountRoles.FirstOrDefaultAsync();
+
+                    //db.WarmUp();
+                }
+
+                #endregion
+
                 #region MVC 和WebAPI 相关
 
                 app.UseRouting();
