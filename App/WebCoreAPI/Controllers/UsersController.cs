@@ -31,7 +31,6 @@ namespace WebCoreService.Controllers
         /// </summary>
         private readonly IAccountsBizServices services;
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -52,7 +51,9 @@ namespace WebCoreService.Controllers
             try
             {
                 long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
-                return JsonToCamelCase(await this.services.GetInfo(userid)).ConfigureAwait(false);
+                
+                var ret_model = await this.services.GetInfo(userid).ConfigureAwait(false);
+                return JsonToCamelCase(ret_model);
 
             }
             catch (Exception ex)
@@ -65,7 +66,6 @@ namespace WebCoreService.Controllers
         [Authorize]
         public async Task<IActionResult> ChangeNickName([FromBody] DTOAPI_ChangeNickName info)
         {
-
             try
             {
                 long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
@@ -93,7 +93,6 @@ namespace WebCoreService.Controllers
                 long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
                 await this.services.ChangeIntroduction(userid, info).ConfigureAwait(false);
                 return JsonToCamelCase(new { success = true });
-
             }
             catch (Exception ex)
             {
@@ -101,6 +100,11 @@ namespace WebCoreService.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
         [HttpPut("[action]")]
         [Authorize]
         public async Task<IActionResult> ChangeAvatar([FromBody] DTOAPI_ChangeAvatar info) 
@@ -112,7 +116,7 @@ namespace WebCoreService.Controllers
                 await this.services.ChangeAvatar(userid, info).ConfigureAwait(false);
                 return JsonToCamelCase(new { success = true });
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return JsonToCamelCase(ex.Message, 50000, 50000);
             }

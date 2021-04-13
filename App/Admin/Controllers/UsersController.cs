@@ -112,7 +112,7 @@ namespace WebAdminService.Controllers
         [Authorize]
         public async Task<IActionResult> JWTTestAsync() 
         {
-            AuthenticateResult result = await this.HttpContext.AuthenticateAsync().ConfigureAwait(true);
+            AuthenticateResult result = await this.HttpContext.AuthenticateAsync().ConfigureAwait(false);
 
             if (result.Principal.Claims != null && result.Principal.Claims.Any())
             {
@@ -156,7 +156,8 @@ namespace WebAdminService.Controllers
 
             try
             {
-                return JsonToCamelCase(await this.services.GetInfo(userid));
+                var ret_model = await this.services.GetInfo(userid).ConfigureAwait(false);
+                return JsonToCamelCase(ret_model);
                 
             }
             catch (Exception ex) 
@@ -177,7 +178,7 @@ namespace WebAdminService.Controllers
             {
                 long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
 
-                IList<long> roles = await this.services.GetAdminPageRoles(userid);
+                IList<long> roles = await this.services.GetAdminPageRoles(userid).ConfigureAwait(false);
                 var data = await routeServices.GetRoutePageTreeByRoles(roles);
                 
                 return JsonToCamelCase(data);
@@ -200,7 +201,7 @@ namespace WebAdminService.Controllers
                 long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
 
                 IList<long> roles = await this.services.GetAdminPageRoles(userid);
-                var data = await routeServices.GetRoutePageByRoles(roles);
+                var data = await routeServices.GetRoutePageByRoles(roles).ConfigureAwait(false);
                 return JsonToCamelCase(data);
             }
             catch (Exception ex)
@@ -221,7 +222,7 @@ namespace WebAdminService.Controllers
         {
             try
             {
-                var model = await this.services.GetUsers(queryInfo);
+                var model = await this.services.GetUsers(queryInfo).ConfigureAwait(false);
                 return JsonToCamelCase(model.data, _total: model.total, _pageNum : model.pageNum, _pageSize: model.pageSize);
             }
             catch (Exception ex) 
@@ -241,7 +242,7 @@ namespace WebAdminService.Controllers
         {
             try
             {
-                await this.services.UpdateUsersRole( info );
+                await this.services.UpdateUsersRole( info ).ConfigureAwait(false);
                 return OkEx(null);
             }
             catch (Exception ex) 
@@ -260,7 +261,7 @@ namespace WebAdminService.Controllers
         {
             try
             {
-                dynamic data = await this.services.GetCOSToken();
+                dynamic data = await this.services.GetCOSToken().ConfigureAwait(false);
                 return JsonToCamelCase(data);
             }
             catch (Exception ex)
