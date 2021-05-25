@@ -127,7 +127,7 @@
     <DocumentationFile>$(SolutionDir)\SwaggerDoc\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties _1config_4appsettings_1json__JsonSchema="https://json.schemastore.org/chrome-manifest" _1config_4connectionstring_1json__JsonSchema="https://json.schemastore.org/appsscript" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties _1config_4appsettings_1json__JsonSchema="https://json.schemastore.org/chrome-manifest" _1config_4connectionstring_1json__JsonSchema="https://json.schemastore.org/azure-iot-edgehub-deployment-1.2.json" /></VisualStudio></ProjectExtensions>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy &quot;$(SolutionDir)/SwaggerDoc&quot; &quot;$(OutDir)/SwaggerDoc&quot; /e /y /i /r" />

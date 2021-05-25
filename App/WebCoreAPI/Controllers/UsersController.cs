@@ -98,6 +98,7 @@ namespace WebCoreService.Controllers
             {
                 return JsonToCamelCase(ex.Message, 50000, 50000);
             }
+
         }
 
         /// <summary>
@@ -112,7 +113,6 @@ namespace WebCoreService.Controllers
             try
             {
                 long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
-
                 await this.services.ChangeAvatar(userid, info).ConfigureAwait(false);
                 return JsonToCamelCase(new { success = true });
             }

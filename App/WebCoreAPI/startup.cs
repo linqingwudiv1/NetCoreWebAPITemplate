@@ -25,6 +25,7 @@ using Newtonsoft.Json.Serialization;
 using NLog;
 using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using WebApp.SingalR;
@@ -201,7 +202,9 @@ namespace WebCoreService
                     "https://localhost:44311"
                                     };
                 }
-
+                Console.WriteLine("=============cors surpport  start=============");
+                Console.WriteLine(origins);
+                Console.WriteLine("=============cors surpport  end=============");
                 services.AddCors(opt => opt.AddPolicy("WebAPIPolicy", builder =>
                 {
                     builder.WithOrigins(origins)
@@ -502,6 +505,8 @@ namespace WebCoreService
             catch (Exception ex)
             {
                 log.Info($" Error : { ex.Message } ");
+                Console.WriteLine($" Error : { ex.Message } ");
+                Debug.WriteLine($" Error : { ex.Message } ");
             }
         }
     }

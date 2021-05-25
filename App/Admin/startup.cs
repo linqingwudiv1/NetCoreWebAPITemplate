@@ -197,6 +197,8 @@ namespace WebAdminService
                     "http://localhost:8080",
                     "http://localhost:8081",
                     "http://localhost:8082",
+                    "http://localhost:9527",
+                    "http://127.0.0.1:9527",
                     "http://www.wakelu.com",
                     "http://192.168.1.131:8080"
                                     };
