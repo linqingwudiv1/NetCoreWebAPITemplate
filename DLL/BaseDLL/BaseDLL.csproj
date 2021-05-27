@@ -33,6 +33,7 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="Tencent.QCloud.Cos.Sdk" Version="5.4.17" />
     <PackageReference Include="Tencent.QCloud.Cos.Sts.Sdk" Version="3.0.4" />
+    <PackageReference Include="VodSDK" Version="1.0.3" />
   </ItemGroup>
 
 </Project>

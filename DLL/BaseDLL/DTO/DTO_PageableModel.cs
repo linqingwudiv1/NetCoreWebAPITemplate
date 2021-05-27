@@ -52,7 +52,6 @@ namespace BaseDLL.DTO
     /// </summary>
     public class DTO_PageableQueryInfo
     {
-
         /// <summary>
         /// 
         /// </summary>
