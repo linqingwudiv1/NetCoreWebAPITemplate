@@ -12,7 +12,7 @@ namespace BusinessCoreDLL.Blogs
     public interface IBlogsBizServices
     {
         /// <summary>
-        /// 
+        /// up3
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
