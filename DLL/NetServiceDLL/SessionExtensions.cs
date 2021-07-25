@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace NetApplictionServiceDLL
 {
     /// <summary>
-    /// Session 扩展
+    /// Session 扩展 change 4
     /// </summary>
     public static class SessionExtensions
     {

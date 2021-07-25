@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace BusinessCoreDLL.Forum
 {
     /// <summary>
-    /// 
+    /// 改0
     /// </summary>
     public class ForumBizServices : IForumBizServices
     {
