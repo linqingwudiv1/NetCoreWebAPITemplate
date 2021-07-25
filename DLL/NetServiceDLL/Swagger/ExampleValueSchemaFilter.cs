@@ -7,7 +7,7 @@ using System.Reflection;
 namespace NetApplictionServiceDLL.Swagger
 {
     /// <summary>
-    /// 默认值过滤器
+    /// 默认值过滤器 chage 3
     /// </summary>
     public class ExampleValueSchemaFilter : ISchemaFilter
     {
