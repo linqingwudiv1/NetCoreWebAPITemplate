@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace BusinessCoreDLL.Asset
 {
     /// <summary>
-    /// 
+    /// test1
     /// </summary>
     public class AppInfoBizServices : IAppInfoBizServices
     {

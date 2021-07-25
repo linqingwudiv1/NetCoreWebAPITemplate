@@ -19,7 +19,7 @@ using System.Diagnostics;
 namespace BusinessCoreDLL.AutofacModule
 {
     /// <summary>
-    /// 
+    /// up2
     /// </summary>
     public class CoreModule : Module
     {
