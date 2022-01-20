@@ -1152,6 +1152,7 @@
             <param name="_IDGenerator"></param>
             <param name="_accesser"></param>
             <param name="_publishEndpoint"></param>
+            <param name="_mapper"></param>
         </member>
         <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.GetRoutePages">
             <summary>
@@ -1177,7 +1178,7 @@
             <summary>
             
             </summary>
-            <param name="routepage"></param>
+            <param name="item"></param>
             <returns></returns>
         </member>
         <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.UpdateRoutePage(BusinessAdminDLL.DTOModel.API.Routes.DTOAPI_RoutePages)">

@@ -46,7 +46,7 @@ namespace AdminServices.Event.PageRoute
         {
             this.accesser       = _routePageAccesser;
             this.IDGenerator    = _IDGenerator;
-            this.mapper = mapper;
+            this.mapper = _mapper;
         }
 
         /// <summary>

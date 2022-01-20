@@ -39,7 +39,7 @@ namespace XUnitTest_MTCore
             try
             {
             }
-            catch (Exception ex) 
+            catch (Exception ) 
             {
                 await harness.Stop();
             }
