@@ -43,6 +43,7 @@ namespace BusinessAdminDLL.RoutePage
         /// <param name="_IDGenerator"></param>
         /// <param name="_accesser"></param>
         /// <param name="_publishEndpoint"></param>
+        /// <param name="_mapper"></param>
         public RoutePageBizServices(IIDGenerator _IDGenerator, 
                                     IRoutePageAccesser _accesser,
                                     IPublishEndpoint _publishEndpoint,
@@ -154,7 +155,7 @@ namespace BusinessAdminDLL.RoutePage
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="routepage"></param>
+        /// <param name="item"></param>
         /// <returns></returns>
         public async Task<dynamic> AddRoutePages(DTOAPI_RoutePages item)
         {

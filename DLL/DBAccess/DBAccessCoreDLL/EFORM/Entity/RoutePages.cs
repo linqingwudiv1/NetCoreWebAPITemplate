@@ -138,7 +138,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
 #if DEBUG //写入测试数据
 
         static Int64 DefID = 10000;
-        static Int64 MetaID = 1;
+        //static Int64 MetaID = 1;
         private IList<RoutePages> BuildTestData(dynamic data, RoutePages parentNode)
         {
             

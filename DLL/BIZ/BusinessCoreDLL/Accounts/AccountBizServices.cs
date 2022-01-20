@@ -57,6 +57,7 @@ namespace BusinessCoreDLL.Accounts
         /// <param name="_mapper"></param>
         /// <param name="_publishEndpoint"></param>
         /// <param name="_captchaHelper"></param>
+        /// <param name="_assetHelper"></param>
         public AccountBizServices(  IIDGenerator _IDGenerator,
                                     IAccountAccesser AccountAccesser, 
                                     IMapper _mapper, 
@@ -155,12 +156,13 @@ namespace BusinessCoreDLL.Accounts
         /// <returns></returns>
         public async Task ChangeAvatar(long userId,DTOAPI_ChangeAvatar info)
         {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             this.publishEndpoint.Publish(new ChangeAvatarCommand 
             {
                 userId = userId,
                 avatar = info.avatar
             });
-            //throw new NotImplementedException();
+#pragma warning restore CS4014 
         }
     }
 }

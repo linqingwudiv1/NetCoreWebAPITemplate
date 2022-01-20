@@ -34,6 +34,7 @@ namespace WebCoreService.Controllers.Asset
         /// 
         /// </summary>
         public int m_iSignValidDuration;
+
         public static long GetIntTimeStamp()
         {
             TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1);
@@ -41,11 +42,14 @@ namespace WebCoreService.Controllers.Asset
         }
         private byte[] hash_hmac_byte(string signatureString, string secretKey)
         {
-            var enc = Encoding.UTF8; HMACSHA1 hmac = new HMACSHA1(enc.GetBytes(secretKey));
+            var enc = Encoding.UTF8;
+
+            HMACSHA1 hmac = new HMACSHA1(enc.GetBytes(secretKey));
             hmac.Initialize();
             byte[] buffer = enc.GetBytes(signatureString);
             return hmac.ComputeHash(buffer);
         }
+
         public string GetUploadSignature()
         {
             string strContent = "";

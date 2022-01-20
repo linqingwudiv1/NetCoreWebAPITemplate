@@ -21,7 +21,7 @@ namespace CoreMicroServices
     {
 
         /// <summary>
-        /// Autofac 注入服务
+        /// Autofac DI Services
         /// </summary>
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)

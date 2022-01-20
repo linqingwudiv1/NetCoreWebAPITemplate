@@ -16,6 +16,9 @@ namespace BusinessCoreDLL.Accounts.WF
     /// </summary>
     public class FindAccountByIDStepBody : StepBody
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public Account account;
         //public string password;
         //readonly IAccountAccesser accesser;

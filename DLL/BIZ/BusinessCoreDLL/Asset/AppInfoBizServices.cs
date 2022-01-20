@@ -60,7 +60,7 @@ namespace BusinessCoreDLL.Asset
                             x.Id descending 
                         select 
                             mapper.Map<DTO_AppInfo>(x) ).FirstOrDefault();
-            return data;
+            return await Task.FromResult(data);
 
             //throw new NotImplementedException();
         }

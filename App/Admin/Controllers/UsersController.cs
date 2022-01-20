@@ -116,7 +116,7 @@ namespace WebAdminService.Controllers
 
             if (result.Principal.Claims != null && result.Principal.Claims.Any())
             {
-                Claim customType = ( from x in result.Principal.Claims.DefaultIfEmpty() where x.Type == "customType" select x ).FirstOrDefault(null);
+                Claim customType = ( from x in result.Principal.Claims.DefaultIfEmpty() where x.Type == "customType" select x ).FirstOrDefault();
 
                 return OkEx($"User Claim : { result.Principal.Identity.Name } , customType :{ customType.Value }");
             }

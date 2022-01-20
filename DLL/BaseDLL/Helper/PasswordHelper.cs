@@ -50,7 +50,11 @@ namespace BaseDLL.Helper
         /// <returns></returns>
         public static string CreateHash(string password)
         {
+#if NET6_0_OR_GREATER
+            RandomNumberGenerator csprng = RandomNumberGenerator.Create();
+#else
             RNGCryptoServiceProvider csprng = new RNGCryptoServiceProvider();
+#endif
             byte[] salt = new byte[SALT_BYTE_SIZE];
             csprng.GetBytes(salt);
             byte[] hash = PBKDF2(password, salt, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);

@@ -30,9 +30,6 @@ using System.IO;
 using System.Text;
 using WebApp.SingalR;
 
-/// <summary>
-/// 
-/// </summary>
 namespace WebCoreService
 {
     /// <summary>
@@ -188,7 +185,7 @@ namespace WebCoreService
                 #endregion
 
                 #region Cors Support 跨域支持
-                string[] origins = ConfigurationManager.AppSettings.Get("CorsSite")?.Split(",");
+                string[] origins = System.Configuration.ConfigurationManager.AppSettings.Get("CorsSite")?.Split(",");
 
                 if ( origins == null || 
                      origins.Length <= 0 )
@@ -202,9 +199,9 @@ namespace WebCoreService
                     "https://localhost:44311"
                                     };
                 }
-                Console.WriteLine("=============cors surpport  start=============");
+                Console.WriteLine("============= cors surpport  start=============");
                 Console.WriteLine(origins);
-                Console.WriteLine("=============cors surpport  end=============");
+                Console.WriteLine("============= cors surpport  end=============");
                 services.AddCors(opt => opt.AddPolicy("WebAPIPolicy", builder =>
                 {
                     builder.WithOrigins(origins)
@@ -274,13 +271,11 @@ namespace WebCoreService
                 services.AddControllersWithViews(opts =>
                 {
                     opts.EnableEndpointRouting = false;
-                }).SetCompatibilityVersion(CompatibilityVersion.Latest)
-                  .AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
+                }).AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
                 services.AddRazorPages(opts =>
                 {
-                }).SetCompatibilityVersion(CompatibilityVersion.Latest)
-                  .AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
+                }).AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
                 #region Session Config : Redis or Sql Server
 
@@ -359,7 +354,7 @@ namespace WebCoreService
                                         Id = "Bearer"
                                     }
                                 },
-                                new string[] {}
+                                Array.Empty<string>()
                         }
                     });
 

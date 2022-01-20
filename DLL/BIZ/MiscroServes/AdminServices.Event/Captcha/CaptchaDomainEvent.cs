@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
 namespace AdminServices.Event.Captcha
 {
     public class CaptchaDomainEvent 
@@ -36,7 +36,9 @@ namespace AdminServices.Event.Captcha
 
             var data = context.Message;
             string captcha = this.captchaHelper.NewCaptcha(data.key, data.type,6, data.timeout );
+
             EmailHepler.SendEmail(data.email,"Qing-登录验证码",$"登录验证码[{captcha}],{ data.timeout / 60 }分钟内有效.");
+
         }
 
         /// <summary>
@@ -78,3 +80,4 @@ namespace AdminServices.Event.Captcha
         }
     }
 }
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法

@@ -26,7 +26,6 @@ namespace WebCoreService.Controllers
         /// 
         /// </summary>
         /// <param name="_Services"></param>
-        /// <param name="_routeServices"></param>
         public BlogsController(IBlogsBizServices _Services)
         {
             services = _Services;

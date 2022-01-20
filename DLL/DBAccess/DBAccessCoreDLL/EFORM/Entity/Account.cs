@@ -34,7 +34,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
         public string? Username { get; set; }
 
         /// <summary>
-        /// 通行证
+        /// 
         /// </summary>
         public string? Passport { get; set; }
 

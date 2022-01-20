@@ -249,7 +249,7 @@ namespace BusinessAdminDLL.Accounts
                 entity.Where(x => x.Id == key);
                 query_union = query_union.Union(entity.Where(x => x.Id == key));
             }
-            catch (Exception ex)
+            catch (Exception )
             {
             }
 

@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNet.Security.OAuth.QQ" Version="3.1.6" />
-    <PackageReference Include="AspNet.Security.OAuth.Weibo" Version="3.1.6" />
-    <PackageReference Include="AspNet.Security.OAuth.Weixin" Version="3.1.6" />
+    <PackageReference Include="AspNet.Security.OAuth.QQ" Version="6.0.2" />
+    <PackageReference Include="AspNet.Security.OAuth.Weibo" Version="6.0.2" />
+    <PackageReference Include="AspNet.Security.OAuth.Weixin" Version="6.0.2" />
   </ItemGroup>
 
 </Project>

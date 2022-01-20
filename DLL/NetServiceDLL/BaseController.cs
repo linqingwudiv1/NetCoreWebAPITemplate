@@ -153,7 +153,7 @@ namespace NetApplictionServiceDLL
 
 
         /// <summary>
-        /// 二次封装 Ok函数
+        /// 二次封装 Ok函数,进行数据结构转发
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

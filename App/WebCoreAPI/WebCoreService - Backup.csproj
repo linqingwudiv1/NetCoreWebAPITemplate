@@ -17,7 +17,7 @@
     <DocumentationFile>$(SolutionDir)\SwaggerDoc\$(AssemblyName).xml</DocumentationFile>
     <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-    <NoWarn>1701;1702;CA1031;CA1034;CA1822;CA1305;CA1707;CA1801;CS1998;</NoWarn>
+    <NoWarn>1701;1702;CA1031;CA1034;CA1822;CA1305;CA1707;CA1801;CS1998</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -129,7 +129,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>$(SolutionDir)\SwaggerDoc\$(AssemblyName).xml</DocumentationFile>
     <DefineConstants></DefineConstants>
-    <NoWarn>1701;1702;CA1031;CA1034;CA1822;CA1305;CA1707;CA1801;1998;</NoWarn>
+    <NoWarn>1701;1702;CA1031;CA1034;CA1822;CA1305;CA1707;CA1801;CS1998</NoWarn>
   </PropertyGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>

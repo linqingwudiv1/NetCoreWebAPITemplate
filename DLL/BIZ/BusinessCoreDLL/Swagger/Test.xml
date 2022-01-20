@@ -41,6 +41,7 @@
             <param name="_mapper"></param>
             <param name="_publishEndpoint"></param>
             <param name="_captchaHelper"></param>
+            <param name="_assetHelper"></param>
         </member>
         <member name="M:BusinessCoreDLL.Accounts.AccountBizServices.GetInfo(System.Int64)">
             <summary>
@@ -398,6 +399,11 @@
             </summary>
         </member>
         <member name="T:BusinessCoreDLL.Accounts.WF.FindAccountByIDStepBody">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:BusinessCoreDLL.Accounts.WF.FindAccountByIDStepBody.account">
             <summary>
             
             </summary>

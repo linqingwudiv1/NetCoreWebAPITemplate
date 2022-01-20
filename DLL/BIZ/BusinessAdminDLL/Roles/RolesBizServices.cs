@@ -147,7 +147,7 @@ namespace BusinessAdminDLL.Roles
             {
                 total = roles.LongCount();
             }
-            catch (Exception ex) 
+            catch (Exception ) 
             {
 
             }

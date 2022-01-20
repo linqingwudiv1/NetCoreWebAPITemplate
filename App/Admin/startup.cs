@@ -173,7 +173,6 @@ namespace WebAdminService
                 #endregion
 
                 #region AutoMapper
-
                 services.AddAutoMapper(typeof(BizAdminProfile).Assembly );
 
                 #endregion
@@ -188,7 +187,7 @@ namespace WebAdminService
                 #endregion
 
                 #region Cors Support 跨域支持
-                string[] origins = ConfigurationManager.AppSettings.Get("CorsSite") ?.Split(",");
+                string[] origins = System.Configuration.ConfigurationManager.AppSettings.Get("CorsSite") ?.Split(",");
 
                 if (origins == null || origins.Length <= 0 ) 
                 {
@@ -280,13 +279,11 @@ namespace WebAdminService
                 services.AddControllersWithViews(opts => 
                 {
                     opts.EnableEndpointRouting = false;
-                }).SetCompatibilityVersion(CompatibilityVersion.Latest)
-                  .AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver()); 
+                }).AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver()); 
 
                 services.AddRazorPages(opts => 
                 {
-                }).SetCompatibilityVersion(CompatibilityVersion.Latest)
-                  .AddNewtonsoftJson( op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
+                }).AddNewtonsoftJson( op => op.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
                 #region Session Config : Redis or Sql Server
 

@@ -21,7 +21,7 @@ namespace WebCoreService.Controllers
         /// <summary>
         /// 
         /// </summary>
-        protected readonly IAccountLoginBizServices services;
+        private readonly IAccountLoginBizServices services;
 
         /// <summary>
         /// 

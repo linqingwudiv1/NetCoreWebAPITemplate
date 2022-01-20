@@ -20,13 +20,13 @@ namespace WebCoreService.Controllers.Asset
         /// <summary>
         /// 
         /// </summary>
-        public readonly IAppInfoBizServices services;
+        private readonly IAppInfoBizServices services;
         
         /// <summary>
         /// 
         /// </summary>
         /// <param name="_services"></param>
-        public AppInfoController( IAppInfoBizServices _services) 
+        public AppInfoController( IAppInfoBizServices _services)
         {
             services = _services;
         }

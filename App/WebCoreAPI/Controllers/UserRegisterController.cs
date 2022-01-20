@@ -34,7 +34,7 @@ namespace WebCoreService.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="RegisterInfo"></param>
+        /// <param name="registerInfo"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> RegisterByPassport([FromBody] DTOAPI_RegisterByPassport registerInfo)
