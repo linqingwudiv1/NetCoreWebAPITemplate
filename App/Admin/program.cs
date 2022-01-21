@@ -52,8 +52,10 @@ namespace WebAdminService
                 
                 host.Run();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
+                Debug.WriteLine(ex.StackTrace);
             }
         }
 

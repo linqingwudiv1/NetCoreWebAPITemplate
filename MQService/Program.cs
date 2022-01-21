@@ -14,25 +14,32 @@ namespace MQService
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            ConnectionFactory factory = new ConnectionFactory
+            try
             {
-                UserName = "admin",        //用户名
-                Password = "admin",        //密码
-                HostName = "192.168.1.131" //rabbitmq ip
-            };
+                ConnectionFactory factory = new ConnectionFactory
+                {
+                    UserName = "admin",        // passport
+                    Password = "1qaz@WSX",     // password
+                    HostName = "127.0.0.1" // rabbitmq ip
+                };
 
-            //create of connection 
-            var connection = factory.CreateConnection();
-      
-            //create of channel
-            var channel = connection.CreateModel();
+                //create of connection 
+                var connection = factory.CreateConnection();
 
-            byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes(" Hello，world！");
-            
-            channel.BasicPublish("","",null,messageBodyBytes);
-            
-            connection.Close();
-            channel.Close();
+                //create of channel
+                var channel = connection.CreateModel();
+
+                byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes(" Hello，world！");
+
+                channel.BasicPublish("", "", null, messageBodyBytes);
+
+                connection.Close();
+                channel.Close();
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.ToString());
+            }
 
             //Console.WriteLine("Hello World!");
         }

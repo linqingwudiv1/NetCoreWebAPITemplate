@@ -21,8 +21,7 @@ namespace WebAdminService
         /// <param name="x"></param>
         public static void MTConfiguration(IServiceCollectionBusConfigurator x)
         {
-            x.AddRequestClient<DeleteRoleCommand>();
-
+            //x.AddRequestClient<DeleteRoleCommand>();
             x.UsingRabbitMq((ctx, cfg) =>
             {
                 string mqHostAddress = GVariable.configuration["MTMQ:Host"];
