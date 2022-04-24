@@ -375,8 +375,9 @@ namespace WebCoreService
         ///  This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// </summary>
         /// <param name="app"></param>
-        public void Configure(IApplicationBuilder app /*, 
-                               IWebHostEnvironment env, 
+        /// <param name="env"></param>
+        public void Configure(IApplicationBuilder app , 
+                               IHostingEnvironment env  /*
                                ILoggerFactory loggerFactory */ )
         {
 
@@ -485,13 +486,23 @@ namespace WebCoreService
                 #endregion
 
                 #region Swagger
-
-                app.UseSwagger();
-
-                app.UseSwaggerUI(c =>
+                //app is development?
+                if (env.IsDevelopment())
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Core_API_V1");
-                });
+                    app.UseSwagger();
+                    app.UseSwaggerUI(c =>
+                    {
+                        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web Core Service Doc");
+                    });
+                }
+
+
+                //app.UseSwagger();
+
+                //app.UseSwaggerUI(c =>
+                //{
+                //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Core_API_V1");
+                //});
 
                 #endregion
 
