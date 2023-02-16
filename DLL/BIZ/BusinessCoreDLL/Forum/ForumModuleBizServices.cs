@@ -6,7 +6,7 @@ using System.Text;
 namespace BusinessCoreDLL.Forum
 {
     /// <summary>
-    /// 
+    /// up4
     /// </summary>
     public class ForumModuleBizServices : IForumModuleBizServices
     {
