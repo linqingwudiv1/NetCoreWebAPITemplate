@@ -9,7 +9,7 @@ namespace BusinessCoreDLL.Asset
     public interface IAppInfoBizServices
     {
         /// <summary>
-        /// 
+        /// 测试3
         /// </summary>
         /// <returns></returns>
         Task<DTO_AppInfo> GetLatest(string appName);

@@ -8,7 +8,7 @@ using System;
 namespace NetApplictionServiceDLL.Filter
 {
     /// <summary>
-    /// 类型
+    /// 类型 change 2
     /// </summary>
     public enum AuthType
     {

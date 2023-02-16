@@ -83,7 +83,7 @@ namespace BusinessAdminDLL.Roles
         protected IIDGenerator IDGenerator { get; set; }
 
         /// <summary>
-        /// 
+        /// 测试
         /// </summary>
         protected IMapper mapper { get; set; }
         
