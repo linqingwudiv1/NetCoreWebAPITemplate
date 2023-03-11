@@ -6,6 +6,7 @@ using AdminServices.Event.Role;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using BaseDLL;
+using BaseDLL.Helper;
 using DBAccessCoreDLL.EFORM.Context;
 using GreenPipes;
 using MassTransit;
@@ -40,11 +41,11 @@ namespace CoreMicroServices
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        public static IHostBuilder CreateHostBuilder(string[] args) 
+        public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host.CreateDefaultBuilder(args)
-                        
-                       .UseServiceProviderFactory(new AutofacServiceProviderFactory( buolder=> 
+
+                       .UseServiceProviderFactory(new AutofacServiceProviderFactory(buolder =>
                        {
                            buolder.RegisterModule(new AutofacModule());
                        }))
@@ -52,18 +53,17 @@ namespace CoreMicroServices
                        .ConfigureHostConfiguration(builder =>
                        {
                            builder.AddInMemoryCollection()
-                                  .AddJsonFile(@".Config\appsettings.json", optional: false, reloadOnChange: true)
-                                  .AddJsonFile(@".Config\ConnectionString.json", optional: false, reloadOnChange: true)
-                                  .AddJsonFile(@".Config\APILTEUrl.json", optional: false, reloadOnChange: true)
+                                  .AddJsonFile(Path.Combine(IOHelper.GetBinRunDir(), @".Config\appsettings.json"), optional: false, reloadOnChange: true)
+                                  .AddJsonFile(Path.Combine(IOHelper.GetBinRunDir(), @".Config\ConnectionString.json"), optional: false, reloadOnChange: true)
                                   .AddEnvironmentVariables();
 
                            var Configuration = builder.Build();
-                           
+
                            GVariable.configuration = Configuration;
                        })
                       .ConfigureServices(services =>
                       {
-                          services.AddAutofac(c => 
+                          services.AddAutofac(c =>
                           {
                               c.Populate(services);
                           });
@@ -88,10 +88,10 @@ namespace CoreMicroServices
                                   r.Immediate(5);
                               }));
 
-                              x.AddConsumer<AccountDomainEvent>(c => c.UseMessageRetry(r => 
+                              x.AddConsumer<AccountDomainEvent>(c => c.UseMessageRetry(r =>
                               {
                                   r.Immediate(5);
-                              }) );
+                              }));
 
                               x.AddConsumer<CaptchaDomainEvent>(c => c.UseMessageRetry(r =>
                               {
@@ -113,16 +113,16 @@ namespace CoreMicroServices
 
 
                               x.SetKebabCaseEndpointNameFormatter();
-                              
+
                               x.UsingRabbitMq((ctx, cfg) =>
                               {
                                   string mqHostAddress = GVariable.configuration["MTMQ:Host"];
 
-                                  cfg.Host(mqHostAddress, virtualHost: "/", c => 
+                                  cfg.Host(mqHostAddress, virtualHost: "/", c =>
                                   {
                                       var user = GVariable.configuration["MTMQ:UserName"];
-                                      var pwd  = GVariable.configuration["MTMQ:Password"];
-                                      
+                                      var pwd = GVariable.configuration["MTMQ:Password"];
+
                                       c.Username(user);
                                       c.Password(pwd);
                                   });
@@ -137,8 +137,8 @@ namespace CoreMicroServices
                           #endregion
 
                       });
-                    
-                       //.ConfigureAppConfiguration;
+
+            //.ConfigureAppConfiguration;
         }
     }
 }

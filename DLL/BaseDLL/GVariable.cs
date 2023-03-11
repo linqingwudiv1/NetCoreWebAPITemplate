@@ -18,8 +18,6 @@ namespace BaseDLL
         /// <summary>
         /// 默认删除时间
         /// </summary>
-        public static readonly DateTime DefDeleteTime = new DateTime(1900, 1, 1);
-
-
+        public static readonly DateTimeOffset DefDeleteTime = DateTimeOffset.MinValue;
     }
 }

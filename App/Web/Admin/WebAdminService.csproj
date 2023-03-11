@@ -1,0 +1,140 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <Company>lq</Company>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject />
+    <UserSecretsId>591e16d0-0cb1-4715-9cac-97a33ebab942</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>$(SolutionDir)\SwaggerDoc\$(AssemblyName).xml</DocumentationFile>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <NoWarn>1701;1702;CA1031;CA1034;CA1822;CA1305;CA1707;CA1801;</NoWarn>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ADO\**" />
+    <Compile Remove="Doc\**" />
+    <Compile Remove="ExportExcel\**" />
+    <Compile Remove="Swagger\**" />
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="ADO\**" />
+    <Content Remove="Doc\**" />
+    <Content Remove="ExportExcel\**" />
+    <Content Remove="Swagger\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="ADO\**" />
+    <EmbeddedResource Remove="Doc\**" />
+    <EmbeddedResource Remove="ExportExcel\**" />
+    <EmbeddedResource Remove="Swagger\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="ADO\**" />
+    <None Remove="Doc\**" />
+    <None Remove="ExportExcel\**" />
+    <None Remove="Swagger\**" />
+    <None Remove="wwwroot\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="APILTEUrl.Development.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Remove="Properties\PublishProfiles\FolderProfile.pubxml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\..\.Config\appsettings.Development.json" Link=".Config\appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\.Config\appsettings.json" Link=".Config\appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\.Config\ConnectionString.json" Link=".Config\ConnectionString.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\.Config\routeDefaultData.json" Link=".Config\routeDefaultData.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include=".LocalDB\" />
+    <Folder Include="Areas\TestArea\Data\" />
+    <Folder Include="Areas\TestArea\Models\" />
+    <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include=".Cache\" />
+    <Folder Include=".Config\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\.Config\net4log.config" Link=".Config\net4log.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\.Config\nlog.config" Link=".Config\nlog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\DLL\BaseDLL\BaseDLL.csproj" />
+    <ProjectReference Include="..\..\..\DLL\BIZ\BusinessAdminDLL\BusinessAdminDLL.csproj" />
+    <ProjectReference Include="..\..\..\MQService\MQService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Dockerfile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES2019</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>$(SolutionDir)\SwaggerDoc\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties _1config_4appsettings_1json__JsonSchema="https://json.schemastore.org/chrome-manifest" _1config_4connectionstring_1json__JsonSchema="https://json.schemastore.org/azure-iot-edgehub-deployment-1.2.json" /></VisualStudio></ProjectExtensions>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(SolutionDir)/SwaggerDoc&quot; &quot;$(OutDir)/SwaggerDoc&quot; /e /y /i /r" />
+  </Target>
+
+</Project>

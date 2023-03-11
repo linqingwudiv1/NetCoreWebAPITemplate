@@ -259,11 +259,10 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-/WebAPITempalte/.Cache/Image
 
+
+# custom
+/**/*/.Cache/
+/**/*/.LocalDB
 *.db
-/App/Admin/.Cache/Image
-/App/Admin/.LocalDB
-/App/WebCoreAPI/.Cache/Image
-/App/WebCoreAPI/.LocalDB
 /SwaggerDoc

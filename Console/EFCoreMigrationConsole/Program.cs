@@ -1,4 +1,5 @@
 ﻿using BaseDLL;
+using BaseDLL.Helper;
 using DBAccessBaseDLL.Static;
 using DBAccessCoreDLL.EFORM.Context;
 using Microsoft.EntityFrameworkCore;
@@ -32,9 +33,8 @@ namespace EFCoreMigrationConsole
                        .ConfigureHostConfiguration(builder =>
                        {
                            builder.AddInMemoryCollection()
-                                  .AddJsonFile(@".Config\appsettings.json", optional: false, reloadOnChange: true)
-                                  .AddJsonFile(@".Config\ConnectionString.json", optional: false, reloadOnChange: true)
-                                  .AddJsonFile(@".Config\APILTEUrl.json", optional: false, reloadOnChange: true)
+                                    .AddJsonFile(Path.Combine(IOHelper.GetBinRunDir(), @".Config\appsettings.json"), optional: false, reloadOnChange: true)
+                                    .AddJsonFile(Path.Combine(IOHelper.GetBinRunDir(), @".Config\ConnectionString.json"), optional: false, reloadOnChange: true)
                                   .AddEnvironmentVariables();
 
                            var Configuration = builder.Build();

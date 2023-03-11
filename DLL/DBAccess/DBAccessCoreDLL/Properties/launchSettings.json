@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "DBAccessCoreDLL": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:26707;http://localhost:26715"
+    }
+  }
+}

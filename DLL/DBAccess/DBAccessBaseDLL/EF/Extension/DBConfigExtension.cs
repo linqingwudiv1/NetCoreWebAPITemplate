@@ -24,9 +24,9 @@ namespace DBAccessBaseDLL.EF.Entity
             targetBuilder.Property<bool>     ( x => x.Q_IsDelete   ) .IsRequired( true  ) .HasDefaultValue(false);
             targetBuilder.Property<Int64>    ( x => x.Q_Version    ) .IsRequired( true  ) .HasDefaultValue(0).IsConcurrencyToken(true);
             targetBuilder.Property<Int64>    ( x => x.Q_Sequence   ) .IsRequired( true  ) .HasDefaultValue(0);
-            targetBuilder.Property<DateTime> ( x => x.Q_CreateTime ) .IsRequired( true  ) .HasDefaultValueSql("CURRENT_TIMESTAMP");
-            targetBuilder.Property<DateTime> ( x => x.Q_UpdateTime ) .IsRequired( true  ) .HasDefaultValueSql("CURRENT_TIMESTAMP");
-            targetBuilder.Property<DateTime> ( x => x.Q_DeleteTime ) .IsRequired( true  ) .HasDefaultValue<DateTime>(GVariable.DefDeleteTime);
+            targetBuilder.Property<DateTimeOffset> ( x => x.Q_CreateTime ) .IsRequired( true  ) .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            targetBuilder.Property<DateTimeOffset> ( x => x.Q_UpdateTime ) .IsRequired( true  ) .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            targetBuilder.Property<DateTimeOffset> ( x => x.Q_DeleteTime ) .IsRequired( true  ) .HasDefaultValue<DateTimeOffset>(GVariable.DefDeleteTime);
 
             if ( bUseSoftDelete )
             {

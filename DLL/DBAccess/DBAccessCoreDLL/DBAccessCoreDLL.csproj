@@ -52,6 +52,7 @@
 
   <ItemGroup>
     <Folder Include="Exceptional\Account\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>

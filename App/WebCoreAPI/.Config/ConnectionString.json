@@ -1,9 +1,0 @@
-﻿{
-  "ConnectionStrings": {
-    "IDGeneratorDB_back": "Data Source=172.168.1.172,1433;UID=sa;PWD=1qaz@WSX;Initial Catalog=TableIDCounterDB;Connect Timeout=30;Min Pool Size=10;Max Pool Size=100;",
-    "IDGeneratorDB": "Data Source=localhost\\SQLEXPRESS;UID=sa;PWD=1qaz@WSX;Trusted_Connection=False;Initial Catalog=TableIDCounterDB;Connect Timeout=30;Min Pool Size=10;Max Pool Size=100;",
-    "PostgreSQLCoreDB": "Username=postgres;Password=1qaz@WSX;Host=127.0.0.1;Port=5432;Database=QCoreDB;",
-    "PostgreSQLCoreDB_MyHome": "Username=postgres;Password=1qaz@WSX;Host=127.0.0.1;Port=5432;Database=QCoreDB;",
-    "PostgreSQLCoreDB_Company": "Username=postgres;Password=1qaz@WSX;Host=192.168.1.172;Port=5432;Database=QCoreDB;"
-  }
-}

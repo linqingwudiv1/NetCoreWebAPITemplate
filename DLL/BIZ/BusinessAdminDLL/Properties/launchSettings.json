@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "BusinessAdminDLL": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:26736;http://localhost:26738"
+    }
+  }
+}

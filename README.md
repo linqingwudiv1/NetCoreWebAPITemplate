@@ -1,8 +1,8 @@
 # NetCoreWebAPITemplate
 
-## support vs2019 version last
+## support vs2022 version last
 
-	NetCore3.0.0
+	Net6
 
 	新瓶装旧酒.一个极简的WebAPI/MVC开发环境,封装一些常用的类包.
 

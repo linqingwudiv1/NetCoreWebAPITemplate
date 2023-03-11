@@ -28,16 +28,16 @@ namespace DBAccessBaseDLL.EF.Entity
         /// <summary>
         /// 数据创建时间
         /// </summary>
-        public DateTime Q_CreateTime { get; set; }
+        public DateTimeOffset Q_CreateTime { get; set; }
 
         /// <summary>
         /// 数据最近一次修改时间
         /// </summary>
-        public DateTime Q_UpdateTime { get; set; }
+        public DateTimeOffset Q_UpdateTime { get; set; }
 
         /// <summary>
         /// 软删除事件
         /// </summary>
-        public DateTime Q_DeleteTime { get; set; }
+        public DateTimeOffset Q_DeleteTime { get; set; }
     }
 }

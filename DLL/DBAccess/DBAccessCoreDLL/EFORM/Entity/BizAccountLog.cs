@@ -54,7 +54,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
         /// 
         /// </summary>
         [Required]
-        public DateTime CreateTime { get; set; }
+        public DateTimeOffset CreateTime { get; set; }
     }
 
     /// <summary>

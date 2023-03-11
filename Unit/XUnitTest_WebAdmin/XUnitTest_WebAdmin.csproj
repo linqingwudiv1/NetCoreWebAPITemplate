@@ -47,10 +47,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\App\Admin\WebAdminService.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Role\" />
   </ItemGroup>
 
