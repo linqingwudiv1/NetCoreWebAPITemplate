@@ -50,8 +50,15 @@ namespace DBAccessBaseDLL.IDGenerator
                 Console.WriteLine("hello Debug Develop");
                 RedisAddress.Add("127.0.0.1:10110");
             }
-
-            RedisIns = new RedisExChangeHelper(RedisAddress, Password: RedisPassword);
+            try
+            {
+                RedisIns = new RedisExChangeHelper(RedisAddress, Password: RedisPassword);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            
             return true;
         }
 

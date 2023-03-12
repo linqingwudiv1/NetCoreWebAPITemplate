@@ -30,7 +30,7 @@ namespace BusinessAdminDLL.Roles
         /// </summary>
         /// <param name="role"></param>
         /// <returns></returns>
-        static public IList<DTOAPI_RoutePages> GenPageRouteTree( this Role role)
+        static public IList<DTOAPI_RoutePages> GenPageRouteTree( this RoleType role)
         {
             IList<DTOAPI_RoutePages> routes = new List<DTOAPI_RoutePages>();
             if (role.RouteRoles != null && role.RouteRoles.Count > 0)
@@ -95,29 +95,21 @@ namespace BusinessAdminDLL.Roles
         /// <summary>
         /// 
         /// </summary>
-        protected readonly IRequestClient<DeleteRoleCommand> deleteClient;
-
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="_IDGenerator"></param>
         /// <param name="_roleAccesser"></param>
         /// <param name="_mapper"></param>
         /// <param name="_publishEndpoint"></param>
-        /// <param name="_deleteClient"></param>
         public RolesBizServices(IIDGenerator _IDGenerator, 
                                 IRoleAccesser _roleAccesser, 
                                 IMapper _mapper, 
-                                IPublishEndpoint _publishEndpoint,
-                                IRequestClient<DeleteRoleCommand> _deleteClient)
+                                IPublishEndpoint _publishEndpoint
+            )
             : base()
         {
             this.accesser        = _roleAccesser;
             this.IDGenerator     = _IDGenerator;
             this.mapper          = _mapper;
             this.publishEndpoint = _publishEndpoint;
-            this.deleteClient    = _deleteClient;
         }
 
 
@@ -149,7 +141,7 @@ namespace BusinessAdminDLL.Roles
             }
             catch (Exception ) 
             {
-
+                
             }
 
             return new DTO_PageableModel<DTOAPI_Role> { data = roles , total = total };
@@ -162,7 +154,7 @@ namespace BusinessAdminDLL.Roles
         /// <returns></returns>
         public Task<DTOAPI_Role> GetRole(long key)
         {
-            Role role = (from 
+            RoleType role = (from 
                             x 
                          in 
                             this.accesser.db.Roles.Include(role => role.RouteRoles).ThenInclude(routepage => routepage.routePage)
@@ -206,7 +198,7 @@ namespace BusinessAdminDLL.Roles
 
             var routes = data.routes.Select(x => new DTOIn_PageRouteId { PageRouteID = x }).ToArray();
 
-            long NewID = this.IDGenerator.GetNewID<Role>();
+            long NewID = this.IDGenerator.GetNewID<RoleType>();
             var cmd = new AddRoleCommand
             {
                 key = NewID,
@@ -225,7 +217,7 @@ namespace BusinessAdminDLL.Roles
         /// <returns></returns>
         public async Task<dynamic> UpdateRole(DTOAPIReq_Role data)
         {
-            Role role = this.accesser.Get(data.key);
+            RoleType role = this.accesser.Get(data.key);
 
             if (role != null)
             {
@@ -254,7 +246,7 @@ namespace BusinessAdminDLL.Roles
         /// <returns></returns>
         public async Task<dynamic> DeleteRole(long Id)
         {
-            Role role = this.accesser.Get(Id);
+            RoleType role = this.accesser.Get(Id);
             if (role != null)
             {
                 await this.publishEndpoint.Publish(new DeleteRoleCommand { key = Id });

@@ -16,12 +16,12 @@ namespace DBAccessBaseDLL.EF.Entity
         /// <param name="target"></param>
         static public void Fill<T>(this T target) where T : BaseEntity
         {
-            target.Q_CreateTime  = DateTime.Now      ;
-            target.Q_UpdateTime  = DateTime.Now      ;
-            target.Q_DeleteTime  = DateTime.MinValue ;
-            target.Q_IsDelete    = false             ;
-            target.Q_Version     = 0                 ;
-            target.Q_Sequence    = 0                 ;
+            target.CreateTime  = DateTime.Now      ;
+            target.UpdateTime  = DateTime.Now      ;
+            target.DeleteTime  = DateTime.MinValue ;
+            target.IsDelete    = false             ;
+            target.Version     = 0                 ;
+            target.Sequence    = 0                 ;
         }
 
 

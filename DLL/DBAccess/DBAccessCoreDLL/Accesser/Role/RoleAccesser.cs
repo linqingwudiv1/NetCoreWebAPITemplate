@@ -31,7 +31,7 @@ namespace DBAccessCoreDLL.Accesser
         /// </summary>
         /// <param name="newEntiy"></param>
         /// <returns></returns>
-        public int Add(Role newEntiy)
+        public int Add(RoleType newEntiy)
         {
             this.db.Roles.Add(newEntiy);
 
@@ -45,7 +45,7 @@ namespace DBAccessCoreDLL.Accesser
         /// </summary>
         /// <param name="newEntiys"></param>
         /// <returns></returns>
-        public int Add(IList<Role> newEntiys)
+        public int Add(IList<RoleType> newEntiys)
         {
             this.db.Roles.AddRange(newEntiys);
             int effectCount = db.SaveChanges();
@@ -59,7 +59,7 @@ namespace DBAccessCoreDLL.Accesser
         /// <returns></returns>
         public int Delete(long key)
         {
-            Role temp_role = Get(key);
+            RoleType temp_role = Get(key);
             if (temp_role != null )
             {
                 db.Roles.Remove(temp_role);
@@ -96,7 +96,7 @@ namespace DBAccessCoreDLL.Accesser
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public Role Get(long key)
+        public RoleType Get(long key)
         {
             return db .Roles.Find(key);
         }
@@ -106,7 +106,7 @@ namespace DBAccessCoreDLL.Accesser
         /// </summary>
         /// <param name="keys"></param>
         /// <returns></returns>
-        public IList<Role> Get(IList<long> keys)
+        public IList<RoleType> Get(IList<long> keys)
         {
             return db.Roles.Where(x => keys.Contains(x.Id)).ToArray();
         }
@@ -116,7 +116,7 @@ namespace DBAccessCoreDLL.Accesser
         /// </summary>
         /// <param name="modifyEntiy"></param>
         /// <returns></returns>
-        public int Update(Role modifyEntiy)
+        public int Update(RoleType modifyEntiy)
         {
             db.Roles.Update(modifyEntiy);
             return db.SaveChanges();
@@ -127,7 +127,7 @@ namespace DBAccessCoreDLL.Accesser
         /// </summary>
         /// <param name="modifyEntiys"></param>
         /// <returns></returns>
-        public int Update(IList<Role> modifyEntiys)
+        public int Update(IList<RoleType> modifyEntiys)
         {
             db.Roles.UpdateRange(modifyEntiys);
             return db.SaveChanges();

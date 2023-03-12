@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DBAccessCoreDLL.Accesser
 {
-    public interface IRoleAccesser : IAccesser<Role, Int64>
+    public interface IRoleAccesser : IAccesser<RoleType, Int64>
     {
         /// <summary>
         /// DAO Layer

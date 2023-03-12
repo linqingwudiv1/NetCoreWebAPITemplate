@@ -37,7 +37,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
         /// <summary>
         /// 
         /// </summary>
-        public virtual Role role { get; set; }
+        public virtual RoleType role { get; set; }
     }
 
     /// <summary>
@@ -53,13 +53,13 @@ namespace DBAccessCoreDLL.EFORM.Entity
         {
             #region 水平拆分处理处
 
-            EntityTypeBuilder<RoutePageRole> tableBuilder = builder.ToTable("RoutePageRole");
+            EntityTypeBuilder<RoutePageRole> tableBuilder = builder.ToSnakeCaseTable();
 
             tableBuilder.HasOne<RoutePages>(p => p.routePage )
                         .WithMany(c => c.RoutePageRoles)
                         .HasForeignKey(c => c.RoutePageId);
 
-            tableBuilder.HasOne<Role>(p => p.role)
+            tableBuilder.HasOne<RoleType>(p => p.role)
                         .WithMany(c => c.RouteRoles)
                         .HasForeignKey(c => c.RoleId);
 

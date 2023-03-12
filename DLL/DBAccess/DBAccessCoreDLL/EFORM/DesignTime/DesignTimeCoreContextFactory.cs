@@ -16,11 +16,11 @@ namespace DBAccessCoreDLL.EFORM.DesignTime
         /// <returns></returns>
         public CoreContext CreateDbContext(string[] args)
         {
-            string connectionString = "Username=postgres;Password=1qaz@WSX;Host=192.168.1.172;Port=5432;Database=QCoreDB;";
+            string connectionString = "Username=postgres;Password=1qaz@WSX;Host=dev.io;Port=5432;Database=QCoreDB;";
             DbContextOptionsBuilder<CoreContext> builder = new DbContextOptionsBuilder<CoreContext>();
 
             //builder.UseSqlite(connectionString);
-            builder.UseNpgsql(connectionString);
+            builder.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
             return new CoreContext(builder.Options, connectionString);
         }
     }

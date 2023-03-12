@@ -49,17 +49,11 @@ namespace WebCoreService.Areas.TestArea.Controllers
         /// <summary>
         /// 
         /// </summary>
-        private Opt_API_LTEUrl Opt_API { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="Opt"></param>
-        /// <param name="_Opt_API"></param>
         /// <param name="_env"></param>
-        public TestController( IOptions<Option_ConnctionString> Opt, IOptions<Opt_API_LTEUrl> _Opt_API, IWebHostEnvironment _env)
+        public TestController( IOptions<Option_ConnctionString> Opt, IWebHostEnvironment _env)
         {
-            if (Opt == null || _Opt_API == null) 
+            if (Opt == null ) 
             {
                 LogManager.GetLogger("TestController").Error("Opt == null || _Opt_API == null");
                 return;
@@ -67,7 +61,6 @@ namespace WebCoreService.Areas.TestArea.Controllers
 
             env = _env;
             Opt_Conn = Opt.Value;
-            Opt_API = _Opt_API.Value;
         }
 
         /// <summary>
@@ -161,7 +154,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                 testAccount.RuleFor( entity => entity.Username,      faker => faker.Name.FirstName() + faker.Name.LastName());
                 testAccount.RuleFor( entity => entity.Phone,         faker => faker.Phone.PhoneNumber());
                 testAccount.RuleFor( entity => entity.Sex,           faker => faker.Random.Int(0, 2));
-                testAccount.RuleFor( entity => entity.Q_IsDelete, faker => faker.Random.Bool());
+                testAccount.RuleFor( entity => entity.IsDelete, faker => faker.Random.Bool());
 
                 testAccount.RuleFor( entity => entity.AccountRoles, faker =>
                 {
@@ -197,7 +190,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                 testRoutePage.RuleFor( e => e.RouteName, faker => faker.Name.FirstName() + faker.Name.LastName() );
                 testRoutePage.RuleFor( e => e.Path, faker => faker.Rant.Review() );
                 testRoutePage.RuleFor( e => e.ParentId, faker => 1L );
-                testRoutePage.RuleFor( entity => entity.Q_IsDelete, faker => faker.Random.Bool() );
+                testRoutePage.RuleFor( entity => entity.IsDelete, faker => faker.Random.Bool() );
 
                 #endregion
 
@@ -257,12 +250,12 @@ namespace WebCoreService.Areas.TestArea.Controllers
                                      x.Password ,
                                      x.Introduction ,
                                      x.Phone ,
-                                     x.Q_IsDelete ,
-                                     x.Q_CreateTime ,
-                                     x.Q_DeleteTime ,
-                                     x.Q_Sequence ,
-                                     x.Q_Version ,
-                                     x.Q_UpdateTime ,
+                                     x.IsDelete ,
+                                     x.CreateTime ,
+                                     x.DeleteTime ,
+                                     x.Sequence ,
+                                     x.Version ,
+                                     x.UpdateTime ,
                                      Roles = x.AccountRoles.Select( xx => xx.role.RoleName)
                                  });
 
@@ -314,7 +307,7 @@ namespace WebCoreService.Areas.TestArea.Controllers
                             if (account != null)
                             {
                                 account.DisplayName = (faker.Name.FirstName() + faker.Name.LastName());
-                                account.Q_Sequence++;
+                                account.Sequence++;
 
                                 int effectCount = db.SaveChanges();
                                 
@@ -326,8 +319,8 @@ namespace WebCoreService.Areas.TestArea.Controllers
                                 else
                                 {
                                     logger.Trace($@" Optimistic locking..... Name : { account.DisplayName          } , 
-                                                     Q_Version                 : { account.Q_Version  } ,
-                                                     Q_Sequence                : { account.Q_Sequence } ");
+                                                     Q_Version                 : { account.Version  } ,
+                                                     Q_Sequence                : { account.Sequence } ");
                                 }
                             }
                             else

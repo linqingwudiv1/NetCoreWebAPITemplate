@@ -2,16 +2,9 @@
 using COSXML;
 using COSXML.Auth;
 using COSXML.Model.Object;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Security.Policy;
-using System.Threading.Tasks;
-using TencentCloud.Common;
-using TencentCloud.Common.Profile;
-using TencentCloud.Sts.V20180813;
-using TencentCloud.Sts.V20180813.Models;
 
 namespace BaseDLL.Helper.Asset
 {

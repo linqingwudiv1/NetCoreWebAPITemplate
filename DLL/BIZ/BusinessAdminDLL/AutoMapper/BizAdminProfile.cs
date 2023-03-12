@@ -36,7 +36,7 @@ namespace BusinessAdminDLL.AutoMapper
 
             #region Role
             
-            CreateMap<Role, DTOAPI_Role>().ForMember(opt => opt.key, opt => opt.MapFrom(p => p.Id))
+            CreateMap<RoleType, DTOAPI_Role>().ForMember(opt => opt.key, opt => opt.MapFrom(p => p.Id))
                                           .ForMember(opt => opt.name, opt => opt.MapFrom(p => p.RoleName))
                                           .ForMember(opt => opt.routes, opt => opt.Ignore() )
                                           .ReverseMap();
@@ -87,8 +87,8 @@ namespace BusinessAdminDLL.AutoMapper
             CreateMap<Account, DTOAPIRes_UserInfo>().ForMember(opt => opt.phone, opt => opt.MapFrom(p => !string.IsNullOrEmpty(p.PhoneAreaCode) ? p.PhoneAreaCode + "-" + p.Phone : ""))
                                                     .ForMember(opt => opt.name, opt => opt.MapFrom(p => p.DisplayName))
                                                     .ForMember(opt => opt.roles, opt => opt.Ignore())
-                                                    .ForMember(opt => opt.createTime, opt => opt.MapFrom( p => p.Q_CreateTime ) )
-                                                    .ForMember(opt => opt.createTime, opt => opt.MapFrom(p => p.Q_UpdateTime ) )
+                                                    .ForMember(opt => opt.createTime, opt => opt.MapFrom( p => p.CreateTime ) )
+                                                    .ForMember(opt => opt.createTime, opt => opt.MapFrom(p => p.UpdateTime ) )
                                                     .ReverseMap();
             #endregion
 
@@ -96,8 +96,8 @@ namespace BusinessAdminDLL.AutoMapper
             #region Asset
 
             CreateMap<AppInfo, DTOAPI_AppInfo>()
-                .ForMember(opt => opt.createTime, opt => opt.MapFrom(p => p.Q_CreateTime) )
-                .ForMember(opt => opt.updateTime, opt => opt.MapFrom(p => p.Q_UpdateTime) )
+                .ForMember(opt => opt.createTime, opt => opt.MapFrom(p => p.CreateTime) )
+                .ForMember(opt => opt.updateTime, opt => opt.MapFrom(p => p.UpdateTime) )
                 .ReverseMap();
 
             CreateMap<DTOAPI_AppInfo, DTO_AppInfo>()

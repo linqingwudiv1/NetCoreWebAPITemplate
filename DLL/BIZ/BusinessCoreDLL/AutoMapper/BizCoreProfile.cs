@@ -37,8 +37,8 @@ namespace BusinessCoreDLL.AutoMapper
 
             #region Asset
 
-            CreateMap<AppInfo, DTO_AppInfo>().ForMember(opt => opt.createTime, opt => opt.MapFrom(p => p.Q_CreateTime))
-                                             .ForMember(opt => opt.updateTime, opt => opt.MapFrom(p => p.Q_UpdateTime))
+            CreateMap<AppInfo, DTO_AppInfo>().ForMember(opt => opt.createTime, opt => opt.MapFrom(p => p.CreateTime))
+                                             .ForMember(opt => opt.updateTime, opt => opt.MapFrom(p => p.UpdateTime))
                                              .ReverseMap();
 
             #endregion

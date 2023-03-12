@@ -29,8 +29,15 @@
             
             </summary>
         </member>
-        <member name="F:BusinessAdminDLL.Accounts.AccountBizServices.captchaHelper">
+        <member name="F:BusinessAdminDLL.Accounts.AccountBizServices.publishEndpoint">
+            <summary>
             
+            </summary>
+        </member>
+        <member name="F:BusinessAdminDLL.Accounts.AccountBizServices.captchaHelper">
+            <summary>
+            
+            </summary>
         </member>
         <member name="M:BusinessAdminDLL.Accounts.AccountBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IAccountAccesser,AutoMapper.IMapper,MassTransit.IPublishEndpoint,BaseDLL.Helper.Captcha.ICaptchaHelper,BaseDLL.Helper.Asset.IAssetHelper)">
             <summary>
@@ -981,7 +988,7 @@
             
             </summary>
         </member>
-        <member name="M:BusinessAdminDLL.Roles.RolesBizServicesExtension.GenPageRouteTree(DBAccessCoreDLL.EFORM.Entity.Role)">
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServicesExtension.GenPageRouteTree(DBAccessCoreDLL.EFORM.Entity.RoleType)">
             <summary>
             
             </summary>
@@ -1013,12 +1020,7 @@
             
             </summary>
         </member>
-        <member name="F:BusinessAdminDLL.Roles.RolesBizServices.deleteClient">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IRoleAccesser,AutoMapper.IMapper,MassTransit.IPublishEndpoint,MassTransit.IRequestClient{AdminServices.Command.Role.DeleteRoleCommand})">
+        <member name="M:BusinessAdminDLL.Roles.RolesBizServices.#ctor(DBAccessBaseDLL.IDGenerator.IIDGenerator,DBAccessCoreDLL.Accesser.IRoleAccesser,AutoMapper.IMapper,MassTransit.IPublishEndpoint)">
             <summary>
             
             </summary>
@@ -1026,7 +1028,6 @@
             <param name="_roleAccesser"></param>
             <param name="_mapper"></param>
             <param name="_publishEndpoint"></param>
-            <param name="_deleteClient"></param>
         </member>
         <member name="M:BusinessAdminDLL.Roles.RolesBizServices.GetRoles">
             <summary>
@@ -1209,7 +1210,7 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.GenPageRouteTree(DBAccessCoreDLL.EFORM.Entity.Role)">
+        <member name="M:BusinessAdminDLL.RoutePage.RoutePageBizServices.GenPageRouteTree(DBAccessCoreDLL.EFORM.Entity.RoleType)">
             <summary>
             
             </summary>

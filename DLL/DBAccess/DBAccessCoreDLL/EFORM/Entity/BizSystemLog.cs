@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DBAccessBaseDLL.EF.Entity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -63,7 +64,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
         /// <param name="builder"></param>
         public void Configure(EntityTypeBuilder<BizSystemLog> builder)
         {
-            EntityTypeBuilder<BizSystemLog> tableBuilder = builder.ToTable("BizSystemLog");
+            EntityTypeBuilder<BizSystemLog> tableBuilder = builder.ToSnakeCaseTable();
             tableBuilder.Property(x => x.Id) .HasIdentityOptions(1, 1);
             tableBuilder.Property(x => x.CreateTime).IsRequired(true). HasDefaultValueSql("CURRENT_TIMESTAMP");
         }

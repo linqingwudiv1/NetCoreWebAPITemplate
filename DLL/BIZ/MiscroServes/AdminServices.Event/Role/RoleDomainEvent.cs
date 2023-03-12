@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Role_Alias = DBAccessCoreDLL.EFORM.Entity.Role;
+using Role_Alias = DBAccessCoreDLL.EFORM.Entity.RoleType;
 namespace AdminServices.Event.Role
 {
     /// <summary>

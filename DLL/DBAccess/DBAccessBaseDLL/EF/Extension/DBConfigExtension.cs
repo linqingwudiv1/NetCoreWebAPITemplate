@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Data.SqlTypes;
+using System.Text.RegularExpressions;
 
 namespace DBAccessBaseDLL.EF.Entity
 {
@@ -21,12 +22,12 @@ namespace DBAccessBaseDLL.EF.Entity
         /// <returns></returns>
         static public EntityTypeBuilder<T> SetupBaseEntity<T>(this EntityTypeBuilder<T> targetBuilder, bool bUseSoftDelete = true) where T : BaseEntity
         {
-            targetBuilder.Property<bool>     ( x => x.Q_IsDelete   ) .IsRequired( true  ) .HasDefaultValue(false);
-            targetBuilder.Property<Int64>    ( x => x.Q_Version    ) .IsRequired( true  ) .HasDefaultValue(0).IsConcurrencyToken(true);
-            targetBuilder.Property<Int64>    ( x => x.Q_Sequence   ) .IsRequired( true  ) .HasDefaultValue(0);
-            targetBuilder.Property<DateTimeOffset> ( x => x.Q_CreateTime ) .IsRequired( true  ) .HasDefaultValueSql("CURRENT_TIMESTAMP");
-            targetBuilder.Property<DateTimeOffset> ( x => x.Q_UpdateTime ) .IsRequired( true  ) .HasDefaultValueSql("CURRENT_TIMESTAMP");
-            targetBuilder.Property<DateTimeOffset> ( x => x.Q_DeleteTime ) .IsRequired( true  ) .HasDefaultValue<DateTimeOffset>(GVariable.DefDeleteTime);
+            targetBuilder.Property<bool>     ( x => x.IsDelete   ) .IsRequired( true  ) .HasDefaultValue(false);
+            targetBuilder.Property<Int64>    ( x => x.Version    ) .IsRequired( true  ) .HasDefaultValue(0).IsConcurrencyToken(true);
+            targetBuilder.Property<Int64>    ( x => x.Sequence   ) .IsRequired( true  ) .HasDefaultValue(0);
+            targetBuilder.Property<DateTimeOffset> ( x => x.CreateTime ) .IsRequired( true  ) .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            targetBuilder.Property<DateTimeOffset> ( x => x.UpdateTime ) .IsRequired( true  ) .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            targetBuilder.Property<DateTimeOffset> ( x => x.DeleteTime ) .IsRequired( true  ) .HasDefaultValue<DateTimeOffset>(GVariable.DefDeleteTime);
 
             if ( bUseSoftDelete )
             {
@@ -44,8 +45,21 @@ namespace DBAccessBaseDLL.EF.Entity
         /// <returns></returns>
         static public EntityTypeBuilder<T> UseSofeDelete<T>(this EntityTypeBuilder<T> targetBuilder) where T : BaseEntity 
         {
-            targetBuilder.HasQueryFilter( x => x.Q_IsDelete == false );
+            targetBuilder.HasQueryFilter( x => x.IsDelete == false );
             return targetBuilder;
+        }
+
+        /// <summary>
+        /// convert table map to e.g:FullName becomes full_name
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="targetBuilder"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        static public EntityTypeBuilder<T> ToSnakeCaseTable<T>(this EntityTypeBuilder<T> targetBuilder) where T : class 
+        {
+            var result = Regex.Replace(typeof(T).Name, ".[A-Z]", m => m.Value[0] + "_" + m.Value[1]).ToLower();
+            return targetBuilder.ToTable( result );
         }
     }
 }

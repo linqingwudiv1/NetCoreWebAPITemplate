@@ -38,7 +38,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
         /// <summary>
         /// 
         /// </summary>
-        public virtual Role role { get; set; }
+        public virtual RoleType role { get; set; }
     }
 
     /// <summary>
@@ -54,10 +54,10 @@ namespace DBAccessCoreDLL.EFORM.Entity
         {
             #region 水平拆分处理处
 
-            EntityTypeBuilder<AccountRole> tableBuilder = builder.ToTable("AccountRole");
+            EntityTypeBuilder<AccountRole> tableBuilder = builder.ToSnakeCaseTable();
 
             tableBuilder.HasOne<Account>( p => p.account ).WithMany( c => c.AccountRoles ).HasForeignKey(c => c.AccountId);
-            tableBuilder.HasOne<Role>( p => p.role).WithMany( c => c.AccountRoles ).HasForeignKey(c => c.RoleId);
+            tableBuilder.HasOne<RoleType>( p => p.role).WithMany( c => c.AccountRoles ).HasForeignKey(c => c.RoleId);
 
             #endregion
 

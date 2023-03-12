@@ -71,7 +71,7 @@ namespace BusinessCoreDLL.Blogs
             ret_data.username = account.DisplayName;
             ret_data.email = account.Email;
             ret_data.avatar = account.Avatar;
-            ret_data.joinTime = account.Q_CreateTime.ToString("yyyy-MM-dd");
+            ret_data.joinTime = account.CreateTime.ToString("yyyy-MM-dd");
             ret_data.introduction = account.Introduction;
             return ret_data;
         }

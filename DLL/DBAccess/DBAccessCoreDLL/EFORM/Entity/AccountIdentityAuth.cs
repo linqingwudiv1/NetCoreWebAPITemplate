@@ -62,7 +62,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
         {
             #region 水平拆分处理处
 
-            EntityTypeBuilder<AccountIdentityAuth> tableBuilder = builder.ToTable("AccountIdentityAuth");
+            EntityTypeBuilder<AccountIdentityAuth> tableBuilder = builder.ToSnakeCaseTable();
 
             tableBuilder.HasOne<Account>(p => p.account)
                         .WithMany(c => c.AccountIdentityAuths)

@@ -24,7 +24,6 @@ namespace BusinessAdminDLL.AutofacModule
     /// </summary>
     public class AdminAutofacModule : Module
     {
-
         /// <summary>
         /// Autofac 注入服务
         /// </summary>
@@ -34,10 +33,10 @@ namespace BusinessAdminDLL.AutofacModule
             try
             {
                 builder.RegisterInstance<RedisIDGenerator>(new RedisIDGenerator(new List<string>
-            {
-                GVariable.configuration["RedisIDGenerator:Passport"]
-            },
-    GVariable.configuration["RedisIDGenerator:Password"])).As<IIDGenerator>().SingleInstance();
+                {
+                    GVariable.configuration["RedisIDGenerator:Passport"]
+                },
+                GVariable.configuration["RedisIDGenerator:Password"])).As<IIDGenerator>().SingleInstance();
 
 
                 builder.RegisterInstance<RedisCaptchaHelper>(new RedisCaptchaHelper(new List<string>

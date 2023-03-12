@@ -300,7 +300,7 @@ namespace BusinessAdminDLL.RoutePage
         /// </summary>
         /// <param name="role"></param>
         /// <returns></returns>
-        private IList<DTOAPI_RoutePages> GenPageRouteTree(Role role)
+        private IList<DTOAPI_RoutePages> GenPageRouteTree(RoleType role)
         {
             IList<DTOAPI_RoutePages> routes = new List<DTOAPI_RoutePages>();
             if (role.RouteRoles != null && role.RouteRoles.Count > 0)

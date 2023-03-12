@@ -47,9 +47,14 @@ namespace BusinessAdminDLL.Accounts
         /// </summary>
         protected IMapper mapper { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected readonly IPublishEndpoint publishEndpoint;
 
-        ///
+        /// <summary>
+        /// 
+        /// </summary>
         protected readonly ICaptchaHelper captchaHelper;
 
         /// <summary>
@@ -86,7 +91,7 @@ namespace BusinessAdminDLL.Accounts
         public  async Task<DTO_PageableModel<DTOAPIRes_UserInfo>> GetUsers(DTO_PageableQueryModel<DTO_GetUsers> query )
         {
             var users = await this.accesser.Get(query);
-            
+
             DTO_PageableModel<DTOAPIRes_UserInfo> ret_model = new DTO_PageableModel<DTOAPIRes_UserInfo>
             {
                 pageNum = users.pageNum,
@@ -121,7 +126,7 @@ namespace BusinessAdminDLL.Accounts
 
 
             var userInfo = mapper.Map<Account, DTOAPIRes_UserInfo>(account);
-            userInfo.roles = account.AccountRoles.Select(x => mapper.Map<Role, DTOAPI_Role>(x.role)).ToArray();
+            userInfo.roles = account.AccountRoles.Select(x => mapper.Map<RoleType, DTOAPI_Role>(x.role)).ToArray();
             return new
             {
                 user = userInfo

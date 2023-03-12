@@ -235,8 +235,7 @@ namespace WebCoreService
                 #endregion
 
                 services.AddOptions()
-                        .Configure<Option_ConnctionString>(Configuration.GetSection("ConnectionStrings"))
-                        .Configure<Opt_API_LTEUrl>(Configuration.GetSection("APILTEUrl"));
+                        .Configure<Option_ConnctionString>(Configuration.GetSection("ConnectionStrings"));
 
                 // services.AddOptions()
 

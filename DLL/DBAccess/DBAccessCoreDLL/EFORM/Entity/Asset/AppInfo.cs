@@ -74,7 +74,7 @@ namespace DBAccessCoreDLL.Entity.Asset
         /// <param name="builder"></param>
         public void Configure(EntityTypeBuilder<AppInfo> builder)
         {
-            var tableBuilder = builder.ToTable("AppInfo");
+            var tableBuilder = builder.ToSnakeCaseTable();
             tableBuilder.HasIndex( x => new { x.AppName, x.AppVersion } ).IsUnique(true);
             tableBuilder.Property(x => x.bBeta).HasDefaultValue( false );
             tableBuilder.Property(x => x.bEnable).HasDefaultValue( true  );

@@ -10,7 +10,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
     /// <summary>
     /// Account 角色 Account Role
     /// </summary>
-    public class Role : BaseEntity
+    public class RoleType : BaseEntity
     {
         /// <summary>
         /// 
@@ -56,26 +56,26 @@ namespace DBAccessCoreDLL.EFORM.Entity
         /// <summary>
         /// 
         /// </summary>
-        public virtual Role Parent { get; set; }
+        public virtual RoleType Parent { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual ICollection<Role> Children { get; set; }
+        public virtual ICollection<RoleType> Children { get; set; }
     }
 
     /// <summary>
     /// 
     /// </summary>
-    public class RoleEFConfig : IEntityTypeConfiguration<Role>
+    public class RoleEFConfig : IEntityTypeConfiguration<RoleType>
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="builder"></param>
-        public void Configure(EntityTypeBuilder<Role> builder)
+        public void Configure(EntityTypeBuilder<RoleType> builder)
         {
-            var tableBuilder = builder.ToTable("Role").SetupBaseEntity<Role>();
+            var tableBuilder = builder.ToSnakeCaseTable().SetupBaseEntity<RoleType>();
 
             tableBuilder.Property( c => c.Organization ).HasDefaultValue("Default");
 
@@ -87,17 +87,17 @@ namespace DBAccessCoreDLL.EFORM.Entity
                         .WithOne(c => c.role)
                         .HasForeignKey(c => c.RoleId);
 
-            tableBuilder.HasOne<Role> ( p => p.Parent   )
+            tableBuilder.HasOne<RoleType> ( p => p.Parent   )
                         .WithMany     ( c => c.Children )
                         .HasForeignKey( c => c.ParentId );
 
 #if DEBUG
             #region Default Database
-            Role[] default_roles = {
-                                     new Role { Id = 1, ParentId = null, Descrption = "系统管理人员"  , DisplayName = "系统管理员", RoleName = "admin"      } ,
-                                     new Role { Id = 2, ParentId = null, Descrption = "开发程序人员"  , DisplayName = "开发程序员", RoleName = "developer"  } ,
-                                     new Role { Id = 3, ParentId = null, Descrption = "编辑测试人员"  , DisplayName = "系统测试员", RoleName = "editor"     } ,
-                                     new Role { Id = 4, ParentId = null, Descrption = "访客"          , DisplayName = "访客"      , RoleName = "guest"      } ,
+            RoleType[] default_roles = {
+                                     new RoleType { Id = 1, ParentId = null, Descrption = "系统管理人员"  , DisplayName = "系统管理员", RoleName = "admin"      } ,
+                                     new RoleType { Id = 2, ParentId = null, Descrption = "开发程序人员"  , DisplayName = "开发程序员", RoleName = "developer"  } ,
+                                     new RoleType { Id = 3, ParentId = null, Descrption = "编辑测试人员"  , DisplayName = "系统测试员", RoleName = "editor"     } ,
+                                     new RoleType { Id = 4, ParentId = null, Descrption = "访客"          , DisplayName = "访客"      , RoleName = "guest"      } ,
                                    };
 
             tableBuilder.HasData(default_roles);

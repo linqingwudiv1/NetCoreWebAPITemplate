@@ -25,6 +25,7 @@ using NetApplictionServiceDLL;
 using NetApplictionServiceDLL.Swagger;
 using Newtonsoft.Json.Serialization;
 using NLog;
+using Org.BouncyCastle.Asn1.Cmp;
 using System;
 using System.Configuration;
 using System.Diagnostics;
@@ -238,10 +239,7 @@ namespace WebAdminService
                 #endregion
 
                 services.AddOptions()
-                        .Configure<Option_ConnctionString>(Configuration.GetSection("ConnectionStrings"))
-                        .Configure<Opt_API_LTEUrl>(Configuration.GetSection("APILTEUrl"));
-
-                // services.AddOptions()
+                        .Configure<Option_ConnctionString>(Configuration.GetSection("ConnectionStrings"));
 
                 #endregion
 
@@ -483,9 +481,10 @@ namespace WebAdminService
             }
             catch (Exception ex)
             {
-                log.Error($" ============================= Error : {ex.Message} ");
-                Debug.WriteLine($" ============================= Error : {ex.Message} ");
-                Console.WriteLine($" ============================= Error : {ex.Message} ");
+                var ErrorMsg = $"Web Abort Error : {ex.Message} ";
+                log.Error(ErrorMsg);
+                Debug.WriteLine(ErrorMsg);
+                Console.WriteLine(ErrorMsg);
             }
         }
     }

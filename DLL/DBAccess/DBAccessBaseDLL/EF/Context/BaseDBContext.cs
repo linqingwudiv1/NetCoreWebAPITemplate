@@ -71,8 +71,8 @@ namespace DBAccessBaseDLL.EF.Context
                 {
                     BaseEntity entityBase = entity.Entity as BaseEntity;
 
-                    entityBase.Q_UpdateTime = DateTime.Now;
-                    entityBase.Q_Version++;
+                    entityBase.UpdateTime = DateTime.Now;
+                    entityBase.Version++;
                 }
             }
 

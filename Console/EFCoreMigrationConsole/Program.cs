@@ -50,7 +50,7 @@ namespace EFCoreMigrationConsole
                               opt.UseNpgsql(ConnString, b =>
                               {
                                  b.MigrationsAssembly("EFCoreMigrationConsole");
-                              });
+                              }).UseSnakeCaseNamingConvention();
                           });
 
                       });

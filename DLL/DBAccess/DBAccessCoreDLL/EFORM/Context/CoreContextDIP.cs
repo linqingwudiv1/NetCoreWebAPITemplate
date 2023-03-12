@@ -26,7 +26,7 @@ namespace DBAccessCoreDLL.EFORM.Context
         {
             this.ConnString = GConnStrings.PostgreSQLCoreDBConn;
             // ConfigurationManager.ConnectionStrings["PostgreSQLCoreDB"].ConnectionString ; 
-            optionsBuilder.UseNpgsql(ConnString);
+            optionsBuilder.UseNpgsql(ConnString).UseSnakeCaseNamingConvention();
 
             base.OnConfiguring(optionsBuilder);
         }

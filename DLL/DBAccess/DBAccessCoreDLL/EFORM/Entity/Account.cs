@@ -114,8 +114,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
         public void Configure(EntityTypeBuilder<Account> builder)
         {
             #region 水平拆分处理处
-
-            EntityTypeBuilder<Account> tableBuilder = builder.ToTable("Account");
+            EntityTypeBuilder<Account> tableBuilder = builder.ToSnakeCaseTable();
 
             tableBuilder.HasMany<AccountRole>( p => p.AccountRoles )
                         .WithOne( c => c.account )

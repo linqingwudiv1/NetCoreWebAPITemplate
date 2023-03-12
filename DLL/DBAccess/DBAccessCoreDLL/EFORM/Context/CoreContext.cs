@@ -54,7 +54,7 @@ namespace DBAccessCoreDLL.EFORM.Context
         /// <summary>
         /// 
         /// </summary>
-        virtual public DbSet<Role> Roles { get; protected set; }
+        virtual public DbSet<RoleType> Roles { get; protected set; }
 
 
         #region Forum
@@ -109,7 +109,7 @@ namespace DBAccessCoreDLL.EFORM.Context
             {
                 optionsBuilder.UseNpgsql(this.ConnString, b =>
                 {
-                });
+                }).UseSnakeCaseNamingConvention();
             }
             
             base.OnConfiguring(optionsBuilder);
@@ -125,10 +125,11 @@ namespace DBAccessCoreDLL.EFORM.Context
             modelBuilder.ApplyConfiguration<AccountIdentityAuth>(new AccountIdentityAuthEFConfig());
             modelBuilder.ApplyConfiguration<AccountRole>  ( new AccountRoleEFConfig());
             modelBuilder.ApplyConfiguration<RoutePages>    ( new RoutePageEFConfig());
-            modelBuilder.ApplyConfiguration<Role>(new RoleEFConfig());
+            modelBuilder.ApplyConfiguration<RoleType>(new RoleEFConfig());
             modelBuilder.ApplyConfiguration<RoutePageRole>( new RoutePageRoleEFConfig()); 
 
             modelBuilder.ApplyConfiguration<AppInfo>(new AppInfoEFConfig() );
+
 
             #region Forum
 

@@ -46,7 +46,7 @@ namespace DBAccessCoreDLL.EFORM.Entity.Forum
         /// <param name="builder"></param>
         public void Configure(EntityTypeBuilder<ForumTopic> builder)
         {
-            var tableBuilder = builder.ToTable("ForumTopic");
+            var tableBuilder = builder.ToSnakeCaseTable();
 
             tableBuilder.HasOne(x => x.Module).WithMany(p => p.Topics).HasForeignKey(x => x.ModuleId);
 

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NLog;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,11 @@ namespace BaseDLL.Helper.Redis
         public RedisExChangeHelper(int DbIndex = -1)
         {
             RedisMgr = ConnectionMultiplexer.Connect(RedisIPAddress);
-
+            RedisMgr.ConnectionFailed += (sender, args) =>
+            {
+                Logger logger = LogManager.GetLogger("RedisError");
+                logger.Error($"Redis connected ConnectionFailed....\r\n {args.ToString()}");
+            };
             Redis = RedisMgr.GetDatabase(DbIndex);
         }
 

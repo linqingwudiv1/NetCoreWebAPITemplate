@@ -115,7 +115,7 @@ namespace DBAccessCoreDLL.EFORM.Entity
         /// <param name="builder"></param>
         public void Configure(EntityTypeBuilder<RoutePages> builder)
         {
-            var tableBuilder = builder.ToTable("RoutePage");
+            var tableBuilder = builder.ToSnakeCaseTable();
             
             builder.Property(x => x.Platform).IsRequired(true).HasDefaultValue("");
             builder.Property(x => x.GroupName).IsRequired(true).HasDefaultValue("");
