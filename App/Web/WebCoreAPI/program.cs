@@ -23,17 +23,8 @@ namespace WebCoreService
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            try
-            {
-                var host = CreateHostBuilder(args).Build();
-                host.Run();
-            }
-            catch (Exception ex)
-            {
-                string ErrorInfo = $"{ex.Message} \r\n {ex.ToString()}"; 
-                Console.Error.WriteLine(ErrorInfo);
-                Debug.WriteLine(ErrorInfo);
-            }
+            IHost host = CreateHostBuilder(args).Build();
+            host.Run();
         }
 
         /// <summary>
@@ -47,7 +38,7 @@ namespace WebCoreService
             string config_nlog_path = Path.Combine(IOHelper.GetBinRunDir(), @".Config/nlog.config");
             LogFactory loggerFactory = NLogBuilder.ConfigureNLog(config_nlog_path);
 
-            string HostAddress = "http://127.0.0.1:18081";
+            string HostAddress = "https://127.0.0.1:18081;http://127.0.0.1:28081";
             Console.WriteLine($"Kestrel地址:{HostAddress}");
 
             IHostBuilder host = Host.CreateDefaultBuilder(args)

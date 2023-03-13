@@ -1,0 +1,24 @@
+@baseuri = https://localhost:18082/api
+@auth_jwt = Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkxpbnFpbmciLCJzdWIiOiJMaW5xaW5nIiwianRpIjoiY2YwOWM2MzQiLCJhdWQiOlsiaHR0cDovL2xvY2FsaG9zdDo2MzY2NC8iLCJodHRwczovL2xvY2FsaG9zdDo0NDMxMSIsImh0dHA6Ly9sb2NhbGhvc3Q6MTY2ODEvIl0sIm5iZiI6MTY3ODYzNDc0MCwiZXhwIjoxNjg2NTgzNTQwLCJpYXQiOjE2Nzg2MzQ3NDAsImlzcyI6ImRvdG5ldC11c2VyLWp3dHMifQ.-bIIy1APt-0mv4VQtaQgeWJKh-hM91H80at3J98Kbuo
+
+
+###
+POST {{baseuri}}/Users/JWTLogin HTTP/2.0
+content-type: application/json
+{{auth_jwt}}
+
+{
+  "username": "string",
+  "password": "string",
+  "type": "string"
+}
+
+###
+GET {{baseuri}}/Users/JWTTest HTTP/2.0
+content-type: application/json
+{{auth_jwt}}
+
+###
+GET {{baseuri}}/Roles HTTP/2.0
+content-type: application/json
+{{auth_jwt}}

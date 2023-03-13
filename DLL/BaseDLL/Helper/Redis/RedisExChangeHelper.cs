@@ -32,23 +32,6 @@ namespace BaseDLL.Helper.Redis
         /// 
         /// </summary>
         /// <param name="RedisAddressList"></param>
-        /// <param name="Password"></param>
-        /// <param name="DbIndex"></param>
-        public RedisExChangeHelper(int DbIndex = -1)
-        {
-            RedisMgr = ConnectionMultiplexer.Connect(RedisIPAddress);
-            RedisMgr.ConnectionFailed += (sender, args) =>
-            {
-                Logger logger = LogManager.GetLogger("RedisError");
-                logger.Error($"Redis connected ConnectionFailed....\r\n {args.ToString()}");
-            };
-            Redis = RedisMgr.GetDatabase(DbIndex);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="RedisAddressList"></param>
         /// <param name="Password">默认无密码</param>
         /// <param name="DbIndex"></param>
         public RedisExChangeHelper(IList<string> RedisAddressList = null, string Password = "", int DbIndex = -1)
@@ -82,8 +65,11 @@ namespace BaseDLL.Helper.Redis
             {
                 opt.EndPoints.Add(item);
             }
+            opt.AbortOnConnectFail = false;
+            opt.ReconnectRetryPolicy = new ExponentialRetry(1000);
 
             RedisMgr = ConnectionMultiplexer.Connect(opt);
+
             Redis = RedisMgr.GetDatabase(DbIndex);
         }
 

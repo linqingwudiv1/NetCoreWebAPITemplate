@@ -101,6 +101,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAdminService", "App\Web\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCoreService", "App\Web\WebCoreAPI\WebCoreService.csproj", "{85922237-6ECD-4250-8D45-DE53D5B2A8B0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Script", ".Script", "{4529CF20-0413-41E5-B1D6-2F7E98940AB8}"
+	ProjectSection(SolutionItems) = preProject
+		.Script\admin-api.rest = .Script\admin-api.rest
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

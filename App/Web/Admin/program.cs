@@ -2,6 +2,7 @@
 using BaseDLL.Helper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using NLog;
@@ -23,17 +24,18 @@ namespace WebAdminService
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            try
-            {
-                var host = CreateHostBuilder(args).Build();
-                
-                host.Run();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                Debug.WriteLine(ex.StackTrace);
-            }
+            var host = CreateHostBuilder(args).Build();
+            host.Run();
+            Console.WriteLine("host is running");
+            //try
+            //{
+            //
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //    Debug.WriteLine(ex.StackTrace);
+            //}
         }
 
         /// <summary>
@@ -47,7 +49,7 @@ namespace WebAdminService
             string config_nlog_path = Path.Combine(IOHelper.GetBinRunDir(), @".Config/nlog.config");
             LogFactory loggerFactory = NLogBuilder.ConfigureNLog(config_nlog_path);
 
-            string HostAddress = "http://127.0.0.1:18082";
+            string HostAddress = "https://127.0.0.1:18082;http://127.0.0.1:28082";
 
             Console.WriteLine($"==============Kestrel Server Address :{HostAddress} ==============");
 
@@ -55,7 +57,9 @@ namespace WebAdminService
                                     .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                                     .ConfigureWebHostDefaults(webBuilder =>
                                     {
-                                        webBuilder.UseKestrel()
+                                        webBuilder.UseKestrel(c => 
+                                        {
+                                        })
                                                   .UseContentRoot(Directory.GetCurrentDirectory())
                                                   .UseIIS()
                                                   .UseIISIntegration()

@@ -67,18 +67,18 @@ namespace WebAdminService.Controllers
                 Claim[] claims = new[]
                 {
                     // 时间戳 
-                    new Claim( JwtRegisteredClaimNames.Nbf,  $"{ new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds() }") ,
+                    new Claim( JwtRegisteredClaimNames.Nbf,  $"{ DateTimeOffset.Now.ToUnixTimeSeconds() }") ,
                     
                     // 过期日期
-                    new Claim( JwtRegisteredClaimNames.Exp,  $"{ new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeSeconds() }"),
+                    new Claim( JwtRegisteredClaimNames.Exp,  $"{ DateTimeOffset.Now.AddMinutes(30).ToUnixTimeSeconds() }"),
 
                     // 用户标识
                     new Claim( ClaimTypes.Name, userInfo.username ) , 
-
+                    new Claim( ClaimTypes.NameIdentifier, "4"),
                     // Custom Data
-                    new Claim("customType", "hi ! LinQing")
+                    new Claim("customType", "hello,jwt auth by linqing")
                 };
-
+                
                 // Key
                 SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GJWT.SecurityKey));
 
@@ -199,7 +199,6 @@ namespace WebAdminService.Controllers
             try
             {
                 long userid = Int64.Parse(this.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault());
-
                 IList<long> roles = await this.services.GetAdminPageRoles(userid);
                 var data = await routeServices.GetRoutePageByRoles(roles).ConfigureAwait(false);
                 return JsonToCamelCase(data);

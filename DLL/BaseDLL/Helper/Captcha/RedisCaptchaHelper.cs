@@ -1,4 +1,5 @@
 ﻿using BaseDLL.Helper.Redis;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -52,6 +53,7 @@ namespace BaseDLL.Helper.Captcha
             }
 
             RedisIns = new RedisExChangeHelper(RedisAddress, Password: RedisPassword);
+
         }
 
         /// <summary>
